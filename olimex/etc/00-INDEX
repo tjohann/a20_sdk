@@ -1,0 +1,40 @@
+#
+# 00-INDEX
+#
+
+This is a brief list of all the files changed on the target device
+
+
+00-INDEX
+        - this file
+
+bashrc_baalue
+	- bashrc for baalue of target
+	
+bashrc_root
+	- bashrc for root of target
+
+fstab
+	- partition layout and nfs mount of an example server (echnaton) 
+
+halt
+	- sudoers.d halt script
+	
+hostname
+	- hostname for target
+
+hosts
+	- example network for target
+
+rc.conf
+	- rc.conf of target
+	
+rc.local*
+	- rc.local of target
+	
+reboot
+	- sudoers.d reboot script	
+
+Makefile
+	- for cleanup
+	

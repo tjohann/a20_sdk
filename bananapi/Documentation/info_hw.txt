@@ -1,0 +1,23 @@
+#
+# Some hw related info (dts ... jailhouse ...) for bananapi
+#
+
+
+"Special" pins
+==============
+PH24 -> LED1 ... green
+
+Can
+===
+- [BananaPro CAN] -> (http://wiki.lemaker.org/BananaPro/Pi:CAN_Bus) 
+- [A20 CAN] -> (https://dl.linux-sunxi.org/A20/CAN%20Bus1.pdf)
+
+Schematic & pins
+================
+- [Schematics] -> (http://wiki.lemaker.org/BananaPro/Pi:Schematics)
+- [Pin definition] -> (http://wiki.lemaker.org/BananaPro/Pi:Pin_definition)
+- [Hardware specification] -> (http://wiki.lemaker.org/BananaPro/Pi:Hardware_specification)
+
+GPU
+===
+- [GPU] -> (http://wiki.lemaker.org/BananaPro/Pi:GPU)

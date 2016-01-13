@@ -1,0 +1,48 @@
+# +------------------------- setup the armhf dev environment -----------------------+
+# |                                    armhf_env                                    |
+# +---------------------------------------------------------------------------------+
+
+# set MY_HOST_ARCH
+export MY_HOST_ARCH=$(uname -m)
+
+# set supported kernel version
+export ARMHF_KERNEL_VER=4.2.6
+export ARMHF_RT_KERNEL_VER=4.1.12
+export ARMHF_RT_VER=rt13
+
+# set a20 home
+if [ "$(basename $(pwd))" == "a20_sdk" ] ; then
+    # allow manual set-up
+    export ARMHF_HOME=$(pwd)
+else
+    # presume standard path
+    export ARMHF_HOME=$HOME/a20_sdk
+fi
+
+# extend PATH for our a20 stuff
+export PATH=$PATH:${ARMHF_HOME}/toolchain/bin:${ARMHF_HOME}/host/usr/bin
+
+# extend MANPATH for our a20 stuff
+export MANPATH=${ARMHF_HOME}/man/:$MANPATH
+
+# extend CDPATH for a20 stuff
+#export CDPATH=${ARMHF_HOME}/
+
+# set mount points for the sdcard -> bananapi
+export BANANAPI_SDCARD_KERNEL=/mnt/bananapi/bananapi_kernel
+export BANANAPI_SDCARD_ROOTFS=/mnt/bananapi/bananapi_rootfs
+export BANANAPI_SDCARD_HOME=/mnt/bananapi/bananapi_home
+
+# set mount points for the sdcard -> olimex
+export OLIMEX_SDCARD_KERNEL=/mnt/olimex/olimex_kernel
+export OLIMEX_SDCARD_ROOTFS=/mnt/olimex/olimex_rootfs
+export OLIMEX_SDCARD_HOME=/mnt/olimex/olimex_home
+
+# set mount points for the sdcard -> cubietruck
+export CUBITRUCK_SDCARD_KERNEL=/mnt/cubietruck/cubietruck_kernel
+export CUBITRUCK_SDCARD_ROOTFS=/mnt/cubietruck/cubietruck_rootfs
+export CUBITRUCK_SDCARD_HOME=/mnt/cubietruck/cubietruck_home
+
+echo "Setup env for host \"${MY_HOST_ARCH}\" with root dir \"${ARMHF_HOME}\" "
+
+#EOF

@@ -1,0 +1,16 @@
+#
+# 00-INDEX
+#
+
+This is a brief list of all the files in ./a20_sdk/include ... 
+
+
+00-INDEX
+        - this file
+
+defines.mk
+	- common include for all makefiles
+
+Makefile
+	- for cleanup
+

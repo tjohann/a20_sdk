@@ -1,0 +1,76 @@
+#
+# TODO with date and progress
+#
+
+
+#
+# -------------- 2016-01-13 ----------------------------------------------------
+#
+## sdk stuff
+- correct cubietruck/etc/host ...
+- correct olimex/etc/host ...
+- update LICENSE file
+- add README.md content
+
+## toolchain stuff
+- build first toolchain
+
+## script stuff
+- update get_external_git_repos.sh
+- update get latest_linux_kernel.sh
+- update get_toolchain.sh
+- adapt get_image_tarballs for olimex, bananapi and cubietruck usage
+
+## target stuff
+- build u-boot for olimex
+- build u-boot for cubietruck
+- build kernel for olimex
+- build kernel for cubietruck
+- create first void-linux based cubietruck image
+- create first void-linux based olimex image
+
+## external stuff
+- adapt to common use
+
+#
+# -------------- 2016-01-12 ----------------------------------------------------
+#
+## toolchain
+- prepare integration_checklist
+
+
+
+#
+# -------------- 2016-01-10 ----------------------------------------------------
+#
+## "all"
+prepare repo for a20_sdk                           
+
+
+
+
+#
+# -------------- TEMPLATE ------------------------------------------------------
+#
+
+
+#
+# -------------- 2016-xx-xx ----------------------------------------------------
+#
+
+## toolchain stuff
+
+## sdk stuff
+
+## script stuff
+
+## docu stuff
+
+## target stuff
+
+## jailhouse stuff
+
+## the "rest"
+
+
+#EOF

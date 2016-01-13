@@ -1,0 +1,14 @@
+#
+# Some hw related info (dts ... jailhouse ...) for cubietruck
+#
+
+"Special" pins
+==============
+
+
+Schematic & pins
+================
+
+
+GPU
+===

@@ -1,0 +1,234 @@
+
+               =========================================
+               simple howto for building a custom kernel
+               =========================================
+
+Author: Thorsten Johannvorderbrueggen
+Email:  thorsten.johannvorderbrueggen@t-online.de
+Date:   12.01.2016/12.01.2016
+
+Content:
+
+- Preparation
+  -- Device
+  -- Kernel version
+  -- Downloads
+  -- Mountpoints
+  -- Fstab for mountpoints
+  -- Notes
+
+- Clone kernel
+
+- Patch kernel
+  -- RT-PREEMPT
+  -- I-pipe
+  -- Xenomai
+
+- Configure/build kernel
+  -- Configure kernel
+  -- Build dtb
+  -- Build kernel/modules
+  -- Install modules
+
+- Deploy SD-Card
+  -- Copy dtb
+  -- Copy kernel/config
+  -- Copy modules
+  -- Copy cleaned source to sd card
+
+- Finalize
+  -- Finish -> after login (non-rt)
+  -- Prepare linux tree to build your modules against the new kernel (non-rt)
+  -- Prepare modules to link (non-rt)
+
+
+
+Preparation
+===========
+
+Device
+-------
+
+- Bananapi-M1(pro) <-- for this device is the howto
+- Cubietruck (cb3) -> see $(ARMHF_HOME)/cubietruck
+- Olimex A20-SOM   -> see $(ARMHF_HOME)/olimex
+
+
+Kernel version
+--------------
+
+- linux-4.2.5
+- linux-4.1.12-rt13 (latest RT-PREEMPT)
+
+
+Downloads (use make get_latest_kernel)
+--------------------------------------
+
+- https://www.kernel.org/pub/linux/kernel/v4.x/
+- https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/
+
+
+Mountpoints
+-----------
+
+bananapi:
+ - kernel -> /mnt/bananapi/bananapi_kernel     
+ - rootfs -> /mnt/bananapi/bananapi_rootfs
+ - home   -> /mnt/bananapi/bananapi_home
+
+
+Fstab entrys for mountpoints
+----------------------------
+
+bananapi:
+ LABEL=KERNEL_BANA  /mnt/bananapi/bananapi_kernel  auto  noauto,user,rw    0   0
+ LABEL=ROOTFS_BANA  /mnt/bananapi/bananapi_rootfs  auto  noauto,user,rw    0   0
+ LABEL=HOME_BANA    /mnt/bananapi/bananapi_home    auto  noauto,user,rw    0   0
+
+Notes
+-----
+
+In $ARMHF_HOME/external you'll find some links to some useful repos,
+one of them being the linus kernel tree. So you can use that folder or
+alternatively download the tar file to $ARMHF_HOME/kernel.
+Pls check that the $DIR values below point to the the correct directory!
+
+
+Clone kernel
+============
+
+DIR: $ARMHF_HOME/kernel/
+KDO: git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+
+
+Patch kernel
+============
+
+RT-PREEMPT 
+----------
+
+DIR: $ARMHF_HOME/kernel/linux-stable
+KDO: git checkout -b stable v4.1.12
+KDO: zcat ../patch-4.1.12-rt13.patch.gz | patch -p1
+
+I-pipe
+------
+
+DIR
+KDO:
+
+
+Xenomai
+-------
+
+DIR
+KDO:
+
+
+
+Configure/build kernel
+======================
+
+Configure kernel
+----------------
+
+DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+KDO: git checkout -b stable v4.2.5
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.2.x .config
+KDO(rt): cp $ARMHF_HOME/bananapi/configs/kernel_config_4.1.x_rt .config
+KDO: make ARCH=arm menuconfig
+
+
+Build dtb
+---------
+
+DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+KDO: cp $ARMHF_HOME/bananapi/configs/sun7i-a20-bananapi.dts arch/arm/boot/dts/sun7i-a20-bananapi.dts
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapi.dtb
+
+
+Build kernel/modules
+--------------------
+
+DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+KDO: make -j10 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+
+
+Install modules
+---------------
+
+DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.2.5 modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.1.12_rt modules_install
+
+
+
+Deploy SD-Card
+==============
+
+Copy dtb
+--------
+
+DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/
+
+
+Copy kernel/config
+------------------
+
+DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/
+KDO: cp .config /mnt/bananapi/bananapi_kernel/
+
+
+Copy modules
+------------
+
+# Note: maybe your need to remove the old one
+DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+KDO: sudo rsync -avc ../modules_4.2.5/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avc ../modules_4.1.12_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+
+
+Copy cleaned source to sd card
+------------------------------
+
+# Note: dont forget to make ARCH=arm clean
+DIR: depends ...
+KDO: sudo rsync -av --delete linux-4.2.5 /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO(rt): sudo rsync -av --delete linux-4.1.12_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
+
+
+
+Finalize
+========
+
+Finish -> after login (non-rt)
+------------------------------
+
+DIR: /usr/src
+KDO: depmod -a
+KDO: ln -s linux-4.2.5 linux
+MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
+
+
+Prepare linux tree to build your modules against the new kernel (non-rt)
+------------------------------------------------------------------------
+
+DIR: /usr/src/linux-4.2.5
+KDO: make clean
+KDO: make scripts
+
+
+Prepare modules to link (non-rt)
+--------------------------------
+
+DIR: /lib/modules/4.2.5
+KDO: rm build
+KDO: rm sourcesdk stuff
+KDO: ln -s /usr/src/linux-4.2.5 source
+KDO: ln -s /usr/src/linux-4.2.5 build
+
+
+
+

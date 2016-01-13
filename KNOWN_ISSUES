@@ -1,0 +1,9 @@
+#
+# known issues
+#
+
+
+2015-08-24 -> ## target stuff
+	      it took up to 5 minutes until you can login via ssh -> it seems
+	      to be a dns lookup problem ... we work on it ... so for a fast
+	      console use minicom (resize is on the target)
