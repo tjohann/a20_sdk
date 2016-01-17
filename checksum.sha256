@@ -1,5 +1,5 @@
 ...  home_bananapi.tgz
 ...  kernel_bananapi.tgz
 ...  rootfs_bananapi.tgz
-...  host_x86_64.tgz
-...  toolchain_x86_64.tgz
+eb1c981a50b3b892e98b5dc7893b80d1b2563067a44ddb92461c4fa7636c4492  host_x86_64.tgz
+20283022b77e456fbd6bc58b29f23badc28ead6b56a0dcfbbc763ceb138972c9  toolchain_x86_64.tgz

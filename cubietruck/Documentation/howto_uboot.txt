@@ -1,0 +1,102 @@
+
+               =============================
+               simple how-to for using uboot
+               =============================
+
+Author: Thorsten Johannvorderbrueggen
+Email:  thorsten.johannvorderbrueggen@t-online.de
+Date:   17.01.2016/12.01.2016
+
+Content:
+
+- Notes
+
+- Setup SD-Card
+  -- Clean SD-Card 
+  -- Create partition table () with gparted
+  -- Write bootloader to SD-Card
+
+- U-Boot
+  -- Configure
+  -- Build
+  -- Make scr of boot.cmd
+
+- Deploy SD-Card
+  -- Deploy to SD-Card
+  -- Copy all to /mnt/cubietruck/cubietruck_kernel
+
+
+
+
+Notes
+=====
+
+ SUNXI docs -> http://linux-sunxi.org/Bootable_SD_card
+               http://linux-sunxi.org/Mainline_U-boot
+	       
+ U-Boot     -> use $ARMHF_HOME/external/u-boot
+ 
+ Change the device node to your device -> see /var/log/messages 
+
+
+
+Setup SD-Card
+============
+
+Clean SD-Card
+-------------
+
+preserve partition table:
+sudo dd if=/dev/zero of=/dev/sde bs=1k count=1023 seek=1
+clear also partition table:
+sudo dd if=/dev/zero of=/dev/sde bs=1M count=1
+
+
+Create partition table () with gparted
+--------------------------------------
+...
+
+
+Write bootloader to SD-Card
+---------------------------
+
+sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/sdd bs=1024 seek=8
+
+
+
+U-Boot
+======
+
+Configure
+---------
+
+make CROSS_COMPILE=arm-none-linux-gnueabihf- Cubietruck_defconfig 
+
+
+Build
+-----
+
+make CROSS_COMPILE=arm-none-linux-gnueabihf- 
+
+- Allwinner A20 needed spl ... 
+  -> Output: u-boot-sunxi-with-spl.bin (spl/sunxi-spl.bin and u-boot.img)
+
+
+Make scr of boot.cmd
+--------------------
+mkimage -C none -A arm -T script -d boot.cmd boot.scr
+
+
+
+Deploy SD-Card
+==============
+
+Deploy to SD-Card
+-----------------
+sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/sdd bs=1024 seek=8
+
+
+Copy all to /mnt/cubietruck/cubietruck_kernel
+-----------------------------------------
+
+sudo cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/cubietruck/cubietruck_kernel/
