@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.01.2016/24.08.2015
+# Date/Beginn :    24.01.2016/24.08.2015
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jan 2016) -> adapt for usage in a20_sdk
+# Milestones  :    V0.03 (jan 2016) -> 
+#                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
 #                                      add support for olimex
 #                                      add support for cubietruck
 #                  V0.01 (aug 2015) -> first functional version
@@ -117,7 +118,9 @@ my_usage()
     echo "| Usage: ./get_image_tarballs.sh                         |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
-    echo "|                                                        |"
+    echo "|        [-b] -> download bananapi images                |"
+    echo "|        [-h] -> download cubietruck images              |"
+    echo "|        [-h] -> download olimex images                  |"
     echo "+--------------------------------------------------------+"
     echo " "
     exit

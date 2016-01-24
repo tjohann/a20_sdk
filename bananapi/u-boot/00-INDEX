@@ -2,12 +2,18 @@
 # 00-INDEX
 #
 
-This is a brief list of all the files in ./a20_sdk/bananapi/common ... 
+This is a brief list of all the files in ./baalue_sdk/common ... 
 
 
 00-INDEX
         - this file
 
+README.md
+	- README
+
+README.txt 
+	- link to README.md
+	
 U-BOOT.VER
 	- version info
 	
@@ -17,7 +23,7 @@ boot.cmd
 boot.scr
 	- boot script binary
 	
-Makefile
+makefile
 	- makefile
 	
 u-boot-sunxi-with-spl.bin

@@ -12,5 +12,5 @@ tmpfs		/tmp	tmpfs	defaults,nosuid,nodev   0       0
 #/dev/mmcblk0p4 none              swap    sw               0       0
 
 # my home network share 
-echnaton:/mnt/shared                /mnt/echnaton_nfs  nfs defaults,noauto,user,sync,nfsvers=3  0       0
+echnaton:/mnt/shared              /mnt/echnaton_nfs  nfs defaults,noauto,user,sync,nfsvers=3  0       0
 

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.01.2016/15.08.2015
+# Date/Beginn :    24.01.2016/15.08.2015
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jan 2016) -> adapt it for usage within a20_sdk
+# Milestones  :    V0.03 (jan 2016) -> update RT to 4.4
+#                  V0.02 (jan 2016) -> adapt it for usage within a20_sdk
 #                  V0.01 (aug 2015) -> first functional version
 #
 # Requires    :    ...
@@ -198,7 +199,7 @@ get_kernel_source()
 # --- get the rt-preempt patch sources
 get_rt_patch_source()
 {
-    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
+    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.4/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
     echo "INFO: set rt-preempt patch download string to $DOWNLOAD_STRING"
 
     if [ -f patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz ]; then
@@ -219,7 +220,7 @@ get_rt_patch_source()
 	    echo "+--------------------------------------+"
 	    echo " "
 	    
-	    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/older/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
+	    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.4/older/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
 	    echo "INFO: set rt-preempt patch download string to $DOWNLOAD_STRING"
 
 	    wget $DOWNLOAD_STRING

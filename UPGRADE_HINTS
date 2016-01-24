@@ -3,5 +3,6 @@
 #
 
 
-## 2016-01-17 --> 2016-xx-xx
-- ...
+
+## 2015-08-15 --> 2015-01-24
+- upgrade U-Boot (see $(BAALUE_HOME)/docs/howto_uboot.txt)

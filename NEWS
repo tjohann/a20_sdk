@@ -2,6 +2,46 @@
 # some news ... see also TODO for hints
 #
 
+2016-01-24 -> ## target stuff
+	      add some themes to image
+	      - gtk-engine-murrine
+	      - gtk2-engines
+	      - gnome-icon-theme-extras
+	      - gnome-icon-theme-symbolic
+	      - gnome-icon-theme-xfce
+	      - adwaita-icon-theme
+	      add and activate gpm
+	      regular updates
+	      update kernel to 4.3.4 and 4.4-rt3
+	      add addtional console output via boot.cmd to tty0
+	      update U-Boot to "U-Boot 2016.01-00446-g12f229e"
+
+	      ## toolchain stuff
+	      regular update of toolchain
+	      add crossbuild gdb with python support
+
+2016-01-18 -> ## target stuff
+	      regular updates
+	      add tty7/8
+	      output kern.* to tty12
+	      output *.info to tty11
+	      add lightdm + xfce to support graphical user interface
+	      set locale to de_DE
+	      set keyboad layout to "de"
+	      update dhcpd.conf after updates
+	      mv eth0 config to /etc/dhcpd.conf
+
+2016-01-17 -> ## target stuff
+	      regular updates
+	      -> update kernel to 4.3.3
+	      -> update rt-kernel to 4.1.15-rt17
+
+	      ## toolchain stuff
+	      update toolchain
+	      -> kernel 4.3.x
+
+
+
 2016-01-12 -> ## "all"
 	      first checkin with initial setup for bananapi 
 

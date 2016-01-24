@@ -70,7 +70,7 @@ U-Boot
 Configure
 ---------
 
-make CROSS_COMPILE=arm-none-linux-gnueabihf- Bananapi_defconfig 
+make Bananapi_defconfig 
 
 
 Build
@@ -99,4 +99,4 @@ sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/sde bs=1024 seek=8
 Copy all to /mnt/bananapi/bananapi_kernel
 -----------------------------------------
 
-sudo cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/bananapi/bananapi_kernel/
+cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/bananapi/bananapi_kernel/
