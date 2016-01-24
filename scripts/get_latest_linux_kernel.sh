@@ -51,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced 
 MISSING_ENV='false'

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.01.2016/15.08.2015
+# Date/Beginn :    24.01.2016/15.08.2015
 #
-# Version     :    V0.12
+# Version     :    V0.13
 #
-# Milestones  :    V0.12 (jan 2016) -> adapt it for usage within a20_sdk
+# Milestones  :    V0.13 (jan 2016) -> add a20_sdk_builder
+#                  V0.12 (jan 2016) -> adapt it for usage within a20_sdk
 #                  V0.11 (jan 2016) -> add my sllin driver
 #                  V0.10 (dez 2015) -> remove baalued and libbalue
 #                  V0.09 (nov 2015) -> add led_dot_matrix_clock (see also
@@ -68,7 +69,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.12'
+VER='0.13'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -84,6 +85,7 @@ MISSING_ENV='false'
 # libsocketcan -> git://git.pengutronix.de/git/tools/libsocketcan.git
 # void-packages -> https://github.com/voidlinux/void-packages.git
 # my_sllin -> "://github.com/tjohann/sllin.git"
+# a20_sdk_builder -> "://github.com/tjohann/a20_sdk_builder.git"
 REPO='none'
 
 # PROTOCOL
@@ -123,6 +125,7 @@ my_usage()
     echo "| REPO: jailhouse -> jailhouse hypervisor                |"
     echo "| REPO: allwinner -> allwinners docs                     |"
     echo "| REPO: my_sllin -> my changed sllin                     |"
+    echo "| REPO: a20_sdk_builder -> my sdk builder tool           |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -240,6 +243,7 @@ set_repo_names()
     jailhouse="://github.com/siemens/jailhouse.git"
     allwinner="://github.com/allwinner-zh/documents.git"
     my_sllin="://github.com/tjohann/sllin.git"
+    a20_sdk_builder="://github.com/tjohann/a20_sdk_builder.git"
     
     # array with all available repos
     repo_names_array[1]=${linus}
@@ -253,7 +257,9 @@ set_repo_names()
     repo_names_array[9]=${void_packages}
     repo_names_array[10]=${jailhouse}
     repo_names_array[11]=${allwinner}
-    repo_names_array[12]=${my_sllin}    
+    repo_names_array[12]=${my_sllin}
+    repo_names_array[13]=${a20_sdk_builder}
+    
 }
 
 
@@ -296,6 +302,9 @@ get_repo_name()
 	    ;;
 	'my_sllin')
 	    REPO_NAME="${PROTOCOL}${my_sllin}"
+	    ;;
+	'a20_sdk_builder')
+	    REPO_NAME="${PROTOCOL}${a20_sdk_builder}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check"

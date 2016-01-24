@@ -66,3 +66,6 @@ get_allwinner::
 
 get_my-sllin::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "my_sllin" -p "git")
+
+get_my-a20_sdk_builder::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "a20_sdk_builder" -p "")
