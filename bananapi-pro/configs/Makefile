@@ -1,4 +1,4 @@
-# only for cleaning :-)
+# only for cleaning 
 
 .PHONY: all
 all: 
@@ -6,6 +6,6 @@ all:
 
 .PHONY: clean
 clean:
-	rm -f *~ 
+	rm -f *~ .*~
 
 distclean: clean

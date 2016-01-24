@@ -26,9 +26,10 @@
 #
 # Date/Beginn :    24.01.2016/24.08.2015
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (jan 2016) -> 
+# Milestones  :    V0.04 (jan 2ß16) -> add bananapi-pro as device
+#                  V0.03 (jan 2016) -> fix missing help content
 #                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
 #                                      add support for olimex
 #                                      add support for cubietruck
@@ -59,8 +60,9 @@ MISSING_ENV='false'
 
 # supported devices
 BANANAPI='false'
-CUBIETRUCK='true'
-OLIMEX='true'
+BANANAPIPRO='false'
+CUBIETRUCK='false'
+OLIMEX='false'
 
 #
 # latest version bananapi 
@@ -75,6 +77,20 @@ OLIMEX='true'
 # -> http://sourceforge.net/projects/a20devices/files/bananapi/rootfs_bananapi.tgz
 # -> http://sourceforge.net/projects/a20devices/files/bananapi/home_bananapi.tgz
 #
+
+#
+# latest version bananapi-pro 
+#
+# VER:
+# -> kernel_bananapi-pro.tgz
+# -> rootfs_bananapi-pro.tgz
+# -> home_bananapi-pro.tgz
+#
+# DOWNLOAD_STRING:
+# -> http://sourceforge.net/projects/a20devices/files/bananapi-pro/kernel_bananapi-pro.tgz
+# -> http://sourceforge.net/projects/a20devices/files/bananapi-pro/rootfs_bananapi-pro.tgz
+# -> http://sourceforge.net/projects/a20devices/files/bananapi-pro/home_bananapi-pro.tgz
+# 
 
 #
 # latest version cubietruck 
@@ -118,9 +134,11 @@ my_usage()
     echo "| Usage: ./get_image_tarballs.sh                         |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
+    echo "|        [-a] -> download ALL images                     |"
     echo "|        [-b] -> download bananapi images                |"
-    echo "|        [-h] -> download cubietruck images              |"
-    echo "|        [-h] -> download olimex images                  |"
+    echo "|        [-p] -> download bananapi-pro images            |"
+    echo "|        [-c] -> download cubietruck images              |"
+    echo "|        [-o] -> download olimex images                  |"
     echo "+--------------------------------------------------------+"
     echo " "
     exit
@@ -159,15 +177,17 @@ _log="/tmp/get_image_tarballs.log"
 
 
 # check the args 
-while getopts 'hvabco' opts 2>$_log
+while getopts 'hvabpco' opts 2>$_log
 do
     case $opts in
 	b) BANANAPI='true' ;;
 	c) CUBIETRUCK='true' ;;
 	o) OLIMEX='true' ;;
+	p) BANANAPIPRO='true' ;;
 	a) OLIMEX='true'
 	   BANANAPI='true'
 	   CUBIETRUCK='true'
+	   BANANAPIPRO='true'
 	   ;;
         h) my_usage ;;
 	v) print_version ;;
@@ -213,6 +233,18 @@ create_download_string_bananapi()
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/kernel_bananapi.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/rootfs_bananapi.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/home_bananapi.tgz"
+    
+    echo "INFO: set kernel download string to $KERNEL_IMAGE"
+    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
+    echo "INFO: set home download string to $HOME_IMAGE"
+}
+
+# --- create download string 
+create_download_string_bananapi-pro()
+{
+    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi-pro/kernel_bananapi-pro.tgz"
+    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi-pro/rootfs_bananapi-pro.tgz"
+    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi-pro/home_bananapi-pro.tgz"
     
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
@@ -310,6 +342,11 @@ cd $ARMHF_HOME/images
 
 if [ "$BANANAPI" = 'true' ]; then 
     create_download_string_bananapi
+    get_image_tarball
+fi
+
+if [ "$BANANAPIPRO" = 'true' ]; then 
+    create_download_string_bananapi-pro
     get_image_tarball
 fi
 

@@ -6,7 +6,7 @@ ifeq "${ARMHF_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-MODULES = images bananapi olimex cubietruck
+MODULES = images bananapi bananapi-pro olimex cubietruck
 MODULES += include pics configs kernel scripts
 
 DOCS = Documentation
@@ -94,5 +94,5 @@ get_image_tarballs:
 	@echo "|        Download latest supported image tarballs          |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b -c -o -p)
 

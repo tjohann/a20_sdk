@@ -1,0 +1,2 @@
+## for reboot without password as a normal user 
+%users ALL=(ALL) NOPASSWD: /run/runit/stopit 

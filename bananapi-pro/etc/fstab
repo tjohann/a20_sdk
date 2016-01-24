@@ -1,0 +1,16 @@
+#
+# See fstab(5).
+#
+# <file system>	<dir>	<type>	<options>		<dump>	<pass>
+tmpfs		/tmp	tmpfs	defaults,nosuid,nodev   0       0
+
+# Bananapi 
+/dev/mmcblk0p1  /boot_bananapi    vfat    noatime          0       1
+/dev/mmcblk0p3  /home             ext4    noatime          0       1
+
+# Swap:
+#/dev/mmcblk0p4 none              swap    sw               0       0
+
+# my home network share 
+echnaton:/mnt/shared              /mnt/echnaton_nfs  nfs defaults,noauto,user,sync,nfsvers=3  0       0
+
