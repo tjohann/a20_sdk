@@ -13,7 +13,7 @@ export ARMHF_RT_VER=rt3
 # home of the git repo 
 export ARMHF_HOME=/var/lib/a20_sdk
 # home of the bin's
-export ARMHF_BIN_HOME=/opt
+export ARMHF_BIN_HOME=/opt/a20_sdk
 
 # extend PATH for our a20 stuff
 export PATH=$PATH:${ARMHF_BIN_HOME}/toolchain/bin:${ARMHF_BIN_HOME}/host/usr/bin
