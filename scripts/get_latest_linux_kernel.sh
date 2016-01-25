@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.01.2016/15.08.2015
+# Date/Beginn :    25.01.2016/15.08.2015
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (jan 2016) -> update RT to 4.4
+# Milestones  :    V0.04 (jan 2016) -> implement new architecture
+#                  V0.03 (jan 2016) -> update RT to 4.4
 #                  V0.02 (jan 2016) -> adapt it for usage within a20_sdk
 #                  V0.01 (aug 2015) -> first functional version
 #
@@ -39,7 +40,7 @@
 # Description
 #   
 #   A simple tool to get the latest kernel tarball and copy it to
-#   $ARMHF_HOME/kernel ...  
+#   $ARMHF_BIN_HOME/kernel ...  
 #
 # Some features
 #   - ... 
@@ -51,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -126,7 +127,7 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then 
     MISSING_ENV='true'
 fi
 
@@ -254,7 +255,7 @@ echo "|       get/install kernel source        |"
 echo "+----------------------------------------+"
 echo " "
 
-cd $ARMHF_HOME/kernel
+cd $ARMHF_BIN_HOME/kernel
 
 # PREEMPT handling
 KERNEL_VER=$ARMHF_KERNEL_VER

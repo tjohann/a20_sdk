@@ -6,8 +6,14 @@ ifeq "${ARMHF_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-MODULES = images bananapi bananapi-pro olimex cubietruck
-MODULES += include pics configs kernel scripts
+ifeq "${ARMHF_BIN_HOME}" ""
+    $(error error: please source armhf_env first!)
+endif
+
+
+MODULES = bananapi bananapi-pro olimex cubietruck
+MODULES += include pics configs scripts
+MODULES += a20_sdk
 
 DOCS = Documentation
 
@@ -18,6 +24,7 @@ all::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	@echo "| Example:                                                 |"
+	@echo "| make init_sdk           -> init all needed part          |"
 	@echo "| make get_external_repos -> get external repos like linux,|"
 	@echo "|                            xenomai or uboot ...          |"
 	@echo "| make get_toolchain      -> install toolchain             |"
@@ -32,11 +39,22 @@ clean::
 	rm -f *~ .*~
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
+
 distclean: clean
 	rm -rf toolchain
 	rm -f toolchain_x86_64.tgz
 	rm -rf host
 	rm -f host_x86_64.tgz
+
+
+init_sdk: distclean
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Init SDK -> you may need sudo               |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/init_sdk.sh)
+
 
 #
 # run all get actions in sequence
@@ -48,8 +66,9 @@ get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 
+
 #
-# clone some useful repos (see ./external/README)
+# clone some useful repos (see $ARMHF_BIN_HOME/external/README)
 #
 get_external_repos:: 
 	@echo "+----------------------------------------------------------+"
@@ -86,7 +105,7 @@ get_toolchain: distclean
 
 
 #
-# download image tarballs to $ARMHF_HOME/images
+# download image tarballs to $ARMHF_BIN_HOME/images
 #
 get_image_tarballs:  
 	@echo "+----------------------------------------------------------+"

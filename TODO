@@ -2,6 +2,20 @@
 # TODO with date and progress
 #
 
+
+#
+# -------------- 2016-01-25 ----------------------------------------------------
+#
+
+## sdk stuff
+- architecture change needed ...
+- make distclean below a20_sdk/a20_sdk/Makefile
+
+## script stuff
+- fill init_sdk.sh 
+
+
+
 #
 # -------------- 2016-01-13 ----------------------------------------------------
 #

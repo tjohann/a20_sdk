@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.01.2016/24.08.2015
+# Date/Beginn :    25.01.2016/24.08.2015
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (jan 2ß16) -> add bananapi-pro as device
+# Milestones  :    V0.05 (jan 2016) -> implement new architecture
+#                  V0.04 (jan 2016) -> add bananapi-pro as device
 #                  V0.03 (jan 2016) -> fix missing help content
 #                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
 #                                      add support for olimex
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.05'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -200,7 +201,7 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then 
     MISSING_ENV='true'
 fi
 
@@ -338,7 +339,7 @@ echo "|  dowload latest image tarballs         |"
 echo "+----------------------------------------+"
 echo " "
 
-cd $ARMHF_HOME/images
+cd $ARMHF_BIN_HOME/images
 
 if [ "$BANANAPI" = 'true' ]; then 
     create_download_string_bananapi

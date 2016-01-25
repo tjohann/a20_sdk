@@ -6,6 +6,11 @@ ifeq "${ARMHF_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
+ifeq "${ARMHF_BIN_HOME}" ""
+    $(error error: please source armhf_env first!)
+endif
+
+
 MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v documents | grep -v void-packages)
 MODULES_GIT = $(shell ls -d */ | cut -f1 -d'/')
 

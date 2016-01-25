@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.01.2016/15.08.2015
+# Date/Beginn :    25.01.2016/15.08.2015
 #
-# Version     :    V0.13
+# Version     :    V0.14
 #
-# Milestones  :    V0.13 (jan 2016) -> add a20_sdk_builder
+# Milestones  :    V0.14 (jan 2016) -> implement new architecture
+#                  V0.13 (jan 2016) -> add a20_sdk_builder
 #                  V0.12 (jan 2016) -> adapt it for usage within a20_sdk
 #                  V0.11 (jan 2016) -> add my sllin driver
 #                  V0.10 (dez 2015) -> remove baalued and libbalue
@@ -62,14 +63,14 @@
 #
 # Improvement/missing feature
 #   - add a file with all possible repos instead of hardcoded values
-#   - clone repos not only to ${ARMHF_HOME}/external ... clone to the current
+#   - clone repos not only to ${ARMHF_BIN_HOME}/external ... clone to the current
 #     working dir
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='0.13'
+VER='0.14'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -214,7 +215,7 @@ done
 # ***                 error handling for missing env                         ***
 # ******************************************************************************
 
-if [ "$ARMHF_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then 
     MISSING_ENV='true'
 fi
 
@@ -371,7 +372,7 @@ echo "|                                                        |"
 echo "+--------------------------------------------------------+"
 echo " "
 
-cd ${ARMHF_HOME}/external
+cd ${ARMHF_BIN_HOME}/external
 set_repo_names 
 
 if [ $PROTOCOL = 'none' ]; then
