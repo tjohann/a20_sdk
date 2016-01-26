@@ -1,10 +1,10 @@
-a20_sdk
-=======
+SDK for A20 devices (Cortex-A7)
+===============================
 
 
-A common development environment for ARMv7 boards based on Allwinners A20. It provides basic parts like compiler or env scripts. Addtional you find all infos and bin/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot, Linux and more.
+A common development environment for ARMv7 boards based on Allwinners A20 processors. It provides basic component like compiler or env scripts. Additional you find all infos and bin/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot, Linux and more.
 
-Addtional you can install my a20_sdk_builder (https://github.com/tjohann/a20_sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
+As an extention you can install my a20_sdk_builder (https://github.com/tjohann/a20_sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
 
 
 Requirement
@@ -27,7 +27,7 @@ and
 
 
 
-The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS file for those infos.
+The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS file for those info.
 
 Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories. This content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore.
 

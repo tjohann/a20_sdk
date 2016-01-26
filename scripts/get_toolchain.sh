@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.01.2016/15.08.2015
+# Date/Beginn :    26.01.2016/15.08.2015
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jan 2016) -> adapt for usage in a20_sdk
+# Milestones  :    V0.03 (jan 2016) -> adapt for new architecture
+#                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
 #                  V0.01 (aug 2015) -> first functional version
 #
 # Requires    :    
@@ -37,7 +38,7 @@
 ################################################################################
 # Description
 #   
-#   A simple tool to get the toolchain and untar it to $ARMHF_HOME  ...  
+#   A simple tool to get the toolchain and untar it to $ARMHF_BIN_HOME  ...  
 #
 # Some features
 #   - ... 
@@ -49,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -62,8 +63,8 @@ MISSING_ENV='false'
 # -> toolchain_x86_64.tgz
 #
 # DOWNLOAD_STRING:
-# -> http://sourceforge.net/projects/baalue-sdk/files/host_x86_64.tgz
-# -> http://sourceforge.net/projects/baalue-sdk/files/toolchain_x86_64.tgz
+# -> http://sourceforge.net/projects/a20devices/files/host_x86_64.tgz
+# -> http://sourceforge.net/projects/a20devices/files/toolchain_x86_64.tgz
 #
 TOOLCHAIN_VER='none'
 TOOLCHAIN_HOST_VER='none'
@@ -131,6 +132,10 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
+if [ "$ARMHF_BIN_HOME" = '' ]; then 
+    MISSING_ENV='true'
+fi
+
 if [ "$ARMHF_HOME" = '' ]; then 
     MISSING_ENV='true'
 fi
@@ -161,9 +166,9 @@ fi
 # --- create download string 
 create_download_string()
 {
-   TOOLCHAIN_DOWNLOAD_STRING="http://sourceforge.net/projects/baalue-sdk/files/toolchain_x86_64.tgz"
-   TOOLCHAIN_HOST_DOWNLOAD_STRING="http://sourceforge.net/projects/baalue-sdk/files/host_x86_64.tgz"
-
+   TOOLCHAIN_DOWNLOAD_STRING="http://sourceforge.net/projects/a20devices/files/toolchain_x86_64.tgz"
+   TOOLCHAIN_HOST_DOWNLOAD_STRING="http://sourceforge.net/projects/a20devices/files/host_x86_64.tgz"
+ 
    echo "INFO: set toolchain download string to $TOOLCHAIN_DOWNLOAD_STRING and $TOOLCHAIN_HOST_DOWNLOAD_STRING"
 }
 
@@ -247,7 +252,7 @@ echo "|  get/install latest toolchain tarball  |"
 echo "+----------------------------------------+"
 echo " "
 
-cd $ARMHF_HOME
+cd $ARMHF_BIN_HOME
 
 create_download_string
 get_toolchain_tarball
