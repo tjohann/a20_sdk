@@ -1,5 +1,5 @@
 #
-# my simple makefile as something like a user interface
+# my simple makefile act as something like a user interface
 #
 
 ifeq "${ARMHF_HOME}" ""
@@ -35,16 +35,17 @@ all::
 	@echo "| make distclean          -> complete cleanup              |"
 	@echo "+----------------------------------------------------------+"	
 
+
 clean::
 	rm -f *~ .*~
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
 
 distclean: clean
-	rm -rf toolchain
-	rm -f toolchain_x86_64.tgz
-	rm -rf host
-	rm -f host_x86_64.tgz
+	rm -rf $(ARMHF_BIN_HOME)/toolchain
+	rm -f $(ARMHF_BIN_HOME)/toolchain_x86_64.tgz
+	rm -rf $(ARMHF_BIN_HOME)/host
+	rm -f $(ARMHF_BIN_HOME)/host_x86_64.tgz
 
 
 init_sdk: distclean
