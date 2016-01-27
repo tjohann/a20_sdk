@@ -41,27 +41,27 @@ Follow the steps below to setup your enviroment.
 
 Create the two locations:
 
-     mkdir /opt/a20_sdk
-     mkdir /var/lib/a20_sdk
+    mkdir /opt/a20_sdk
+    mkdir /var/lib/a20_sdk
 
 
 Change group to users and chmod it to 775:
 
-     chgrp -R users /opt/a20_sdk
-     chgrp -R users /var/lib/a20_sdk
+    chgrp -R users /opt/a20_sdk
+    chgrp -R users /var/lib/a20_sdk
 
-     chmod 775 /opt/a20_sdk
-     chmod 775 /var/lib/a20_sdk
+    chmod 775 /opt/a20_sdk
+    chmod 775 /var/lib/a20_sdk
 
 
 Clone this repo to /opt/a20_sdk
 
-      git clone https://github.com/tjohann/a20_sdk.git /opt/a20_sdk
+    git clone https://github.com/tjohann/a20_sdk.git /opt/a20_sdk
 
 
 Source the environment file armhf_env
 
-       . ./armhf_env
+    . ./armhf_env
 
 
 or add it to your .bashrc 
@@ -79,17 +79,17 @@ or copy armhf_env.sh to /etc/profile.d/
 
 Init the SDK:
 
-     make init_sdk
+    make init_sdk
 
 
 Download the compiler to /opt/a20_sdk/ :
 
-     make get_toolchain
+    make get_toolchain
 
 
 Download ALL images to /opt/a20_sdk/images/ :
 
-     make get_image_tarballs
+    make get_image_tarballs
 
 
 If you're only intrested in one device (like Cubietruck), then see the device specifics below.
@@ -97,12 +97,12 @@ If you're only intrested in one device (like Cubietruck), then see the device sp
 
 Clone ALL external repos:
 
-     make get_external_repos
+    make get_external_repos
 
 
 Download latest supported kernel:
 
-     make get_latest_kernel
+    make get_latest_kernel
 
 
 Now you should have the complete content on your disk.
@@ -117,8 +117,8 @@ I regulary update the images, toolchain and more. To stay up to date you can sim
 
 Pull the latest changes:
 
-     cd /var/lib/a20_sdk
-     git pull
+    cd /var/lib/a20_sdk
+    git pull
 
 
 Take a look at the NEWS file to see what i've changed. See also UPGRADE_HINTS.
@@ -127,7 +127,7 @@ Take a look at the NEWS file to see what i've changed. See also UPGRADE_HINTS.
 If there're changes of the toolchain, then fist distclean all:
 
 
-     make distclean
+    make distclean
 
 
 and then proceed with the normal setup process above.
@@ -146,30 +146,38 @@ All devices
 
 Within /var/lib/a20_sdk/ you find the 4 supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
-       bananapi -> BananaPi-M1
-       bananapi-pro -> BananaPi-Pro
-       cubietruck -> Cubietruck (Cubieboard 3)
-       olimex -> Olimex A20-SOM/EVB
+    bananapi -> BananaPi-M1
+    bananapi-pro -> BananaPi-Pro
+    cubietruck -> Cubietruck (Cubieboard 3)
+    olimex -> Olimex A20-SOM/EVB
 
 
 Every device directory has the same sub-directories
 
-      Documentation -> info about the device, howtos for kernel, U-Boot and more
-      u-boot -> all U-Boot related content (*spl.bin, *.scr ...)
-      etc -> example etc changes on the device (bananapi ... /etc/...)
-      config -> kernel config for non-RT and RT-PREEMPT
+    Documentation -> info about the device, howtos for kernel, U-Boot and more
+    u-boot -> all U-Boot related content (*spl.bin, *.scr ...)
+    etc -> example etc changes on the device (bananapi ... /etc/...)
+    config -> kernel config for non-RT and RT-PREEMPT
 
 
 You can find documenation on howto build a kernel or howto setup a device below Documenation. In general i will use mainline kernel and mainline U-Boot. Every device has a specific usecase. So there'fore you find addtional description about my usecase below.
 
 In short:
 
-       bananapi -> baalue (https://github.com/tjohann/baalue_sdk), my BAnanapi cAn bus cLUstEr
-       bananapi-pro -> my home audio/video stream server 
-       cubietruck -> master node for baalue and jailhouse (https://github.com/siemens/jailhouse) test environment
-       olimex -> my conectivity "monster" (all A20 PINs are available!)
+    bananapi -> baalue (https://github.com/tjohann/baalue_sdk), my BAnanapi cAn bus cLUstEr
+    bananapi-pro -> my home audio/video stream server 
+    cubietruck -> master node for baalue and jailhouse (https://github.com/siemens/jailhouse) test environment
+    olimex -> my conectivity "monster" (all A20 PINs are available!)
 
 
+User
+----
+
+    root (password: root)
+    baalue (password: baalue)
+	
+
+The user baalue is available on all images, it's the account for my BAnanapi cAn bus cLUstEr. You can use it to login via ssh.
 
 
 Cubietruck (CB3)
@@ -180,17 +188,17 @@ My two cubietrucks are acting as a master node for my BAnanapi cAn bus cLUstEr. 
 
 Additonal Hardware conneted:
 
-	  MCP25xx for CAN via SPI
-	  LCD1602 via I2C
-	  EEPROM ... vi SPI
-	  500GByte Harddisk (only on ONE device)
+    MCP25xx for CAN via SPI
+    LCD1602 via I2C
+    EEPROM ... vi SPI
+    500GByte Harddisk (only on ONE device)
 
 
 Addtional mount points:
 
-	LABEL=KERNEL_CUBI   /mnt/cubietruck/cubietruck_kernel  auto  noauto,user,rw  0 0
-	LABEL=ROOTFS_CUBI   /mnt/cubietruck/cubietruck_rootfs  auto  noauto,user,rw  0 0
-	LABEL=HOME_CUBI     /mnt/cubietruck/cubietruck_home    auto  noauto,user,rw  0 0
+    LABEL=KERNEL_CUBI   /mnt/cubietruck/cubietruck_kernel  auto  noauto,user,rw  0 0
+    LABEL=ROOTFS_CUBI   /mnt/cubietruck/cubietruck_rootfs  auto  noauto,user,rw  0 0
+    LABEL=HOME_CUBI     /mnt/cubietruck/cubietruck_home    auto  noauto,user,rw  0 0
 
 
 Bananapi-Pro
@@ -201,15 +209,14 @@ I use this device as an audio/video stream server. There'fore it's connected to 
 
 Addtional Harware connected:
 
-	  500GByte Harddisk for data storage
+    500GByte Harddisk for data storage
 
 
 Addtional mount points:
 
-	LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
-	LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
-	LABEL=HOME_BANA     /mnt/bananapi/bananapi_home        auto  noauto,user,rw  0 0
-
+    LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
+    LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
+    LABEL=HOME_BANA     /mnt/bananapi/bananapi_home        auto  noauto,user,rw  0 0
 
 
 Bananapi-M1
@@ -220,16 +227,16 @@ The bananapi model 1 is the working node for my BAnanapi cAn bus cLUstEr. It has
 
 Additonal Hardware conneted:
 
-	  MCP25xx for second CAN via SPI
-	  LCD1602 via I2C
-	  CAN-Tranceiver on A20-CAN
+    MCP25xx for second CAN via SPI
+    LCD1602 via I2C
+    CAN-Tranceiver on A20-CAN
 
 
 Addtional mount points:
 
-	LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
-	LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
-	LABEL=HOME_BANA     /mnt/bananapi/bananapi_home        auto  noauto,user,rw  0 0
+    LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
+    LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
+    LABEL=HOME_BANA     /mnt/bananapi/bananapi_home        auto  noauto,user,rw  0 0
 
 
 
@@ -238,12 +245,12 @@ Olimex A20-SOM/EVB
 
 Additonal Hardware conneted:
 
-	  CAN-Tranceiver on A20-CAN
-	  tbd...
+    CAN-Tranceiver on A20-CAN
+    tbd...
 	  
 
 Addtional mount points:
 
-	LABEL=KERNEL_OLI    /mnt/olimex/olimex_kernel          auto  noauto,user,rw  0 0
-	LABEL=ROOTFS_OLI    /mnt/olimex/olimex_rootfs          auto  noauto,user,rw  0 0
-	LABEL=HOME_OLI      /mnt/olimex/olimex_home            auto  noauto,user,rw  0 0
+    LABEL=KERNEL_OLI    /mnt/olimex/olimex_kernel          auto  noauto,user,rw  0 0
+    LABEL=ROOTFS_OLI    /mnt/olimex/olimex_rootfs          auto  noauto,user,rw  0 0
+    LABEL=HOME_OLI      /mnt/olimex/olimex_home            auto  noauto,user,rw  0 0
