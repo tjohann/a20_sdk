@@ -4,7 +4,7 @@ SDK for A20 devices (Cortex-A7)
 
 A common development environment for ARMv7 boards based on Allwinners A20 processors. It provides basic component like compiler or env scripts. Additional you find all infos and bin/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot, Linux and more.
 
-As an extention you can install my a20_sdk_builder (https://github.com/tjohann/a20_sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
+As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
 
 
 Requirement
