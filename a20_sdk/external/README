@@ -19,5 +19,6 @@ Addtional Repos
 	# jailhouse -> git://github.com/siemens/jailhouse.git
 	# allwinner -> http://github.com/allwinner-zh/documents.git
 	# my_sllin -> "http://github.com/tjohann/sllin.git"
+	# sdk_builder -> "http://github.com/tjohann/sdk_builder.git"
 
 

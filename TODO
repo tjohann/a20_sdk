@@ -2,12 +2,14 @@
 # TODO with date and progress
 #
 
+
 #
 # -------------- 2016-01-29 ----------------------------------------------------
 #
 
 ## script stuff
-- check for /opt/a20_sdk in all scripts (get_external_repos ...)
+- check for /opt/a20_sdk in all scripts                     [2016-02-16 -> done]
+  (get_external_repos ...)
 
 
 #
@@ -16,10 +18,10 @@
 
 ## sdk stuff
 - architecture change needed ...
-- make distclean below a20_sdk/a20_sdk/Makefile
+- make distclean below a20_sdk/a20_sdk/Makefile             [2016-02-17 -> done]
 
 ## script stuff
-- fill init_sdk.sh 
+- fill init_sdk.sh                                          [2016-02-17 -> done]
 
 
 

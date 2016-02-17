@@ -2,7 +2,7 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A common development environment for ARMv7 boards based on Allwinners A20 processors. It provides basic component like compiler or env scripts. Additional you find all infos and bin/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot, Linux and more.
+A common development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts and more. Additional you find all infos and binary/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot, Linux and more.
 
 As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
 
@@ -10,7 +10,7 @@ As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_b
 Requirement
 -----------
 
-The only yet know requirement is git.
+The only yet know requirements are git and rsync.
 
 
 Description
@@ -27,7 +27,7 @@ and
 
 
 
-The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS file for those info.
+The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS for those info.
 
 Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories. This content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore.
 
@@ -35,28 +35,24 @@ Below /opt you find the downloaded content (http://sourceforge.net/projects/a20d
 Setup
 -----
 
-Follow the steps below to setup your enviroment.
+Follow the steps below to setup your enviroment. If you use my sdk_builder, then the tool will do this all for you.
 
 
 
-Create the two locations:
+Create the runtime locations:
 
-    mkdir /opt/a20_sdk
-    mkdir /var/lib/a20_sdk
+    sudo mkdir /var/lib/a20_sdk
 
 
 Change group to users and chmod it to 775:
 
-    chgrp -R users /opt/a20_sdk
     chgrp -R users /var/lib/a20_sdk
-
-    chmod 775 /opt/a20_sdk
     chmod 775 /var/lib/a20_sdk
 
 
-Clone this repo to /opt/a20_sdk
+Clone this repo to /var/lib/a20_sdk
 
-    git clone https://github.com/tjohann/a20_sdk.git /opt/a20_sdk
+    git clone https://github.com/tjohann/a20_sdk.git /var/lib/a20_sdk
 
 
 Source the environment file armhf_env
@@ -82,12 +78,12 @@ Init the SDK:
     make init_sdk
 
 
-Download the compiler to /opt/a20_sdk/ :
+Download the compiler to /opt/a20_sdk/ 
 
     make get_toolchain
 
 
-Download ALL images to /opt/a20_sdk/images/ :
+Download ALL images to /opt/a20_sdk/images/ 
 
     make get_image_tarballs
 
@@ -144,6 +140,7 @@ In short:
 All devices
 -----------
 
+
 Within /var/lib/a20_sdk/ you find the 4 supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
     bananapi -> BananaPi-M1
@@ -160,14 +157,15 @@ Every device directory has the same sub-directories
     config -> kernel config for non-RT and RT-PREEMPT
 
 
-You can find documenation on howto build a kernel or howto setup a device below Documenation. In general i will use mainline kernel and mainline U-Boot. Every device has a specific usecase. So there'fore you find addtional description about my usecase below.
+You can find documenation on howto build a kernel or howto setup a device below Documenation. In general i will use mainline kernel and mainline U-Boot.
+Every device here has a "specific usecase". So therefore you find additional description about my usecase below.
 
 In short:
 
     bananapi -> baalue (https://github.com/tjohann/baalue_sdk), my BAnanapi cAn bus cLUstEr
     bananapi-pro -> my home audio/video stream server 
     cubietruck -> master node for baalue and jailhouse (https://github.com/siemens/jailhouse) test environment
-    olimex -> my conectivity "monster" (all A20 PINs are available!)
+    olimex -> my conectivity "monster" (nearly all A20 PINs are available!)
 
 
 User
@@ -204,7 +202,7 @@ Addtional mount points:
 Bananapi-Pro
 ------------
 
-I use this device as an audio/video stream server. There'fore it's connected to my television and my audio amplifier. To have good 3D/GL power i use the sunxi kernel, but you can find mainline kernel config in configs. It also implements an home cloud via ownCloud. 
+I use this device as an audio/video stream server. Therefore it's connected to my television and my audio amplifier. To have good 3D/GL power i use the sunxi kernel, but you can find mainline kernel config in configs. It also implements an home cloud via ownCloud. 
 
 
 Addtional Harware connected:

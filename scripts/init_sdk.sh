@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    25.01.2016/25.01.2016
+# Date/Beginn :    17.02.2016/25.01.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jan 2016) -> first functional version
+# Milestones  :    V0.02 (feb 2016) -> init working-dir 
+#                  V0.01 (jan 2016) -> first functional version
 #
 # Requires    :    
 #                 
@@ -48,7 +49,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -156,9 +157,23 @@ echo "|             init the sdk               |"
 echo "+----------------------------------------+"
 echo " "
 
-cd $ARMHF_HOME
+if [ -d $ARMHF_BIN_HOME ]; then
+    echo "$ARMHF_BIN_HOME already available"
+else
+    echo "Create $ARMHF_BIN_HOME -> need sudo rights! "
+    sudo mkdir -p $ARMHF_BIN_HOME
+    sudo chown root:users $ARMHF_BIN_HOME
+    sudo chmod 775 $ARMHF_BIN_HOME
+fi
 
-# init the sdk
+# check only one makefile -> should be good enough
+if [ -f $ARMHF_BIN_HOME/external/Makefile ]; then
+    echo "$ARMHF_BIN_HOME/external/Makefile already available"
+else
+    cd $ARMHF_BIN_HOME
+    echo "Rsync content of $ARMHF_HOME/a20_sdk/ to $ARMHF_BIN_HOME"
+    rsync -av $ARMHF_HOME/a20_sdk/. .
+fi
 
 cleanup
 echo " "

@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   17.01.2016/12.01.2016
+Date:   17.02.2016/12.01.2016
 
 Content:
 
@@ -57,15 +57,15 @@ Device
 Kernel version
 --------------
 
-- linux-4.3.3
-- linux-4.1.15-rt17 (latest RT-PREEMPT)
+- linux-4.4.1
+- linux-4.4.1-rt6 (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
 --------------------------------------
 
 - https://www.kernel.org/pub/linux/kernel/v4.x/
-- https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/
+- https://www.kernel.org/pub/linux/kernel/projects/rt/4.4/
 
 
 Mountpoints
@@ -101,7 +101,7 @@ DIR: $ARMHF_HOME/kernel/
 KDO: git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: git checkout -b stable v4.3.3
+KDO: git checkout -b stable v4.4.1
 
 Patch kernel
 ============
@@ -110,8 +110,8 @@ RT-PREEMPT
 ----------
 
 DIR: $ARMHF_HOME/kernel/linux-stable
-KDO: git checkout -b stable v4.1.15
-KDO: zcat ../patch-4.1.15-rt17.patch.gz | patch -p1
+KDO: git checkout -b stable v4.4.1
+KDO: zcat ../patch-4.4.1-rt6.patch.gz | patch -p1
 
 I-pipe
 ------
@@ -134,8 +134,8 @@ Configure/build kernel
 Configure kernel
 ----------------
 
-KDO: cp $ARMHF_HOME/olimex/configs/kernel_config_4.3.x .config
-KDO(rt): cp $ARMHF_HOME/olimex/configs/kernel_config_4.1.x_rt .config
+KDO: cp $ARMHF_HOME/olimex/configs/kernel_config_4.4.x .config
+KDO(rt): cp $ARMHF_HOME/olimex/configs/kernel_config_4.4.x_rt .config
 KDO: make ARCH=arm menuconfig
 
 
@@ -158,8 +158,8 @@ Install modules
 ---------------
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.3.3 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.1.15_rt modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.1 modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.1_rt modules_install
 
 
 
@@ -186,8 +186,8 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: sudo rsync -avc ../modules_4.3.3/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avc ../modules_4.1.15_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO: sudo rsync -avc ../modules_4.4.1/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avc ../modules_4.4.1_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -195,8 +195,8 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: depends ...
-KDO: sudo rsync -av --delete linux-4.3.3 /mnt/olimex/olimex_rootfs/usr/src/.
-KDO(rt): sudo rsync -av --delete linux-4.1.15_rt /mnt/olimex/olimex_rootfs/usr/src/.
+KDO: sudo rsync -av --delete linux-4.4.1 /mnt/olimex/olimex_rootfs/usr/src/.
+KDO(rt): sudo rsync -av --delete linux-4.4.1_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
 
@@ -208,14 +208,14 @@ Finish -> after login (non-rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.3.3 linux
+KDO: ln -s linux-4.4.1 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (non-rt)
 ------------------------------------------------------------------------
 
-DIR: /usr/src/linux-4.3.3
+DIR: /usr/src/linux-4.4.1
 KDO: make clean
 KDO: make scripts
 
@@ -223,11 +223,11 @@ KDO: make scripts
 Prepare modules to link (non-rt)
 --------------------------------
 
-DIR: /lib/modules/4.3.3
+DIR: /lib/modules/4.4.1
 KDO: rm build
 KDO: rm sourcesdk stuff
-KDO: ln -s /usr/src/linux-4.3.3 source
-KDO: ln -s /usr/src/linux-4.3.3 build
+KDO: ln -s /usr/src/linux-4.4.1 source
+KDO: ln -s /usr/src/linux-4.4.1 build
 
 
 

@@ -1,6 +1,7 @@
 # only for cleaning
 
-MODULES = $(shell ls -d */ | cut -f1 -d'/')
+
+MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v toolchain | grep -v host)
 
 .PHONY: all
 all: 

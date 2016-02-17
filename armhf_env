@@ -6,9 +6,9 @@
 export MY_HOST_ARCH=$(uname -m)
 
 # set supported kernel version
-export ARMHF_KERNEL_VER=4.3.4
-export ARMHF_RT_KERNEL_VER=4.4
-export ARMHF_RT_VER=rt3
+export ARMHF_KERNEL_VER=4.4.1
+export ARMHF_RT_KERNEL_VER=4.4.1
+export ARMHF_RT_VER=rt6
 
 # home of the git repo 
 export ARMHF_HOME=/var/lib/a20_sdk
@@ -18,10 +18,15 @@ export ARMHF_BIN_HOME=/opt/a20_sdk
 # extend PATH for our a20 stuff
 export PATH=$PATH:${ARMHF_BIN_HOME}/toolchain/bin:${ARMHF_BIN_HOME}/host/usr/bin
 
-# set mount points for the sdcard -> bananapi-(M1/Pro)
+# set mount points for the sdcard -> bananapi-(M1)
 export BANANAPI_SDCARD_KERNEL=/mnt/bananapi/bananapi_kernel
 export BANANAPI_SDCARD_ROOTFS=/mnt/bananapi/bananapi_rootfs
 export BANANAPI_SDCARD_HOME=/mnt/bananapi/bananapi_home
+
+# set mount points for the sdcard -> bananapi-(Pro)
+export BANANAPI_SDCARD_KERNEL=/mnt/bananapi_pro/bananapi_pro_kernel
+export BANANAPI_SDCARD_ROOTFS=/mnt/bananapi_pro/bananapi_pro_rootfs
+export BANANAPI_SDCARD_HOME=/mnt/bananapi_pro/bananapi_pro_home
 
 # set mount points for the sdcard -> olimex
 export OLIMEX_SDCARD_KERNEL=/mnt/olimex/olimex_kernel
