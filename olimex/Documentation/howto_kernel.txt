@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   17.02.2016/12.01.2016
+Date:   28.02.2016/12.01.2016
 
 Content:
 
@@ -57,8 +57,8 @@ Device
 Kernel version
 --------------
 
-- linux-4.4.1
-- linux-4.4.1-rt6 (latest RT-PREEMPT)
+- linux-4.4.3
+- linux-4.4.2-rt7 (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
@@ -80,7 +80,7 @@ olimex:
 Fstab entrys for mountpoints
 ----------------------------
 
-cubietruck:
+olimex:
  LABEL=KERNEL_OLI  /mnt/olimex/olimex_kernel  auto  noauto,user,rw    0   0
  LABEL=ROOTFS_OLI  /mnt/olimex/olimex_rootfs  auto  noauto,user,rw    0   0
  LABEL=HOME_OLI    /mnt/olimex/olimex_home    auto  noauto,user,rw    0   0
@@ -101,7 +101,7 @@ DIR: $ARMHF_HOME/kernel/
 KDO: git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: git checkout -b stable v4.4.1
+KDO: git checkout -b stable v4.4.3
 
 Patch kernel
 ============
@@ -110,8 +110,8 @@ RT-PREEMPT
 ----------
 
 DIR: $ARMHF_HOME/kernel/linux-stable
-KDO: git checkout -b stable v4.4.1
-KDO: zcat ../patch-4.4.1-rt6.patch.gz | patch -p1
+KDO: git checkout -b stable v4.4.2
+KDO: zcat ../patch-4.4.2-rt7.patch.gz | patch -p1
 
 I-pipe
 ------
@@ -143,8 +143,8 @@ Build dtb
 ---------
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: cp $ARMHF_HOME/olimex/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
+KDO: cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
 
 
 Build kernel/modules
@@ -158,8 +158,8 @@ Install modules
 ---------------
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.1 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.1_rt modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.3 modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.2_rt modules_install
 
 
 
@@ -170,7 +170,7 @@ Copy dtb
 --------
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /mnt/olimex/olimex_kernel/
+KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/olimex/olimex_kernel/
 
 
 Copy kernel/config
@@ -186,8 +186,8 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: sudo rsync -avc ../modules_4.4.1/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avc ../modules_4.4.1_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO: sudo rsync -avc ../modules_4.4.3/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avc ../modules_4.4.2_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -195,8 +195,8 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: depends ...
-KDO: sudo rsync -av --delete linux-4.4.1 /mnt/olimex/olimex_rootfs/usr/src/.
-KDO(rt): sudo rsync -av --delete linux-4.4.1_rt /mnt/olimex/olimex_rootfs/usr/src/.
+KDO: sudo rsync -av --delete linux-4.4.3 /mnt/olimex/olimex_rootfs/usr/src/.
+KDO(rt): sudo rsync -av --delete linux-4.4.2_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
 
@@ -208,14 +208,14 @@ Finish -> after login (non-rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.4.1 linux
+KDO: ln -s linux-4.4.3 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (non-rt)
 ------------------------------------------------------------------------
 
-DIR: /usr/src/linux-4.4.1
+DIR: /usr/src/linux-4.4.3
 KDO: make clean
 KDO: make scripts
 
@@ -223,11 +223,11 @@ KDO: make scripts
 Prepare modules to link (non-rt)
 --------------------------------
 
-DIR: /lib/modules/4.4.1
+DIR: /lib/modules/4.4.3
 KDO: rm build
 KDO: rm sourcesdk stuff
-KDO: ln -s /usr/src/linux-4.4.1 source
-KDO: ln -s /usr/src/linux-4.4.1 build
+KDO: ln -s /usr/src/linux-4.4.3 source
+KDO: ln -s /usr/src/linux-4.4.3 build
 
 
 

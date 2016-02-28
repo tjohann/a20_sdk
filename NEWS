@@ -2,6 +2,20 @@
 # some news ... see also TODO for hints
 #
 
+2016-02-28 -> ## target stuff
+	      regular updates 
+	      -> update kernel to 4.4.3
+	      -> update rt-kernel to 4.4.2-rt7
+
+	      ## toolchain stuff
+	      update toolchain to latest void-linux
+	      -> update to kernel 4.4.x
+
+	      ## olimex stuff
+	      first working olimex config/image
+	      add u-boot config and related
+	      add kernel config
+	      
 
 2016-02-17 -> ## target stuff
 	      regular updates 
