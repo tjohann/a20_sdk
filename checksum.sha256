@@ -1,15 +1,12 @@
 ...  home_bananapi.tgz
 ...  kernel_bananapi.tgz
 ...  rootfs_bananapi.tgz
-
 ...  home_bananapi-pro.tgz
 ...  kernel_bananapi-pro.tgz
 ...  rootfs_bananapi-pro.tgz
-
 ...  home_cubietruck.tgz
 ...  kernel_cubietruck.tgz
 ...  rootfs_cubietruck.tgz
-
 df521cbdb8b6f16bcb27e5008ba5591d4af254bfdbb1cf4d0a57e96c7cab4d5e  host_x86_64.tgz
 5e802eb3178fc740211d236521683d7511eb2f43d406b3c7ab5bd727d7b0d20f  toolchain_x86_64.tgz
 
