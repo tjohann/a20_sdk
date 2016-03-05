@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    25.01.2016/24.08.2015
+# Date/Beginn :    05.03.2016/24.08.2015
 #
-# Version     :    V0.05
+# Version     :    V0.06
 #
-# Milestones  :    V0.05 (jan 2016) -> implement new architecture
+# Milestones  :    V0.06 (mar 2016) -> add missing check for dir 
+#                  V0.05 (jan 2016) -> implement new architecture
 #                  V0.04 (jan 2016) -> add bananapi-pro as device
 #                  V0.03 (jan 2016) -> fix missing help content
 #                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='0.06'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -339,7 +340,19 @@ echo "|  dowload latest image tarballs         |"
 echo "+----------------------------------------+"
 echo " "
 
-cd $ARMHF_BIN_HOME/images
+if [ -d $ARMHF_BIN_HOME/images ]; then
+    cd $ARMHF_BIN_HOME/images
+else
+    cleanup
+    clear
+    echo " "
+    echo "+--------------------------------------+"
+    echo "|  ERROR: $ARMHF_BIN_HOME/images      "
+    echo "|         doesn't exist!               |"
+    echo "+--------------------------------------+"
+    echo " "
+    exit
+fi
 
 if [ "$BANANAPI" = 'true' ]; then 
     create_download_string_bananapi

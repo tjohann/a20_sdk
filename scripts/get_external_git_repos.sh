@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.02.2016/15.08.2015
+# Date/Beginn :    05.03.2016/15.08.2015
 #
-# Version     :    V0.16
+# Version     :    V0.17
 #
-# Milestones  :    V0.15 (feb 2016) -> fix a20_sdk_builder 
+# Milestones  :    V0.17 (mar 2016) -> add missing check for dir 
+#                  V0.16 (feb 2016) -> finalize new architecture
+#                  V0.15 (feb 2016) -> fix a20_sdk_builder 
 #                  V0.14 (jan 2016) -> implement new architecture
 #                  V0.13 (jan 2016) -> add a20_sdk_builder
 #                  V0.12 (jan 2016) -> adapt it for usage within a20_sdk
@@ -71,7 +73,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.16'
+VER='0.17'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -373,7 +375,19 @@ echo "|                                                        |"
 echo "+--------------------------------------------------------+"
 echo " "
 
-cd ${ARMHF_BIN_HOME}/external
+if [ -d $ARMHF_BIN_HOME/external ]; then
+    cd $ARMHF_BIN_HOME/external
+else
+    cleanup
+    clear
+    echo " "
+    echo "+--------------------------------------+"
+    echo "|  ERROR: $ARMHF_BIN_HOME/external      "
+    echo "|         doesn't exist!               |"
+    echo "+--------------------------------------+"
+    echo " "
+    exit
+fi
 set_repo_names 
 
 if [ $PROTOCOL = 'none' ]; then

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    25.01.2016/15.08.2015
+# Date/Beginn :    05.03.2016/15.08.2015
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (jan 2016) -> implement new architecture
+# Milestones  :    V0.05 (mar 2016) -> add missing check for dir
+#                  V0.04 (jan 2016) -> implement new architecture
 #                  V0.03 (jan 2016) -> update RT to 4.4
 #                  V0.02 (jan 2016) -> adapt it for usage within a20_sdk
 #                  V0.01 (aug 2015) -> first functional version
@@ -52,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.05'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -206,7 +207,7 @@ get_rt_patch_source()
     if [ -f patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz ]; then
 	echo " "
 	echo "+--------------------------------------+"
-	echo "|  INFO: patch-${KERNEL_VER}-${ARMF_RT_VER}.patch.gz   |"
+	echo "|  INFO: patch-${KERNEL_VER}-${ARMF_RT_VER}.patch.gz"
 	echo "|        already exist, wont download  |"
 	echo "|        again                         |"
 	echo "+--------------------------------------+"
@@ -243,8 +244,6 @@ get_rt_patch_source()
 }
 
 
-
-
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ****************************************************************************** 
@@ -255,7 +254,19 @@ echo "|       get/install kernel source        |"
 echo "+----------------------------------------+"
 echo " "
 
-cd $ARMHF_BIN_HOME/kernel
+if [ -d $ARMHF_BIN_HOME/kernel ]; then
+    cd $ARMHF_BIN_HOME/kernel
+else
+    cleanup
+    clear
+    echo " "
+    echo "+--------------------------------------+"
+    echo "|  ERROR: $ARMHF_BIN_HOME/kernel        "
+    echo "|         doesn't exist!               |"
+    echo "+--------------------------------------+"
+    echo " "
+    exit
+fi
 
 # PREEMPT handling
 KERNEL_VER=$ARMHF_KERNEL_VER
