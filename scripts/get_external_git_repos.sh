@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.03.2016/15.08.2015
+# Date/Beginn :    13.03.2016/15.08.2015
 #
-# Version     :    V0.17
+# Version     :    V0.18
 #
-# Milestones  :    V0.17 (mar 2016) -> add missing check for dir 
+# Milestones  :    V0.18 (mar 2016) -> add tt_rt_cnt_framework and a20_sdk
+#                  V0.17 (mar 2016) -> add missing check for dir 
 #                  V0.16 (feb 2016) -> finalize new architecture
 #                  V0.15 (feb 2016) -> fix a20_sdk_builder 
 #                  V0.14 (jan 2016) -> implement new architecture
@@ -73,7 +74,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.17'
+VER='0.18'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -90,6 +91,8 @@ MISSING_ENV='false'
 # void-packages -> https://github.com/voidlinux/void-packages.git
 # my_sllin -> "://github.com/tjohann/sllin.git"
 # sdk_builder -> "://github.com/tjohann/sdk_builder.git"
+# a20_sdk -> "://github.com/tjohann/a20_sdk.git"
+# tt_rt_cnt -> "://github.com/tjohann/tt_rt_cnt_framework.git"
 REPO='none'
 
 # PROTOCOL
@@ -130,6 +133,8 @@ my_usage()
     echo "| REPO: allwinner -> allwinners docs                     |"
     echo "| REPO: my_sllin -> my changed sllin                     |"
     echo "| REPO: sdk_builder -> my sdk builder tool               |"
+    echo "| REPO: a20_sdk -> my a20_sdk                            |"
+    echo "| REPO: tt_rt_cnt -> my time-triggert-rt-container ...   |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -248,6 +253,9 @@ set_repo_names()
     allwinner="://github.com/allwinner-zh/documents.git"
     my_sllin="://github.com/tjohann/sllin.git"
     sdk_builder="://github.com/tjohann/sdk_builder.git"
+    a20_sdk="://github.com/tjohann/a20_sdk.git"
+    tt_rt_cnt="://github.com/tjohann/tt_rt_cnt_framework.git"
+    
     
     # array with all available repos
     repo_names_array[1]=${linus}
@@ -263,6 +271,8 @@ set_repo_names()
     repo_names_array[11]=${allwinner}
     repo_names_array[12]=${my_sllin}
     repo_names_array[13]=${sdk_builder}
+    repo_names_array[12]=${a20_sdk}
+    repo_names_array[13]=${tt_rt_cnt}
     
 }
 
@@ -309,6 +319,12 @@ get_repo_name()
 	    ;;
 	'sdk_builder')
 	    REPO_NAME="${PROTOCOL}${sdk_builder}"
+	    ;;
+	'a20_sdk')
+	    REPO_NAME="${PROTOCOL}${a20_sdk}"
+	    ;;
+	'tt_rt_cnt')
+	    REPO_NAME="${PROTOCOL}${tt_rt_cnt}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check"

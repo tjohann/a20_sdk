@@ -52,7 +52,7 @@ get_uboot::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "uboot" -p "http")
 
 get_mydriver::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "mydriver" -p "http")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "mydriver" -p "https")
 
 get_can-utils::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-utils" -p "http")
@@ -73,4 +73,10 @@ get_sllin::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "my_sllin" -p "http")
 
 get_sdk_builder::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "sdk_builder" -p "http")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "sdk_builder" -p "https")
+
+get_a20_sdk::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "a20_sdk" -p "https")
+
+get_tt_rt_cnt::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "tt_rt_cnt" -p "https")

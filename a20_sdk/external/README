@@ -20,5 +20,7 @@ Addtional Repos
 	# allwinner -> http://github.com/allwinner-zh/documents.git
 	# my_sllin -> "http://github.com/tjohann/sllin.git"
 	# sdk_builder -> "http://github.com/tjohann/sdk_builder.git"
+	# a20_sdk -> "://github.com/tjohann/a20_sdk.git"
+	# tt_rt_cnt -> "://github.com/tjohann/tt_rt_cnt_framework.git"
 
 
