@@ -3,6 +3,18 @@
 #
 
 
+
+#
+# -------------- 2016-03-14 ----------------------------------------------------
+#
+
+## script stuff
+- make scripts aware of running platform -> it makes no sense to install
+  toolchain if running on the olimex or so ...
+- add bootmenu to olimex and bananapi u-boot config
+  (rt and non-rt ... with rt as default)
+- get_latest_linux_kernel.sh -> untar rt kernel to linux-*_rt 
+
 #
 # -------------- 2016-01-29 ----------------------------------------------------
 #
@@ -54,12 +66,12 @@
 - adapt get_image_tarballs for olimex, bananapi and cubietruck usage
 
 ## target stuff
-- build u-boot for olimex
-- build u-boot for cubietruck
-- build kernel for olimex
-- build kernel for cubietruck
-- create first void-linux based cubietruck image
-- create first void-linux based olimex image
+- build u-boot for olimex                                   [2016-02-xx -> done]
+- build u-boot for cubietruck                               [2016-02-xx -> done]
+- build kernel for olimex                                   [2016-02-xx -> done]
+- build kernel for cubietruck                               [2016-02-xx -> done]
+- create first void-linux based cubietruck image            
+- create first void-linux based olimex image                [2016-02-xx -> done]
 
 ## external stuff
 - adapt to common use                                       [2016-01-24 -> done]                            

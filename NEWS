@@ -2,15 +2,13 @@
 # some news ... see also TODO for hints
 #
 
+2016-03-14 -> ## target stuff
+	      first kernel with FULL-RT-PREEMPT
+	      
 2016-03-13 -> ## target stuff
 	      regular updates
 	      -> update kernel to 4.4.5
 	      -> update kernel to 4.4.4-rt11
-
-	      first kernel with RT-PREEMPT
-
-	      add my tt_rt_cnt_framework.git
-	      add a20_sdk.git
 
 
 2016-03-05 -> ## target stuff

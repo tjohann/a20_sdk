@@ -109,7 +109,7 @@ Patch kernel
 RT-PREEMPT 
 ----------
 
-DIR: $ARMHF_HOME/kernel/linux-stable
+DIR: $ARMHF_HOME/kernel/linux
 KDO: git checkout -b stable v4.4.4
 KDO: zcat ../patch-4.4.4-rt11.patch.gz | patch -p1
 
@@ -187,7 +187,7 @@ Copy modules
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
 KDO: sudo rsync -avc ../modules_4.4.5/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avc ../modules_4.4.5_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avc ../modules_4.4.4_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -195,8 +195,8 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: depends ...
-KDO: sudo rsync -av --delete linux-4.4.4 /mnt/olimex/olimex_rootfs/usr/src/.
-KDO(rt): sudo rsync -av --delete linux-4.4.5_rt /mnt/olimex/olimex_rootfs/usr/src/.
+KDO: sudo rsync -av --delete linux-4.4.5 /mnt/olimex/olimex_rootfs/usr/src/.
+KDO(rt): sudo rsync -av --delete linux-4.4.4_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
 
