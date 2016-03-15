@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.03.2016/15.08.2015
+# Date/Beginn :    15.03.2016/15.08.2015
 #
-# Version     :    V0.05
+# Version     :    V0.06
 #
-# Milestones  :    V0.05 (mar 2016) -> add missing check for dir
+# Milestones  :    V0.06 (mar 2016) -> untar rt source to linux-*_rt
+#                  V0.05 (mar 2016) -> add missing check for dir
 #                  V0.04 (jan 2016) -> implement new architecture
 #                  V0.03 (jan 2016) -> update RT to 4.4
 #                  V0.02 (jan 2016) -> adapt it for usage within a20_sdk
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='0.06'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -268,23 +269,27 @@ else
     exit
 fi
 
+# download only one if rt-preempt patch supports same kernel version
+if [ "$ARMHF_KERNEL_VER" = "$ARMHF_RT_KERNEL_VER" ]; then
+    echo "INFO: set kernel version for PREEMPT and FULL_RT_PREEMPT are identical"
+fi
+
+# FULL_RT_PREEMPT handling
+KERNEL_VER=$ARMHF_RT_KERNEL_VER
+echo "INFO: set kernel version to linux-$KERNEL_VER and linux-$RT_KERNEL_VER "
+get_kernel_source
+
+# mv linux-$ARMHF_RT_KERNEL_VER to linux-$ARMHF_RT_KERNEL_VER_rt
+mv linux-${ARMHF_RT_KERNEL_VER} linux-${ARMHF_RT_KERNEL_VER}_rt
+
 # PREEMPT handling
 KERNEL_VER=$ARMHF_KERNEL_VER
 get_kernel_source
 
-# download only one if rt-preempt patch supports same kernel version
-if [ "$ARMHF_KERNEL_VER" = "$ARMHF_RT_KERNEL_VER" ]; then
-    echo "INFO: set kernel version for PREEMPT and FULL_RT_PREEMPT are identical"
-else
-    # FULL_RT_PREEMPT handling
-    KERNEL_VER=$ARMHF_RT_KERNEL_VER
-    echo "INFO: set kernel version to linux-$KERNEL_VER and linux-$RT_KERNEL_VER "
-    get_kernel_source
-fi
-
 # rt-preempt patch handling
 # note: get_rt_patch_source also use KERNEL_VER 
 get_rt_patch_source
+
 
 
 cleanup
