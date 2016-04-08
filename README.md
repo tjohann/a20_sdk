@@ -2,7 +2,7 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A common development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts and more. Additional you find all infos and binary/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot, Linux and more.
+A common development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts and more. Additional you find all infos and binary/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot, Xenomai and more.
 
 As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
 
@@ -29,7 +29,7 @@ and
 
 The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS for those info.
 
-Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories. This content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore.
+Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories (/opt/a20_sdk/external). Also useful could be the download of kernel and RT-PREEMPT patch to /opt/a20_sdk/kernel. The whole content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore (Note: make distclean removes all content in the working dir /opt/a20_sdk).
 
 
 Setup
@@ -162,7 +162,7 @@ Every device here has a "specific usecase". So therefore you find additional des
 
 In short:
 
-    bananapi -> baalue (https://github.com/tjohann/baalue_sdk), my BAnanapi cAn bus cLUstEr
+    bananapi -> baalue (my Bananapi Cluster with 8/10 Nodes)
     bananapi-pro -> my home audio/video stream server 
     cubietruck -> master node for baalue and jailhouse (https://github.com/siemens/jailhouse) test environment
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!)
@@ -175,13 +175,13 @@ User
     baalue (password: baalue)
 	
 
-The user baalue is available on all images, it's the account for my BAnanapi cAn bus cLUstEr. You can use it to login via ssh.
+The user baalue is available on all images, you can use it to login via ssh.
 
 
 Cubietruck (CB3)
 ----------------
 
-My two cubietrucks are acting as a master node for my BAnanapi cAn bus cLUstEr. It is also my test environment for the jailhouse hypervisor. On this device i use mainline kernel in all images.
+My two cubietrucks are acting as a master node for my Bananapi Cluster. It is also my test environment for the jailhouse hypervisor. On this device i use mainline kernel in all images.
 
 
 Additonal Hardware conneted:
@@ -220,7 +220,7 @@ Addtional mount points:
 Bananapi-M1
 -----------
 
-The bananapi model 1 is the working node for my BAnanapi cAn bus cLUstEr. It has tty1-8 activated and lightdm on tty9. Also you find kernel and info rsyslogd output on tty11 and tty12. 
+The bananapi model 1 is the working node for my Bananapi Cluster. It has tty1-8 activated and lightdm on tty9. Also you find kernel and info rsyslogd output on tty11 and tty12. 
 
 
 Additonal Hardware conneted:
@@ -240,6 +240,9 @@ Addtional mount points:
 
 Olimex A20-SOM/EVB
 ------------------
+
+I use this device to play and test low level hardware because nearly all PINs of the A20 are available.
+
 
 Additonal Hardware conneted:
 

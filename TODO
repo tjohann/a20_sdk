@@ -3,6 +3,14 @@
 #
 
 
+#
+# -------------- 2016-04-08 ----------------------------------------------------
+#
+
+## sdk stuff
+- add content to a20_sdk_src
+- update/upload images for all target device except bananapi-pro
+
 
 #
 # -------------- 2016-03-14 ----------------------------------------------------
@@ -10,10 +18,12 @@
 
 ## script stuff
 - make scripts aware of running platform -> it makes no sense to install
-  toolchain if running on the olimex or so ...
+  toolchain if running on the olimex or so ...              [2016-04-08 -> done]
 - add bootmenu to olimex and bananapi u-boot config
   (rt and non-rt ... with rt as default)
-- get_latest_linux_kernel.sh -> untar rt kernel to linux-*_rt 
+- get_latest_linux_kernel.sh -> untar rt kernel to
+  linux-*_rt                                                [2016-03-xx -> done]
+
 
 #
 # -------------- 2016-01-29 ----------------------------------------------------
@@ -29,12 +39,11 @@
 #
 
 ## sdk stuff
-- architecture change needed ...
+- architecture change needed ...                            [2016-04-08 -> done]
 - make distclean below a20_sdk/a20_sdk/Makefile             [2016-02-17 -> done]
 
 ## script stuff
 - fill init_sdk.sh                                          [2016-02-17 -> done]
-
 
 
 #
@@ -45,6 +54,7 @@
 - update to baalue_sdk/BAALUE_SDK_V1.0.2                    [2016-01-24 -> done]
 - add bananapi pro with sunxi kernel as new device
   (as owncloud, stream and video server)
+
 
 #
 # -------------- 2016-01-13 ----------------------------------------------------
@@ -60,21 +70,22 @@
 - build first toolchain                                     [2016-01-24 -> done]
 
 ## script stuff
-- update get_external_git_repos.sh
+- update get_external_git_repos.sh                          [2016-04-08 -> done]
 - update get latest_linux_kernel.sh                         [2016-01-24 -> done]
-- update get_toolchain.sh
-- adapt get_image_tarballs for olimex, bananapi and cubietruck usage
+- update get_toolchain.sh                                   [2016-04-08 -> done]
+- adapt get_image_tarballs for olimex, bananapi and
+  cubietruck usage                                          [2016-04-08 -> done]
 
 ## target stuff
 - build u-boot for olimex                                   [2016-02-xx -> done]
 - build u-boot for cubietruck                               [2016-02-xx -> done]
 - build kernel for olimex                                   [2016-02-xx -> done]
-- build kernel for cubietruck                               [2016-02-xx -> done]
-- create first void-linux based cubietruck image            
+- build kernel for cubietruck                               [2016-02-xx -> done]        
 - create first void-linux based olimex image                [2016-02-xx -> done]
 
 ## external stuff
 - adapt to common use                                       [2016-01-24 -> done]                            
+
 
 #
 # -------------- 2016-01-12 ----------------------------------------------------
@@ -84,38 +95,9 @@
 - prepare integration_checklist                             [2016-01-24 -> done]
 
 
-
 #
 # -------------- 2016-01-10 ----------------------------------------------------
 #
 ## "all"
 prepare repo for a20_sdk                                    [2016-01-24 -> done]
 
-
-
-
-#
-# -------------- TEMPLATE ------------------------------------------------------
-#
-
-
-#
-# -------------- 2016-xx-xx ----------------------------------------------------
-#
-
-## toolchain stuff
-
-## sdk stuff
-
-## script stuff
-
-## docu stuff
-
-## target stuff
-
-## jailhouse stuff
-
-## the "rest"
-
-
-#EOF

@@ -6,7 +6,7 @@
 # License:
 #
 # GPL                                                                        
-# (c) 2015, thorsten.johannvorderbrueggen@t-online.de                        
+# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de                        
 #                                                                            
 # This program is free software; you can redistribute it and/or modify       
 # it under the terms of the GNU General Public License as published by       
@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    26.01.2016/15.08.2015
+# Date/Beginn :    08.04.2016/15.08.2015
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (jan 2016) -> adapt for new architecture
+# Milestones  :    V0.04 (apr 2016) -> check for architecture
+#                                      some more error checks/cleanups
+#                  V0.03 (jan 2016) -> adapt for new architecture
 #                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
 #                  V0.01 (aug 2015) -> first functional version
 #
@@ -50,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -75,12 +77,12 @@ TOOLCHAIN_HOST_DOWNLOAD_STRING='none'
 my_usage() 
 {
     echo " "
-    echo "+--------------------------------------------------------+"
-    echo "| Usage: ./get_toolchain.sh                              |"
-    echo "|        [-v] -> print version info                      |"
-    echo "|        [-h] -> this help                               |"
-    echo "|                                                        |"
-    echo "+--------------------------------------------------------+"
+    echo "+------------------------------------------+"
+    echo "| Usage: ./get_toolchain.sh                |"
+    echo "|        [-v] -> print version info        |"
+    echo "|        [-h] -> this help                 |"
+    echo "|                                          |"
+    echo "+------------------------------------------+"
     echo " "
     exit
 }
@@ -95,9 +97,9 @@ cleanup() {
 my_exit() 
 {
     clear
-    echo "+-----------------------------------+"
-    echo "|          Cheers $USER            |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------+"
+    echo "|          Cheers $USER                   |"
+    echo "+------------------------------------------+"
     cleanup
     exit
 }
@@ -105,9 +107,9 @@ my_exit()
 # print version info
 print_version() 
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------+"
+    echo "| You are using version: ${VER}            |"
+    echo "+------------------------------------------+"
     cleanup
     exit
 }
@@ -145,14 +147,14 @@ if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
-    echo "+--------------------------------------+"
-    echo "|                                      |"
-    echo "|  ERROR: missing env                  |"
-    echo "|         have you sourced env-file?   |"
-    echo "|                                      |"
-    echo "|          Cheers $USER               |"
-    echo "|                                      |"
-    echo "+--------------------------------------+"
+    echo "+------------------------------------------+"
+    echo "|                                          |"
+    echo "|  ERROR: missing env                      |"
+    echo "|         have you sourced env-file?       |"
+    echo "|                                          |"
+    echo "|          Cheers $USER                   |"
+    echo "|                                          |"
+    echo "+------------------------------------------+"
     echo " "
     exit
 fi
@@ -252,11 +254,28 @@ echo "|  get/install latest toolchain tarball  |"
 echo "+----------------------------------------+"
 echo " "
 
-cd $ARMHF_BIN_HOME
-
-create_download_string
-get_toolchain_tarball
-untar_toolchain
+if [ $(uname -m) == 'x86_64' ]; then
+    
+    if [ -d $ARMHF_BIN_HOME ]; then
+	cd $ARMHF_BIN_HOME
+    else
+	cleanup
+	clear
+	echo " "
+	echo "+------------------------------------------+"
+	echo "|  ERROR: $ARMHF_BIN_HOME                  "
+	echo "|         doesn't exist!                   |"
+	echo "+------------------------------------------+"
+	echo " "
+	exit
+    fi
+  
+    create_download_string
+    get_toolchain_tarball
+    untar_toolchain
+else
+    echo "INFO: no toolchain for your architecture $(uname -m)"
+fi
 
 cleanup
 echo " "
@@ -264,7 +283,4 @@ echo "+----------------------------------------+"
 echo "|          Cheers $USER                |"
 echo "+----------------------------------------+"
 echo " "
-
-
-############################# END OF ALL TIMES :-) ##############################
 

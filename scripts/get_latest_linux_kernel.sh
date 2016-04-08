@@ -290,15 +290,10 @@ get_kernel_source
 # note: get_rt_patch_source also use KERNEL_VER 
 get_rt_patch_source
 
-
-
 cleanup
 echo " "
 echo "+----------------------------------------+"
 echo "|          Cheers $USER                |"
 echo "+----------------------------------------+"
 echo " "
-
-
-############################# END OF ALL TIMES :-) ##############################
 

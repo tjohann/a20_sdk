@@ -36,7 +36,7 @@
 #                  V0.14 (jan 2016) -> implement new architecture
 #                  V0.13 (jan 2016) -> add a20_sdk_builder
 #                  V0.12 (jan 2016) -> adapt it for usage within a20_sdk
-#                  V0.11 (jan 2016) -> add my sllin driver
+#                  V0.11 (jan 2016) -> add a driver
 #                  V0.10 (dez 2015) -> remove baalued and libbalue
 #                  V0.09 (nov 2015) -> add led_dot_matrix_clock (see also
 #                                      $ARMEL_HOME/projects/led_dot_clock)

@@ -8,12 +8,6 @@ This is a brief list of all the files in ./a20_sdk/bananapi ...
 00-INDEX
         - this file
 
-README
-	- link to README.md
-
-README.md
-	- README
-
 configs
 	- kernel config + dts 
 
@@ -24,7 +18,7 @@ Makefile
 	- makefile
 	
 u-boot
-	- u-boot and realted bin/conf
+	- u-boot and related bin/conf
 
 Documentation
 	- bananapi specific docs

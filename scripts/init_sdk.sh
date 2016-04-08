@@ -6,7 +6,7 @@
 # License:
 #
 # GPL                                                                        
-# (c) 2015, thorsten.johannvorderbrueggen@t-online.de                        
+# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de                        
 #                                                                            
 # This program is free software; you can redistribute it and/or modify       
 # it under the terms of the GNU General Public License as published by       
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.02.2016/25.01.2016
+# Date/Beginn :    08.04.2016/25.01.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (feb 2016) -> init working-dir 
+# Milestones  :    V0.03 (apr 2016) -> add srcdir
+#                  V0.02 (feb 2016) -> init working-dir 
 #                  V0.01 (jan 2016) -> first functional version
 #
 # Requires    :    
@@ -49,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -123,6 +124,10 @@ if [ "$ARMHF_BIN_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
+if [ "$ARMHF_SRC_HOME" = '' ]; then 
+    MISSING_ENV='true'
+fi
+
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then 
     cleanup
@@ -175,13 +180,26 @@ else
     rsync -av $ARMHF_HOME/a20_sdk/. .
 fi
 
+if [ -d $ARMHF_SRC_HOME ]; then
+    echo "$ARMHF_SRC_HOME already available"
+else
+    echo "Create $ARMHF_SRC_HOME"
+    mkdir -p $ARMHF_SRC_HOME
+fi
+
+# check only one makefile -> should be good enough
+if [ -f $ARMHF_SRC_HOME/include/Makefile ]; then
+    echo "$ARMHF_SRC_HOME/include/Makefile already available"
+else
+    cd $ARMHF_SRC_HOME
+    echo "Rsync content of $ARMHF_HOME/a20_sdk_src/ to $ARMHF_SRC_HOME"
+    rsync -av $ARMHF_HOME/a20_sdk_src/. .
+fi
+
+
 cleanup
 echo " "
 echo "+----------------------------------------+"
 echo "|          Cheers $USER                |"
 echo "+----------------------------------------+"
 echo " "
-
-
-############################# END OF ALL TIMES :-) ##############################
-

@@ -8,12 +8,6 @@ This is a brief list of all the files in ./a20_sdk/olimex ...
 00-INDEX
         - this file
 
-README
-	- link to README.md
-
-README.md
-	- README
-
 configs
 	- kernel config + dts 
 

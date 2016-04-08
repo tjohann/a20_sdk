@@ -2,7 +2,7 @@
 #
 # Title       :    defines.mk    
 #                                                                        
-# (c) 2015, thorsten.johannvorderbrueggen@t-online.de                        
+# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de                        
 #
 ################################################################################
 #
@@ -24,8 +24,8 @@ CC = gcc
 AR = ar
 LD = ld
 
-CFLAGS = -I${ARMHF_HOME}/include -g -Wall -Wextra -std=gnu11
-LDLIBS = -L${ARMHF_HOME}/lib -lpthread -lbsd -lconfuse
+CFLAGS = -I${ARMHF_SRC_HOME}/include -g -Wall -Wextra -std=gnu11
+LDLIBS = -L${ARMHF_SRC_HOME}/lib -lpthread -lrt
 
 # ---- target ----
 ifeq (${MY_HOST_ARCH},x86_64)
@@ -38,5 +38,5 @@ else
 	LD_TARGET = ld
 endif
 
-LDLIBS_TARGET = -L${ARMHF_HOME}/lib_target -lpthread -lbsd -lconfuse
+LDLIBS_TARGET = -L${ARMHF_SRC_HOME}/lib_target -lpthread -lrt
 

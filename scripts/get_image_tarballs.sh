@@ -26,9 +26,11 @@
 #
 # Date/Beginn :    05.03.2016/24.08.2015
 #
-# Version     :    V0.06
+# Version     :    V0.07
 #
-# Milestones  :    V0.06 (mar 2016) -> add missing check for dir 
+# Milestones  :    V0.07 (apr 2016) -> check for architecture
+#                                      some more error checks/cleanups
+#                  V0.06 (mar 2016) -> add missing check for dir 
 #                  V0.05 (jan 2016) -> implement new architecture
 #                  V0.04 (jan 2016) -> add bananapi-pro as device
 #                  V0.03 (jan 2016) -> fix missing help content
@@ -55,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.06'
+VER='0.07'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -211,14 +213,14 @@ if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
-    echo "+--------------------------------------+"
-    echo "|                                      |"
-    echo "|  ERROR: missing env                  |"
-    echo "|         have you sourced env-file?   |"
-    echo "|                                      |"
-    echo "|          Cheers $USER               |"
-    echo "|                                      |"
-    echo "+--------------------------------------+"
+    echo "+------------------------------------------+"
+    echo "|                                          |"
+    echo "|  ERROR: missing env                      |"
+    echo "|         have you sourced env-file?       |"
+    echo "|                                          |"
+    echo "|          Cheers $USER                   |"
+    echo "|                                          |"
+    echo "+------------------------------------------+"
     echo " "
     exit
 fi
@@ -335,45 +337,49 @@ get_image_tarball()
 # ****************************************************************************** 
 
 echo " "
-echo "+----------------------------------------+"
-echo "|  dowload latest image tarballs         |"
-echo "+----------------------------------------+"
+echo "+----------------------------------------------+"
+echo "|  dowload latest image tarballs               |"
+echo "+----------------------------------------------+"
 echo " "
 
-if [ -d $ARMHF_BIN_HOME/images ]; then
-    cd $ARMHF_BIN_HOME/images
+if [ $(uname -m) == 'x86_64' ]; then
+
+    if [ -d $ARMHF_BIN_HOME/images ]; then
+	cd $ARMHF_BIN_HOME/images
+    else
+	cleanup
+	clear
+	echo " "
+	echo "+------------------------------------------+"
+	echo "|  ERROR: $ARMHF_BIN_HOME/images            "
+	echo "|         doesn't exist!                   |"
+	echo "+------------------------------------------+"
+	echo " "
+	exit
+    fi
+    
+    if [ "$BANANAPI" = 'true' ]; then 
+	create_download_string_bananapi
+	get_image_tarball
+    fi
+    
+    if [ "$BANANAPIPRO" = 'true' ]; then 
+	create_download_string_bananapi-pro
+	get_image_tarball
+    fi
+    
+    if [ "$CUBIETRUCK" = 'true' ]; then 
+	create_download_string_cubietruck
+	get_image_tarball
+    fi
+    
+    if [ "$OLIMEX" = 'true' ]; then 
+	create_download_string_olimex
+	get_image_tarball
+    fi  
 else
-    cleanup
-    clear
-    echo " "
-    echo "+--------------------------------------+"
-    echo "|  ERROR: $ARMHF_BIN_HOME/images      "
-    echo "|         doesn't exist!               |"
-    echo "+--------------------------------------+"
-    echo " "
-    exit
+    echo "INFO: image handling on $(uname -m) not supported"
 fi
-
-if [ "$BANANAPI" = 'true' ]; then 
-    create_download_string_bananapi
-    get_image_tarball
-fi
-
-if [ "$BANANAPIPRO" = 'true' ]; then 
-    create_download_string_bananapi-pro
-    get_image_tarball
-fi
-
-if [ "$CUBIETRUCK" = 'true' ]; then 
-    create_download_string_cubietruck
-    get_image_tarball
-fi
-
-if [ "$OLIMEX" = 'true' ]; then 
-    create_download_string_olimex
-    get_image_tarball
-fi
-
 
 cleanup
 echo " "
@@ -381,7 +387,3 @@ echo "+----------------------------------------+"
 echo "|          Cheers $USER                |"
 echo "+----------------------------------------+"
 echo " "
-
-
-############################# END OF ALL TIMES :-) ##############################
-
