@@ -36,9 +36,6 @@ update_all:
 #
 # clone a single external repo (on the device)
 #
-get_linux-linus::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "linus" -p "http")
-
 get_rt-tests::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "rt-tests" -p "http")
 
@@ -57,9 +54,6 @@ get_mydriver::
 get_can-utils::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-utils" -p "http")
 
-get_libsocketcan::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "libsocketcan" -p "git")
-
 get_void-packages::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "void-packages" -p "git")
 
@@ -69,14 +63,9 @@ get_jailhouse::
 get_allwinner::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "allwinner" -p "git")
 
-get_sllin::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "my_sllin" -p "http")
-
 get_sdk_builder::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "sdk_builder" -p "https")
 
 get_a20_sdk::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "a20_sdk" -p "https")
 
-get_tt_rt_cnt::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "tt_rt_cnt" -p "https")

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.03.2016/15.08.2015
+# Date/Beginn :    08.04.2016/15.08.2015
 #
-# Version     :    V0.18
+# Version     :    V0.19
 #
-# Milestones  :    V0.18 (mar 2016) -> add tt_rt_cnt_framework and a20_sdk
+# Milestones  :    V0.19 (apr 2016) -> some cleanups of unused repos
+#                  V0.18 (mar 2016) -> add a20_sdk
 #                  V0.17 (mar 2016) -> add missing check for dir 
 #                  V0.16 (feb 2016) -> finalize new architecture
 #                  V0.15 (feb 2016) -> fix a20_sdk_builder 
@@ -74,25 +75,22 @@
 #
 
 # VERSION-NUMBER
-VER='0.18'
+VER='0.19'
 
 # if env is sourced 
 MISSING_ENV='false'
 
 # REPOs
-# linus -> git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 # rt-tests -> http://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git
 # ipipe -> git://git.xenomai.org/ipipe.git/
 # xenomai -> git://git.xenomai.org/xenomai-3.git/
 # uboot -> git://git.denx.de/u-boot.git
 # mydriver -> https://github.com/tjohann/mydriver.git
 # can-utils -> https://github.com/linux-can/can-utils.git
-# libsocketcan -> git://git.pengutronix.de/git/tools/libsocketcan.git
 # void-packages -> https://github.com/voidlinux/void-packages.git
-# my_sllin -> "://github.com/tjohann/sllin.git"
 # sdk_builder -> "://github.com/tjohann/sdk_builder.git"
 # a20_sdk -> "://github.com/tjohann/a20_sdk.git"
-# tt_rt_cnt -> "://github.com/tjohann/tt_rt_cnt_framework.git"
+# allwinner -> "://github.com/allwinner-zh/documents.git"
 REPO='none'
 
 # PROTOCOL
@@ -120,21 +118,17 @@ my_usage()
     echo "| get_external_git_repos.sh -r xenomai -p http           |"
     echo "|                                                        |"
     echo "| Valid repo names:                                      |"
-    echo "| REPO: linus -> linus kernel tree                       |"
     echo "| REPO: rt-tests -> rt-test tools                        |"
     echo "| REPO: xenomai -> xenomai microkernel                   |"
     echo "| REPO: ipipe -> int pipe                                |"
     echo "| REPO: uboot -> denx u-boot                             |"
     echo "| REPO: mydriver -> my test driver                       |"
     echo "| REPO: can-utils -> common can-utils                    |"
-    echo "| REPO: libsocketcan -> pengutronix libsocketcan         |"
     echo "| REPO: void-packages -> void-packages                   |"
     echo "| REPO: jailhouse -> jailhouse hypervisor                |"
     echo "| REPO: allwinner -> allwinners docs                     |"
-    echo "| REPO: my_sllin -> my changed sllin                     |"
     echo "| REPO: sdk_builder -> my sdk builder tool               |"
     echo "| REPO: a20_sdk -> my a20_sdk                            |"
-    echo "| REPO: tt_rt_cnt -> my time-triggert-rt-container ...   |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -240,39 +234,31 @@ fi
 # --- set repo names
 set_repo_names()
 {
-    linus="://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git"
     rt_tests="://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git"
     ipipe="://git.xenomai.org/ipipe.git/"
     xenomai="://git.xenomai.org/xenomai-3.git/"
     uboot="://git.denx.de/u-boot.git"
     mydriver="://github.com/tjohann/mydriver.git"
     can_utils="://github.com/linux-can/can-utils.git"
-    libsocketcan="://git.pengutronix.de/git/tools/libsocketcan.git"
     void_packages="://github.com/voidlinux/void-packages.git"
     jailhouse="://github.com/siemens/jailhouse.git"
     allwinner="://github.com/allwinner-zh/documents.git"
-    my_sllin="://github.com/tjohann/sllin.git"
     sdk_builder="://github.com/tjohann/sdk_builder.git"
     a20_sdk="://github.com/tjohann/a20_sdk.git"
-    tt_rt_cnt="://github.com/tjohann/tt_rt_cnt_framework.git"
     
     
     # array with all available repos
-    repo_names_array[1]=${linus}
-    repo_names_array[2]=${rt_tests}
-    repo_names_array[3]=${ipipe}
-    repo_names_array[4]=${xenomai} 
-    repo_names_array[5]=${uboot}
-    repo_names_array[6]=${mydriver}
-    repo_names_array[7]=${can_utils}
-    repo_names_array[8]=${libsocketcan}
-    repo_names_array[9]=${void_packages}
-    repo_names_array[10]=${jailhouse}
-    repo_names_array[11]=${allwinner}
-    repo_names_array[12]=${my_sllin}
-    repo_names_array[13]=${sdk_builder}
-    repo_names_array[12]=${a20_sdk}
-    repo_names_array[13]=${tt_rt_cnt}
+    repo_names_array[0]=${rt_tests}
+    repo_names_array[1]=${ipipe}
+    repo_names_array[2]=${xenomai} 
+    repo_names_array[3]=${uboot}
+    repo_names_array[4]=${mydriver}
+    repo_names_array[5]=${can_utils}
+    repo_names_array[6]=${void_packages}
+    repo_names_array[7]=${jailhouse}
+    repo_names_array[8]=${allwinner}
+    repo_names_array[9]=${sdk_builder}
+    repo_names_array[10]=${a20_sdk}
     
 }
 
@@ -281,9 +267,6 @@ set_repo_names()
 get_repo_name()
 {
     case "$REPO" in
-	'linus')
-	    REPO_NAME="${PROTOCOL}${linus}"
-	    ;;
 	'rt-tests')
 	    REPO_NAME="${PROTOCOL}${rt_tests}"
 	    ;;
@@ -302,9 +285,6 @@ get_repo_name()
 	'can-utils')
 	    REPO_NAME="${PROTOCOL}${can_utils}"
 	    ;;
-	'libsocketcan')
-	    REPO_NAME="${PROTOCOL}${libsocketcan}"
-	    ;;
 	'void-packages')
 	    REPO_NAME="${PROTOCOL}${void_packages}"
 	    ;;
@@ -314,17 +294,11 @@ get_repo_name()
 	'allwinner')
 	    REPO_NAME="${PROTOCOL}${allwinner}"
 	    ;;
-	'my_sllin')
-	    REPO_NAME="${PROTOCOL}${my_sllin}"
-	    ;;
 	'sdk_builder')
 	    REPO_NAME="${PROTOCOL}${sdk_builder}"
 	    ;;
 	'a20_sdk')
 	    REPO_NAME="${PROTOCOL}${a20_sdk}"
-	    ;;
-	'tt_rt_cnt')
-	    REPO_NAME="${PROTOCOL}${tt_rt_cnt}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check"
