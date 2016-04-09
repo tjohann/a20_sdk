@@ -10,7 +10,6 @@ ifeq "${ARMHF_BIN_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-
 MODULES = bananapi bananapi-pro olimex cubietruck
 MODULES += include pics configs scripts
 MODULES += a20_sdk a20_sdk_src
