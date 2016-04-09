@@ -2,6 +2,7 @@
 # Automatically generated file; DO NOT EDIT.
 # Crosstool-NG Configuration
 #
+CT_CONFIGURE_has_static_link=y
 CT_CONFIGURE_has_xz=y
 CT_CONFIGURE_has_cvs=y
 CT_CONFIGURE_has_svn=y
@@ -216,7 +217,7 @@ CT_BUILD_SUFFIX=""
 #
 CT_KERNEL_SUPPORTS_SHARED_LIBS=y
 CT_KERNEL="linux"
-CT_KERNEL_VERSION="4.4.2"
+CT_KERNEL_VERSION="4.4.3"
 # CT_KERNEL_bare_metal is not set
 CT_KERNEL_linux=y
 CT_KERNEL_bare_metal_AVAILABLE=y
@@ -339,7 +340,7 @@ CT_LIBC_ADDONS_LIST=""
 # CT_LIBC_GLIBC_KERNEL_VERSION_NONE is not set
 CT_LIBC_GLIBC_KERNEL_VERSION_AS_HEADERS=y
 # CT_LIBC_GLIBC_KERNEL_VERSION_CHOSEN is not set
-CT_LIBC_GLIBC_MIN_KERNEL="4.4.2"
+CT_LIBC_GLIBC_MIN_KERNEL="4.4.3"
 
 #
 # C compiler
