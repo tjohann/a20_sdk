@@ -3,9 +3,15 @@
 #
 
 
-2016-04-08 -> ## sdk stuff
+2016-04-09 -> ## sdk stuff
 	      add some more pics about my used devices
-	     
+	      add a20_sdk_src dir as source with examples
+
+	      ## target stuff
+	      regular image updates
+	      - update kernel to 4.4.6-rt14
+	      - update kernel to 4.5.0
+	      
 
 2016-04-08 -> ## script stuff
 	      add some more checks to make it more robust
@@ -15,7 +21,6 @@
 	      ## sdk stuff
        	      some cleanups in external
 	      some cleanups
-	      add a20_sdk_src dir as source with examples
 
 
 2016-03-21 -> ## target stuff

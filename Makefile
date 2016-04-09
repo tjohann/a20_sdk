@@ -53,6 +53,8 @@ init_sdk: distclean
 	@echo "|              Init SDK -> you may need sudo               |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
+	rm -rf $(ARMHF_BIN_HOME)/{kernel,images,external}
+	rm -rf $(ARMHF_SRC_HOME)/{include,lib,lib_target,examples,bin}
 	($(ARMHF_HOME)/scripts/init_sdk.sh)
 
 

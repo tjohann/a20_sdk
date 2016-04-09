@@ -2,6 +2,10 @@
 # a list of hints regarding upgrade between different versions of this sdk
 #
 
+## 2015-01-29 --> 2016-04-09
+- i changed the init_sdk target in the main Makefile -> it now removes also
+/opt/a20_sdk/{externel,images,kernel} before it rsync the new content
+
 ## 2015-08-24 --> 2015-01-29
 - due to the complete architecture changes you have do a setup, pls see README.md for doing it
 

@@ -28,6 +28,7 @@ all:
 	@echo "| make get_olimex_image_tarballs     -> download olimex    |"
 	@echo "| image tarballs                                           |"
 	@echo "| make clean -> clean all dir/subdirs                      |"
+	@echo "| make distclean -> rm also downloaded/build parts         |"	
 	@echo "+----------------------------------------------------------+"	
 
 .PHONY: clean
@@ -36,6 +37,7 @@ clean:
 #	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
 distclean: clean
+	rm -rf *.tgz
 
 #
 # download image tarballs to $ARMHF_HOME/images

@@ -18,6 +18,7 @@ all:
 	@echo "+----------------------------------------------------------+"
 	@echo "| make get_latest_kernel  -> download latest kernel version|"
 	@echo "| make clean              -> clean all dir/subdirs         |"
+	@echo "| make distclean          -> rm also downloaded/build parts|"	
 	@echo "+----------------------------------------------------------+"	
 
 .PHONY: clean
@@ -25,6 +26,9 @@ clean:
 	rm -f *~
 
 distclean: clean
+	rm -rf patch-*
+	rm -rf modules_*
+	rm -rf linux-*
 
 #
 # download latest supported kernel version as tarball and install it to

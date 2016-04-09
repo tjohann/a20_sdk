@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    08.04.2016/25.01.2016
+# Date/Beginn :    09.04.2016/25.01.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (apr 2016) -> add srcdir
+# Milestones  :    V0.04 (apr 2016) -> fix wrong date
+#                                      fix user handling for rsync
+#                  V0.03 (apr 2016) -> add srcdir
 #                  V0.02 (feb 2016) -> init working-dir 
 #                  V0.01 (jan 2016) -> first functional version
 #
@@ -50,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -167,7 +169,7 @@ if [ -d $ARMHF_BIN_HOME ]; then
 else
     echo "Create $ARMHF_BIN_HOME -> need sudo rights! "
     sudo mkdir -p $ARMHF_BIN_HOME
-    sudo chown root:users $ARMHF_BIN_HOME
+    sudo chown $USER:users $ARMHF_BIN_HOME
     sudo chmod 775 $ARMHF_BIN_HOME
 fi
 
