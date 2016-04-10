@@ -10,6 +10,10 @@ ifeq "${ARMHF_BIN_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
+ifeq "${ARMHF_SRC_HOME}" ""
+    $(error error: please source armhf_env first!)
+endif
+
 MODULES = bananapi bananapi-pro olimex cubietruck
 MODULES += include pics configs scripts
 MODULES += a20_sdk a20_sdk_src
@@ -34,29 +38,35 @@ all::
 	@echo "| make distclean          -> complete cleanup              |"
 	@echo "+----------------------------------------------------------+"	
 
-
 clean::
 	rm -f *~ .*~
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
+distclean: clean clean_toolchain clean_external clean_kernel clean_images
 
-distclean: clean
+clean_toolchain::
 	rm -rf $(ARMHF_BIN_HOME)/toolchain
 	rm -f $(ARMHF_BIN_HOME)/toolchain_x86_64.tgz
 	rm -rf $(ARMHF_BIN_HOME)/host
 	rm -f $(ARMHF_BIN_HOME)/host_x86_64.tgz
 
+clean_external::
+	rm -rf $(ARMHF_BIN_HOME)/external
 
-init_sdk: distclean
+clean_kernel::
+	rm -rf $(ARMHF_BIN_HOME)/kernel
+
+clean_images::
+	rm -rf $(ARMHF_BIN_HOME)/external
+
+init_sdk: distclean 
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|              Init SDK -> you may need sudo               |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	rm -rf $(ARMHF_BIN_HOME)/{kernel,images,external}
 	rm -rf $(ARMHF_SRC_HOME)/{include,lib,lib_target,examples,bin}
 	($(ARMHF_HOME)/scripts/init_sdk.sh)
-
 
 #
 # run all get actions in sequence
@@ -68,11 +78,7 @@ get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 
-
-#
-# clone some useful repos (see $ARMHF_BIN_HOME/external/README)
-#
-get_external_repos:: 
+get_external_repos: clean_external
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|               Clone useful external repos                |"
@@ -80,12 +86,7 @@ get_external_repos::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -p "git")
 
-
-#
-# download latest supported kernel version as tarball and install it to
-# ./kernel/linux-$ARMHF_KERNEL_VER
-#
-get_latest_kernel:: 
+get_latest_kernel: clean_kernel
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest supported kernel version          |"
@@ -93,11 +94,7 @@ get_latest_kernel::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh)
 
-
-#
-# download toolchain version as tarball and install it to $ARMHF_HOME
-#
-get_toolchain: distclean 
+get_toolchain: clean_toolchain 
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest supported toolchain version       |"
@@ -105,11 +102,7 @@ get_toolchain: distclean
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_toolchain.sh)
 
-
-#
-# download image tarballs to $ARMHF_BIN_HOME/images
-#
-get_image_tarballs:  
+get_image_tarballs: clean_images 
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest supported image tarballs          |"

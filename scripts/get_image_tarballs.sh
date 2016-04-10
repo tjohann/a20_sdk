@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.03.2016/24.08.2015
+# Date/Beginn :    10.04.2016/24.08.2015
 #
-# Version     :    V0.07
+# Version     :    V0.08
 #
-# Milestones  :    V0.07 (apr 2016) -> check for architecture
+# Milestones  :    V0.08 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
+#                  V0.07 (apr 2016) -> check for architecture
 #                                      some more error checks/cleanups
 #                  V0.06 (mar 2016) -> add missing check for dir 
 #                  V0.05 (jan 2016) -> implement new architecture
@@ -57,7 +58,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.07'
+VER='0.08'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -347,15 +348,8 @@ if [ $(uname -m) == 'x86_64' ]; then
     if [ -d $ARMHF_BIN_HOME/images ]; then
 	cd $ARMHF_BIN_HOME/images
     else
-	cleanup
-	clear
-	echo " "
-	echo "+------------------------------------------+"
-	echo "|  ERROR: $ARMHF_BIN_HOME/images            "
-	echo "|         doesn't exist!                   |"
-	echo "+------------------------------------------+"
-	echo " "
-	exit
+	mkdir -p $ARMHF_BIN_HOME/images
+	cd $ARMHF_BIN_HOME/images
     fi
     
     if [ "$BANANAPI" = 'true' ]; then 

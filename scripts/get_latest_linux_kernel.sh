@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.03.2016/15.08.2015
+# Date/Beginn :    10.04.2016/15.08.2015
 #
-# Version     :    V0.06
+# Version     :    V0.07
 #
-# Milestones  :    V0.06 (mar 2016) -> untar rt source to linux-*_rt
+# Milestones  :    V0.07 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
+#                  V0.06 (mar 2016) -> untar rt source to linux-*_rt
 #                  V0.05 (mar 2016) -> add missing check for dir
 #                  V0.04 (jan 2016) -> implement new architecture
 #                  V0.03 (jan 2016) -> update RT to 4.4
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.06'
+VER='0.07'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -258,15 +259,8 @@ echo " "
 if [ -d $ARMHF_BIN_HOME/kernel ]; then
     cd $ARMHF_BIN_HOME/kernel
 else
-    cleanup
-    clear
-    echo " "
-    echo "+--------------------------------------+"
-    echo "|  ERROR: $ARMHF_BIN_HOME/kernel        "
-    echo "|         doesn't exist!               |"
-    echo "+--------------------------------------+"
-    echo " "
-    exit
+    mkdir -p $ARMHF_BIN_HOME/kernel
+    cd $ARMHF_BIN_HOME/kernel
 fi
 
 # download only one if rt-preempt patch supports same kernel version

@@ -29,6 +29,7 @@
 # Version     :    V0.20
 #
 # Milestones  :    V0.20 (apr 2016) -> some more cleanups of unused repos
+#                                      create $ARMHF_BIN_HOME/* if it not exist
 #                  V0.19 (apr 2016) -> some cleanups of unused repos
 #                  V0.18 (mar 2016) -> add a20_sdk
 #                  V0.17 (mar 2016) -> add missing check for dir 
@@ -348,15 +349,8 @@ echo " "
 if [ -d $ARMHF_BIN_HOME/external ]; then
     cd $ARMHF_BIN_HOME/external
 else
-    cleanup
-    clear
-    echo " "
-    echo "+--------------------------------------+"
-    echo "|  ERROR: $ARMHF_BIN_HOME/external      "
-    echo "|         doesn't exist!               |"
-    echo "+--------------------------------------+"
-    echo " "
-    exit
+    mkdir -p $ARMHF_BIN_HOME/external
+    cd $ARMHF_BIN_HOME/external
 fi
 set_repo_names 
 
