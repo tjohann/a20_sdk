@@ -12,14 +12,22 @@ clean:
 	rm -f *~
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
-distclean: clean
+distclean: clean clean_toolchain clean_external clean_kernel clean_images
+
+clean_toolchain::
 	rm -rf $(ARMHF_BIN_HOME)/toolchain
 	rm -f $(ARMHF_BIN_HOME)/toolchain_x86_64.tgz
 	rm -rf $(ARMHF_BIN_HOME)/host
 	rm -f $(ARMHF_BIN_HOME)/host_x86_64.tgz
-	rm -rf $(ARMHF_BIN_HOME)/images
-	rm -rf $(ARMHF_BIN_HOME)/kernel
+
+clean_external::
 	rm -rf $(ARMHF_BIN_HOME)/external
+
+clean_kernel::
+	rm -rf $(ARMHF_BIN_HOME)/kernel
+
+clean_images::
+	rm -rf $(ARMHF_BIN_HOME)/images
 
 init_sdk: distclean 
 	@echo "+----------------------------------------------------------+"
