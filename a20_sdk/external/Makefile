@@ -10,6 +10,9 @@ ifeq "${ARMHF_BIN_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
+ifeq "${ARMHF_SRC_HOME}" ""
+    $(error error: please source armhf_env first!)
+endif
 
 MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v documents | grep -v void-packages)
 MODULES_GIT = $(shell ls -d */ | cut -f1 -d'/')
@@ -39,23 +42,11 @@ update_all:
 get_rt-tests::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "rt-tests" -p "http")
 
-get_ipipe::
-	($(ARMEL_HOME)/scripts/get_external_git_repos.sh -r "ipipe" -p "http")
-
-get_xenomai::
-	($(ARMEL_HOME)/scripts/get_external_git_repos.sh -r "xenomai" -p "http")
-
 get_uboot::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "uboot" -p "http")
 
-get_mydriver::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "mydriver" -p "https")
-
 get_can-utils::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-utils" -p "http")
-
-get_void-packages::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "void-packages" -p "git")
 
 get_jailhouse::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "jailhouse" -p "git")
@@ -65,7 +56,3 @@ get_allwinner::
 
 get_sdk_builder::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "sdk_builder" -p "https")
-
-get_a20_sdk::
-	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "a20_sdk" -p "https")
-

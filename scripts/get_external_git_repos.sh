@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    08.04.2016/15.08.2015
+# Date/Beginn :    10.04.2016/15.08.2015
 #
-# Version     :    V0.19
+# Version     :    V0.20
 #
-# Milestones  :    V0.19 (apr 2016) -> some cleanups of unused repos
+# Milestones  :    V0.20 (apr 2016) -> some more cleanups of unused repos
+#                  V0.19 (apr 2016) -> some cleanups of unused repos
 #                  V0.18 (mar 2016) -> add a20_sdk
 #                  V0.17 (mar 2016) -> add missing check for dir 
 #                  V0.16 (feb 2016) -> finalize new architecture
@@ -75,19 +76,15 @@
 #
 
 # VERSION-NUMBER
-VER='0.19'
+VER='0.20'
 
 # if env is sourced 
 MISSING_ENV='false'
 
 # REPOs
 # rt-tests -> http://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git
-# ipipe -> git://git.xenomai.org/ipipe.git/
-# xenomai -> git://git.xenomai.org/xenomai-3.git/
 # uboot -> git://git.denx.de/u-boot.git
-# mydriver -> https://github.com/tjohann/mydriver.git
 # can-utils -> https://github.com/linux-can/can-utils.git
-# void-packages -> https://github.com/voidlinux/void-packages.git
 # sdk_builder -> "://github.com/tjohann/sdk_builder.git"
 # a20_sdk -> "://github.com/tjohann/a20_sdk.git"
 # allwinner -> "://github.com/allwinner-zh/documents.git"
@@ -119,16 +116,11 @@ my_usage()
     echo "|                                                        |"
     echo "| Valid repo names:                                      |"
     echo "| REPO: rt-tests -> rt-test tools                        |"
-    echo "| REPO: xenomai -> xenomai microkernel                   |"
-    echo "| REPO: ipipe -> int pipe                                |"
     echo "| REPO: uboot -> denx u-boot                             |"
-    echo "| REPO: mydriver -> my test driver                       |"
     echo "| REPO: can-utils -> common can-utils                    |"
-    echo "| REPO: void-packages -> void-packages                   |"
     echo "| REPO: jailhouse -> jailhouse hypervisor                |"
     echo "| REPO: allwinner -> allwinners docs                     |"
     echo "| REPO: sdk_builder -> my sdk builder tool               |"
-    echo "| REPO: a20_sdk -> my a20_sdk                            |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -235,31 +227,19 @@ fi
 set_repo_names()
 {
     rt_tests="://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git"
-    ipipe="://git.xenomai.org/ipipe.git/"
-    xenomai="://git.xenomai.org/xenomai-3.git/"
     uboot="://git.denx.de/u-boot.git"
-    mydriver="://github.com/tjohann/mydriver.git"
     can_utils="://github.com/linux-can/can-utils.git"
-    void_packages="://github.com/voidlinux/void-packages.git"
     jailhouse="://github.com/siemens/jailhouse.git"
     allwinner="://github.com/allwinner-zh/documents.git"
     sdk_builder="://github.com/tjohann/sdk_builder.git"
-    a20_sdk="://github.com/tjohann/a20_sdk.git"
-    
     
     # array with all available repos
     repo_names_array[0]=${rt_tests}
-    repo_names_array[1]=${ipipe}
-    repo_names_array[2]=${xenomai} 
-    repo_names_array[3]=${uboot}
-    repo_names_array[4]=${mydriver}
-    repo_names_array[5]=${can_utils}
-    repo_names_array[6]=${void_packages}
-    repo_names_array[7]=${jailhouse}
-    repo_names_array[8]=${allwinner}
-    repo_names_array[9]=${sdk_builder}
-    repo_names_array[10]=${a20_sdk}
-    
+    repo_names_array[1]=${uboot}
+    repo_names_array[2]=${can_utils}
+    repo_names_array[3]=${jailhouse}
+    repo_names_array[4]=${allwinner}
+    repo_names_array[5]=${sdk_builder}
 }
 
 
