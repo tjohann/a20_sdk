@@ -29,6 +29,7 @@
 # Version     :    V0.07
 #
 # Milestones  :    V0.07 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
+#                                      fix wrong rt-preempt-patch download link
 #                  V0.06 (mar 2016) -> untar rt source to linux-*_rt
 #                  V0.05 (mar 2016) -> add missing check for dir
 #                  V0.04 (jan 2016) -> implement new architecture
@@ -263,11 +264,6 @@ else
     cd $ARMHF_BIN_HOME/kernel
 fi
 
-# download only one if rt-preempt patch supports same kernel version
-if [ "$ARMHF_KERNEL_VER" = "$ARMHF_RT_KERNEL_VER" ]; then
-    echo "INFO: set kernel version for PREEMPT and FULL_RT_PREEMPT are identical"
-fi
-
 # FULL_RT_PREEMPT handling
 KERNEL_VER=$ARMHF_RT_KERNEL_VER
 echo "INFO: set kernel version to linux-$KERNEL_VER and linux-$RT_KERNEL_VER "
@@ -281,7 +277,7 @@ KERNEL_VER=$ARMHF_KERNEL_VER
 get_kernel_source
 
 # rt-preempt patch handling
-# note: get_rt_patch_source also use KERNEL_VER 
+KERNEL_VER=$ARMHF_RT_KERNEL_VER
 get_rt_patch_source
 
 cleanup
