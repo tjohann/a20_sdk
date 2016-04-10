@@ -28,14 +28,14 @@ all::
 	@echo "+----------------------------------------------------------+"
 	@echo "| Example:                                                 |"
 	@echo "| make init_sdk           -> init all needed part          |"
-	@echo "| make get_external_repos -> get external repos like linux,|"
-	@echo "|                            xenomai or uboot ...          |"
+	@echo "| make get_external_repos -> get git repos like u-boot     |"
 	@echo "| make get_toolchain      -> install toolchain             |"
 	@echo "| make get_latest_kernel  -> download latest kernel version|"
 	@echo "| make get_image_tarballs -> download image tarballs       |"
 	@echo "| make get_all            -> get all of the above          |"
 	@echo "| make clean              -> clean all dir/subdirs         |"
-	@echo "| make distclean          -> complete cleanup              |"
+	@echo "| make distclean          -> complete cleanup/delete       |"
+	@echo "| ...                                                      |"
 	@echo "+----------------------------------------------------------+"	
 
 clean::
@@ -57,7 +57,7 @@ clean_kernel::
 	rm -rf $(ARMHF_BIN_HOME)/kernel
 
 clean_images::
-	rm -rf $(ARMHF_BIN_HOME)/external
+	rm -rf $(ARMHF_BIN_HOME)/images
 
 init_sdk: distclean 
 	@echo "+----------------------------------------------------------+"
