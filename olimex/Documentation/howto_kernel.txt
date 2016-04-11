@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   09.04.2016/12.01.2016
+Date:   11.04.2016/12.01.2016
 
 Content:
 
@@ -57,7 +57,7 @@ Device
 Kernel version
 --------------
 
-- linux-4.5
+- linux-4.4.6
 - linux-4.4.6-rt14 (latest RT-PREEMPT)
 
 
@@ -101,7 +101,7 @@ DIR: $ARMHF_HOME/kernel/
 KDO: git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: git checkout -b stable v4.5
+KDO: git checkout -b stable v4.4.6
 
 Patch kernel
 ============
@@ -134,7 +134,7 @@ Configure/build kernel
 Configure kernel
 ----------------
 
-KDO: cp $ARMHF_HOME/olimex/configs/kernel_config_4.5.x .config
+KDO: cp $ARMHF_HOME/olimex/configs/kernel_config_4.4.x .config
 KDO(rt): cp $ARMHF_HOME/olimex/configs/kernel_config_4.4.x_rt .config
 KDO: make ARCH=arm menuconfig
 
@@ -158,7 +158,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.5.0 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.6 modules_install
 KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.6_rt modules_install
 
 
@@ -186,7 +186,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: sudo rsync -avc ../modules_4.5.0/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO: sudo rsync -avc ../modules_4.4.6/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 KDO(rt): sudo rsync -avc ../modules_4.4.6_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 
@@ -195,7 +195,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: depends ...
-KDO: sudo rsync -av --delete linux-4.5.0 /mnt/olimex/olimex_rootfs/usr/src/.
+KDO: sudo rsync -av --delete linux-4.4.6 /mnt/olimex/olimex_rootfs/usr/src/.
 KDO(rt): sudo rsync -av --delete linux-4.4.6_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
@@ -208,14 +208,14 @@ Finish -> after login (non-rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.5 linux
+KDO: ln -s linux-4.4.6 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (non-rt)
 ------------------------------------------------------------------------
 
-DIR: /usr/src/linux-4.5
+DIR: /usr/src/linux-4.4.6
 KDO: make clean
 KDO: make scripts
 
@@ -223,11 +223,11 @@ KDO: make scripts
 Prepare modules to link (non-rt)
 --------------------------------
 
-DIR: /lib/modules/4.5
+DIR: /lib/modules/4.4.6
 KDO: rm build
 KDO: rm sourcesdk stuff
-KDO: ln -s /usr/src/linux-4.5 source
-KDO: ln -s /usr/src/linux-4.5 build
+KDO: ln -s /usr/src/linux-4.4.6 source
+KDO: ln -s /usr/src/linux-4.4.6 build
 
 
 
