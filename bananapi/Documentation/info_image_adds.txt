@@ -1,0 +1,203 @@
+# ------------------------------------------------------------------------------
+#
+# some image realted infos 
+# 
+# ------------------------------------------------------------------------------
+#
+# see -> https://github.com/voidlinux/documentation/wiki/cubieboard2#rootfs-install
+
+#
+# user/passwd
+#
+root/root
+baalue/baalue
+
+
+#
+# groups
+#
+
+
+#
+# basic image
+#
+wget http://repo.voidlinux.eu/live/void-cubieboard2-rootfs-latest.tar.xz
+ln -s /etc/sv/agetty-ttyS0 /mnt/bananapi/bananapi_rootfs/etc/runit/runsvdir/default
+
+
+#
+# addtional installations
+#
+inetutils-ifconfig
+libressl
+libressl-devel
+python
+python-devel
+python3.4
+python3.4-devel
+socklog-void
+xterm (for resize)
+gcc
+gcc-c++
+make
+automake
+autoconf
+binutils-devel
+git
+linux-firmware
+python-Mako (for jailhouse)
+vim (instead of vi)
+xorg-minimal
+xf86-video-fbturbo-sunxi
+xorg-apps
+xorg-fonts
+gdb
+cgdb (as addtion to gdb)
+ltrace
+strace
+valgrind-devel
+rsyslogd
+mg/qemacs (as small emacs replacement)
+libbsd-devel
+confuse-devel
+libconfig-devel
+void-repo-debug
+void-repo-nonfree
+htop
+libcgroup
+libcgroup-devel
+libcgroup-utils
+clang
+clang-analyzer
+llvm
+llvm-docs
+lm_sensors
+libsensors-devel
+libsensors
+libtool
+libltdl-devel
+libltdl
+cmake
+extra-cmake-modules
+tree
+bash-completion
+emacs-common
+go
+json-c-devel
+lightdm (add a lot of deps)
+lightdm-devel
+lightdm-gtk-greeter
+twm
+spectrwm
+xfce4 (add a lot of deps)
+libvdpau-sunxi
+sunxi-tools
+sunxi-mali-devel
+gtk-engine-murrine
+gtk2-engines
+gnome-icon-theme-extras
+gnome-icon-theme-symbolic
+gnome-icon-theme-xfce
+adwaita-icon-theme
+gpm
+gpm-devel
+libgpm
+rsync
+librsync
+librsync-devel
+pkg-config
+xz
+libcapng
+libcapng-devel
+libcap-devel
+gettext (and related)
+rsync
+wget
+i2c-tools
+
+--- OPEN ---
+subverion -> not available
+emacs -> not available
+
+
+#
+# config addtions/changes
+#
+
+# --- some simple stuff
+chsh /bin/bash  (for root)
+rm agetty-tty[2-6]
+
+# --- dhcpd.conf
+# Static IP configuration.
+interface eth0 
+static ip_address=192.168.0.103
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1
+
+# --- hostname
+bananapi.my.domain
+
+# --- rc.conf
+TIMEZONE="Europe/Berlin"
+FONT="ter-v14n"
+
+# --- modprobe.d/cfg80211.conf
+blacklist cfg80211
+
+# --- hosts
+192.168.0.103           bananapi.my.domain      bananapi
+192.168.0.102		olimex.my.domain	olimex
+192.168.0.42		echnaton.my.domain	echnaton
+
+#
+# my cluster nodes
+192.168.0.80            bananapi-80.my.domain      		bananapi-80
+192.168.0.81            bananapi-81.my.domain      		bananapi-81
+192.168.0.82            bananapi-82.my.domain      		bananapi-82
+192.168.0.83            bananapi-83.my.domain      		bananapi-83
+192.168.0.84            bananapi-84.my.domain      		bananapi-84
+192.168.0.85            bananapi-85.my.domain      		bananapi-85
+192.168.0.86            bananapi-86.my.domain      		bananapi-86
+192.168.0.87            bananapi-87.my.domain      		bananapi-87
+192.168.0.90            cubietruck_master.my.domain             cubietruck_master
+192.168.0.91            cubietruck_slave.my.domain              cubietruck_slave
+
+
+# --- fstab
+# Bananapi 
+/dev/mmcblk0p1  /boot_bananapi    vfat    noatime          0       1
+/dev/mmcblk0p3  /home             ext4    noatime          0       1
+
+# Swap:
+#/dev/mmcblk0p4 none              swap    sw               0       0
+
+
+# --- sshd_config
+# my config 
+X11Forwarding yes
+AllowTcpForwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+
+
+#
+# the "rest" 
+#
+
+# --- syslog
+xbps-install -Sy socklog-void
+usermod -aG socklog baalue
+ln -s /etc/sv/socklog-unix /var/service/
+ln -s /etc/sv/nanoklogd /var/service/
+
+# --- rsyslog
+ln -s /etc/sv/rsyslogd /var/service/
+
+# --- update locale
+# enable /etc/defaults/glibc-locales
+en_US.UTF-8 UTF-8
+de_DE.UTF-8 UTF-8
+
+# rebuild locale
+xbps-reconfigure -f glibc-locales
