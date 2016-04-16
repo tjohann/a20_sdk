@@ -77,6 +77,7 @@ cubietruck:
  LABEL=KERNEL_CUBI  /mnt/cubietruck/cubietruck_kernel  auto  noauto,user,rw    0   0
  LABEL=ROOTFS_CUBI  /mnt/cubietruck/cubietruck_rootfs  auto  noauto,user,rw    0   0
  LABEL=HOME_CUBI    /mnt/cubietruck/cubietruck_home    auto  noauto,user,rw    0   0
+ LABEL=SHARED_CUBI  /mnt/cubietruck/cubietruck_shared  auto  noauto,user,rw    0   0
 
 Notes
 -----

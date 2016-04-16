@@ -39,6 +39,7 @@ export OLIMEX_SDCARD_HOME=/mnt/olimex/olimex_home
 export CUBITRUCK_SDCARD_KERNEL=/mnt/cubietruck/cubietruck_kernel
 export CUBITRUCK_SDCARD_ROOTFS=/mnt/cubietruck/cubietruck_rootfs
 export CUBITRUCK_SDCARD_HOME=/mnt/cubietruck/cubietruck_home
+export CUBITRUCK_SDCARD_SHARED=/mnt/cubietruck/cubietruck_shared
 
 echo "Setup env for host \"${MY_HOST_ARCH}\" with root dir \"${ARMHF_HOME}\" and bin root dir \"${ARMHF_BIN_HOME}\""
 
