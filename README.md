@@ -181,7 +181,8 @@ The user baalue is available on all images, you can use it to login via ssh.
 Cubietruck (CB3)
 ----------------
 
-My two cubietrucks are acting as a master node for my Bananapi Cluster. It is also my test environment for the jailhouse hypervisor. On this device i use mainline kernel in all images.
+My two cubietrucks are acting as a master nodes for my Bananapi Cluster (cubietruck_master/cubietruck_slave). On the cubietruck_slave node everthing is on a sd-card, i use it also as 9th baalue-node or as the distribution node into the cluster (openmpi). So it act also as a possible master node although i named it cubietruck_slave. The node cubietruck_master has a hard-disk as root device. I use it mostly as distcc server node and the 8 cluster nodes as distcc clients. 
+The two cubietrucks are also my test environment for the jailhouse hypervisor. On this device i use mainline kernel in all images. 
 
 
 Additonal Hardware conneted:
@@ -192,7 +193,7 @@ Additonal Hardware conneted:
     500GByte Harddisk (only on ONE device)
 
 
-Addtional mount points:
+Addtional mount points (host):
 
     LABEL=KERNEL_CUBI   /mnt/cubietruck/cubietruck_kernel  auto  noauto,user,rw  0 0
     LABEL=ROOTFS_CUBI   /mnt/cubietruck/cubietruck_rootfs  auto  noauto,user,rw  0 0
@@ -210,7 +211,7 @@ Addtional Harware connected:
     500GByte Harddisk for data storage
 
 
-Addtional mount points:
+Addtional mount points (host):
 
     LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
     LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
@@ -232,7 +233,7 @@ Additonal Hardware conneted (as classic embedded device):
     CAN-Tranceiver on A20-CAN
 
 
-Addtional mount points:
+Addtional mount points (host):
 
     LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
     LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
@@ -252,7 +253,7 @@ Additonal Hardware conneted:
     tbd...
 	  
 
-Addtional mount points:
+Addtional mount points (host):
 
     LABEL=KERNEL_OLI    /mnt/olimex/olimex_kernel          auto  noauto,user,rw  0 0
     LABEL=ROOTFS_OLI    /mnt/olimex/olimex_rootfs          auto  noauto,user,rw  0 0
