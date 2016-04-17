@@ -47,9 +47,9 @@ Clean SD-Card
 -------------
 
 preserve partition table:
-sudo dd if=/dev/zero of=/dev/sde bs=1k count=1023 seek=1
+sudo dd if=/dev/zero of=/dev/sdd bs=1k count=1023 seek=1
 clear also partition table:
-sudo dd if=/dev/zero of=/dev/sde bs=1M count=1
+sudo dd if=/dev/zero of=/dev/sdd bs=1M count=1
 
 
 Create partition table () with gparted

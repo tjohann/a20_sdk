@@ -12,6 +12,9 @@
   external or so is not really a solution
 - sync /etc/hosts on all devices  
 
+## target stuff
+- develop a simple daemon to shutdown all devices my kdo
+
 
 #
 # -------------- 2016-04-08 ----------------------------------------------------
