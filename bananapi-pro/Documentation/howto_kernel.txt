@@ -17,7 +17,7 @@ Content:
   -- Fstab for mountpoints
   -- Notes
 
-- Clone kernel
+- Get kernel
 
 - Configure/build kernel
   -- Configure kernel
@@ -89,14 +89,11 @@ alternatively download the tar file to $ARMHF_HOME/kernel.
 Pls check that the $DIR values below point to the the correct directory!
 
 
-Clone kernel
-============
+Get kernel
+==========
 
-DIR: $ARMHF_HOME/kernel/
-KDO: git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: git checkout -b stable v4.4.6
+DIR: $$ARMHF_BIN_HOME/kernel/
+KDO: make get_latest_kernel
 
 
 Configure/build kernel
@@ -112,7 +109,7 @@ KDO: make ARCH=arm menuconfig
 Build dtb
 ---------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
 KDO: cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
 
@@ -120,14 +117,14 @@ KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.d
 Build kernel/modules
 --------------------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
 KDO: make -j10 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
 
 
 Install modules
 ---------------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
 KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.6 modules_install
 
 
@@ -138,14 +135,14 @@ Deploy SD-Card
 Copy dtb
 --------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
 KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_kernel/
 
 
 Copy kernel/config
 ------------------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
 KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/
 KDO: cp .config /mnt/bananapi/bananapi_kernel/
 
@@ -154,9 +151,8 @@ Copy modules
 ------------
 
 # Note: maybe your need to remove the old one
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
 KDO: sudo rsync -avc ../modules_4.4.6/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avc ../modules_4.4.6_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -165,7 +161,6 @@ Copy cleaned source to sd card
 # Note: dont forget to make ARCH=arm clean
 DIR: depends ...
 KDO: sudo rsync -av --delete linux-4.4.6 /mnt/bananapi/bananapi_rootfs/usr/src/.
-KDO(rt): sudo rsync -av --delete linux-4.4.6_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
 

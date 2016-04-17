@@ -4,12 +4,23 @@
 
 
 #
+# -------------- 2016-04-17 ----------------------------------------------------
+#
+
+## sdk stuff
+- add a "working" cleanup script (a complete remove of
+  external or so is not really a solution
+- sync /etc/hosts on all devices  
+
+
+#
 # -------------- 2016-04-08 ----------------------------------------------------
 #
 
 ## sdk stuff
-- add content to a20_sdk_src
-- update/upload images for all target device except bananapi-pro
+- add content to a20_sdk_src 
+- update/upload images for all target device except
+  bananapi-pro                                              [2016-04-17 -> done]
 
 
 #
@@ -53,7 +64,7 @@
 ## the "rest"
 - update to baalue_sdk/BAALUE_SDK_V1.0.2                    [2016-01-24 -> done]
 - add bananapi pro with sunxi kernel as new device
-  (as owncloud, stream and video server)
+  (as owncloud, stream and video server)                    
 
 
 #
@@ -61,8 +72,8 @@
 #
 
 ## sdk stuff
-- correct cubietruck/etc/host ...
-- correct olimex/etc/host ...
+- correct cubietruck/etc/host ...                           [2016-04-08 -> done]
+- correct olimex/etc/host ...                               [2016-04-08 -> done]
 - update LICENSE file                                       [2016-01-24 -> done]
 - add README.md content                                     [2016-01-24 -> done]
 

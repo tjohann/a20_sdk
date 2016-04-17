@@ -20,15 +20,11 @@ export ARMHF_SRC_HOME=$HOME/src/a20_sdk
 # extend PATH for our a20 stuff
 export PATH=$PATH:${ARMHF_BIN_HOME}/toolchain/bin:${ARMHF_BIN_HOME}/host/usr/bin
 
-# set mount points for the sdcard -> bananapi-(M1)
+# set mount points for the sdcard -> bananapi-(M1/PRO)
 export BANANAPI_SDCARD_KERNEL=/mnt/bananapi/bananapi_kernel
 export BANANAPI_SDCARD_ROOTFS=/mnt/bananapi/bananapi_rootfs
 export BANANAPI_SDCARD_HOME=/mnt/bananapi/bananapi_home
-
-# set mount points for the sdcard -> bananapi-(Pro)
-export BANANAPI_SDCARD_KERNEL=/mnt/bananapi_pro/bananapi_pro_kernel
-export BANANAPI_SDCARD_ROOTFS=/mnt/bananapi_pro/bananapi_pro_rootfs
-export BANANAPI_SDCARD_HOME=/mnt/bananapi_pro/bananapi_pro_home
+export BANANAPI_SDCARD_SHARED=/mnt/bananapi/bananapi_shared
 
 # set mount points for the sdcard -> olimex
 export OLIMEX_SDCARD_KERNEL=/mnt/olimex/olimex_kernel

@@ -29,6 +29,7 @@
 # Version     :    V0.09
 #
 # Milestones  :    V0.09 (apr 2016) -> add cubietruck-hdd
+#                                      add bananapi-pro-hdd
 #                                      remove unused comment
 #                                      fix wrong image names 
 #                  V0.08 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
@@ -69,6 +70,7 @@ MISSING_ENV='false'
 # supported devices
 BANANAPI='false'
 BANANAPIPRO='false'
+BANANAPIPRO_HDD='false'
 CUBIETRUCK='false'
 CUBIETRUCK_HDD='false'
 OLIMEX='false'
@@ -90,6 +92,7 @@ my_usage()
     echo "|        [-a] -> download ALL images                     |"
     echo "|        [-b] -> download bananapi images                |"
     echo "|        [-p] -> download bananapi-pro images            |"
+    echo "|        [-e] -> download bananapi-pro-hdd images        |"
     echo "|        [-c] -> download cubietruck images              |"
     echo "|        [-d] -> download cubietruck-hdd images          |"
     echo "|        [-o] -> download olimex images                  |"
@@ -131,7 +134,7 @@ _log="/tmp/get_image_tarballs.log"
 
 
 # check the args 
-while getopts 'bcdopahv' opts 2>$_log
+while getopts 'bcdeopahv' opts 2>$_log
 do
     case $opts in
 	b) BANANAPI='true' ;;
@@ -139,8 +142,10 @@ do
 	d) CUBIETRUCK_HDD='true' ;;
 	o) OLIMEX='true' ;;
 	p) BANANAPIPRO='true' ;;
+	e) BANANAPIPRO_HDD='true' ;;
 	a) OLIMEX='true'
 	   BANANAPI='true'
+	   BANANAPI_HDD='true'
 	   CUBIETRUCK='true'
 	   CUBIETRUCK_HDD='true'
 	   BANANAPIPRO='true'
@@ -200,6 +205,18 @@ create_download_string_bananapi-pro()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_rootfs.tgz"
+    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_home.tgz"
+    
+    echo "INFO: set kernel download string to $KERNEL_IMAGE"
+    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
+    echo "INFO: set home download string to $HOME_IMAGE"
+}
+
+# --- create download string 
+create_download_string_bananapi-pro_hdd()
+{
+    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_kernel.tgz"
+    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_home.tgz"
     
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
@@ -320,6 +337,11 @@ if [ $(uname -m) == 'x86_64' ]; then
     
     if [ "$BANANAPIPRO" = 'true' ]; then 
 	create_download_string_bananapi-pro
+	get_image_tarball
+    fi
+
+    if [ "$BANANAPIPRO_HDD" = 'true' ]; then 
+	create_download_string_bananapi-pro_hdd
 	get_image_tarball
     fi
     
