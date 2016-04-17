@@ -178,6 +178,49 @@ User
 The user baalue is available on all images, you can use it to login via ssh.
 
 
+Kernel
+------
+
+	Olimex -> RT-PREEMPT and PREEMPT kernel
+	Bananapi -> RT-PREEMPT and PREEMPT kernel
+	Bananapi-Pro -> "normal" desktop kernel
+	Cubietruck -> PREEMPT kernel
+	
+	
+Network
+-------
+
+For testing purpose i have physical network where all devices are conneted to.
+
+Single devices:
+
+	192.168.0.100           arietta.my.domain               arietta
+	192.168.0.101           cubietruck.my.domain            cubietruck
+	192.168.0.102           olimex.my.domain			    olimex
+	192.168.0.103		    bananapi.my.domain			    bananapi
+	192.168.0.105           imx233.my.domain                imx233
+
+
+My cluster:
+
+	192.168.0.80            bananapi-80.my.domain      		bananapi-80
+	192.168.0.81            bananapi-81.my.domain      		bananapi-81
+	192.168.0.82            bananapi-82.my.domain      		bananapi-82
+	192.168.0.83            bananapi-83.my.domain      		bananapi-83
+	192.168.0.84            bananapi-84.my.domain      		bananapi-84
+	192.168.0.85            bananapi-85.my.domain      		bananapi-85
+	192.168.0.86            bananapi-86.my.domain      		bananapi-86
+	192.168.0.87            bananapi-87.my.domain      		bananapi-87
+	192.168.0.90            cubietruck_master.my.domain     cubietruck_master
+	192.168.0.91            cubietruck_slave.my.domain      cubietruck_slave
+
+
+My nfs share:
+
+	192.168.0.42            echnaton.my.domain              echnaton
+
+
+
 Cubietruck (CB3)
 ----------------
 
@@ -244,7 +287,7 @@ Addtional mount points (host):
 Olimex A20-SOM/EVB
 ------------------
 
-I use this device to play and test low level hardware because nearly all PINs of the A20 are available.
+I use this device to play and test low level hardware because nearly all PINs of the A20 are available. It is also the test environment for my research about linux and realtime in general (see also https://github.com/tjohann/time_triggert_env.git).
 
 
 Additonal Hardware conneted:
