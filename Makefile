@@ -106,5 +106,5 @@ get_image_tarballs: clean_images
 	@echo "|        Download latest supported image tarballs          |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b -c -o -p)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -a)
 
