@@ -6,7 +6,7 @@
 # License:
 #
 # GPL                                                                        
-# (c) 2015, thorsten.johannvorderbrueggen@t-online.de                        
+# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de                        
 #                                                                            
 # This program is free software; you can redistribute it and/or modify       
 # it under the terms of the GNU General Public License as published by       
@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    10.04.2016/24.08.2015
+# Date/Beginn :    17.04.2016/24.08.2015
 #
-# Version     :    V0.08
+# Version     :    V0.09
 #
-# Milestones  :    V0.08 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
+# Milestones  :    V0.09 (apr 2016) -> add cubietruck-hdd
+#                                      remove unused comment
+#                                      fix wrong image names 
+#                  V0.08 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
 #                  V0.07 (apr 2016) -> check for architecture
 #                                      some more error checks/cleanups
 #                  V0.06 (mar 2016) -> add missing check for dir 
@@ -58,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.08'
+VER='0.09'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -67,63 +70,8 @@ MISSING_ENV='false'
 BANANAPI='false'
 BANANAPIPRO='false'
 CUBIETRUCK='false'
+CUBIETRUCK_HDD='false'
 OLIMEX='false'
-
-#
-# latest version bananapi 
-#
-# VER:
-# -> kernel_bananapi.tgz
-# -> rootfs_bananapi.tgz
-# -> home_bananapi.tgz
-#
-# DOWNLOAD_STRING:
-# -> http://sourceforge.net/projects/a20devices/files/bananapi/kernel_bananapi.tgz
-# -> http://sourceforge.net/projects/a20devices/files/bananapi/rootfs_bananapi.tgz
-# -> http://sourceforge.net/projects/a20devices/files/bananapi/home_bananapi.tgz
-#
-
-#
-# latest version bananapi-pro 
-#
-# VER:
-# -> kernel_bananapi-pro.tgz
-# -> rootfs_bananapi-pro.tgz
-# -> home_bananapi-pro.tgz
-#
-# DOWNLOAD_STRING:
-# -> http://sourceforge.net/projects/a20devices/files/bananapi-pro/kernel_bananapi-pro.tgz
-# -> http://sourceforge.net/projects/a20devices/files/bananapi-pro/rootfs_bananapi-pro.tgz
-# -> http://sourceforge.net/projects/a20devices/files/bananapi-pro/home_bananapi-pro.tgz
-# 
-
-#
-# latest version cubietruck 
-#
-# VER:
-# -> kernel_cubietruck.tgz
-# -> rootfs_cubietruck.tgz
-# -> home_cubietruck.tgz
-#
-# DOWNLOAD_STRING:
-# -> http://sourceforge.net/projects/a20devices/files/cubietruck/kernel_cubietruck.tgz
-# -> http://sourceforge.net/projects/a20devices/files/cubietruck/rootfs_cubietruck.tgz
-# -> http://sourceforge.net/projects/a20devices/files/cubietruck/home_cubietruck.tgz
-#
-
-#
-# latest version olimex 
-#
-# VER:
-# -> kernel_olimex.tgz
-# -> rootfs_olimex.tgz
-# -> home_olimex.tgz
-#
-# DOWNLOAD_STRING:
-# -> http://sourceforge.net/projects/a20devices/files/olimex/kernel_olimex.tgz
-# -> http://sourceforge.net/projects/a20devices/files/olimex/rootfs_olimex.tgz
-# -> http://sourceforge.net/projects/a20devices/files/olimex/home_olimex.tgz
-#
 
 # actual set nothing
 KERNEL_IMAGE='none'
@@ -143,6 +91,7 @@ my_usage()
     echo "|        [-b] -> download bananapi images                |"
     echo "|        [-p] -> download bananapi-pro images            |"
     echo "|        [-c] -> download cubietruck images              |"
+    echo "|        [-d] -> download cubietruck-hdd images          |"
     echo "|        [-o] -> download olimex images                  |"
     echo "+--------------------------------------------------------+"
     echo " "
@@ -182,16 +131,18 @@ _log="/tmp/get_image_tarballs.log"
 
 
 # check the args 
-while getopts 'hvabpco' opts 2>$_log
+while getopts 'bcdopahv' opts 2>$_log
 do
     case $opts in
 	b) BANANAPI='true' ;;
 	c) CUBIETRUCK='true' ;;
+	d) CUBIETRUCK_HDD='true' ;;
 	o) OLIMEX='true' ;;
 	p) BANANAPIPRO='true' ;;
 	a) OLIMEX='true'
 	   BANANAPI='true'
 	   CUBIETRUCK='true'
+	   CUBIETRUCK_HDD='true'
 	   BANANAPIPRO='true'
 	   ;;
         h) my_usage ;;
@@ -235,9 +186,9 @@ fi
 # --- create download string 
 create_download_string_bananapi()
 {
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/kernel_bananapi.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/rootfs_bananapi.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/home_bananapi.tgz"
+    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
+    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_rootfs.tgz"
+    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
     
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
@@ -247,35 +198,45 @@ create_download_string_bananapi()
 # --- create download string 
 create_download_string_bananapi-pro()
 {
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi-pro/kernel_bananapi-pro.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi-pro/rootfs_bananapi-pro.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi-pro/home_bananapi-pro.tgz"
+    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
+    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_rootfs.tgz"
+    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_home.tgz"
     
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
-
 
 # --- create download string 
 create_download_string_cubietruck()
 {
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/kernel_cubietruck.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/rootfs_cubietruck.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/home_cubietruck.tgz"
+    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
+    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_rootfs.tgz"
+    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_home.tgz"
     
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
 
+# --- create download string 
+create_download_string_cubietruck_hdd()
+{
+    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_kernel.tgz"
+    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_rootfs.tgz"
+    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_home.tgz"
+    
+    echo "INFO: set kernel download string to $KERNEL_IMAGE"
+    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
+    echo "INFO: set home download string to $HOME_IMAGE"
+}
 
 # --- create download string 
 create_download_string_olimex()
 {
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/kernel_olimex.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/rootfs_olimex.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/home_olimex.tgz"
+    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_kernel.tgz"
+    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_rootfs.tgz"
+    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_home.tgz"
     
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
@@ -364,6 +325,11 @@ if [ $(uname -m) == 'x86_64' ]; then
     
     if [ "$CUBIETRUCK" = 'true' ]; then 
 	create_download_string_cubietruck
+	get_image_tarball
+    fi
+
+    if [ "$CUBIETRUCK_HDD" = 'true' ]; then 
+	create_download_string_cubietruck_hdd
 	get_image_tarball
     fi
     
