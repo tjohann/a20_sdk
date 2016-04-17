@@ -246,7 +246,7 @@ Addtional mount points (host):
 Bananapi-Pro
 ------------
 
-I use this device as an audio/video stream server. Therefore it's connected to my television and my audio amplifier. To have good 3D/GL power i use the sunxi kernel, but you can find mainline kernel config in configs. It also implements an home cloud via ownCloud. 
+I use this device as an audio/video stream server. Therefore it's connected to my television and my audio amplifier. To have good 3D/GL power i use the sunxi kernel, but you can find mainline kernel config in configs. It also implements a home cloud via ownCloud. 
 
 
 Addtional Harware connected:
