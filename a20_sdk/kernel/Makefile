@@ -1,4 +1,6 @@
-# only for cleaning 
+#
+# my simple makefile act as something like a user interface
+#
 
 ifeq "${ARMHF_HOME}" ""
     $(error error: please source armhf_env first!)
@@ -8,9 +10,11 @@ ifeq "${ARMHF_BIN_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
+ifeq "${ARMHF_SRC_HOME}" ""
+    $(error error: please source armhf_env first!)
+endif
 
-.PHONY: all
-all: 
+all:: 
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|                  Nothing to build                        |"
@@ -21,19 +25,13 @@ all:
 	@echo "| make distclean          -> rm also downloaded/build parts|"	
 	@echo "+----------------------------------------------------------+"	
 
-.PHONY: clean
-clean:
+clean::
 	rm -f *~
 
-distclean: clean
-	rm -rf patch-*
-	rm -rf modules_*
-	rm -rf linux-*
+distclean::
+	rm -f *~
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -k)
 
-#
-# download latest supported kernel version as tarball and install it to
-# ./kernel/linux-$ARMHF_KERNEL_VER
-#
 get_latest_kernel:: 
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"

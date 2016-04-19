@@ -1,5 +1,5 @@
 #
-# ${ARMHF_HOME}/external/Makefile
+# my simple makefile act as something like a user interface
 #
 
 ifeq "${ARMHF_HOME}" ""
@@ -17,28 +17,21 @@ endif
 MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v documents | grep -v void-packages)
 MODULES_GIT = $(shell ls -d */ | cut -f1 -d'/')
 
-.PHONY: all
-all: 
+all::
 	@echo Cheers
 
-.PHONY: clean
-clean:
+clean::
 	rm -f *~ *.o .*~
 	for dir in $(MODULES); do (cd $$dir/ && $(MAKE) $@); done
 
-distclean: clean
+distclean::
+	rm -f *~ *.o .*~
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -e)
 
-#
-# update all cloned repos
-#
-.PHONY: update_all
-update_all:
+update_all::
 	rm -f *~ *.o
 	for dir in $(MODULES_GIT); do (cd $$dir && git pull); done
 
-#
-# clone a single external repo (on the device)
-#
 get_rt-tests::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "rt-tests" -p "http")
 

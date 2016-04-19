@@ -1,6 +1,6 @@
-# only for cleaning
-
-#MODULES = $(shell ls -d */ | cut -f1 -d'/')
+#
+# my simple makefile act as something like a user interface
+#
 
 ifeq "${ARMHF_HOME}" ""
     $(error error: please source armhf_env first!)
@@ -10,9 +10,11 @@ ifeq "${ARMHF_BIN_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
+ifeq "${ARMHF_SRC_HOME}" ""
+    $(error error: please source armhf_env first!)
+endif
 
-.PHONY: all
-all: 
+all:: 
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|                  Nothing to build                        |"
@@ -21,28 +23,28 @@ all:
 	@echo "| make get_image_tarballs -> download image tarballs       |"
 	@echo "| make get_bananapi_image_tarballs   -> download bananapi  |"
 	@echo "| image tarballs                                           |"
-	@echo "| make get_bananapi_pro_image_tarballs -> download bananapi|"
+	@echo "| make get_bananapi-pro_image_tarballs -> download bananapi|"
 	@echo "| image tarballs                                           |"
 	@echo "| make get_cubietruck_image_tarballs -> download cubietruck|"
 	@echo "| image tarballs                                           |"
 	@echo "| make get_olimex_image_tarballs     -> download olimex    |"
 	@echo "| image tarballs                                           |"
+	@echo "| ....                                                     |"
 	@echo "| make clean -> clean all dir/subdirs                      |"
 	@echo "| make distclean -> rm also downloaded/build parts         |"	
 	@echo "+----------------------------------------------------------+"	
 
-.PHONY: clean
-clean:
+clean::
 	rm -f *~ *.o .*~
-#	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
-distclean: clean
-	rm -rf *.tgz
+distclean::
+	rm -f *~ *.o .*~
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -i)
 
 #
-# download image tarballs to $ARMHF_HOME/images
+# download image tarballs
 #
-get_image_tarballs:  
+get_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|       Download all latest supported image tarballs       |"
@@ -50,8 +52,7 @@ get_image_tarballs:
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -a)
 
-
-get_bananapi_image_tarballs:  
+get_bananapi_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|     Download latest supported bananapi image tarballs    |"
@@ -60,28 +61,50 @@ get_bananapi_image_tarballs:
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
 
 
-get_bananapi_pro_image_tarballs:  
+get_bananapi_image_tarballs::  
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
-	@echo "|     Download latest supported bananapi-pro image tarballs|"
+	@echo "|        Download latest bananapi image tarballs           |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
+
+get_bananapi-pro_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest bananapi-pro image tarballs       |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -p)
 
-
-get_olimex_image_tarballs:  
+get_bananapi-pro-hdd_image_tarballs::  
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
-	@echo "|     Download latest supported olimex image tarballs      |"
+	@echo "|        Download latest bananapi-pro-hdd image tarballs   |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -o)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -e)
 
-
-get_cubietruck_image_tarballs:  
+get_cubietruck_image_tarballs::  
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
-	@echo "|     Download latest supported cubietruck image tarballs  |"
+	@echo "|        Download latest cubietruck image tarballs         |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -c)
+
+get_cubietruck-hdd_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest cubietruck-hdd image tarballs     |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -d)
+
+get_olimex_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest olimex image tarballs             |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -o)

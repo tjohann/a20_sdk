@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.04.2016/17.04.2016
+# Date/Beginn :    19.04.2016/17.04.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (apr 2016) -> first skeleton version
+# Milestones  :    V0.02 (apr 2016) -> finalize
+#                                      add content to cleanup toolchain stuff
+#                  V0.01 (apr 2016) -> first skeleton version
 #
 # Requires    :    
 #                 
@@ -48,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -57,6 +59,7 @@ MISSING_ENV='false'
 CLEAN_KERNEL='false'
 CLEAN_EXTERNAL='false'
 CLEAN_IMAGES='false'
+CLEAN_TOOLCHAIN='false'
 
 # my usage method 
 my_usage() 
@@ -68,6 +71,7 @@ my_usage()
     echo "|        [-k] -> cleanup kernel dir                      |"
     echo "|        [-e] -> cleanup external dir                    |"
     echo "|        [-i] -> cleanup image dir                       |"
+    echo "|        [-t] -> cleanup toolchain parts                 |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -109,15 +113,17 @@ _log="/tmp/clean_sdk.log"
 
 
 # check the args 
-while getopts 'hvakei' opts 2>$_log
+while getopts 'hvaketi' opts 2>$_log
 do
     case $opts in
 	k) CLEAN_KERNEL='true' ;;
 	e) CLEAN_EXTERNAL='true' ;;
 	i) CLEAN_IMAGES='true' ;;
+	t) CLEAN_TOOLCHAIN='true' ;;
 	a) CLEAN_KERNEL='true'
            CLEAN_EXTERNAL='true'
            CLEAN_IMAGES='true'
+	   CLEAN_TOOLCHAIN='true'
            ;;
         h) my_usage ;;
 	v) print_version ;;
@@ -179,10 +185,13 @@ echo " "
 if [ "$CLEAN_IMAGES" = 'true' ]; then
     if [ -d $ARMHF_BIN_HOME/images ]; then
         cd $ARMHF_BIN_HOME/images
+	rm -rf *.tgz
 	echo "cleanup image dir"
     else
-        echo "INFO: no dir images below $ARMHF_BIN_HOME" 
+        echo "INFO: no dir images below ${ARMHF_BIN_HOME}/images" 
     fi
+else
+    echo "do not clean ${ARMHF_BIN_HOME}/images"
 fi
 
 if [ "$CLEAN_EXTERNAL" = 'true' ]; then
@@ -196,8 +205,10 @@ if [ "$CLEAN_EXTERNAL" = 'true' ]; then
 	rm -rf sdk_builder
 	rm -rf u-boot
     else
-        echo "INFO: no dir external below $ARMHF_BIN_HOME" 
+        echo "INFO: no dir external below ${ARMHF_BIN_HOME}/external" 
     fi
+else
+    echo "do not clean ${ARMHF_BIN_HOME}/external"
 fi
 
 if [ "$CLEAN_KERNEL" = 'true' ]; then
@@ -208,8 +219,23 @@ if [ "$CLEAN_KERNEL" = 'true' ]; then
 	rm -rf modules_*
 	rm -rf patch-*
     else
-        echo "INFO: no dir kernel below $ARMHF_BIN_HOME" 
+        echo "INFO: no dir kernel below ${ARMHF_BIN_HOME}/kernel" 
     fi
+else
+    echo "do not clean ${ARMHF_BIN_HOME}/kernel"
+fi
+
+if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then
+    if [ -d $ARMHF_BIN_HOME ]; then
+	cd $ARMHF_BIN_HOME
+    	echo "cleanup toolchain parts"
+	rm -rf host*
+	rm -rf toolchain*
+    else
+        echo "INFO: no dir kernel below $ARMHF_BIN_HOME" 
+    fi	
+else
+    echo "do not clean toolchain parts"
 fi
 
 cleanup

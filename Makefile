@@ -30,6 +30,7 @@ all::
 	@echo "| make get_toolchain      -> install toolchain             |"
 	@echo "| make get_latest_kernel  -> download latest kernel version|"
 	@echo "| make get_image_tarballs -> download image tarballs       |"
+	@echo "| make get_..._image_tarballs -> download specific tarball |"
 	@echo "| make get_all            -> get all of the above          |"
 	@echo "| make clean              -> clean all dir/subdirs         |"
 	@echo "| make distclean          -> complete cleanup/delete       |"
@@ -43,19 +44,16 @@ clean::
 distclean: clean clean_toolchain clean_external clean_kernel clean_images
 
 clean_toolchain::
-	rm -rf $(ARMHF_BIN_HOME)/toolchain
-	rm -f $(ARMHF_BIN_HOME)/toolchain_x86_64.tgz
-	rm -rf $(ARMHF_BIN_HOME)/host
-	rm -f $(ARMHF_BIN_HOME)/host_x86_64.tgz
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -t)
 
 clean_external::
-	rm -rf $(ARMHF_BIN_HOME)/external
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -e)
 
 clean_kernel::
-	rm -rf $(ARMHF_BIN_HOME)/kernel
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -k)
 
 clean_images::
-	rm -rf $(ARMHF_BIN_HOME)/images
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -i)
 
 init_sdk: distclean 
 	@echo "+----------------------------------------------------------+"
@@ -108,3 +106,50 @@ get_image_tarballs: clean_images
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -a)
 
+get_bananapi_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest bananapi image tarballs           |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
+
+get_bananapi-pro_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest bananapi-pro image tarballs       |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -p)
+
+get_bananapi-pro-hdd_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest bananapi-pro-hdd image tarballs   |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -e)
+
+get_cubietruck_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest cubietruck image tarballs         |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -c)
+
+get_cubietruck-hdd_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest cubietruck-hdd image tarballs     |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -d)
+
+get_olimex_image_tarballs::  
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest olimex image tarballs             |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -o)
