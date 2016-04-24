@@ -15,7 +15,7 @@ ifeq "${ARMHF_SRC_HOME}" ""
 endif
 
 MODULES = bananapi bananapi-pro olimex cubietruck
-MODULES += include pics configs scripts
+MODULES += include man pics configs scripts 
 MODULES += a20_sdk a20_sdk_src
 
 all:: 
