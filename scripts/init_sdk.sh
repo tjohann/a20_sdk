@@ -29,6 +29,7 @@
 # Version     :    V0.05
 #
 # Milestones  :    V0.05 (apr 2016) -> some cleanups
+#                                      add links to documentation
 #                  V0.04 (apr 2016) -> fix wrong date
 #                                      fix user handling for rsync
 #                  V0.03 (apr 2016) -> add srcdir
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.05'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -154,6 +155,45 @@ fi
 # ******************************************************************************
 
 
+add_documentations_links()
+{
+    echo "add documentation links"
+
+    # bananapi related docs
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_kernel.txt
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_kernel.txt
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_uboot.txt
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_uboot.txt
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_jailhouse.txt
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_jailhouse.txt
+
+    # bananapi-pro related docs
+    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/bananapi-pro/howto_kernel.txt
+    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/bananapi-pro/howto_kernel.txt
+    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/bananapi-pro/howto_uboot.txt
+    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/bananapi-pro/howto_uboot.txt
+    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_hard_disk.txt $ARMHF_BIN_HOME/Documentation/bananapi-pro/howto_hard_disk.txt
+    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_hard_disk.txt $ARMHF_SRC_HOME/Documentation/bananapi-pro/howto_hard_disk.txt
+    
+    # cubietruck related docs
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_kernel.txt
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_kernel.txt
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_uboot.txt
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_uboot.txt
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_hard_disk.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_hard_disk.txt
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_hard_disk.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_hard_disk.txt
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_jailhouse.txt
+    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_jailhouse.txt
+
+    # olimex related docs
+    ln -s $ARMHF_HOME/olimex/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/olimex/howto_kernel.txt
+    ln -s $ARMHF_HOME/olimex/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/olimex/howto_kernel.txt
+    ln -s $ARMHF_HOME/olimex/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/olimex/howto_uboot.txt
+    ln -s $ARMHF_HOME/olimex/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/olimex/howto_uboot.txt
+    ln -s $ARMHF_HOME/olimex/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/olimex/howto_jailhouse.txt
+    ln -s $ARMHF_HOME/olimex/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/olimex/howto_jailhouse.txt
+}
+
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
@@ -180,6 +220,7 @@ if [ -d $ARMHF_BIN_HOME ]; then
     rsync -av --delete $ARMHF_HOME/a20_sdk/. .
 else
     echo "$ARMHF_BIN_HOME does not exist"
+    cleanup
 fi
 
 if [ -d $ARMHF_SRC_HOME ]; then
@@ -192,10 +233,17 @@ fi
 if [ -d $ARMHF_SRC_HOME ]; then
     cd $ARMHF_SRC_HOME
     echo "Rsync content of $ARMHF_HOME/a20_sdk_src/ to $ARMHF_SRC_HOME"
-    rsync -av $ARMHF_HOME/a20_sdk_src/. .
+    rsync -av --delete $ARMHF_HOME/a20_sdk_src/. .
 else
     echo "$ARMHF_SRC_HOME does not exist"
+    cleanup
 fi
+
+add_documentations_links
+
+# finally set correct group and user
+echo "Create $ARMHF_BIN_HOME -> need sudo rights! "
+sudo chown $USER:users $ARMHF_BIN_HOME
 
 cleanup
 echo " "

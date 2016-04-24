@@ -10,32 +10,30 @@ As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_b
 Requirement
 -----------
 
-The only yet know requirements are git and rsync.
+The only yet know requirements are git (to clone/update runtimedir) and rsync (to sync content below workdir and srcdir).
 
 
 Description
 -----------
 
-The a20_sdk use 2 different locations:
+The a20_sdk use 3 different locations:
 
+	/var/lib/a20_sdk
     /opt/a20_sdk
-
-
-and
-
-    /var/lib/a20_sdk
-
+	${HOME}/src/a20_sdk
 
 
 The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS for those info.
 
-Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories (/opt/a20_sdk/external). Also useful could be the download of kernel and RT-PREEMPT patch to /opt/a20_sdk/kernel. The whole content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore (Note: make distclean removes all content in the working dir /opt/a20_sdk).
+Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories (/opt/a20_sdk/external). Also useful could be the download of kernel and RT-PREEMPT patch to /opt/a20_sdk/kernel. The whole content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore (Note: make distclean removes all downloaded/untared content in the working dir /opt/a20_sdk).
+
+The sdk comes with documentation and source code examples. You can find it in ${HOME}/src/a20_sdk (docs also in /opt/a20_sdk/Documentation).
 
 
 Setup
 -----
 
-Follow the steps below to setup your enviroment. If you use my sdk_builder, then the tool will do this all for you.
+Follow the steps below to setup your enviroment. If you use my sdk_builder (not finshed yet), then the tool will do this all for you.
 
 
 
@@ -46,7 +44,7 @@ Create the runtime locations:
 
 Change group to users and chmod it to 775:
 
-    chgrp -R users /var/lib/a20_sdk
+    chown -R YOUR_USER_ACCOUNT:users /var/lib/a20_sdk
     chmod 775 /var/lib/a20_sdk
 
 
@@ -63,8 +61,8 @@ Source the environment file armhf_env
 or add it to your .bashrc 
 
     # setup the a20_sdk environment
-    if [ -f /var/lib/a20_sdk/armhf_enf ]; then
-      . /var/lib/a20_sdk/armhf_enf 
+    if [ -f /var/lib/a20_sdk/armhf_env ]; then
+      . /var/lib/a20_sdk/armhf_env 
     fi
 
 
@@ -75,6 +73,7 @@ or copy armhf_env.sh to /etc/profile.d/
 
 Init the SDK:
 
+	cd /opt/a20_sdk (or /var/lib/a20_sdk)
     make init_sdk
 
 
@@ -83,22 +82,35 @@ Download the compiler to /opt/a20_sdk/
     make get_toolchain
 
 
-Download ALL images to /opt/a20_sdk/images/ 
+Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~6 GByte)
 
     make get_image_tarballs
 
 
-If you're only intrested in one device (like Cubietruck), then see the device specifics below.
+If you're only interested in one device (like Cubietruck), then you only need
+	
+	make get_cubietruck_image_tarballs
 
 
 Clone ALL external repos:
 
     make get_external_repos
+	
+
+If you only need/want u-boot, then you only need
+
+	cd /opt/a20_sdk/external
+	make uboot
 
 
-Download latest supported kernel:
+Download latest supported kernel sources (for normal use and with RT_PREEMPT support):
 
     make get_latest_kernel
+	
+
+if you only need/want the RT-PREEMPT parts, then you only need 
+
+	make get_latest_rt_kernel
 
 
 Now you should have the complete content on your disk.
@@ -121,7 +133,6 @@ Take a look at the NEWS file to see what i've changed. See also UPGRADE_HINTS.
 
 
 If there're changes of the toolchain, then fist distclean all:
-
 
     make distclean
 

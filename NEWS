@@ -5,6 +5,8 @@
 
 2016-04-24 -> ## script stuff
 	      fix some minor problems within init_sdk.sh
+	      add arguments to get_latest_linux_kernel.sh to support download of
+	      only rt or nonrt kernel parts
 
 2016-04-23 -> ## target stuff
 	      update bananapi to 4.4.8 and 4.4.7-rt16

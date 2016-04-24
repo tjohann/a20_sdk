@@ -4,6 +4,16 @@
 
 
 #
+# -------------- 2016-04-24 ----------------------------------------------------
+#
+
+## sdk/script stuff
+- add Documentation to workdir/srcdir                       [2016-04-24 -> done]
+- add link of howto_kernel* to /opt/a20_sdk/Documentation   [2016-04-24 -> done]
+- add support to download only only kernel (RT or NON-RT)   [2016-04-24 -> done]
+
+
+#
 # -------------- 2016-04-17 ----------------------------------------------------
 #
 

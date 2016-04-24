@@ -24,9 +24,9 @@
 #
 ################################################################################
 #
-# Date/Beginn :    10.04.2016/15.08.2015
+# Date/Beginn :    24.04.2016/15.08.2015
 #
-# Version     :    V0.07
+# Version     :    V0.08
 #
 # Milestones  :    V0.07 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
 #                                      fix wrong rt-preempt-patch download link
@@ -56,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.07'
+VER='0.08'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -66,6 +66,10 @@ KERNEL_VER='none'
 RT_KERNEL_VER='none'
 DOWNLOAD_STRING='none'
 
+# what to download
+DOWNLOAD_RT='false'
+DOWNLOAD_NONRT='false'
+
 # my usage method 
 my_usage() 
 {
@@ -74,6 +78,9 @@ my_usage()
     echo "| Usage: ./get_latest_linux_kernel.sh                    |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
+    echo "|        [-r] -> download only rt kernel parts           |"
+    echo "|        [-n] -> download only non-rt kernel parts       |"
+    echo "|        [-a] -> download all parts                      |"
     echo "|                                                        |"
     echo "| This small tool download based on the values of        |"
     echo "| ARMHF_KERNEL_VER, ARMHF_RT_KERNEL_VER and              |"
@@ -117,9 +124,14 @@ _log="/tmp/get_latest_linux_kernel.log"
 
 
 # check the args 
-while getopts 'hv' opts 2>$_log
+while getopts 'hvrna' opts 2>$_log
 do
     case $opts in
+	r) DOWNLOAD_RT='true' ;;
+	n) DOWNLOAD_NONRT='true' ;;
+	a) DOWNLOAD_RT='true'
+	   DOWNLOAD_NONRT='true'
+	   ;;
         h) my_usage ;;
 	v) print_version ;;
         ?) my_usage ;;
@@ -264,21 +276,24 @@ else
     cd $ARMHF_BIN_HOME/kernel
 fi
 
-# FULL_RT_PREEMPT handling
-KERNEL_VER=$ARMHF_RT_KERNEL_VER
-echo "INFO: set kernel version to linux-$KERNEL_VER and linux-$RT_KERNEL_VER "
-get_kernel_source
+if [ "$DOWNLOAD_RT" = 'true' ]; then 
+    # FULL_RT_PREEMPT handling
+    KERNEL_VER=$ARMHF_RT_KERNEL_VER
+    echo "INFO: set kernel version to linux-$KERNEL_VER and linux-$RT_KERNEL_VER "
+    get_kernel_source
+    
+    # mv linux-$ARMHF_RT_KERNEL_VER to linux-$ARMHF_RT_KERNEL_VER_rt
+    mv linux-${ARMHF_RT_KERNEL_VER} linux-${ARMHF_RT_KERNEL_VER}_rt
 
-# mv linux-$ARMHF_RT_KERNEL_VER to linux-$ARMHF_RT_KERNEL_VER_rt
-mv linux-${ARMHF_RT_KERNEL_VER} linux-${ARMHF_RT_KERNEL_VER}_rt
+    # rt-preempt patch
+    get_rt_patch_source
+fi
 
-# PREEMPT handling
-KERNEL_VER=$ARMHF_KERNEL_VER
-get_kernel_source
-
-# rt-preempt patch handling
-KERNEL_VER=$ARMHF_RT_KERNEL_VER
-get_rt_patch_source
+if [ "$DOWNLOAD_NONRT" = 'true' ]; then
+    # PREEMPT handling
+    KERNEL_VER=$ARMHF_KERNEL_VER
+    get_kernel_source
+fi
 
 cleanup
 echo " "

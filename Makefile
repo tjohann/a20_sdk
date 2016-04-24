@@ -88,7 +88,23 @@ get_latest_kernel::
 	@echo "|        Download latest supported kernel version          |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh)
+	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh -a)
+
+get_latest_rt_kernel::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest supported rt kernel version       |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh -r)
+
+get_latest_nonrt_kernel::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest supported nonrt kernel version    |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh -n)
 
 get_toolchain::
 	@echo "+----------------------------------------------------------+"

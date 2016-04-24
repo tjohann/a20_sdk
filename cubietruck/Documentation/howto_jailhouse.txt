@@ -1,0 +1,139 @@
+
+               ==================================
+               how to use jailhouse on a bananapi
+               ==================================
+
+Author: Thorsten Johannvorderbrueggen
+Email:  thorsten.johannvorderbrueggen@t-online.de
+Date:   12.01.2016/12.01.2016
+
+Content:
+
+- Clone jailhouse repo
+
+- U-boot
+  -- U-Boot additions for boot.scr
+  -- boot.cmd for bananapi
+
+- Using jailhouse
+  -- List available cells
+  -- Load kernel driver
+  -- Enable root cell
+  -- Create uart demo cell
+  -- Load inmate for uart demo
+  -- Start uart demo -> see output on uart7
+  -- Shutdown/destroy uart cell
+
+- UART configuration
+  -- Device
+  -- Address
+    
+
+
+Clone jailhouse repo
+====================
+
+git clone http://github.com/siemens/jailhouse.git
+
+
+
+U-Boot
+======
+
+U-Boot additions for boot.scr
+-----------------------------
+
+mem=960M vmalloc=512M
+
+
+boot.cmd for bananapi
+---------------------
+
+fatload mmc 0 0x46000000 uImage
+fatload mmc 0 0x49000000 sun7i-a20-bananapi.dtb
+setenv bootargs console=ttyS0,115200 loglevel=9 <earlyprintk> mem=960M vmalloc=512M root=/dev/mmcblk0p2 rootwait panic=10 
+bootm 0x46000000 - 0x49000000
+
+
+
+Using jailhouse
+===============
+
+We use uart7 as jailhouse console (see below)
+
+
+List available cells
+--------------------
+
+bananapi:/usr/src/jailhouse$ jailhouse cell list
+ID      Name                    State           Assigned CPUs           Failed CPUs             
+0       Banana-Pi               running         0                                               
+1       bananapi-uart-demo      shut down       1                                               
+
+
+Load kernel driver
+------------------
+
+bananapi:/usr/src/jailhouse$ modprobe jailhouse
+
+
+Enable root cell
+----------------
+
+bananapi:/usr/src/jailhouse$ jailhouse enable configs/bananapi.cell
+
+
+Create uart demo cell
+---------------------
+
+bananapi:/usr/src/jailhouse$ jailhouse cell create configs/bananapi-uart-demo.cell
+
+
+Load inmate for uart demo
+-------------------------
+
+bananapi:/usr/src/jailhouse$ jailhouse cell load bananapi-uart-demo inmates/demos/arm/uart-demo.bin
+
+
+Start uart demo -> see output on uart7
+--------------------------------------
+
+bananapi:/usr/src/jailhouse$ jailhouse cell start bananapi-uart-demo
+
+
+Shutdown/destroy uart cell
+--------------------------
+
+bananapi:/usr/src/jailhouse$ jailhouse cell list
+ID      Name                    State           Assigned CPUs           Failed CPUs             
+0       Banana-Pi               running         0                                               
+1       bananapi-uart-demo      running         1                                               
+
+bananapi:/usr/src/jailhouse$ jailhouse cell shutdown 1
+
+bananapi:/usr/src/jailhouse$ jailhouse cell list
+ID      Name                    State           Assigned CPUs           Failed CPUs             
+0       Banana-Pi               running         0                                               
+1       bananapi-uart-demo      shut down       1                                               
+bananapi:/usr/src/jailhouse$ jailhouse cell destroy 1
+
+bananapi:/usr/src/jailhouse$ jailhouse cell list
+ID      Name                    State           Assigned CPUs           Failed CPUs             
+0       Banana-Pi               running         0,1       
+
+
+
+UART configuration
+==================
+
+Device
+------
+
+uart-8250-dw ... see config.h
+
+Address
+-------
+
+inmates/lib/arm/include/mach-sun7i/mach/uart.h
+#define UART_BASE	((void *)0x01c29c00)     <- see A20-datasheet -> uart7
+
