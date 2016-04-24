@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    09.04.2016/25.01.2016
+# Date/Beginn :    24.04.2016/25.01.2016
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (apr 2016) -> fix wrong date
+# Milestones  :    V0.05 (apr 2016) -> some cleanups
+#                  V0.04 (apr 2016) -> fix wrong date
 #                                      fix user handling for rsync
 #                  V0.03 (apr 2016) -> add srcdir
 #                  V0.02 (feb 2016) -> init working-dir 
@@ -173,13 +174,12 @@ else
     sudo chmod 775 $ARMHF_BIN_HOME
 fi
 
-# check only one makefile -> should be good enough
-if [ -f $ARMHF_BIN_HOME/external/Makefile ]; then
-    echo "$ARMHF_BIN_HOME/external/Makefile already available"
-else
-    cd $ARMHF_BIN_HOME
+if [ -d $ARMHF_BIN_HOME ]; then
     echo "Rsync content of $ARMHF_HOME/a20_sdk/ to $ARMHF_BIN_HOME"
-    rsync -av $ARMHF_HOME/a20_sdk/. .
+    cd $ARMHF_BIN_HOME
+    rsync -av --delete $ARMHF_HOME/a20_sdk/. .
+else
+    echo "$ARMHF_BIN_HOME does not exist"
 fi
 
 if [ -d $ARMHF_SRC_HOME ]; then
@@ -189,15 +189,13 @@ else
     mkdir -p $ARMHF_SRC_HOME
 fi
 
-# check only one makefile -> should be good enough
-if [ -f $ARMHF_SRC_HOME/include/Makefile ]; then
-    echo "$ARMHF_SRC_HOME/include/Makefile already available"
-else
+if [ -d $ARMHF_SRC_HOME ]; then
     cd $ARMHF_SRC_HOME
     echo "Rsync content of $ARMHF_HOME/a20_sdk_src/ to $ARMHF_SRC_HOME"
     rsync -av $ARMHF_HOME/a20_sdk_src/. .
+else
+    echo "$ARMHF_SRC_HOME does not exist"
 fi
-
 
 cleanup
 echo " "

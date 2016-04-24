@@ -2,6 +2,10 @@
 # some news ... see also TODO for hints
 #
 
+
+2016-04-24 -> ## script stuff
+	      fix some minor problems within init_sdk.sh
+
 2016-04-23 -> ## target stuff
 	      update bananapi to 4.4.8 and 4.4.7-rt16
 	      
