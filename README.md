@@ -193,7 +193,8 @@ Kernel
 ------
 
 	Olimex -> RT-PREEMPT and PREEMPT kernel
-	Bananapi -> RT-PREEMPT and PREEMPT kernel
+	Bananapi -> RT-PREEMPT
+	Baalue-Node -> PREEMPT kernel
 	Bananapi-Pro -> "normal" desktop kernel (sunxi-kernel) and PREEMPT kernel (mainline)
 	Cubietruck -> PREEMPT kernel
 	
