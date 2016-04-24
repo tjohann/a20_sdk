@@ -32,6 +32,9 @@ update_all::
 	rm -f *~ *.o
 	for dir in $(MODULES_GIT); do (cd $$dir && git pull); done
 
+get_external_repos::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -p "git")
+
 get_rt-tests::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "rt-tests" -p "http")
 

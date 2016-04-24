@@ -70,7 +70,7 @@ get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 
-get_external_repos: clean_external
+get_external_repos::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|               Clone useful external repos                |"
@@ -78,7 +78,7 @@ get_external_repos: clean_external
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -p "git")
 
-get_latest_kernel: clean_kernel
+get_latest_kernel::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest supported kernel version          |"
@@ -86,7 +86,7 @@ get_latest_kernel: clean_kernel
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh)
 
-get_toolchain: clean_toolchain 
+get_toolchain::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest supported toolchain version       |"
@@ -94,7 +94,7 @@ get_toolchain: clean_toolchain
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_toolchain.sh)
 
-get_image_tarballs: clean_images 
+get_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest supported image tarballs          |"
