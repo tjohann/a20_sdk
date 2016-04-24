@@ -3,10 +3,20 @@
 #
 
 
+################## 2016-04-24 -> A20_SDK_V0.1.4 ############################
+
+
 2016-04-24 -> ## script stuff
 	      fix some minor problems within init_sdk.sh
 	      add arguments to get_latest_linux_kernel.sh to support download of
 	      only rt or nonrt kernel parts
+
+	      ## target stuff (bananapi/baalue)
+	      regular updates 
+	      add file /etc/A20_SDK_DATE.txt with date of latest complete update
+	      update hosts list to reflect all embedded devices i use in my
+	      small virtual network
+	      
 
 2016-04-23 -> ## target stuff
 	      update bananapi to 4.4.8 and 4.4.7-rt16
