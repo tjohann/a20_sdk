@@ -52,3 +52,6 @@ get_allwinner::
 
 get_sdk_builder::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "sdk_builder" -p "https")
+
+get_lcd1602::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "lcd1602" -p "https")

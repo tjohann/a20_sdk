@@ -12,6 +12,7 @@ Addtional Repos
 	# can-utils -> https://github.com/linux-can/can-utils.git
 	# jailhouse -> git://github.com/siemens/jailhouse.git
 	# allwinner -> http://github.com/allwinner-zh/documents.git
-	# sdk_builder -> "http://github.com/tjohann/sdk_builder.git"
+	# sdk_builder -> http://github.com/tjohann/sdk_builder.git
+	# lcd1602 -> http://github.com/tjohann/lcd160x_driver.git
 
 

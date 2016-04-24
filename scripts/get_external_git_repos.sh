@@ -24,12 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    10.04.2016/15.08.2015
+# Date/Beginn :    24.04.2016/15.08.2015
 #
 # Version     :    V0.20
 #
 # Milestones  :    V0.20 (apr 2016) -> some more cleanups of unused repos
 #                                      create $ARMHF_BIN_HOME/* if it not exist
+#                                      add https://github.com/tjohann/lcd160x_driver.git 
 #                  V0.19 (apr 2016) -> some cleanups of unused repos
 #                  V0.18 (mar 2016) -> add a20_sdk
 #                  V0.17 (mar 2016) -> add missing check for dir 
@@ -89,6 +90,7 @@ MISSING_ENV='false'
 # sdk_builder -> "://github.com/tjohann/sdk_builder.git"
 # a20_sdk -> "://github.com/tjohann/a20_sdk.git"
 # allwinner -> "://github.com/allwinner-zh/documents.git"
+# lcd1602 -> "://github.com/tjohann/lcd160x_driver.git"
 REPO='none'
 
 # PROTOCOL
@@ -122,6 +124,7 @@ my_usage()
     echo "| REPO: jailhouse -> jailhouse hypervisor                |"
     echo "| REPO: allwinner -> allwinners docs                     |"
     echo "| REPO: sdk_builder -> my sdk builder tool               |"
+    echo "| REPO: lcd1602 -> my simple lcd driver                  |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -233,6 +236,7 @@ set_repo_names()
     jailhouse="://github.com/siemens/jailhouse.git"
     allwinner="://github.com/allwinner-zh/documents.git"
     sdk_builder="://github.com/tjohann/sdk_builder.git"
+    lcd1602="://github.com/tjohann/lcd160x_driver.git"
     
     # array with all available repos
     repo_names_array[0]=${rt_tests}
@@ -241,6 +245,7 @@ set_repo_names()
     repo_names_array[3]=${jailhouse}
     repo_names_array[4]=${allwinner}
     repo_names_array[5]=${sdk_builder}
+    repo_names_array[6]=${lcd1602}
 }
 
 
@@ -251,23 +256,11 @@ get_repo_name()
 	'rt-tests')
 	    REPO_NAME="${PROTOCOL}${rt_tests}"
 	    ;;
-	'ipipe')
-	    REPO_NAME="${PROTOCOL}${ipipe}"
-	    ;;
-	'xenomai')
-	    REPO_NAME="${PROTOCOL}${xenomai}"
-	    ;;
 	'uboot')
 	    REPO_NAME="${PROTOCOL}${uboot}"
 	    ;;
-	'mydriver')
-	    REPO_NAME="${PROTOCOL}${mydriver}"
-	    ;;
 	'can-utils')
 	    REPO_NAME="${PROTOCOL}${can_utils}"
-	    ;;
-	'void-packages')
-	    REPO_NAME="${PROTOCOL}${void_packages}"
 	    ;;
 	'jailhouse')
 	    REPO_NAME="${PROTOCOL}${jailhouse}"
@@ -278,8 +271,8 @@ get_repo_name()
 	'sdk_builder')
 	    REPO_NAME="${PROTOCOL}${sdk_builder}"
 	    ;;
-	'a20_sdk')
-	    REPO_NAME="${PROTOCOL}${a20_sdk}"
+	'lcd1602')
+	    REPO_NAME="${PROTOCOL}${lcd1602}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check"

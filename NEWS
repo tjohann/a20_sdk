@@ -5,6 +5,9 @@
 2016-04-24 -> ## target stuff
 	      add my baalue cluster node as regular device
 
+ 	      ## script stuff
+	      add https://github.com/tjohann/lcd160x_driver.git to external
+
 
 ################## 2016-04-24 -> A20_SDK_V0.1.4 ############################
 
