@@ -182,8 +182,8 @@ add_documentations_links()
     ln -s $ARMHF_HOME/cubietruck/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_uboot.txt
     ln -s $ARMHF_HOME/cubietruck/Documentation/howto_hard_disk.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_hard_disk.txt
     ln -s $ARMHF_HOME/cubietruck/Documentation/howto_hard_disk.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_hard_disk.txt
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_jailhouse.txt
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_jailhouse.txt
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_jailhouse.txt
+    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_jailhouse.txt
 
     # olimex related docs
     ln -s $ARMHF_HOME/olimex/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/olimex/howto_kernel.txt
