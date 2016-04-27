@@ -55,3 +55,6 @@ get_sdk_builder::
 
 get_lcd1602::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "lcd1602" -p "https")
+
+get_mydriver::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "mydriver" -p "https")
