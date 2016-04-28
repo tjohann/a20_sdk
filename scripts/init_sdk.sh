@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.04.2016/25.01.2016
+# Date/Beginn :    28.04.2016/25.01.2016
 #
-# Version     :    V0.05
+# Version     :    V0.06
 #
-# Milestones  :    V0.05 (apr 2016) -> some cleanups
+# Milestones  :    V0.06 (apr 2016) -> use rsync for all links
+#                                      some smaller fixes
+#                  V0.05 (apr 2016) -> some cleanups
 #                                      add links to documentation
 #                  V0.04 (apr 2016) -> fix wrong date
 #                                      fix user handling for rsync
@@ -54,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='0.06'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -157,41 +159,61 @@ fi
 
 add_documentations_links()
 {
-    echo "add documentation links"
-
     # bananapi related docs
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_kernel.txt
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_kernel.txt
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_uboot.txt
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_uboot.txt
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/bananapi/howto_jailhouse.txt
-    ln -s $ARMHF_HOME/bananapi/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/bananapi/howto_jailhouse.txt
-
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/bananapi
+	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi"
+    fi
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/bananapi
+	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi"
+    fi
+	
     # bananapi-pro related docs
-    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/bananapi-pro/howto_kernel.txt
-    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/bananapi-pro/howto_kernel.txt
-    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/bananapi-pro/howto_uboot.txt
-    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/bananapi-pro/howto_uboot.txt
-    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_hard_disk.txt $ARMHF_BIN_HOME/Documentation/bananapi-pro/howto_hard_disk.txt
-    ln -s $ARMHF_HOME/bananapi-pro/Documentation/howto_hard_disk.txt $ARMHF_SRC_HOME/Documentation/bananapi-pro/howto_hard_disk.txt
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi-pro ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/bananapi-pro
+	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi-pro"
+    fi
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi-pro ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/bananapi-pro
+	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi-pro"
+    fi
     
     # cubietruck related docs
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_kernel.txt
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_kernel.txt
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_uboot.txt
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_uboot.txt
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_hard_disk.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_hard_disk.txt
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_hard_disk.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_hard_disk.txt
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/cubietruck/howto_jailhouse.txt
-    ln -s $ARMHF_HOME/cubietruck/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/cubietruck/howto_jailhouse.txt
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/cubietruck ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/cubietruck
+	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/cubietruck"
+    fi
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/cubietruck ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/cubietruck
+	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/cubietruck"
+    fi
 
     # olimex related docs
-    ln -s $ARMHF_HOME/olimex/Documentation/howto_kernel.txt $ARMHF_BIN_HOME/Documentation/olimex/howto_kernel.txt
-    ln -s $ARMHF_HOME/olimex/Documentation/howto_kernel.txt $ARMHF_SRC_HOME/Documentation/olimex/howto_kernel.txt
-    ln -s $ARMHF_HOME/olimex/Documentation/howto_uboot.txt $ARMHF_BIN_HOME/Documentation/olimex/howto_uboot.txt
-    ln -s $ARMHF_HOME/olimex/Documentation/howto_uboot.txt $ARMHF_SRC_HOME/Documentation/olimex/howto_uboot.txt
-    ln -s $ARMHF_HOME/olimex/Documentation/howto_jailhouse.txt $ARMHF_BIN_HOME/Documentation/olimex/howto_jailhouse.txt
-    ln -s $ARMHF_HOME/olimex/Documentation/howto_jailhouse.txt $ARMHF_SRC_HOME/Documentation/olimex/howto_jailhouse.txt
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/olimex ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/olimex
+	rsync -av --delete ${ARMHF_HOME}/olimex/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/olimex"
+    fi
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/olimex ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/olimex
+	rsync -av --delete ${ARMHF_HOME}/olimex/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/olimex"
+    fi
 }
 
 
@@ -215,9 +237,9 @@ else
 fi
 
 if [ -d $ARMHF_BIN_HOME ]; then
-    echo "Rsync content of $ARMHF_HOME/a20_sdk/ to $ARMHF_BIN_HOME"
+    echo "Rsync content of ${ARMHF_HOME}/a20_sdk/ to $ARMHF_BIN_HOME"
     cd $ARMHF_BIN_HOME
-    rsync -av --delete $ARMHF_HOME/a20_sdk/. .
+    rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
 else
     echo "$ARMHF_BIN_HOME does not exist"
     cleanup
@@ -232,8 +254,8 @@ fi
 
 if [ -d $ARMHF_SRC_HOME ]; then
     cd $ARMHF_SRC_HOME
-    echo "Rsync content of $ARMHF_HOME/a20_sdk_src/ to $ARMHF_SRC_HOME"
-    rsync -av --delete $ARMHF_HOME/a20_sdk_src/. .
+    echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
+    rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
 else
     echo "$ARMHF_SRC_HOME does not exist"
     cleanup
