@@ -1,0 +1,18 @@
+#
+# howto connect a lcd1602 directly to a cubietruck
+#
+
+
+TODO: check
+-----------
+PG03	<->	D7
+PB19	<->	D6
+PB18	<->	D5
+PG16	<->	D4
+
+PG05	<->	E
+PG04	<->	RS
+
+gnd	<->	RW
+
+Notes: 3.3V! Maybe the display is to dark ... 
