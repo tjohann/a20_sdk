@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    19.04.2016/17.04.2016
+# Date/Beginn :    09.05.2016/17.04.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (apr 2016) -> finalize
+# Milestones  :    V0.03 (may 2016) -> add missing externals
+#                                      add cleanup $ARMHF_SRC_DIR
+#                  V0.02 (apr 2016) -> finalize
 #                                      add content to cleanup toolchain stuff
 #                  V0.01 (apr 2016) -> first skeleton version
 #
@@ -50,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -60,6 +62,7 @@ CLEAN_KERNEL='false'
 CLEAN_EXTERNAL='false'
 CLEAN_IMAGES='false'
 CLEAN_TOOLCHAIN='false'
+CLEAN_USER='false'
 
 # my usage method 
 my_usage() 
@@ -72,6 +75,7 @@ my_usage()
     echo "|        [-e] -> cleanup external dir                    |"
     echo "|        [-i] -> cleanup image dir                       |"
     echo "|        [-t] -> cleanup toolchain parts                 |"
+    echo "|        [-u] -> cleanup user home dir parts             |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -113,7 +117,7 @@ _log="/tmp/clean_sdk.log"
 
 
 # check the args 
-while getopts 'hvaketi' opts 2>$_log
+while getopts 'hvaketiu' opts 2>$_log
 do
     case $opts in
 	k) CLEAN_KERNEL='true' ;;
@@ -124,6 +128,7 @@ do
            CLEAN_EXTERNAL='true'
            CLEAN_IMAGES='true'
 	   CLEAN_TOOLCHAIN='true'
+	   CLEAN_USER='true'
            ;;
         h) my_usage ;;
 	v) print_version ;;
@@ -204,6 +209,8 @@ if [ "$CLEAN_EXTERNAL" = 'true' ]; then
 	rm -rf rt-tests
 	rm -rf sdk_builder
 	rm -rf u-boot
+	rm -rf mydriver
+	rm -rf lcd160x_driver
     else
         echo "INFO: no dir external below ${ARMHF_BIN_HOME}/external" 
     fi
@@ -232,7 +239,24 @@ if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then
 	rm -rf host*
 	rm -rf toolchain*
     else
-        echo "INFO: no dir kernel below $ARMHF_BIN_HOME" 
+        echo "INFO: no $ARMHF_BIN_HOME" 
+    fi	
+else
+    echo "do not clean toolchain parts"
+fi
+
+if [ "$CLEAN_USER" = 'true' ]; then
+    if [ -d $ARMHF_SRC_HOME ]; then
+	cd $ARMHF_SRC_HOME
+    	echo "cleanup user specific parts"
+	rm -rf Documentation
+	rm -rf armhf_env*
+	rm -rf bin
+	rm -rf examples
+	rm -rf include
+	rm -rf lib*
+    else
+        echo "INFO: no $ARMHF_SRC_HOME" 
     fi	
 else
     echo "do not clean toolchain parts"

@@ -19,10 +19,21 @@ MODULES = $(shell ls -d */ | cut -f1 -d'/')
 all::
 	@echo Cheers
 
+clean_user_home::
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -u)
+
 clean::
 	rm -f *~
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
-distclean::
+distclean: clean_user_home
 	rm -f *~
-	rm -rf $(ARMHF_SRC_HOME)/{include,lib,lib_target,examples,bin}
+
+init_user_home: clean_user_home 
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Init $USER specific SDK parts               |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/init_sdk.sh -u)
+

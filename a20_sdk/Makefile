@@ -39,7 +39,7 @@ clean::
 	rm -f *~
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
-distclean: clean clean_toolchain clean_external clean_kernel clean_images
+distclean: clean clean_toolchain clean_external clean_kernel clean_images clean_user_home
 
 clean_toolchain::
 	($(ARMHF_HOME)/scripts/clean_sdk.sh -t)
@@ -53,14 +53,35 @@ clean_kernel::
 clean_images::
 	($(ARMHF_HOME)/scripts/clean_sdk.sh -i)
 
+clean_user_home::
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -u)
+
+clean_opt: clean_toolchain clean_external clean_kernel clean_images
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -u)
+
 init_sdk: distclean 
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|              Init SDK -> you may need sudo               |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	rm -rf $(ARMHF_SRC_HOME)/{include,lib,lib_target,examples,bin}
-	($(ARMHF_HOME)/scripts/init_sdk.sh)
+	($(ARMHF_HOME)/scripts/init_sdk.sh -a)
+
+init_user_home: clean_user_home 
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Init $USER specific SDK parts               |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/init_sdk.sh -u)
+
+init_opt: clean_opt
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Init SDK (/opt) -> you may need sudo        |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/init_sdk.sh -o)
 
 # run all get actions in sequence
 get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel 

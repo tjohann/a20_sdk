@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    28.04.2016/25.01.2016
+# Date/Beginn :    09.05.2016/25.01.2016
 #
-# Version     :    V0.06
+# Version     :    V0.07
 #
-# Milestones  :    V0.06 (apr 2016) -> use rsync for all links
+# Milestones  :    V0.07 (may 2016) -> add argument to init home and opt
+#                  V0.06 (apr 2016) -> use rsync for all links
 #                                      some smaller fixes
 #                  V0.05 (apr 2016) -> some cleanups
 #                                      add links to documentation
@@ -56,10 +57,14 @@
 #
 
 # VERSION-NUMBER
-VER='0.06'
+VER='0.07'
 
 # if env is sourced 
 MISSING_ENV='false'
+
+# init only user home dir
+INIT_USER_HOME='false'
+INIT_OPT='false'
 
 # my usage method 
 my_usage() 
@@ -67,6 +72,9 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ./init_sdk.sh                                   |"
+    echo "|        [-u] -> init only $HOME/src/a20_sdk (srcdir)    |"
+    echo "|        [-o] -> init only /opt/a20_sdk (workdir)        |"
+    echo "|        [-a] -> init both                               |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -108,10 +116,15 @@ _log="/tmp/init_sdk.log"
 
 
 # check the args 
-while getopts 'hv' opts 2>$_log
+while getopts 'hvu' opts 2>$_log
 do
     case $opts in
-        h) my_usage ;;
+        u) INIT_USER_HOME='true' ;;
+        o) INIT_OPT='true' ;;
+	a) INIT_OPT='true'
+	   INIT_USER_HOME='true'
+	   ;;
+	h) my_usage ;;
 	v) print_version ;;
         ?) my_usage ;;
     esac
@@ -156,8 +169,7 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-
-add_documentations_links()
+add_documentations_links_opt()
 {
     # bananapi related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi ]; then
@@ -165,12 +177,6 @@ add_documentations_links()
 	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi"
-    fi
-    if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi ]; then
-	cd ${ARMHF_SRC_HOME}/Documentation/bananapi
-	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
-    else
-	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi"
     fi
 	
     # bananapi-pro related docs
@@ -180,12 +186,6 @@ add_documentations_links()
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi-pro"
     fi
-    if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi-pro ]; then
-	cd ${ARMHF_SRC_HOME}/Documentation/bananapi-pro
-	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
-    else
-	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi-pro"
-    fi
     
     # cubietruck related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/cubietruck ]; then
@@ -193,12 +193,6 @@ add_documentations_links()
 	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/cubietruck"
-    fi
-    if [ -d ${ARMHF_SRC_HOME}/Documentation/cubietruck ]; then
-	cd ${ARMHF_SRC_HOME}/Documentation/cubietruck
-	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
-    else
-	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/cubietruck"
     fi
 
     # olimex related docs
@@ -208,6 +202,35 @@ add_documentations_links()
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/olimex"
     fi
+}
+
+add_documentations_links_home()
+{
+    # bananapi related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/bananapi
+	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi"
+    fi
+	
+    # bananapi-pro related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi-pro ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/bananapi-pro
+	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi-pro"
+    fi
+    
+    # cubietruck related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/cubietruck ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/cubietruck
+	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/cubietruck"
+    fi
+
+    # olimex related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/olimex ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/olimex
 	rsync -av --delete ${ARMHF_HOME}/olimex/Documentation/. .
@@ -227,45 +250,50 @@ echo "|             init the sdk               |"
 echo "+----------------------------------------+"
 echo " "
 
-if [ -d $ARMHF_BIN_HOME ]; then
-    echo "$ARMHF_BIN_HOME already available"
-else
-    echo "Create $ARMHF_BIN_HOME -> need sudo rights! "
-    sudo mkdir -p $ARMHF_BIN_HOME
+if [ "$INIT_OPT" = 'true' ]; then
+    if [ -d $ARMHF_BIN_HOME ]; then
+	echo "$ARMHF_BIN_HOME already available"
+    else
+	echo "Create $ARMHF_BIN_HOME -> need sudo rights! "
+	sudo mkdir -p $ARMHF_BIN_HOME
+	sudo chown $USER:users $ARMHF_BIN_HOME
+	sudo chmod 775 $ARMHF_BIN_HOME
+    fi
+
+    if [ -d $ARMHF_BIN_HOME ]; then
+	echo "Rsync content of ${ARMHF_HOME}/a20_sdk/ to $ARMHF_BIN_HOME"
+	cd $ARMHF_BIN_HOME
+	rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
+    else
+	echo "$ARMHF_BIN_HOME does not exist"
+	cleanup
+    fi
+
+    add_documentations_links_opt
+    
+    echo "need sudo rights to chown ${USER}:users ${ARMHF_BIN_HOME}"
     sudo chown $USER:users $ARMHF_BIN_HOME
-    sudo chmod 775 $ARMHF_BIN_HOME
 fi
 
-if [ -d $ARMHF_BIN_HOME ]; then
-    echo "Rsync content of ${ARMHF_HOME}/a20_sdk/ to $ARMHF_BIN_HOME"
-    cd $ARMHF_BIN_HOME
-    rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
-else
-    echo "$ARMHF_BIN_HOME does not exist"
-    cleanup
+if [ "$INIT_USER_HOME" = 'true' ]; then
+    if [ -d $ARMHF_SRC_HOME ]; then
+	echo "$ARMHF_SRC_HOME already available"
+    else
+	echo "Create $ARMHF_SRC_HOME"
+	mkdir -p $ARMHF_SRC_HOME
+    fi
+    
+    if [ -d $ARMHF_SRC_HOME ]; then
+	cd $ARMHF_SRC_HOME
+	echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
+	rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
+    else
+	echo "$ARMHF_SRC_HOME does not exist"
+	cleanup
+    fi
+    
+    add_documentations_links_home
 fi
-
-if [ -d $ARMHF_SRC_HOME ]; then
-    echo "$ARMHF_SRC_HOME already available"
-else
-    echo "Create $ARMHF_SRC_HOME"
-    mkdir -p $ARMHF_SRC_HOME
-fi
-
-if [ -d $ARMHF_SRC_HOME ]; then
-    cd $ARMHF_SRC_HOME
-    echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
-    rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
-else
-    echo "$ARMHF_SRC_HOME does not exist"
-    cleanup
-fi
-
-add_documentations_links
-
-# finally set correct group and user
-echo "Create $ARMHF_BIN_HOME -> need sudo rights! "
-sudo chown $USER:users $ARMHF_BIN_HOME
 
 cleanup
 echo " "
