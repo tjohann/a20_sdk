@@ -6,6 +6,9 @@
 	      regular updates of bananapi/cubietruck images
 	      update kernel to 4.4.9 and 4.4.9-rt17
 
+	      ## script stuff
+	      add arguments to clean_sdk/init_sdk for user specific parts
+	      
 
 2016-04-27 -> ## script stuff
 	      add http://github.com/tjohann/mydriver.git to external
