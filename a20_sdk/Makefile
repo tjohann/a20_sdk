@@ -57,7 +57,7 @@ clean_user_home::
 	($(ARMHF_HOME)/scripts/clean_sdk.sh -u)
 
 clean_opt: clean_toolchain clean_external clean_kernel clean_images
-	($(ARMHF_HOME)/scripts/clean_sdk.sh -u)
+
 
 init_sdk: distclean 
 	@echo "+----------------------------------------------------------+"

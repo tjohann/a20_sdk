@@ -116,7 +116,7 @@ _log="/tmp/init_sdk.log"
 
 
 # check the args 
-while getopts 'hvu' opts 2>$_log
+while getopts 'hvuoa' opts 2>$_log
 do
     case $opts in
         u) INIT_USER_HOME='true' ;;

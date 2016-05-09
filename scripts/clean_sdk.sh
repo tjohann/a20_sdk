@@ -124,6 +124,7 @@ do
 	e) CLEAN_EXTERNAL='true' ;;
 	i) CLEAN_IMAGES='true' ;;
 	t) CLEAN_TOOLCHAIN='true' ;;
+	u) CLEAN_USER='true' ;;
 	a) CLEAN_KERNEL='true'
            CLEAN_EXTERNAL='true'
            CLEAN_IMAGES='true'
@@ -249,8 +250,6 @@ if [ "$CLEAN_USER" = 'true' ]; then
     if [ -d $ARMHF_SRC_HOME ]; then
 	cd $ARMHF_SRC_HOME
     	echo "cleanup user specific parts"
-	rm -rf Documentation
-	rm -rf armhf_env*
 	rm -rf bin
 	rm -rf examples
 	rm -rf include
