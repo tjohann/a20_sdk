@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   11.04.2016/12.01.2016
+Date:   10.05.2016/12.01.2016
 
 Content:
 
@@ -17,12 +17,10 @@ Content:
   -- Fstab for mountpoints
   -- Notes
 
-- Clone kernel
+- Download kernel
 
 - Patch kernel
   -- RT-PREEMPT
-  -- I-pipe
-  -- Xenomai
 
 - Configure/build kernel
   -- Configure kernel
@@ -57,8 +55,8 @@ Device
 Kernel version
 --------------
 
-- linux-4.4.6
-- linux-4.4.6-rt14 (latest RT-PREEMPT)
+- linux-4.4.9
+- linux-4.4.9-rt17 (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
@@ -88,20 +86,18 @@ olimex:
 Notes
 -----
 
-In $ARMHF_HOME/external you'll find some links to some useful repos,
+In $ARMHF_BIN_HOME/external you'll find some links to some useful repos,
 one of them being the linus kernel tree. So you can use that folder or
-alternatively download the tar file to $ARMHF_HOME/kernel.
+alternatively download the tar file to $ARMHF_BIN_HOME/kernel.
 Pls check that the $DIR values below point to the the correct directory!
 
 
-Clone kernel
-============
+Download kernel
+===============
 
-DIR: $ARMHF_HOME/kernel/
-KDO: git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+DIR: $$ARMHF_BIN_HOME
+KDO: make get_latest_kernel
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: git checkout -b stable v4.4.6
 
 Patch kernel
 ============
@@ -109,23 +105,8 @@ Patch kernel
 RT-PREEMPT 
 ----------
 
-DIR: $ARMHF_HOME/kernel/linux
-KDO: git checkout -b stable v4.4.6
-KDO: zcat ../patch-4.4.6-rt14.patch.gz | patch -p1
-
-I-pipe
-------
-
-DIR
-KDO:
-
-
-Xenomai
--------
-
-DIR
-KDO:
-
+DIR: $ARMHF_BIN/HOME/kernel/linux-4.4.9-rt
+KDO: zcat ../patch-4.4.9-rt17.patch.gz | patch -p1
 
 
 Configure/build kernel
@@ -134,6 +115,7 @@ Configure/build kernel
 Configure kernel
 ----------------
 
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/olimex/configs/kernel_config_4.4.x .config
 KDO(rt): cp $ARMHF_HOME/olimex/configs/kernel_config_4.4.x_rt .config
 KDO: make ARCH=arm menuconfig
@@ -142,7 +124,7 @@ KDO: make ARCH=arm menuconfig
 Build dtb
 ---------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
 
@@ -150,16 +132,16 @@ KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-
 Build kernel/modules
 --------------------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: make -j10 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
 
 
 Install modules
 ---------------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.6 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.6_rt modules_install
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.9 modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.9_rt modules_install
 
 
 
@@ -169,14 +151,14 @@ Deploy SD-Card
 Copy dtb
 --------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/olimex/olimex_kernel/
 
 
 Copy kernel/config
 ------------------
 
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp arch/arm/boot/uImage /mnt/olimex/olimex_kernel/
 KDO: cp .config /mnt/olimex/olimex_kernel/
 
@@ -185,18 +167,18 @@ Copy modules
 ------------
 
 # Note: maybe your need to remove the old one
-DIR: $ARMHF_HOME/external/linux (or download to kernel/linux-...)
-KDO: sudo rsync -avc ../modules_4.4.6/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avc ../modules_4.4.6_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: sudo rsync -avc ../modules_4.4.9/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avc ../modules_4.4.9_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
 ------------------------------
 
 # Note: dont forget to make ARCH=arm clean
-DIR: depends ...
-KDO: sudo rsync -av --delete linux-4.4.6 /mnt/olimex/olimex_rootfs/usr/src/.
-KDO(rt): sudo rsync -av --delete linux-4.4.6_rt /mnt/olimex/olimex_rootfs/usr/src/.
+DIR: $ARMHF_BIN_HOME/kernel
+KDO: sudo rsync -av --delete linux-4.4.9 /mnt/olimex/olimex_rootfs/usr/src/.
+KDO(rt): sudo rsync -av --delete linux-4.4.9_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
 
@@ -208,14 +190,14 @@ Finish -> after login (non-rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.4.6 linux
+KDO: ln -s linux-4.4.9 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (non-rt)
 ------------------------------------------------------------------------
 
-DIR: /usr/src/linux-4.4.6
+DIR: /usr/src/linux-4.4.9
 KDO: make clean
 KDO: make scripts
 
@@ -223,11 +205,11 @@ KDO: make scripts
 Prepare modules to link (non-rt)
 --------------------------------
 
-DIR: /lib/modules/4.4.6
+DIR: /lib/modules/4.4.9
 KDO: rm build
 KDO: rm sourcesdk stuff
-KDO: ln -s /usr/src/linux-4.4.6 source
-KDO: ln -s /usr/src/linux-4.4.6 build
+KDO: ln -s /usr/src/linux-4.4.9 source
+KDO: ln -s /usr/src/linux-4.4.9 build
 
 
 

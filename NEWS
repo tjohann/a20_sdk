@@ -5,6 +5,8 @@
 2016-05-10 -> ## target stuff
 	      regular updates of cubietruck images
 	      update kernel to 4.4.9
+	      regular updates of olimex images
+	      update kernel to 4.4.9 and 4.4.9-rt17
 
 	      ## sdk stuff
 	      add libbaalue and baalued to external
