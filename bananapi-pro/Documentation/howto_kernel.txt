@@ -88,11 +88,13 @@ alternatively download the tar file to $ARMHF_BIN_HOME/kernel.
 Pls check that the $DIR values below point to the the correct directory!
 
 
+
 Download kernel
 ===============
 
 DIR: $$ARMHF_BIN_HOME
 KDO: make get_latest_kernel
+
 
 
 Configure/build kernel
