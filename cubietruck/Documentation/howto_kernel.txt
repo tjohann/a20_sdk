@@ -189,7 +189,7 @@ Prepare modules to link
 
 DIR: /lib/modules/4.4.9
 KDO: rm build
-KDO: rm sourcesdk stuff
+KDO: rm source
 KDO: ln -s /usr/src/linux-4.4.9 source
 KDO: ln -s /usr/src/linux-4.4.9 build
 

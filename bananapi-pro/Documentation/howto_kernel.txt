@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   17.04.2016/17.01.2016
+Date:   10.05.2016/17.01.2016
 
 Content:
 
@@ -17,7 +17,7 @@ Content:
   -- Fstab for mountpoints
   -- Notes
 
-- Get kernel
+- Download kernel
 
 - Configure/build kernel
   -- Configure kernel
@@ -32,9 +32,9 @@ Content:
   -- Copy cleaned source to sd card
 
 - Finalize
-  -- Finish -> after login (non-rt)
-  -- Prepare linux tree to build your modules against the new kernel (non-rt)
-  -- Prepare modules to link (non-rt)
+  -- Finish -> after login
+  -- Prepare linux tree to build your modules against the new kernel 
+  -- Prepare modules to link 
 
 
 
@@ -52,8 +52,7 @@ Device
 Kernel version
 --------------
 
-- linux-4.4.6
-- linux-4.4.6-rt14 (latest RT-PREEMPT)
+- linux-4.4.9
 
 
 Downloads (use make get_latest_kernel)
@@ -83,16 +82,16 @@ bananapi:
 Notes
 -----
 
-In $ARMHF_HOME/external you'll find some links to some useful repos,
+In $ARMHF_BIN_HOME/external you'll find some links to some useful repos,
 one of them being the linus kernel tree. So you can use that folder or
-alternatively download the tar file to $ARMHF_HOME/kernel.
+alternatively download the tar file to $ARMHF_BIN_HOME/kernel.
 Pls check that the $DIR values below point to the the correct directory!
 
 
-Get kernel
-==========
+Download kernel
+===============
 
-DIR: $$ARMHF_BIN_HOME/kernel/
+DIR: $$ARMHF_BIN_HOME
 KDO: make get_latest_kernel
 
 
@@ -102,6 +101,7 @@ Configure/build kernel
 Configure kernel
 ----------------
 
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/bananapi-pro/configs/kernel_config_4.4.x .config
 KDO: make ARCH=arm menuconfig
 
@@ -109,7 +109,7 @@ KDO: make ARCH=arm menuconfig
 Build dtb
 ---------
 
-DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
 
@@ -117,15 +117,15 @@ KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.d
 Build kernel/modules
 --------------------
 
-DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: make -j10 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
 
 
 Install modules
 ---------------
 
-DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.6 modules_install
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.9 modules_install
 
 
 
@@ -135,14 +135,14 @@ Deploy SD-Card
 Copy dtb
 --------
 
-DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_kernel/
 
 
 Copy kernel/config
 ------------------
 
-DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/
 KDO: cp .config /mnt/bananapi/bananapi_kernel/
 
@@ -151,47 +151,47 @@ Copy modules
 ------------
 
 # Note: maybe your need to remove the old one
-DIR: $ARMHF_BIN_HOME/external/linux (or download to kernel/linux-...)
-KDO: sudo rsync -avc ../modules_4.4.6/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: sudo rsync -avc ../modules_4.4.9/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
 ------------------------------
 
 # Note: dont forget to make ARCH=arm clean
-DIR: depends ...
-KDO: sudo rsync -av --delete linux-4.4.6 /mnt/bananapi/bananapi_rootfs/usr/src/.
+DIR: $ARMHF_BIN_HOME/kernel
+KDO: sudo rsync -av --delete linux-4.4.9 /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
 
 Finalize
 ========
 
-Finish -> after login (non-rt)
-------------------------------
+Finish -> after login
+---------------------
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.4.6 linux
+KDO: ln -s linux-4.4.9 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
-Prepare linux tree to build your modules against the new kernel (non-rt)
-------------------------------------------------------------------------
+Prepare linux tree to build your modules against the new kernel
+---------------------------------------------------------------
 
-DIR: /usr/src/linux-4.4.6
+DIR: /usr/src/linux-4.4.9
 KDO: make clean
 KDO: make scripts
 
 
-Prepare modules to link (non-rt)
---------------------------------
+Prepare modules to link
+-----------------------
 
-DIR: /lib/modules/4.4.6
+DIR: /lib/modules/4.4.9
 KDO: rm build
-KDO: rm sourcesdk stuff
-KDO: ln -s /usr/src/linux-4.4.6 source
-KDO: ln -s /usr/src/linux-4.4.6 build
+KDO: rm source
+KDO: ln -s /usr/src/linux-4.4.9 source
+KDO: ln -s /usr/src/linux-4.4.9 build
 
 
 
