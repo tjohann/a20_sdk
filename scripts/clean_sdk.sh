@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    09.05.2016/17.04.2016
+# Date/Beginn :    10.05.2016/17.04.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (may 2016) -> add missing externals
+# Milestones  :    V0.04 (may 2016) -> add libbaalue and baalued
+#                  V0.03 (may 2016) -> add missing externals
 #                                      add cleanup $ARMHF_SRC_DIR
 #                  V0.02 (apr 2016) -> finalize
 #                                      add content to cleanup toolchain stuff
@@ -52,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -212,6 +213,8 @@ if [ "$CLEAN_EXTERNAL" = 'true' ]; then
 	rm -rf u-boot
 	rm -rf mydriver
 	rm -rf lcd160x_driver
+	rm -rf libbaalue
+	rm -rf baalued
     else
         echo "INFO: no dir external below ${ARMHF_BIN_HOME}/external" 
     fi

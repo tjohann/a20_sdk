@@ -2,8 +2,16 @@
 # some news ... see also TODO for hints
 #
 
+2016-05-10 -> ## target stuff
+	      regular updates of cubietruck images
+	      update kernel to 4.4.9
+
+	      ## sdk stuff
+	      add libbaalue and baalued to external
+	      
+
 2016-05-09 -> ## target stuff
-	      regular updates of bananapi/cubietruck images
+	      regular updates of bananapi images
 	      update kernel to 4.4.9 and 4.4.9-rt17
 
 	      ## script stuff

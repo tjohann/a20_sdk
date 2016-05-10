@@ -11,8 +11,8 @@
 - add script to only install user parts ($HOME/src/a20_sdk) [2016-05-09 -> done]
 
 ## sdk stuff
-- add libbaalue to external
-- add baalued to external
+- add libbaalue to external                                 [2016-05-10 -> done]
+- add baalued to external                                   [2016-05-10 -> done]
 
 
 #

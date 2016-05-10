@@ -58,3 +58,9 @@ get_lcd1602::
 
 get_mydriver::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "mydriver" -p "https")
+
+get_libbaalue::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "libbaalue" -p "https")
+
+get_baalued::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalued" -p "https")

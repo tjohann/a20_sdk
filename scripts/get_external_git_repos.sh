@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.04.2016/15.08.2015
+# Date/Beginn :    10.05.2016/15.08.2015
 #
-# Version     :    V0.21
+# Version     :    V0.22
 #
-# Milestones  :    V0.21 (apr 2016) -> add mydriver because of the examples
+# Milestones  :    V0.22 (may 2016) -> add libbaalue and baalued
+#                  V0.21 (apr 2016) -> add mydriver because of the examples
 #                  V0.20 (apr 2016) -> some more cleanups of unused repos
 #                                      create $ARMHF_BIN_HOME/* if it not exist
 #                                      add https://github.com/tjohann/lcd160x_driver.git 
@@ -78,7 +79,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.21'
+VER='0.22'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -87,11 +88,14 @@ MISSING_ENV='false'
 # rt-tests -> http://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git
 # uboot -> git://git.denx.de/u-boot.git
 # can-utils -> https://github.com/linux-can/can-utils.git
-# sdk_builder -> "://github.com/tjohann/sdk_builder.git"
-# a20_sdk -> "://github.com/tjohann/a20_sdk.git"
-# allwinner -> "://github.com/allwinner-zh/documents.git"
-# lcd1602 -> "://github.com/tjohann/lcd160x_driver.git"
-# mydriver -> "://github.com/tjohann/mydriver.git"
+# sdk_builder -> http://github.com/tjohann/sdk_builder.git
+# a20_sdk -> http://github.com/tjohann/a20_sdk.git
+# allwinner -> http://github.com/allwinner-zh/documents.git
+# lcd1602 -> http://github.com/tjohann/lcd160x_driver.git
+# mydriver -> http://github.com/tjohann/mydriver.git
+# baalued -> http://github.com/tjohann/baalued.git
+# libbaalue -> http://github.com/tjohann/libbaalue.git
+
 REPO='none'
 
 # PROTOCOL
@@ -127,6 +131,8 @@ my_usage()
     echo "| REPO: sdk_builder -> my sdk builder tool               |"
     echo "| REPO: lcd1602 -> my simple lcd driver                  |"
     echo "| REPO: mydriver -> my simple driver example             |"
+    echo "| REPO: libbaalue -> my base libary                      |"
+    echo "| REPO: baalued -> control daemon of a baalue node       |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -240,6 +246,8 @@ set_repo_names()
     sdk_builder="://github.com/tjohann/sdk_builder.git"
     lcd1602="://github.com/tjohann/lcd160x_driver.git"
     mydriver="://github.com/tjohann/mydriver.git"
+    baalued="://github.com/tjohann/baalued.git"
+    libbaalue="://github.com/tjohann/libbaalue.git"
     
     # array with all available repos
     repo_names_array[0]=${rt_tests}
@@ -250,6 +258,8 @@ set_repo_names()
     repo_names_array[5]=${sdk_builder}
     repo_names_array[6]=${lcd1602}
     repo_names_array[7]=${mydriver}
+    repo_names_array[8]=${baalued}
+    repo_names_array[9]=${libbaalue}
 }
 
 
@@ -279,7 +289,13 @@ get_repo_name()
 	    REPO_NAME="${PROTOCOL}${lcd1602}"
 	    ;;
 	'mydriver')
-	    REPO_NAME="${PROTOCOL}${lcd1602}"
+	    REPO_NAME="${PROTOCOL}${mydriver}"
+	    ;;
+	'baalued')
+	    REPO_NAME="${PROTOCOL}${baalued}"
+	    ;;
+	'libbaalue')
+	    REPO_NAME="${PROTOCOL}${libbaalue}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check"
