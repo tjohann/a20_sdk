@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   09.05.2016/12.01.2016
+Date:   10.05.2016/12.01.2016
 
 Content:
 
@@ -17,7 +17,7 @@ Content:
   -- Fstab for mountpoints
   -- Notes
 
-- Clone kernel
+- Download kernel
 
 - Patch kernel
   -- RT-PREEMPT
@@ -86,14 +86,14 @@ bananapi:
 Notes
 -----
 
-In $ARMHF_HOME/external you'll find some links to some useful repos,
+In $ARMHF_BIN_HOME/external you'll find some links to some useful repos,
 one of them being the linus kernel tree. So you can use that folder or
-alternatively download the tar file to $ARMHF_HOME/kernel.
+alternatively download the tar file to $ARMHF_BIN_HOME/kernel.
 Pls check that the $DIR values below point to the the correct directory!
 
 
-Clone kernel
-============
+Download kernel
+===============
 
 DIR: $$ARMHF_BIN_HOME
 KDO: make get_latest_kernel
@@ -115,6 +115,7 @@ Configure/build kernel
 Configure kernel
 ----------------
 
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.4.x .config
 KDO(rt): cp $ARMHF_HOME/bananapi/configs/kernel_config_4.4.x_rt .config
 KDO: make ARCH=arm menuconfig
