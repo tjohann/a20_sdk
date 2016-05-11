@@ -148,6 +148,34 @@ In short:
 
 
 
+Versioninfo
+-----------
+
+I use a standard version scheme via git tags based on 3 numbers:
+	
+	A20_SDK_V0.1.6
+
+
+The first number is the mayor number which reflect bigger changes. The second number (minor) will be changed because of
+
+	- new scripts
+	- kernel/updates of all 4 devices
+
+
+So a simple version update of the olimex kernel will not update the minor number, it will update the third number (tag number)
+
+	- bugfixes
+	- update kernel versions only on one device
+	- updates of on device images
+	- all smaller changes
+
+
+Storyline
+---------
+
+You find storylines for all of my usescases/devices below ./DEVICE_NAME/Documentation/storyline.{txt,pdf}. The should describe the setup of a device and my usecase of it. You can use it as a guideline of howto.
+
+
 All devices
 -----------
 
@@ -168,7 +196,7 @@ Every device directory has the same sub-directories
     config -> kernel config for non-RT and RT-PREEMPT
 
 
-You can find documenation on howto build a kernel or howto setup a device below Documenation. In general i will use mainline kernel and mainline U-Boot.
+You can find documenation on howto build a kernel or howto setup a device below Documenation. In general I will use mainline kernel and mainline U-Boot.
 Every device here has a "specific usecase". So therefore you find additional description about my usecase below.
 
 In short:
