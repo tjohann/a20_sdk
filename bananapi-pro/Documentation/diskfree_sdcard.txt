@@ -1,0 +1,11 @@
+root@bananapi-pro:~# df 
+Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
+/dev/root       9,8G    3,1G  6,2G   34% /
+devtmpfs        497M    4,0K  497M    1% /dev
+run             497M    312K  497M    1% /run
+shm             497M       0  497M    0% /dev/shm
+cgroup          497M       0  497M    0% /sys/fs/cgroup
+tmpfs           497M       0  497M    0% /tmp
+/dev/mmcblk0p1   33M     11M   22M   34% /boot_bananapi
+/dev/mmcblk0p3   19G     46M   18G    1% /home
+none            497M       0  497M    0% /run/user/1000

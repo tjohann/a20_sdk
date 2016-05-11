@@ -1,0 +1,11 @@
+baalue@olimex:/opt/a20_sdk/external$ df
+Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
+/dev/root       9,8G    4,0G  5,3G   43% /
+devtmpfs        465M    4,0K  465M    1% /dev
+run             465M    292K  465M    1% /run
+shm             465M       0  465M    0% /dev/shm
+cgroup          465M       0  465M    0% /sys/fs/cgroup
+tmpfs           465M       0  465M    0% /tmp
+/dev/mmcblk0p1   33M     17M   17M   50% /boot_olimex
+/dev/mmcblk0p3  4,2G     11M  3,9G    1% /home
+none            465M       0  465M    0% /run/user/1000

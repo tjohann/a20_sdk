@@ -1,0 +1,12 @@
+baalue@cubietruck_master:~$ df
+Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
+/dev/root       9,8G    3,1G  6,2G   34% /
+devtmpfs        974M    4,0K  974M    1% /dev
+run             974M    380K  974M    1% /run
+shm             974M       0  974M    0% /dev/shm
+cgroup          974M       0  974M    0% /sys/fs/cgroup
+tmpfs           974M       0  974M    0% /tmp
+/dev/mmcblk0p1   33M     11M   23M   33% /boot_cubietruck
+/dev/mmcblk0p2  3,0G    766M  2,1G   27% /mnt/cubietruck/cubietruck_shared
+/dev/sda2       449G     72M  426G    1% /home
+none            974M       0  974M    0% /run/user/1000
