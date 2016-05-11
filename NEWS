@@ -2,6 +2,19 @@
 # some news ... see also TODO for hints
 #
 
+
+2016-05-11 -> ## target stuff
+	      regular updates of bananapi-pro images
+	      update kernel to 4.4.9
+
+	      ## toolchain stuff
+	      update toolchain and add some more libs
+	      - add libcapng
+	      - add libarchive
+	      - add libcurl
+	      - ... 
+	      
+
 2016-05-10 -> ## target stuff
 	      regular updates of cubietruck images
 	      update kernel to 4.4.9
