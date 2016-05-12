@@ -215,6 +215,7 @@ if [ "$CLEAN_EXTERNAL" = 'true' ]; then
 	rm -rf lcd160x_driver
 	rm -rf libbaalue
 	rm -rf baalued
+	rm -rf time_triggert_env
     else
         echo "INFO: no dir external below ${ARMHF_BIN_HOME}/external" 
     fi

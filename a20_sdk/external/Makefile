@@ -64,3 +64,6 @@ get_libbaalue::
 
 get_baalued::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalued" -p "https")
+
+get_tt-env::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "tt-env" -p "https")

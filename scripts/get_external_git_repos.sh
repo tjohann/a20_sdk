@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    10.05.2016/15.08.2015
+# Date/Beginn :    12.05.2016/15.08.2015
 #
-# Version     :    V0.22
+# Version     :    V0.23
 #
-# Milestones  :    V0.22 (may 2016) -> add libbaalue and baalued
+# Milestones  :    V0.23 (may 2016) -> add time_triggert_env
+#                  V0.22 (may 2016) -> add libbaalue and baalued
 #                  V0.21 (apr 2016) -> add mydriver because of the examples
 #                  V0.20 (apr 2016) -> some more cleanups of unused repos
 #                                      create $ARMHF_BIN_HOME/* if it not exist
@@ -79,7 +80,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.22'
+VER='0.23'
 
 # if env is sourced 
 MISSING_ENV='false'
@@ -95,6 +96,7 @@ MISSING_ENV='false'
 # mydriver -> http://github.com/tjohann/mydriver.git
 # baalued -> http://github.com/tjohann/baalued.git
 # libbaalue -> http://github.com/tjohann/libbaalue.git
+# tt-env -> http://github.com/tjohann/time_triggert_env.git
 
 REPO='none'
 
@@ -133,6 +135,7 @@ my_usage()
     echo "| REPO: mydriver -> my simple driver example             |"
     echo "| REPO: libbaalue -> my base libary                      |"
     echo "| REPO: baalued -> control daemon of a baalue node       |"
+    echo "| REPO: tt-env -> my realtime playground                 |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -248,6 +251,7 @@ set_repo_names()
     mydriver="://github.com/tjohann/mydriver.git"
     baalued="://github.com/tjohann/baalued.git"
     libbaalue="://github.com/tjohann/libbaalue.git"
+    tt_env="://github.com/tjohann/time_triggert_env.git"
     
     # array with all available repos
     repo_names_array[0]=${rt_tests}
@@ -260,6 +264,7 @@ set_repo_names()
     repo_names_array[7]=${mydriver}
     repo_names_array[8]=${baalued}
     repo_names_array[9]=${libbaalue}
+    repo_names_array[10]=${tt_env}
 }
 
 
@@ -296,6 +301,9 @@ get_repo_name()
 	    ;;
 	'libbaalue')
 	    REPO_NAME="${PROTOCOL}${libbaalue}"
+	    ;;
+	'tt-env')
+	    REPO_NAME="${PROTOCOL}${tt_env}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check"

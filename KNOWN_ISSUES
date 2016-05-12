@@ -3,5 +3,5 @@
 #
 
 
-2016-0x-xx -> ## xxx stuff
-	      ...
+A20_SDK_V0.99.0: all target images
+- due to less entropy it could take up to 1-2 minutes to have sshd working
