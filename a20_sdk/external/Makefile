@@ -14,7 +14,7 @@ ifeq "${ARMHF_SRC_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v documents | grep -v void-packages)
+MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v documents)
 MODULES_GIT = $(shell ls -d */ | cut -f1 -d'/')
 
 all::
