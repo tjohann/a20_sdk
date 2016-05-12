@@ -42,7 +42,7 @@
 ## sdk stuff
 - add a "working" cleanup script (a complete remove of
   external or so is not really a solution                   [2016-04-19 -> done]
-- sync /etc/hosts on all devices  
+- sync /etc/hosts on all devices                            [2016-04-xx -> done]
 
 ## target stuff
 - develop a simple daemon to shutdown all devices my kdo
