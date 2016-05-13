@@ -1,0 +1,57 @@
+#
+# some hint about gpio calculation for Bananapi-M1
+#
+
+Hint: see http://linux-sunxi.org/GPIO 
+
+#
+# PIN11(IO-0/PI19)
+#
+To enable/toogle IO-0 of CON3 you need to calculate to corespinding pin number for kernels sysfs gpio interface.
+
+To do that you need the processor pin of the IO-0 (see http://www.bananapi.org/p/product.html and picture of CON3 below)
+
+IO-0 == PI19
+
+P = Port (32 Pins)
+I = Connector-Line 9 (A = 1, B = 2, C = 3, ... H = 8, I = 9)
+19 = Pin 19 of 32
+
+Number = (I - 1) * 32 + PIN 
+PI19   = (9 - 1) * 32 + 19  = 275 
+
+
+#
+# sysfs 
+#
+
+# Activate IO-0/PI19 for output
+echo "275" >/sys/class/gpio/export
+echo "out" >/sys/class/gpio/gpio275/direction 
+
+# Set 3.3 Volt to IO-0/PI19
+echo "1" >/sys/class/gpio/gpio275/value
+
+# Set 0 Volt to IO-0/PI19
+echo "0" >/sys/class/gpio/gpio275/value
+
+#
+# -------------------------------------------
+#
+
+#
+# PIN13(IO-0/PI18)
+#
+
+PI18 = (9 - 1) * 32 + 18  = 274
+
+#
+# sysfs 
+#
+
+# Activate IO-2/PI18 for output (with pullup)
+echo "274" >/sys/class/gpio/export
+echo "in" >/sys/class/gpio/gpio274/direction 
+
+# Read value
+cat /sys/class/gpio/gpio274/value
