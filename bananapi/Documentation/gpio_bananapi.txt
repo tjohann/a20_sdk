@@ -49,7 +49,7 @@ PI18 = (9 - 1) * 32 + 18  = 274
 # sysfs 
 #
 
-# Activate IO-2/PI18 for output (with pullup)
+# Activate IO-2/PI18 for output (no pullup)
 echo "274" >/sys/class/gpio/export
 echo "in" >/sys/class/gpio/gpio274/direction 
 
