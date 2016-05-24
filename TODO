@@ -2,6 +2,14 @@
 # TODO with date and progress
 #
 
+#
+# -------------- 2016-05-24 ----------------------------------------------------
+#
+
+## kernel stuff
+- add security and extentend attr to ext4 for all kernel
+  (needed for set/getcap)
+
 
 #
 # -------------- 2016-05-23 ----------------------------------------------------
