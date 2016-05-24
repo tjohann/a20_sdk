@@ -114,6 +114,9 @@ gettext (and related)
 rsync
 wget
 i2c-tools
+cowsay
+trace-cmd
+
 
 --- OPEN ---
 subverion -> not available
