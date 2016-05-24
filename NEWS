@@ -3,6 +3,14 @@
 #
 
 
+################## 2016-05-24 -> A20_SDK_V1.0.0 ############################
+
+2016-05-24 -> ## target stuff
+	      update bananapi u-boot due to false detection of mmc with
+	      FULL-RT-PREEMPT config
+	      add FULL-RT-PREEMPT config
+
+
 2016-05-12 -> ## script stuff
 	      add http://github.com/tjohann/time_triggert_env.git to external
 	      
