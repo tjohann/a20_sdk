@@ -3,6 +3,16 @@
 #
 
 #
+# -------------- 2016-05-29 ----------------------------------------------------
+#
+
+## target stuff
+- add support for nand
+- try to boot cubietruck via nand
+- check jailhouse usage (problems with framebuffer?)
+
+
+#
 # -------------- 2016-05-24 ----------------------------------------------------
 #
 
