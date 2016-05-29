@@ -19,6 +19,10 @@
 ## kernel stuff
 - add security and extentend attr to ext4 for all kernel
   (needed for set/getcap)
+  bananapi                                              
+  bananapi-pro
+  olimex
+  cubietruck
 
 
 #
