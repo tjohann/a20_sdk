@@ -78,7 +78,7 @@
 		 	#clock-cells = <0>;
         	 	clock-frequency = <16000000>;
 		 	clock-output-names = "mcp_clk";
-        	}; 
+        	};
 	};
 
 	soc@01c00000 {
@@ -114,9 +114,9 @@
 			can@0 {
 	      		      compatible = "microchip,mcp2515";
 	      		      reg = <0>;
-	      		      spi-max-frequency = <10000000>;	  
+	      		      spi-max-frequency = <10000000>;
 			      clocks = <&mcp251x_clock 0>;
-			      //interrupt-parent = <&pioA>;  
+			      //interrupt-parent = <&pioA>;
 	      		      //interrupts = <24 0x2>;
 			      interrupt-parent = <&nmi_intc>;
 			      //interrupts = <0 IRQ_TYPE_LEVEL_LOW>;

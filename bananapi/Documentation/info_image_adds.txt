@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 #
-# some image realted infos 
-# 
+# some image realted infos
+#
 # ------------------------------------------------------------------------------
 #
 # see -> https://github.com/voidlinux/documentation/wiki/cubieboard2#rootfs-install
@@ -133,7 +133,7 @@ rm agetty-tty[2-6]
 
 # --- dhcpd.conf
 # Static IP configuration.
-interface eth0 
+interface eth0
 static ip_address=192.168.0.103
 static routers=192.168.0.1
 static domain_name_servers=192.168.0.1
@@ -168,7 +168,7 @@ blacklist cfg80211
 
 
 # --- fstab
-# Bananapi 
+# Bananapi
 /dev/mmcblk0p1  /boot_bananapi    vfat    noatime          0       1
 /dev/mmcblk0p3  /home             ext4    noatime          0       1
 
@@ -177,7 +177,7 @@ blacklist cfg80211
 
 
 # --- sshd_config
-# my config 
+# my config
 X11Forwarding yes
 AllowTcpForwarding yes
 X11DisplayOffset 10
@@ -185,7 +185,7 @@ X11UseLocalhost yes
 
 
 #
-# the "rest" 
+# the "rest"
 #
 
 # --- syslog

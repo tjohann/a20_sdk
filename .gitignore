@@ -14,7 +14,7 @@
 *.la
 *.lo
 
-# Shared objects 
+# Shared objects
 *.so
 *.so.*
 

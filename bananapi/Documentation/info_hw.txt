@@ -9,7 +9,7 @@ PH24 -> LED1 ... green
 
 Can
 ===
-- [BananaPro CAN] -> (http://wiki.lemaker.org/BananaPro/Pi:CAN_Bus) 
+- [BananaPro CAN] -> (http://wiki.lemaker.org/BananaPro/Pi:CAN_Bus)
 - [A20 CAN] -> (https://dl.linux-sunxi.org/A20/CAN%20Bus1.pdf)
 
 Schematic & pins

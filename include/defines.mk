@@ -1,8 +1,8 @@
 ################################################################################
 #
-# Title       :    defines.mk    
-#                                                                        
-# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de                        
+# Title       :    defines.mk
+#
+# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
 #
 ################################################################################
 #

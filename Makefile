@@ -15,10 +15,10 @@ ifeq "${ARMHF_SRC_HOME}" ""
 endif
 
 MODULES = bananapi bananapi-pro olimex cubietruck
-MODULES += include man pics configs scripts 
+MODULES += include man pics configs scripts
 MODULES += a20_sdk a20_sdk_src
 
-all:: 
+all::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|                  Nothing to build                        |"
@@ -35,7 +35,7 @@ all::
 	@echo "| make clean              -> clean all dir/subdirs         |"
 	@echo "| make distclean          -> complete cleanup/delete       |"
 	@echo "| ...                                                      |"
-	@echo "+----------------------------------------------------------+"	
+	@echo "+----------------------------------------------------------+"
 
 clean::
 	rm -f *~ .*~
@@ -61,7 +61,7 @@ clean_user_home::
 clean_opt: clean_toolchain clean_external clean_kernel clean_images
 
 
-init_sdk: distclean 
+init_sdk: distclean
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|              Init SDK -> you may need sudo               |"
@@ -69,7 +69,7 @@ init_sdk: distclean
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/init_sdk.sh -a)
 
-init_user_home: clean_user_home 
+init_user_home: clean_user_home
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|              Init $USER specific SDK parts               |"
@@ -88,7 +88,7 @@ init_opt: clean_opt
 #
 # run all get actions in sequence
 #
-get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel 
+get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|               All 'get' actions complete                 |"
@@ -143,7 +143,7 @@ get_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -a)
 
-get_bananapi_image_tarballs::  
+get_bananapi_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest bananapi image tarballs           |"
@@ -151,7 +151,7 @@ get_bananapi_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
 
-get_bananapi-pro_image_tarballs::  
+get_bananapi-pro_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest bananapi-pro image tarballs       |"
@@ -159,7 +159,7 @@ get_bananapi-pro_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -p)
 
-get_bananapi-pro-hdd_image_tarballs::  
+get_bananapi-pro-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest bananapi-pro-hdd image tarballs   |"
@@ -167,7 +167,7 @@ get_bananapi-pro-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -e)
 
-get_cubietruck_image_tarballs::  
+get_cubietruck_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest cubietruck image tarballs         |"
@@ -175,7 +175,7 @@ get_cubietruck_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -c)
 
-get_cubietruck-hdd_image_tarballs::  
+get_cubietruck-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest cubietruck-hdd image tarballs     |"
@@ -183,7 +183,7 @@ get_cubietruck-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -d)
 
-get_olimex_image_tarballs::  
+get_olimex_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest olimex image tarballs             |"

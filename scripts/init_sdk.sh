@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    init_sdk.sh    
+# Title       :    init_sdk.sh
 #
 # License:
 #
-# GPL                                                                        
+# GPL
 # (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
-#                                                                            
-# This program is free software; you can redistribute it and/or modify       
-# it under the terms of the GNU General Public License as published by       
-# the Free Software Foundation; either version 2 of the License, or          
-# (at your option) any later version.                                        
-#                                                                            
-# This program is distributed in the hope that it will be useful,            
-# but WITHOUT ANY WARRANTY; without even the implied warranty of             
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               
-# GNU General Public License for more details.                                
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -36,19 +36,19 @@
 #                  V0.04 (apr 2016) -> fix wrong date
 #                                      fix user handling for rsync
 #                  V0.03 (apr 2016) -> add srcdir
-#                  V0.02 (feb 2016) -> init working-dir 
+#                  V0.02 (feb 2016) -> init working-dir
 #                  V0.01 (jan 2016) -> first functional version
 #
-# Requires    :    
-#                 
+# Requires    :
+#
 #
 ################################################################################
 # Description
-#   
+#
 #   A simple tool to init the sdk
 #
 # Some features
-#   - ... 
+#   - ...
 #
 # Notes
 #   - ...
@@ -59,15 +59,15 @@
 # VERSION-NUMBER
 VER='0.07'
 
-# if env is sourced 
+# if env is sourced
 MISSING_ENV='false'
 
 # init only user home dir
 INIT_USER_HOME='false'
 INIT_OPT='false'
 
-# my usage method 
-my_usage() 
+# my usage method
+my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
@@ -83,14 +83,14 @@ my_usage()
     exit
 }
 
-# my cleanup 
+# my cleanup
 cleanup() {
     rm $_temp 2>/dev/null
     rm $_log 2>/dev/null
 }
 
-# my exit method 
-my_exit() 
+# my exit method
+my_exit()
 {
     clear
     echo "+-----------------------------------+"
@@ -101,7 +101,7 @@ my_exit()
 }
 
 # print version info
-print_version() 
+print_version()
 {
     echo "+-----------------------------------+"
     echo "| You are using version: ${VER}       |"
@@ -115,7 +115,7 @@ _temp="/tmp/init_sdk.$$"
 _log="/tmp/init_sdk.log"
 
 
-# check the args 
+# check the args
 while getopts 'hvuoa' opts 2>$_log
 do
     case $opts in
@@ -135,20 +135,20 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_HOME" = '' ]; then 
+if [ "$ARMHF_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_SRC_HOME" = '' ]; then 
+if [ "$ARMHF_SRC_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
 # show a usage screen and exit
-if [ "$MISSING_ENV" = 'true' ]; then 
+if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
@@ -178,7 +178,7 @@ add_documentations_links_opt()
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi"
     fi
-	
+
     # bananapi-pro related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi-pro ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/bananapi-pro
@@ -186,7 +186,7 @@ add_documentations_links_opt()
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi-pro"
     fi
-    
+
     # cubietruck related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/cubietruck ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/cubietruck
@@ -213,7 +213,7 @@ add_documentations_links_home()
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi"
     fi
-	
+
     # bananapi-pro related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi-pro ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/bananapi-pro
@@ -221,7 +221,7 @@ add_documentations_links_home()
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi-pro"
     fi
-    
+
     # cubietruck related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/cubietruck ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/cubietruck
@@ -242,7 +242,7 @@ add_documentations_links_home()
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
-# ****************************************************************************** 
+# ******************************************************************************
 
 echo " "
 echo "+----------------------------------------+"
@@ -270,7 +270,7 @@ if [ "$INIT_OPT" = 'true' ]; then
     fi
 
     add_documentations_links_opt
-    
+
     echo "need sudo rights to chown ${USER}:users ${ARMHF_BIN_HOME}"
     sudo chown $USER:users $ARMHF_BIN_HOME
 fi
@@ -282,7 +282,7 @@ if [ "$INIT_USER_HOME" = 'true' ]; then
 	echo "Create $ARMHF_SRC_HOME"
 	mkdir -p $ARMHF_SRC_HOME
     fi
-    
+
     if [ -d $ARMHF_SRC_HOME ]; then
 	cd $ARMHF_SRC_HOME
 	echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
@@ -291,7 +291,7 @@ if [ "$INIT_USER_HOME" = 'true' ]; then
 	echo "$ARMHF_SRC_HOME does not exist"
 	cleanup
     fi
-    
+
     add_documentations_links_home
 fi
 

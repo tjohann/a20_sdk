@@ -1,4 +1,4 @@
-# only for cleaning 
+# only for cleaning
 
 ifeq "${ARMHF_HOME}" ""
     $(error error: please source armhf_env first!)
@@ -14,12 +14,12 @@ endif
 
 
 .PHONY: all
-all: 
+all:
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|                  Nothing to build                        |"
 	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"	
+	@echo "+----------------------------------------------------------+"
 
 .PHONY: clean
 clean:

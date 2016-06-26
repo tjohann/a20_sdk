@@ -58,11 +58,11 @@ Source the environment file armhf_env
     . ./armhf_env
 
 
-or add it to your .bashrc 
+or add it to your .bashrc
 
     # setup the a20_sdk environment
     if [ -f /var/lib/a20_sdk/armhf_env ]; then
-      . /var/lib/a20_sdk/armhf_env 
+      . /var/lib/a20_sdk/armhf_env
     fi
 
 
@@ -77,7 +77,7 @@ Init the SDK:
     make init_sdk
 
 
-Download the compiler to /opt/a20_sdk/ 
+Download the compiler to /opt/a20_sdk/
 
     make get_toolchain
 
@@ -88,14 +88,14 @@ Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~6 GByte)
 
 
 If you're only interested in one device (like Cubietruck), then you only need
-	
+
 	make get_cubietruck_image_tarballs
 
 
 Clone ALL external repos:
 
     make get_external_repos
-	
+
 
 If you only need/want u-boot, then you only need
 
@@ -106,9 +106,9 @@ If you only need/want u-boot, then you only need
 Download latest supported kernel sources (for normal use and with RT_PREEMPT support):
 
     make get_latest_kernel
-	
 
-if you only need/want the RT-PREEMPT parts, then you only need 
+
+if you only need/want the RT-PREEMPT parts, then you only need
 
 	make get_latest_rt_kernel
 
@@ -152,7 +152,7 @@ Versioninfo
 -----------
 
 I use a standard version scheme via git tags based on 3 numbers:
-	
+
 	A20_SDK_V0.1.6
 
 
@@ -202,7 +202,7 @@ Every device here has a "specific usecase". So therefore you find additional des
 In short:
 
     bananapi -> baalue (my Bananapi Cluster with 8/10 Nodes)
-    bananapi-pro -> my home audio/video stream server 
+    bananapi-pro -> my home audio/video stream server
     cubietruck -> master node for baalue and jailhouse (https://github.com/siemens/jailhouse) test environment
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!)
 
@@ -212,7 +212,7 @@ User
 
     root (password: root)
     baalue (password: baalue)
-	
+
 
 The user baalue is available on all images, you can use it to login via ssh.
 
@@ -225,8 +225,8 @@ Kernel
 	Baalue-Node -> PREEMPT kernel
 	Bananapi-Pro -> "normal" desktop kernel (sunxi-kernel) and PREEMPT kernel (mainline)
 	Cubietruck -> PREEMPT kernel
-	
-	
+
+
 Network
 -------
 
@@ -264,8 +264,8 @@ My nfs share:
 Cubietruck (CB3)
 ----------------
 
-My two cubietrucks are acting as a master nodes for my Bananapi Cluster (cubietruck_master/cubietruck_slave). On the cubietruck_slave node everthing is on a sd-card, i use it also as 9th baalue-node or as the distribution node into the cluster (openmpi). So it act also as a possible master node although i named it cubietruck_slave. The node cubietruck_master has a hard-disk as root device. I use it mostly as distcc server node and the 8 cluster nodes as distcc clients. 
-The two cubietrucks are also my test environment for the jailhouse hypervisor. On this device i use mainline kernel in all images. 
+My two cubietrucks are acting as a master nodes for my Bananapi Cluster (cubietruck_master/cubietruck_slave). On the cubietruck_slave node everthing is on a sd-card, i use it also as 9th baalue-node or as the distribution node into the cluster (openmpi). So it act also as a possible master node although i named it cubietruck_slave. The node cubietruck_master has a hard-disk as root device. I use it mostly as distcc server node and the 8 cluster nodes as distcc clients.
+The two cubietrucks are also my test environment for the jailhouse hypervisor. On this device i use mainline kernel in all images.
 
 
 Additonal Hardware conneted:
@@ -286,7 +286,7 @@ Addtional mount points (host):
 Bananapi-Pro
 ------------
 
-I use this device as an audio/video stream server. Therefore it's connected to my television and my audio amplifier. To have good 3D/GL power i use the sunxi kernel, but you can find mainline kernel config in configs. It also implements a home cloud via ownCloud. 
+I use this device as an audio/video stream server. Therefore it's connected to my television and my audio amplifier. To have good 3D/GL power i use the sunxi kernel, but you can find mainline kernel config in configs. It also implements a home cloud via ownCloud.
 
 
 Addtional Harware connected:
@@ -304,7 +304,7 @@ Addtional mount points (host):
 Bananapi-M1
 -----------
 
-I use the bananapi for 2 different usecase, first as a classic embedded device with can, display and other goodies. The second use case is as a baalue-node -> bananapi model 1 is the working node for my Bananapi Cluster. It has tty1-8 activated (and lightdm on tty9 -> if you activate it). Also you find kernel and info rsyslogd output on tty11 and tty12. 
+I use the bananapi for 2 different usecase, first as a classic embedded device with can, display and other goodies. The second use case is as a baalue-node -> bananapi model 1 is the working node for my Bananapi Cluster. It has tty1-8 activated (and lightdm on tty9 -> if you activate it). Also you find kernel and info rsyslogd output on tty11 and tty12.
 
 The main difference between these 2 usecases is the kernel. For a baalue-node i use the a PREEMPT kernel and for the classic device i use a RT-PREEMPT kernel.
 
@@ -334,7 +334,7 @@ Additonal Hardware conneted:
 
     CAN-Tranceiver on A20-CAN
     tbd...
-	  
+
 
 Addtional mount points (host):
 

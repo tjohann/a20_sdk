@@ -1,7 +1,7 @@
-# only for cleaning 
+# only for cleaning
 
 .PHONY: all
-all: 
+all:
 	@echo Cheers
 
 .PHONY: clean

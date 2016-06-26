@@ -1,6 +1,6 @@
 # Loading statistics for a baalue-node
 
-## process list on target 
+## process list on target
 ```
 289 root       20   0  5304  3244  2200 R  2.8  0.3  0:01.54 htop
 243 ntpd       20   0 14700 13376  4180 S  0.0  1.4  0:00.37 ntpd -g -u ntpd:ntpd -n

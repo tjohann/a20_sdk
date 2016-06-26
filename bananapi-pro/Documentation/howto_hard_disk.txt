@@ -34,15 +34,15 @@ Partitions
 ----------
 
 - SD-Card (called from now on HDD-SD-Card)
-  /boot -> 32MByte Fat32  
-  swap 
+  /boot -> 32MByte Fat32
+  swap
 
 - Hard-Disk (called from now on HDD)
   /     -> 10240 MByte Ext4
   /home -> the "rest"
 
   Example:
-  
+
 Befehl (m für Hilfe): p
 Festplatte /dev/sda: 465,8 GiB, 500107862016 Bytes, 976773168 Sektoren
 Einheiten: Sektoren von 1 * 512 = 512 Bytes
@@ -66,7 +66,7 @@ Mountpoints
 -----------
 
 bananapi-pro:
- - kernel -> /mnt/bananapi-pro/bananapi-pro_kernel 
+ - kernel -> /mnt/bananapi-pro/bananapi-pro_kernel
 
 
 Build hdd

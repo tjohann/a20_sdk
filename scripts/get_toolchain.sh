@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    get_toolchain.sh    
+# Title       :    get_toolchain.sh
 #
 # License:
 #
-# GPL                                                                        
-# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de 
-#                                                                            
-# This program is free software; you can redistribute it and/or modify       
-# it under the terms of the GNU General Public License as published by       
-# the Free Software Foundation; either version 2 of the License, or          
-# (at your option) any later version.                                        
-#                                                                            
-# This program is distributed in the hope that it will be useful,            
-# but WITHOUT ANY WARRANTY; without even the implied warranty of             
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               
-# GNU General Public License for more details.                                
+# GPL
+# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -34,16 +34,16 @@
 #                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
 #                  V0.01 (aug 2015) -> first functional version
 #
-# Requires    :    
-#                 
+# Requires    :
+#
 #
 ################################################################################
 # Description
-#   
-#   A simple tool to get the toolchain and untar it to $ARMHF_BIN_HOME  ...  
+#
+#   A simple tool to get the toolchain and untar it to $ARMHF_BIN_HOME  ...
 #
 # Some features
-#   - ... 
+#   - ...
 #
 # Notes
 #   - ...
@@ -54,7 +54,7 @@
 # VERSION-NUMBER
 VER='0.04'
 
-# if env is sourced 
+# if env is sourced
 MISSING_ENV='false'
 
 #
@@ -73,8 +73,8 @@ TOOLCHAIN_HOST_VER='none'
 TOOLCHAIN_DOWNLOAD_STRING='none'
 TOOLCHAIN_HOST_DOWNLOAD_STRING='none'
 
-# my usage method 
-my_usage() 
+# my usage method
+my_usage()
 {
     echo " "
     echo "+------------------------------------------+"
@@ -87,14 +87,14 @@ my_usage()
     exit
 }
 
-# my cleanup 
+# my cleanup
 cleanup() {
     rm $_temp 2>/dev/null
     rm $_log 2>/dev/null
 }
 
-# my exit method 
-my_exit() 
+# my exit method
+my_exit()
 {
     clear
     echo "+------------------------------------------+"
@@ -105,7 +105,7 @@ my_exit()
 }
 
 # print version info
-print_version() 
+print_version()
 {
     echo "+------------------------------------------+"
     echo "| You are using version: ${VER}            |"
@@ -119,7 +119,7 @@ _temp="/tmp/get_toolchain.$$"
 _log="/tmp/get_toolchain.log"
 
 
-# check the args 
+# check the args
 while getopts 'hv' opts 2>$_log
 do
     case $opts in
@@ -134,16 +134,16 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_HOME" = '' ]; then 
+if [ "$ARMHF_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
 # show a usage screen and exit
-if [ "$MISSING_ENV" = 'true' ]; then 
+if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
@@ -165,12 +165,12 @@ fi
 # ******************************************************************************
 
 
-# --- create download string 
+# --- create download string
 create_download_string()
 {
    TOOLCHAIN_DOWNLOAD_STRING="http://sourceforge.net/projects/a20devices/files/toolchain_x86_64.tgz"
    TOOLCHAIN_HOST_DOWNLOAD_STRING="http://sourceforge.net/projects/a20devices/files/host_x86_64.tgz"
- 
+
    echo "INFO: set toolchain download string to $TOOLCHAIN_DOWNLOAD_STRING and $TOOLCHAIN_HOST_DOWNLOAD_STRING"
 }
 
@@ -178,7 +178,7 @@ create_download_string()
 # --- download toolchain tarball
 get_toolchain_tarball()
 {
-    if [ "$TOOLCHAIN_DOWNLOAD_STRING" = 'none' ]; then 
+    if [ "$TOOLCHAIN_DOWNLOAD_STRING" = 'none' ]; then
 	echo " "
 	echo "+--------------------------------------+"
 	echo "|                                      |"
@@ -189,9 +189,9 @@ get_toolchain_tarball()
 	echo " "
 
 	cleanup
-    fi 
+    fi
 
-    if [ "$TOOLCHAIN_HOST_DOWNLOAD_STRING" = 'none' ]; then 
+    if [ "$TOOLCHAIN_HOST_DOWNLOAD_STRING" = 'none' ]; then
 	echo " "
 	echo "+--------------------------------------+"
 	echo "|                                      |"
@@ -203,9 +203,9 @@ get_toolchain_tarball()
 	echo " "
 
 	cleanup
-    fi 
+    fi
 
-    wget $TOOLCHAIN_DOWNLOAD_STRING 
+    wget $TOOLCHAIN_DOWNLOAD_STRING
     wget $TOOLCHAIN_HOST_DOWNLOAD_STRING
 }
 
@@ -213,7 +213,7 @@ get_toolchain_tarball()
 untar_toolchain()
 {
     if [ -f toolchain_x86_64.tgz ]; then
-	tar xzvf toolchain_x86_64.tgz 
+	tar xzvf toolchain_x86_64.tgz
     else
 	echo " "
 	echo "+--------------------------------------+"
@@ -228,7 +228,7 @@ untar_toolchain()
     fi
 
     if [ -f host_x86_64.tgz ]; then
-	tar xzvf host_x86_64.tgz 
+	tar xzvf host_x86_64.tgz
     else
 	echo " "
 	echo "+--------------------------------------+"
@@ -240,13 +240,13 @@ untar_toolchain()
 	echo " "
 
 	cleanup
-    fi     
+    fi
 }
 
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
-# ****************************************************************************** 
+# ******************************************************************************
 
 echo " "
 echo "+----------------------------------------+"
@@ -255,7 +255,7 @@ echo "+----------------------------------------+"
 echo " "
 
 if [ $(uname -m) == 'x86_64' ]; then
-    
+
     if [ -d $ARMHF_BIN_HOME ]; then
 	cd $ARMHF_BIN_HOME
     else
@@ -269,7 +269,7 @@ if [ $(uname -m) == 'x86_64' ]; then
 	echo " "
 	exit
     fi
-  
+
     create_download_string
     get_toolchain_tarball
     untar_toolchain

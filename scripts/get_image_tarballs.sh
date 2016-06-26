@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    get_image_tarballs.sh    
+# Title       :    get_image_tarballs.sh
 #
 # License:
 #
-# GPL                                                                        
-# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de                        
-#                                                                            
-# This program is free software; you can redistribute it and/or modify       
-# it under the terms of the GNU General Public License as published by       
-# the Free Software Foundation; either version 2 of the License, or          
-# (at your option) any later version.                                        
-#                                                                            
-# This program is distributed in the hope that it will be useful,            
-# but WITHOUT ANY WARRANTY; without even the implied warranty of             
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               
-# GNU General Public License for more details.                                
+# GPL
+# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -28,15 +28,15 @@
 #
 # Version     :    V0.10
 #
-# Milestones  :    V0.10 (apr 2016) -> add baalue 
+# Milestones  :    V0.10 (apr 2016) -> add baalue
 #                  V0.09 (apr 2016) -> add cubietruck-hdd
 #                                      add bananapi-pro-hdd
 #                                      remove unused comment
-#                                      fix wrong image names 
+#                                      fix wrong image names
 #                  V0.08 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
 #                  V0.07 (apr 2016) -> check for architecture
 #                                      some more error checks/cleanups
-#                  V0.06 (mar 2016) -> add missing check for dir 
+#                  V0.06 (mar 2016) -> add missing check for dir
 #                  V0.05 (jan 2016) -> implement new architecture
 #                  V0.04 (jan 2016) -> add bananapi-pro as device
 #                  V0.03 (jan 2016) -> fix missing help content
@@ -45,16 +45,16 @@
 #                                      add support for cubietruck
 #                  V0.01 (aug 2015) -> first functional version
 #
-# Requires    :    
-#                 
+# Requires    :
+#
 #
 ################################################################################
 # Description
-#   
-#   A simple tool to download the image tarballs  
+#
+#   A simple tool to download the image tarballs
 #
 # Some features
-#   - ... 
+#   - ...
 #
 # Notes
 #   - ...
@@ -65,7 +65,7 @@
 # VERSION-NUMBER
 VER='0.10'
 
-# if env is sourced 
+# if env is sourced
 MISSING_ENV='false'
 
 # supported devices
@@ -83,8 +83,8 @@ ROOTFS_IMAGE='none'
 HOME_IMAGE='none'
 
 
-# my usage method 
-my_usage() 
+# my usage method
+my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
@@ -104,14 +104,14 @@ my_usage()
     exit
 }
 
-# my cleanup 
+# my cleanup
 cleanup() {
     rm $_temp 2>/dev/null
     rm $_log 2>/dev/null
 }
 
-# my exit method 
-my_exit() 
+# my exit method
+my_exit()
 {
     clear
     echo "+-----------------------------------+"
@@ -122,7 +122,7 @@ my_exit()
 }
 
 # print version info
-print_version() 
+print_version()
 {
     echo "+-----------------------------------+"
     echo "| You are using version: ${VER}       |"
@@ -136,7 +136,7 @@ _temp="/tmp/get_image_tarballs.$$"
 _log="/tmp/get_image_tarballs.log"
 
 
-# check the args 
+# check the args
 while getopts 'bcdefopahv' opts 2>$_log
 do
     case $opts in
@@ -166,12 +166,12 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
 # show a usage screen and exit
-if [ "$MISSING_ENV" = 'true' ]; then 
+if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
@@ -193,85 +193,85 @@ fi
 # ******************************************************************************
 
 
-# --- create download string 
+# --- create download string
 create_download_string_bananapi()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
-    
+
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
 
-# --- create download string 
+# --- create download string
 create_download_string_baalue()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_kernel.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
-    
+
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
 
-# --- create download string 
+# --- create download string
 create_download_string_bananapi-pro()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_home.tgz"
-    
+
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
 
-# --- create download string 
+# --- create download string
 create_download_string_bananapi-pro_hdd()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_kernel.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_home.tgz"
-    
+
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
 
-# --- create download string 
+# --- create download string
 create_download_string_cubietruck()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_home.tgz"
-    
+
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
 
-# --- create download string 
+# --- create download string
 create_download_string_cubietruck_hdd()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_kernel.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_home.tgz"
-    
+
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
 }
 
-# --- create download string 
+# --- create download string
 create_download_string_olimex()
 {
     KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_kernel.tgz"
     ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_rootfs.tgz"
     HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_home.tgz"
-    
+
     echo "INFO: set kernel download string to $KERNEL_IMAGE"
     echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
     echo "INFO: set home download string to $HOME_IMAGE"
@@ -281,7 +281,7 @@ create_download_string_olimex()
 # --- download image tarball
 get_image_tarball()
 {
-    if [ "$KERNEL_IMAGE" = 'none' ]; then 
+    if [ "$KERNEL_IMAGE" = 'none' ]; then
 	echo " "
 	echo "+--------------------------------------+"
 	echo "|                                      |"
@@ -291,9 +291,9 @@ get_image_tarball()
 	echo " "
 
 	cleanup
-    fi 
+    fi
 
-    if [ "$ROOTFS_IMAGE" = 'none' ]; then 
+    if [ "$ROOTFS_IMAGE" = 'none' ]; then
 	echo " "
 	echo "+--------------------------------------+"
 	echo "|                                      |"
@@ -305,7 +305,7 @@ get_image_tarball()
 	cleanup
     fi
 
-    if [ "$HOME_IMAGE" = 'none' ]; then 
+    if [ "$HOME_IMAGE" = 'none' ]; then
 	echo " "
 	echo "+--------------------------------------+"
 	echo "|                                      |"
@@ -315,7 +315,7 @@ get_image_tarball()
 	echo " "
 
 	cleanup
-    fi 
+    fi
 
     wget $KERNEL_IMAGE
     wget $ROOTFS_IMAGE
@@ -330,7 +330,7 @@ get_image_tarball()
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
-# ****************************************************************************** 
+# ******************************************************************************
 
 echo " "
 echo "+----------------------------------------------+"
@@ -346,41 +346,41 @@ if [ $(uname -m) == 'x86_64' ]; then
 	mkdir -p $ARMHF_BIN_HOME/images
 	cd $ARMHF_BIN_HOME/images
     fi
-    
-    if [ "$BANANAPI" = 'true' ]; then 
+
+    if [ "$BANANAPI" = 'true' ]; then
 	create_download_string_bananapi
 	get_image_tarball
     fi
 
-    if [ "$BAALUE" = 'true' ]; then 
+    if [ "$BAALUE" = 'true' ]; then
 	create_download_string_baalue
 	get_image_tarball
     fi
-    
-    if [ "$BANANAPIPRO" = 'true' ]; then 
+
+    if [ "$BANANAPIPRO" = 'true' ]; then
 	create_download_string_bananapi-pro
 	get_image_tarball
     fi
 
-    if [ "$BANANAPIPRO_HDD" = 'true' ]; then 
+    if [ "$BANANAPIPRO_HDD" = 'true' ]; then
 	create_download_string_bananapi-pro_hdd
 	get_image_tarball
     fi
-    
-    if [ "$CUBIETRUCK" = 'true' ]; then 
+
+    if [ "$CUBIETRUCK" = 'true' ]; then
 	create_download_string_cubietruck
 	get_image_tarball
     fi
 
-    if [ "$CUBIETRUCK_HDD" = 'true' ]; then 
+    if [ "$CUBIETRUCK_HDD" = 'true' ]; then
 	create_download_string_cubietruck_hdd
 	get_image_tarball
     fi
-    
-    if [ "$OLIMEX" = 'true' ]; then 
+
+    if [ "$OLIMEX" = 'true' ]; then
 	create_download_string_olimex
 	get_image_tarball
-    fi  
+    fi
 else
     echo "INFO: image handling on $(uname -m) not supported"
 fi

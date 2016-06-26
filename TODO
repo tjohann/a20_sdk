@@ -3,6 +3,14 @@
 #
 
 #
+# -------------- 2016-06-26 ----------------------------------------------------
+#
+
+## target & sdk stuff
+- unify all images -> only one image for all devices
+
+
+#
 # -------------- 2016-05-29 ----------------------------------------------------
 #
 
@@ -19,7 +27,7 @@
 ## kernel stuff
 - add security and extentend attr to ext4 for all kernel
   (needed for set/getcap)
-  bananapi                                              
+  bananapi
   bananapi-pro
   olimex
   cubietruck
@@ -156,11 +164,11 @@
 - build u-boot for olimex                                   [2016-02-xx -> done]
 - build u-boot for cubietruck                               [2016-02-xx -> done]
 - build kernel for olimex                                   [2016-02-xx -> done]
-- build kernel for cubietruck                               [2016-02-xx -> done]        
+- build kernel for cubietruck                               [2016-02-xx -> done]
 - create first void-linux based olimex image                [2016-02-xx -> done]
 
 ## external stuff
-- adapt to common use                                       [2016-01-24 -> done]                            
+- adapt to common use                                       [2016-01-24 -> done]
 
 
 #

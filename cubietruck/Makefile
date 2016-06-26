@@ -3,7 +3,7 @@
 MODULES = $(shell ls -d */ | cut -f1 -d'/')
 
 .PHONY: all
-all: 
+all:
 	@echo Cheers
 
 .PHONY: clean

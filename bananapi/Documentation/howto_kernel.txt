@@ -70,7 +70,7 @@ Mountpoints
 -----------
 
 bananapi:
- - kernel -> /mnt/bananapi/bananapi_kernel     
+ - kernel -> /mnt/bananapi/bananapi_kernel
  - rootfs -> /mnt/bananapi/bananapi_rootfs
  - home   -> /mnt/bananapi/bananapi_home
 
@@ -102,7 +102,7 @@ KDO: make get_latest_kernel
 Patch kernel
 ============
 
-RT-PREEMPT 
+RT-PREEMPT
 ----------
 
 DIR: $ARMHF_BIN/HOME/kernel/linux-4.4.9-rt

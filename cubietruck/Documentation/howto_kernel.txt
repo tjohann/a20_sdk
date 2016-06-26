@@ -33,8 +33,8 @@ Content:
 
 - Finalize
   -- Finish -> after login
-  -- Prepare linux tree to build your modules against the new kernel 
-  -- Prepare modules to link 
+  -- Prepare linux tree to build your modules against the new kernel
+  -- Prepare modules to link
 
 
 
@@ -65,7 +65,7 @@ Mountpoints
 -----------
 
 cubietruck:
- - kernel -> /mnt/cubietruck/cubietruck_kernel     
+ - kernel -> /mnt/cubietruck/cubietruck_kernel
  - rootfs -> /mnt/cubietruck/cubietruck_rootfs
  - home   -> /mnt/cubietruck/cubietruck_home
 

@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    clean_sdk.sh    
+# Title       :    clean_sdk.sh
 #
 # License:
 #
-# GPL                                                                        
+# GPL
 # (c) 2016, thorsten.johannvorderbrueggen@t-online.de
-#                                                                            
-# This program is free software; you can redistribute it and/or modify       
-# it under the terms of the GNU General Public License as published by       
-# the Free Software Foundation; either version 2 of the License, or          
-# (at your option) any later version.                                        
-#                                                                            
-# This program is distributed in the hope that it will be useful,            
-# but WITHOUT ANY WARRANTY; without even the implied warranty of             
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               
-# GNU General Public License for more details.                                
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -35,16 +35,16 @@
 #                                      add content to cleanup toolchain stuff
 #                  V0.01 (apr 2016) -> first skeleton version
 #
-# Requires    :    
-#                 
+# Requires    :
+#
 #
 ################################################################################
 # Description
-#   
+#
 #   A simple tool to cleanup parts of the sdk
 #
 # Some features
-#   - ... 
+#   - ...
 #
 # Notes
 #   - ...
@@ -55,7 +55,7 @@
 # VERSION-NUMBER
 VER='0.04'
 
-# if env is sourced 
+# if env is sourced
 MISSING_ENV='false'
 
 # what to clean
@@ -65,8 +65,8 @@ CLEAN_IMAGES='false'
 CLEAN_TOOLCHAIN='false'
 CLEAN_USER='false'
 
-# my usage method 
-my_usage() 
+# my usage method
+my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
@@ -85,14 +85,14 @@ my_usage()
     exit
 }
 
-# my cleanup 
+# my cleanup
 cleanup() {
     rm $_temp 2>/dev/null
     rm $_log 2>/dev/null
 }
 
-# my exit method 
-my_exit() 
+# my exit method
+my_exit()
 {
     clear
     echo "+-----------------------------------+"
@@ -103,7 +103,7 @@ my_exit()
 }
 
 # print version info
-print_version() 
+print_version()
 {
     echo "+-----------------------------------+"
     echo "| You are using version: ${VER}       |"
@@ -117,7 +117,7 @@ _temp="/tmp/clean_sdk.$$"
 _log="/tmp/clean_sdk.log"
 
 
-# check the args 
+# check the args
 while getopts 'hvaketiu' opts 2>$_log
 do
     case $opts in
@@ -143,20 +143,20 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_HOME" = '' ]; then 
+if [ "$ARMHF_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_SRC_HOME" = '' ]; then 
+if [ "$ARMHF_SRC_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
 # show a usage screen and exit
-if [ "$MISSING_ENV" = 'true' ]; then 
+if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
@@ -181,7 +181,7 @@ fi
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
-# ****************************************************************************** 
+# ******************************************************************************
 
 echo " "
 echo "+----------------------------------------+"
@@ -195,7 +195,7 @@ if [ "$CLEAN_IMAGES" = 'true' ]; then
 	rm -rf *.tgz
 	echo "cleanup image dir"
     else
-        echo "INFO: no dir images below ${ARMHF_BIN_HOME}/images" 
+        echo "INFO: no dir images below ${ARMHF_BIN_HOME}/images"
     fi
 else
     echo "do not clean ${ARMHF_BIN_HOME}/images"
@@ -217,7 +217,7 @@ if [ "$CLEAN_EXTERNAL" = 'true' ]; then
 	rm -rf baalued
 	rm -rf time_triggert_env
     else
-        echo "INFO: no dir external below ${ARMHF_BIN_HOME}/external" 
+        echo "INFO: no dir external below ${ARMHF_BIN_HOME}/external"
     fi
 else
     echo "do not clean ${ARMHF_BIN_HOME}/external"
@@ -231,7 +231,7 @@ if [ "$CLEAN_KERNEL" = 'true' ]; then
 	rm -rf modules_*
 	rm -rf patch-*
     else
-        echo "INFO: no dir kernel below ${ARMHF_BIN_HOME}/kernel" 
+        echo "INFO: no dir kernel below ${ARMHF_BIN_HOME}/kernel"
     fi
 else
     echo "do not clean ${ARMHF_BIN_HOME}/kernel"
@@ -244,8 +244,8 @@ if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then
 	rm -rf host*
 	rm -rf toolchain*
     else
-        echo "INFO: no $ARMHF_BIN_HOME" 
-    fi	
+        echo "INFO: no $ARMHF_BIN_HOME"
+    fi
 else
     echo "do not clean toolchain parts"
 fi
@@ -259,8 +259,8 @@ if [ "$CLEAN_USER" = 'true' ]; then
 	rm -rf include
 	rm -rf lib*
     else
-        echo "INFO: no $ARMHF_SRC_HOME" 
-    fi	
+        echo "INFO: no $ARMHF_SRC_HOME"
+    fi
 else
     echo "do not clean toolchain parts"
 fi

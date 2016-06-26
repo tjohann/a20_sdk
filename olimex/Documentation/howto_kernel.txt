@@ -70,7 +70,7 @@ Mountpoints
 -----------
 
 olimex:
- - kernel -> /mnt/olimex/olimex_kernel     
+ - kernel -> /mnt/olimex/olimex_kernel
  - rootfs -> /mnt/olimex/olimex_rootfs
  - home   -> /mnt/olimex/olimex_home
 
@@ -102,7 +102,7 @@ KDO: make get_latest_kernel
 Patch kernel
 ============
 
-RT-PREEMPT 
+RT-PREEMPT
 ----------
 
 DIR: $ARMHF_BIN/HOME/kernel/linux-4.4.9-rt

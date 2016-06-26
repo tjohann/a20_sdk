@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    get_latest_linux_kernel.sh 
+# Title       :    get_latest_linux_kernel.sh
 #
 # License:
 #
-# GPL                                                                        
+# GPL
 # (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
-#                                                                            
-# This program is free software; you can redistribute it and/or modify       
-# it under the terms of the GNU General Public License as published by       
-# the Free Software Foundation; either version 2 of the License, or          
-# (at your option) any later version.                                        
-#                                                                            
-# This program is distributed in the hope that it will be useful,            
-# but WITHOUT ANY WARRANTY; without even the implied warranty of             
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the               
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -38,16 +38,16 @@
 #                  V0.01 (aug 2015) -> first functional version
 #
 # Requires    :    ...
-#                 
+#
 #
 ################################################################################
 # Description
-#   
+#
 #   A simple tool to get the latest kernel tarball and copy it to
-#   $ARMHF_BIN_HOME/kernel ...  
+#   $ARMHF_BIN_HOME/kernel ...
 #
 # Some features
-#   - ... 
+#   - ...
 #
 # Notes
 #   - ...
@@ -58,7 +58,7 @@
 # VERSION-NUMBER
 VER='0.08'
 
-# if env is sourced 
+# if env is sourced
 MISSING_ENV='false'
 
 # latest kernel/rt-preempt version
@@ -70,8 +70,8 @@ DOWNLOAD_STRING='none'
 DOWNLOAD_RT='false'
 DOWNLOAD_NONRT='false'
 
-# my usage method 
-my_usage() 
+# my usage method
+my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
@@ -91,14 +91,14 @@ my_usage()
     exit
 }
 
-# my cleanup 
+# my cleanup
 cleanup() {
    rm $_temp 2>/dev/null
    rm $_log 2>/dev/null
 }
 
-# my exit method 
-my_exit() 
+# my exit method
+my_exit()
 {
     clear
     echo "+-----------------------------------+"
@@ -109,7 +109,7 @@ my_exit()
 }
 
 # print version info
-print_version() 
+print_version()
 {
     echo "+-----------------------------------+"
     echo "| You are using version: ${VER}       |"
@@ -123,7 +123,7 @@ _temp="/tmp/get_latest_linux_kernel.$$"
 _log="/tmp/get_latest_linux_kernel.log"
 
 
-# check the args 
+# check the args
 while getopts 'hvrna' opts 2>$_log
 do
     case $opts in
@@ -143,24 +143,24 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then 
+if [ "$ARMHF_BIN_HOME" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_KERNEL_VER" = '' ]; then 
+if [ "$ARMHF_KERNEL_VER" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_RT_KERNEL_VER" = '' ]; then 
+if [ "$ARMHF_RT_KERNEL_VER" = '' ]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_RT_VER" = '' ]; then 
+if [ "$ARMHF_RT_VER" = '' ]; then
     MISSING_ENV='true'
 fi
 
 # show a usage screen and exit
-if [ "$MISSING_ENV" = 'true' ]; then 
+if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
@@ -182,7 +182,7 @@ get_kernel_source()
 {
     DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/v4.x/linux-${KERNEL_VER}.tar.xz"
     echo "INFO: set kernel download string to $DOWNLOAD_STRING"
-    
+
     if [ -f linux-${KERNEL_VER}.tar.xz ]; then
 	echo " "
 	echo "+--------------------------------------+"
@@ -191,11 +191,11 @@ get_kernel_source()
 	echo "|        again                         |"
 	echo "+--------------------------------------+"
 	echo " "
-	
-	tar xvf linux-${KERNEL_VER}.tar.xz 
+
+	tar xvf linux-${KERNEL_VER}.tar.xz
     else
 	wget $DOWNLOAD_STRING
-	
+
 	if [ $? -ne 0 ]; then
 	    echo " "
 	    echo "+--------------------------------------+"
@@ -205,7 +205,7 @@ get_kernel_source()
 
 	    cleanup
 	else
-	   tar xvf linux-${KERNEL_VER}.tar.xz  
+	   tar xvf linux-${KERNEL_VER}.tar.xz
 	fi
     fi
 
@@ -227,16 +227,16 @@ get_rt_patch_source()
 	echo "|        again                         |"
 	echo "+--------------------------------------+"
 	echo " "
-    else	
+    else
 	wget $DOWNLOAD_STRING
-	
+
 	if [ $? -ne 0 ]; then
 	    echo " "
 	    echo "+--------------------------------------+"
 	    echo "|  INFO: cant download using dir older |"
 	    echo "+--------------------------------------+"
 	    echo " "
-	    
+
 	    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.4/older/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
 	    echo "INFO: set rt-preempt patch download string to $DOWNLOAD_STRING"
 
@@ -251,9 +251,9 @@ get_rt_patch_source()
 
 		cleanup
 	    fi
-	fi    
+	fi
     fi
-	
+
     # reset value
     DOWNLOAD_STRING='none'
 }
@@ -261,7 +261,7 @@ get_rt_patch_source()
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
-# ****************************************************************************** 
+# ******************************************************************************
 
 echo " "
 echo "+----------------------------------------+"
@@ -276,12 +276,12 @@ else
     cd $ARMHF_BIN_HOME/kernel
 fi
 
-if [ "$DOWNLOAD_RT" = 'true' ]; then 
+if [ "$DOWNLOAD_RT" = 'true' ]; then
     # FULL_RT_PREEMPT handling
     KERNEL_VER=$ARMHF_RT_KERNEL_VER
     echo "INFO: set kernel version to linux-$KERNEL_VER and linux-$RT_KERNEL_VER "
     get_kernel_source
-    
+
     # mv linux-$ARMHF_RT_KERNEL_VER to linux-$ARMHF_RT_KERNEL_VER_rt
     mv linux-${ARMHF_RT_KERNEL_VER} linux-${ARMHF_RT_KERNEL_VER}_rt
 

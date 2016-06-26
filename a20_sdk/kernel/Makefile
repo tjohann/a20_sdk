@@ -14,18 +14,18 @@ ifeq "${ARMHF_SRC_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-all:: 
+all::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|                  Nothing to build                        |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	@echo "| make get_latest_kernel  -> download latest kernel version|"
-	@echo "| make get_rt_latest_kernel -> download latest rt kernel   |"	
+	@echo "| make get_rt_latest_kernel -> download latest rt kernel   |"
 	@echo "| make get_nonrtlatest_kernel -> download latest nonrt ... |"
 	@echo "| make clean              -> clean all dir/subdirs         |"
-	@echo "| make distclean          -> rm also downloaded/build parts|"	
-	@echo "+----------------------------------------------------------+"	
+	@echo "| make distclean          -> rm also downloaded/build parts|"
+	@echo "+----------------------------------------------------------+"
 
 clean::
 	rm -f *~

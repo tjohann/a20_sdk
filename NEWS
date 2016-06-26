@@ -4,7 +4,7 @@
 
 
 2016-05-29 -> ## target stuff
-	      add pinning overview for olimex 
+	      add pinning overview for olimex
 
 
 ################## 2016-05-24 -> A20_SDK_V1.0.0 ############################
@@ -17,7 +17,7 @@
 
 2016-05-12 -> ## script stuff
 	      add http://github.com/tjohann/time_triggert_env.git to external
-	      
+
 
 ################## 2016-05-11 -> A20_SDK_V0.99.0 ############################
 
@@ -31,8 +31,8 @@
 	      - add libcapng
 	      - add libarchive
 	      - add libcurl
-	      - ... 
-	      
+	      - ...
+
 
 2016-05-10 -> ## target stuff
 	      regular updates of cubietruck images
@@ -42,7 +42,7 @@
 
 	      ## sdk stuff
 	      add libbaalue and baalued to external
-	      
+
 
 2016-05-09 -> ## target stuff
 	      regular updates of bananapi images
@@ -50,7 +50,7 @@
 
 	      ## script stuff
 	      add arguments to clean_sdk/init_sdk for user specific parts
-	      
+
 
 2016-04-27 -> ## script stuff
 	      add http://github.com/tjohann/mydriver.git to external
@@ -72,15 +72,15 @@
 	      only rt or nonrt kernel parts
 
 	      ## target stuff (bananapi/baalue)
-	      regular updates 
+	      regular updates
 	      add file /etc/A20_SDK_DATE.txt with date of latest complete update
 	      update hosts list to reflect all embedded devices i use in my
 	      small virtual network
-	      
+
 
 2016-04-23 -> ## target stuff
 	      update bananapi to 4.4.8 and 4.4.7-rt16
-	      
+
 
 ################## 2016-04-19 -> first release of a20_sdk ##################
 
@@ -88,7 +88,7 @@
 2016-04-19 -> ## script stuff
 	      add more content to clean_sdk.sh
 	      a lot of Makefile cleanups/additions
-	      
+
 
 2016-04-17 -> ## target stuff
 	      first cubietruck image
@@ -98,7 +98,7 @@
 2016-04-12 -> ## target stuff
 	      final updates for olimex
 	      first updates for bananapi
-	      
+
 
 2016-04-09 -> ## sdk stuff
 	      add some more pics about my used devices
@@ -108,7 +108,7 @@
 	      regular image updates
 	      - update kernel to 4.4.6-rt14
 	      - update kernel to 4.5.0
-	      
+
 
 2016-04-08 -> ## script stuff
 	      add some more checks to make it more robust
@@ -122,7 +122,7 @@
 
 2016-03-21 -> ## target stuff
 	      add build requirements for tt_rt_cnt_framework.git
-	      
+
 
 2016-03-14 -> ## target stuff
 	      first kernel with FULL-RT-PREEMPT
@@ -138,10 +138,10 @@
 	      regular updates
 	      -> update kernel to 4.4.4
 	      -> update kernel to 4.4.3-rt9
-	     
+
 
 2016-02-28 -> ## target stuff
-	      regular updates 
+	      regular updates
 	      -> update kernel to 4.4.3
 	      -> update rt-kernel to 4.4.2-rt7
 
@@ -153,10 +153,10 @@
 	      first working olimex config/image
 	      add u-boot config and related
 	      add kernel config
-	      
+
 
 2016-02-17 -> ## target stuff
-	      regular updates 
+	      regular updates
 	      -> update kernel to 4.4.1
 	      -> update rt-kernel to 4.4.1-rt6
 
@@ -172,7 +172,7 @@
 
 
 2016-01-25 -> ## sdk stuff
-	      start to implement the new architecture (see README.md for more info) 
+	      start to implement the new architecture (see README.md for more info)
 
 
 2016-01-24 -> ## target stuff
@@ -217,5 +217,5 @@
 
 
 2016-01-12 -> ## "all"
-	      first checkin with initial setup for bananapi 
+	      first checkin with initial setup for bananapi
 

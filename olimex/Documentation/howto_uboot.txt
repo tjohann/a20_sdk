@@ -12,7 +12,7 @@ Content:
 - Notes
 
 - Setup SD-Card
-  -- Clean SD-Card 
+  -- Clean SD-Card
   -- Create partition table () with gparted
   -- Write bootloader to SD-Card
 
@@ -33,10 +33,10 @@ Notes
 
  SUNXI docs -> http://linux-sunxi.org/Bootable_SD_card
                http://linux-sunxi.org/Mainline_U-boot
-	       
+
  U-Boot     -> use $ARMHF_HOME/external/u-boot
- 
- Change the device node to your device -> see /var/log/messages 
+
+ Change the device node to your device -> see /var/log/messages
 
 
 
@@ -70,15 +70,15 @@ U-Boot
 Configure
 ---------
 
-make A20-Olimex-SOM-EVB_defconfig 
+make A20-Olimex-SOM-EVB_defconfig
 
 
 Build
 -----
 
-make CROSS_COMPILE=arm-none-linux-gnueabihf- 
+make CROSS_COMPILE=arm-none-linux-gnueabihf-
 
-- Allwinner A20 needed spl ... 
+- Allwinner A20 needed spl ...
   -> Output: u-boot-sunxi-with-spl.bin (spl/sunxi-spl.bin and u-boot.img)
 
 

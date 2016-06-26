@@ -27,7 +27,7 @@ Content:
 - UART configuration
   -- Device
   -- Address
-    
+
 
 
 Clone jailhouse repo
@@ -51,7 +51,7 @@ boot.cmd for bananapi
 
 fatload mmc 0 0x46000000 uImage
 fatload mmc 0 0x49000000 sun7i-a20-bananapi.dtb
-setenv bootargs console=ttyS0,115200 loglevel=9 <earlyprintk> mem=960M vmalloc=512M root=/dev/mmcblk0p2 rootwait panic=10 
+setenv bootargs console=ttyS0,115200 loglevel=9 <earlyprintk> mem=960M vmalloc=512M root=/dev/mmcblk0p2 rootwait panic=10
 bootm 0x46000000 - 0x49000000
 
 
@@ -66,9 +66,9 @@ List available cells
 --------------------
 
 bananapi:/usr/src/jailhouse$ jailhouse cell list
-ID      Name                    State           Assigned CPUs           Failed CPUs             
-0       Banana-Pi               running         0                                               
-1       bananapi-uart-demo      shut down       1                                               
+ID      Name                    State           Assigned CPUs           Failed CPUs
+0       Banana-Pi               running         0
+1       bananapi-uart-demo      shut down       1
 
 
 Load kernel driver
@@ -105,21 +105,21 @@ Shutdown/destroy uart cell
 --------------------------
 
 bananapi:/usr/src/jailhouse$ jailhouse cell list
-ID      Name                    State           Assigned CPUs           Failed CPUs             
-0       Banana-Pi               running         0                                               
-1       bananapi-uart-demo      running         1                                               
+ID      Name                    State           Assigned CPUs           Failed CPUs
+0       Banana-Pi               running         0
+1       bananapi-uart-demo      running         1
 
 bananapi:/usr/src/jailhouse$ jailhouse cell shutdown 1
 
 bananapi:/usr/src/jailhouse$ jailhouse cell list
-ID      Name                    State           Assigned CPUs           Failed CPUs             
-0       Banana-Pi               running         0                                               
-1       bananapi-uart-demo      shut down       1                                               
+ID      Name                    State           Assigned CPUs           Failed CPUs
+0       Banana-Pi               running         0
+1       bananapi-uart-demo      shut down       1
 bananapi:/usr/src/jailhouse$ jailhouse cell destroy 1
 
 bananapi:/usr/src/jailhouse$ jailhouse cell list
-ID      Name                    State           Assigned CPUs           Failed CPUs             
-0       Banana-Pi               running         0,1       
+ID      Name                    State           Assigned CPUs           Failed CPUs
+0       Banana-Pi               running         0,1
 
 
 

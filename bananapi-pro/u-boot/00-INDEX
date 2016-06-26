@@ -2,7 +2,7 @@
 # 00-INDEX
 #
 
-This is a brief list of all the files in ./baalue_sdk/common ... 
+This is a brief list of all the files in ./baalue_sdk/common ...
 
 
 00-INDEX
@@ -11,21 +11,21 @@ This is a brief list of all the files in ./baalue_sdk/common ...
 README.md
 	- README
 
-README.txt 
+README.txt
 	- link to README.md
-	
+
 U-BOOT.VER
 	- version info
-	
+
 boot.cmd
-	- boot script with reserved memory for jailhouse 
+	- boot script with reserved memory for jailhouse
 
 boot.scr
 	- boot script binary
-	
+
 makefile
 	- makefile
-	
+
 u-boot-sunxi-with-spl.bin
 	- ready to use bootloader
 

@@ -29,7 +29,7 @@ clean::
 distclean: clean_user_home
 	rm -f *~
 
-init_user_home: clean_user_home 
+init_user_home: clean_user_home
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|              Init $USER specific SDK parts               |"

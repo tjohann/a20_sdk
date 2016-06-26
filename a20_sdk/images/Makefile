@@ -14,7 +14,7 @@ ifeq "${ARMHF_SRC_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-all:: 
+all::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|                  Nothing to build                        |"
@@ -31,8 +31,8 @@ all::
 	@echo "| image tarballs                                           |"
 	@echo "| ....                                                     |"
 	@echo "| make clean -> clean all dir/subdirs                      |"
-	@echo "| make distclean -> rm also downloaded/build parts         |"	
-	@echo "+----------------------------------------------------------+"	
+	@echo "| make distclean -> rm also downloaded/build parts         |"
+	@echo "+----------------------------------------------------------+"
 
 clean::
 	rm -f *~ *.o .*~
@@ -61,7 +61,7 @@ get_bananapi_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
 
 
-get_bananapi_image_tarballs::  
+get_bananapi_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest bananapi image tarballs           |"
@@ -69,7 +69,7 @@ get_bananapi_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
 
-get_bananapi-pro_image_tarballs::  
+get_bananapi-pro_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest bananapi-pro image tarballs       |"
@@ -77,7 +77,7 @@ get_bananapi-pro_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -p)
 
-get_bananapi-pro-hdd_image_tarballs::  
+get_bananapi-pro-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest bananapi-pro-hdd image tarballs   |"
@@ -85,7 +85,7 @@ get_bananapi-pro-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -e)
 
-get_cubietruck_image_tarballs::  
+get_cubietruck_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest cubietruck image tarballs         |"
@@ -93,7 +93,7 @@ get_cubietruck_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -c)
 
-get_cubietruck-hdd_image_tarballs::  
+get_cubietruck-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest cubietruck-hdd image tarballs     |"
@@ -101,7 +101,7 @@ get_cubietruck-hdd_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -d)
 
-get_olimex_image_tarballs::  
+get_olimex_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|        Download latest olimex image tarballs             |"

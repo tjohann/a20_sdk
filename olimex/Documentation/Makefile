@@ -15,9 +15,9 @@ ifeq "${ARMHF_SRC_HOME}" ""
 endif
 
 MODULES = $(shell ls -d */ | cut -f1 -d'/')
-DOCS = 
+DOCS =
 
-all:: 
+all::
 	@echo Cheers
 
 clean::
