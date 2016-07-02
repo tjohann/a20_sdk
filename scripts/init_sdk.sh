@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    09.05.2016/25.01.2016
+# Date/Beginn :    02.07.2016/25.01.2016
 #
-# Version     :    V0.07
+# Version     :    V0.08
 #
-# Milestones  :    V0.07 (may 2016) -> add argument to init home and opt
+# Milestones  :    V0.08 (jul 2016) -> some minor improvements
+#                  V0.07 (may 2016) -> add argument to init home and opt
 #                  V0.06 (apr 2016) -> use rsync for all links
 #                                      some smaller fixes
 #                  V0.05 (apr 2016) -> some cleanups
@@ -57,7 +58,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.07'
+VER='0.08'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -135,15 +136,15 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_HOME" = '' ]; then
+if [[ ! ${ARMHF_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then
+if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_SRC_HOME" = '' ]; then
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 

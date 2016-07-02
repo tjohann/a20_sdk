@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    10.05.2016/17.04.2016
+# Date/Beginn :    02.07.2016/17.04.2016
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (may 2016) -> add libbaalue and baalued
+# Milestones  :    V0.05 (jul 2016) -> some minor improvements
+#                  V0.04 (may 2016) -> add libbaalue and baalued
 #                  V0.03 (may 2016) -> add missing externals
 #                                      add cleanup $ARMHF_SRC_DIR
 #                  V0.02 (apr 2016) -> finalize
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -143,15 +144,15 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_HOME" = '' ]; then
+if [[ ! ${ARMHF_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then
+if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_SRC_HOME" = '' ]; then
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 

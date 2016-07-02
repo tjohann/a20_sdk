@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.05.2016/15.08.2015
+# Date/Beginn :    02.07.2016/15.08.2015
 #
-# Version     :    V0.23
+# Version     :    V0.24
 #
-# Milestones  :    V0.23 (may 2016) -> add time_triggert_env
+# Milestones  :    V0.24 (jul 2016) -> some minor improvements
+#                  V0.23 (may 2016) -> add time_triggert_env
 #                  V0.22 (may 2016) -> add libbaalue and baalued
 #                  V0.21 (apr 2016) -> add mydriver because of the examples
 #                  V0.20 (apr 2016) -> some more cleanups of unused repos
@@ -80,7 +81,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.23'
+VER='0.24'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -174,7 +175,7 @@ cheers_missing_env()
     echo "|  ERROR: missing env                                    |"
     echo "|         have you sourced env-file?                     |"
     echo "|                                                        |"
-    echo "|          Cheers $USER     "
+    echo "|          Cheers $USER                                 |"
     echo "|                                                        |"
     echo "+--------------------------------------------------------+"
     echo " "
@@ -224,7 +225,15 @@ done
 # ***                 error handling for missing env                         ***
 # ******************************************************************************
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then
+if [[ ! ${ARMHF_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_BIN_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 

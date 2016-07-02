@@ -3,10 +3,39 @@
 #
 
 #
+# -------------- 2016-07-02 ----------------------------------------------------
+#
+
+## target && sdk stuff
+- add file like os-release for target device and release to
+  /etc (a20_sdk-release)
+
+## script stuff
+- add support for $*_SHARED in brand_image.sh
+- rework init_sdk.sh to remove the ugly coded rsync parts 
+
+## target stuff
+- provide basic skeleton for $*_SHARED (/lib/modules ...)
+- make void-linux kernel package for all devices and bring it
+  mainline
+- make void-linux RT-PREEMPT kernel package for all devices
+  and bring it mainline
+- make void-linux u-boot packages for all devices and bring
+  it mainline 
+- blacklist kvm driver -> use jailhouse
+- build unified kernel for PREEMPT and RT-PREEMPT 
+- provide minimal image with PREEMPT and RT-PREEMPT kernel
+- provide minimal RT-PREEMPT kernel for minimal image
+
+## sdk stuff
+- update sdk_builder config
+- prepare integration checklist
+
+#
 # -------------- 2016-06-26 ----------------------------------------------------
 #
 
-## target & sdk stuff
+## target && sdk stuff
 - unify all images -> only one image for all devices
 
 

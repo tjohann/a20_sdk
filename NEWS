@@ -3,6 +3,13 @@
 #
 
 
+################## 2016-05-24 -> A20_SDK_V1.1.0 ############################
+
+2016-07-02 -> ## sdk/script stuff
+	      add new script to brand an image for olimex or ...
+	      fix wrong export of cubietruck mount points (BUG)
+	      prepare branding sources below the different devices
+
 2016-05-29 -> ## target stuff
 	      add pinning overview for olimex
 
@@ -13,7 +20,6 @@
 	      update bananapi u-boot due to false detection of mmc with
 	      FULL-RT-PREEMPT config
 	      add FULL-RT-PREEMPT config
-
 
 2016-05-12 -> ## script stuff
 	      add http://github.com/tjohann/time_triggert_env.git to external

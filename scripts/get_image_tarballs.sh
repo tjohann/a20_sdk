@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.04.2016/24.08.2015
+# Date/Beginn :    02.07.2016/24.08.2015
 #
-# Version     :    V0.10
+# Version     :    V0.11
 #
-# Milestones  :    V0.10 (apr 2016) -> add baalue
+# Milestones  :    V0.11 (jul 2016) -> some minor improvements
+#                  V0.10 (apr 2016) -> add baalue
 #                  V0.09 (apr 2016) -> add cubietruck-hdd
 #                                      add bananapi-pro-hdd
 #                                      remove unused comment
@@ -63,7 +64,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.10'
+VER='0.11'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -166,7 +167,15 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then
+if [[ ! ${ARMHF_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_BIN_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -175,14 +184,14 @@ if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
-    echo "+------------------------------------------+"
-    echo "|                                          |"
-    echo "|  ERROR: missing env                      |"
-    echo "|         have you sourced env-file?       |"
-    echo "|                                          |"
-    echo "|          Cheers $USER                   |"
-    echo "|                                          |"
-    echo "+------------------------------------------+"
+    echo "+--------------------------------------+"
+    echo "|                                      |"
+    echo "|  ERROR: missing env                  |"
+    echo "|         have you sourced env-file?   |"
+    echo "|                                      |"
+    echo "|          Cheers $USER               |"
+    echo "|                                      |"
+    echo "+--------------------------------------+"
     echo " "
     exit
 fi

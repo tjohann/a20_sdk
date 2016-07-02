@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    08.04.2016/15.08.2015
+# Date/Beginn :    02.07.2016/15.08.2015
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (apr 2016) -> check for architecture
+# Milestones  :    V0.05 (jul 2016) -> some minor improvements
+#                  V0.04 (apr 2016) -> check for architecture
 #                                      some more error checks/cleanups
 #                  V0.03 (jan 2016) -> adapt for new architecture
 #                  V0.02 (jan 2016) -> adapt for usage in a20_sdk
@@ -52,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -134,11 +135,15 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then
+if [[ ! ${ARMHF_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_HOME" = '' ]; then
+if [[ ! ${ARMHF_BIN_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -147,14 +152,14 @@ if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
     clear
     echo " "
-    echo "+------------------------------------------+"
-    echo "|                                          |"
-    echo "|  ERROR: missing env                      |"
-    echo "|         have you sourced env-file?       |"
-    echo "|                                          |"
-    echo "|          Cheers $USER                   |"
-    echo "|                                          |"
-    echo "+------------------------------------------+"
+    echo "+--------------------------------------+"
+    echo "|                                      |"
+    echo "|  ERROR: missing env                  |"
+    echo "|         have you sourced env-file?   |"
+    echo "|                                      |"
+    echo "|          Cheers $USER               |"
+    echo "|                                      |"
+    echo "+--------------------------------------+"
     echo " "
     exit
 fi

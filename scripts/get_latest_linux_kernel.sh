@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.04.2016/15.08.2015
+# Date/Beginn :    02.07.2016/15.08.2015
 #
 # Version     :    V0.08
 #
-# Milestones  :    V0.07 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
+# Milestones  :    V0.08 (jul 2016) -> some minor improvements
+#                  V0.07 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
 #                                      fix wrong rt-preempt-patch download link
 #                  V0.06 (mar 2016) -> untar rt source to linux-*_rt
 #                  V0.05 (mar 2016) -> add missing check for dir
@@ -143,19 +144,27 @@ done
 # ***             Error handling for missing shell values                    ***
 # ******************************************************************************
 
-if [ "$ARMHF_BIN_HOME" = '' ]; then
+if [[ ! ${ARMHF_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_KERNEL_VER" = '' ]; then
+if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_RT_KERNEL_VER" = '' ]; then
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [ "$ARMHF_RT_VER" = '' ]; then
+if [[ ! ${ARMHF_KERNEL_VER} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_RT_KERNEL_VER} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_RT_VER} ]]; then
     MISSING_ENV='true'
 fi
 

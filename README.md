@@ -18,9 +18,9 @@ Description
 
 The a20_sdk use 3 different locations:
 
-	/var/lib/a20_sdk
+    /var/lib/a20_sdk
     /opt/a20_sdk
-	${HOME}/src/a20_sdk
+    ${HOME}/src/a20_sdk
 
 
 The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS for those info.
@@ -73,7 +73,7 @@ or copy armhf_env.sh to /etc/profile.d/
 
 Init the SDK:
 
-	cd /opt/a20_sdk (or /var/lib/a20_sdk)
+    cd /opt/a20_sdk (or /var/lib/a20_sdk)
     make init_sdk
 
 
@@ -89,7 +89,7 @@ Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~6 GByte)
 
 If you're only interested in one device (like Cubietruck), then you only need
 
-	make get_cubietruck_image_tarballs
+   make get_cubietruck_image_tarballs
 
 
 Clone ALL external repos:
@@ -99,7 +99,7 @@ Clone ALL external repos:
 
 If you only need/want u-boot, then you only need
 
-	cd /opt/a20_sdk/external
+   	cd /opt/a20_sdk/external
 	make uboot
 
 
@@ -147,13 +147,12 @@ In short:
     make get_image_tarballs (if needed)
 
 
-
 Versioninfo
 -----------
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V0.1.6
+	A20_SDK_V1.0.1
 
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will be changed because of
@@ -162,7 +161,7 @@ The first number is the mayor number which reflect bigger changes. The second nu
 	- kernel/updates of all 4 devices
 
 
-So a simple version update of the olimex kernel will not update the minor number, it will update the third number (tag number)
+So a simple version update of the olimex kernel will not update the minor number, it will update the third number (age number)
 
 	- bugfixes
 	- update kernel versions only on one device
@@ -173,7 +172,7 @@ So a simple version update of the olimex kernel will not update the minor number
 Storyline
 ---------
 
-You find storylines for all of my usescases/devices below ./DEVICE_NAME/Documentation/storyline.{txt,pdf}. The should describe the setup of a device and my usecase of it. You can use it as a guideline of howto.
+You find storylines for some of my usescases/devices below ./DEVICE_NAME/Documentation/storyline.{txt,pdf}. They should describe the setup of a device and my usecase of it. You can use it as a guideline of howto.
 
 
 All devices
@@ -204,7 +203,7 @@ In short:
     bananapi -> baalue (my Bananapi Cluster with 8/10 Nodes)
     bananapi-pro -> my home audio/video stream server
     cubietruck -> master node for baalue and jailhouse (https://github.com/siemens/jailhouse) test environment
-    olimex -> my conectivity "monster" (nearly all A20 PINs are available!)
+    olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
 
 
 User
@@ -223,34 +222,37 @@ Kernel
 	Olimex -> RT-PREEMPT and PREEMPT kernel
 	Bananapi -> RT-PREEMPT
 	Baalue-Node -> PREEMPT kernel
-	Bananapi-Pro -> "normal" desktop kernel (sunxi-kernel) and PREEMPT kernel (mainline)
+	Bananapi-Pro -> PREEMPT kernel (mainline)
 	Cubietruck -> PREEMPT kernel
+
+Note: with the upcomming new image scheme only mainline kernel is supported (PREEMPT and RT-PREEMPT on all devices).
 
 
 Network
 -------
 
-For testing purpose i have physical network where all devices are conneted to.
+For testing purpose i have physical (and virtual -> QEMU based nodes) network where all devices are conneted to.
 
 Single devices:
 
 	192.168.0.100           arietta.my.domain               arietta
 	192.168.0.101           cubietruck.my.domain            cubietruck
-	192.168.0.102           olimex.my.domain			    olimex
-	192.168.0.103		    bananapi.my.domain			    bananapi
+	192.168.0.102           olimex.my.domain		olimex
+	192.168.0.103		bananapi.my.domain		bananapi
+	192.168.0.XXX		bananapi-pro.my.domain		bananapi-pro
 	192.168.0.105           imx233.my.domain                imx233
 
 
 My cluster:
 
-	192.168.0.80            bananapi-80.my.domain      		bananapi-80
-	192.168.0.81            bananapi-81.my.domain      		bananapi-81
-	192.168.0.82            bananapi-82.my.domain      		bananapi-82
-	192.168.0.83            bananapi-83.my.domain      		bananapi-83
-	192.168.0.84            bananapi-84.my.domain      		bananapi-84
-	192.168.0.85            bananapi-85.my.domain      		bananapi-85
-	192.168.0.86            bananapi-86.my.domain      		bananapi-86
-	192.168.0.87            bananapi-87.my.domain      		bananapi-87
+	192.168.0.80            bananapi-80.my.domain      	bananapi-80
+	192.168.0.81            bananapi-81.my.domain      	bananapi-81
+	192.168.0.82            bananapi-82.my.domain      	bananapi-82
+	192.168.0.83            bananapi-83.my.domain      	bananapi-83
+	192.168.0.84            bananapi-84.my.domain      	bananapi-84
+	192.168.0.85            bananapi-85.my.domain      	bananapi-85
+	192.168.0.86            bananapi-86.my.domain      	bananapi-86
+	192.168.0.87            bananapi-87.my.domain      	bananapi-87
 	192.168.0.90            cubietruck_master.my.domain     cubietruck_master
 	192.168.0.91            cubietruck_slave.my.domain      cubietruck_slave
 
@@ -282,6 +284,8 @@ Addtional mount points (host):
     LABEL=ROOTFS_CUBI   /mnt/cubietruck/cubietruck_rootfs  auto  noauto,user,rw  0 0
     LABEL=HOME_CUBI     /mnt/cubietruck/cubietruck_home    auto  noauto,user,rw  0 0
 
+    LABEL=SHARED_CUBI   /mnt/cubietruck/cubietruck_shared  auto  noauto,user,rw  0 0
+
 
 Bananapi-Pro
 ------------
@@ -299,6 +303,8 @@ Addtional mount points (host):
     LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
     LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
     LABEL=HOME_BANA     /mnt/bananapi/bananapi_home        auto  noauto,user,rw  0 0
+
+    LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
 
 Bananapi-M1
@@ -322,6 +328,7 @@ Addtional mount points (host):
     LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
     LABEL=HOME_BANA     /mnt/bananapi/bananapi_home        auto  noauto,user,rw  0 0
 
+    LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
 
 Olimex A20-SOM/EVB
@@ -341,3 +348,14 @@ Addtional mount points (host):
     LABEL=KERNEL_OLI    /mnt/olimex/olimex_kernel          auto  noauto,user,rw  0 0
     LABEL=ROOTFS_OLI    /mnt/olimex/olimex_rootfs          auto  noauto,user,rw  0 0
     LABEL=HOME_OLI      /mnt/olimex/olimex_home            auto  noauto,user,rw  0 0
+
+
+Outlook (next development steps)
+--------------------------------
+
+(until mid of july)
+Due to the fact that there's no real support for the sunxi kernel within my images i will remove them and concentrate on mainline kernel.
+
+(until end of july)
+There is some effort needed to unify all images over the different devices. The idea is to have only one base image (ROOT-Image -> Bananapi) and a script (./scripts/brand_image.sh) which copy/rsync the needed changes to the mounted sdcards. Additonally i will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
+
