@@ -10,6 +10,12 @@
 ## target stuff
 - dts support for mcp2515 (CAN)
 
+## sdk stuff
+- provide small script to generate a kernel tarball with all
+  dt[s,b], modules_* and kernel images + config
+  -> to upload it on sourceforge as base for all
+     kernel sdcard images
+
 
 #
 # -------------- 2016-07-02 ----------------------------------------------------
@@ -141,7 +147,7 @@
 ## script stuff
 - make scripts aware of running platform -> it makes no sense to install
   toolchain if running on the olimex or so ...              [2016-04-08 -> done]
-- add bootmenu to olimex and bananapi u-boot config    
+- add bootmenu to olimex and bananapi u-boot config
   (rt and non-rt ... with rt as default)               [2016-07-07 -> chanceled]
 - get_latest_linux_kernel.sh -> untar rt kernel to
   linux-*_rt                                                [2016-03-xx -> done]
