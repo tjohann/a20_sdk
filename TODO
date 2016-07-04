@@ -17,7 +17,7 @@
 
 ## target && sdk stuff
 - add file like os-release for target device and release to
-  /etc (a20_sdk-release)
+  /etc (a20_sdk-release)                               [2016-07-04 -> chanceled]
 
 ## script stuff
 - add support for $*_SHARED in brand_image.sh
@@ -31,10 +31,10 @@
   and bring it mainline
 - make void-linux u-boot packages for all devices and bring
   it mainline
-- blacklist kvm driver -> use jailhouse
-- build unified kernel for PREEMPT and RT-PREEMPT
+- blacklist kvm driver -> use jailhouse                [2016-07-04 -> chanceled]
+- build unified kernel for PREEMPT and RT-PREEMPT           [2016-07-04 -> done]
 - provide minimal image with PREEMPT and RT-PREEMPT kernel
-- provide minimal RT-PREEMPT kernel for minimal image
+- provide minimal RT-PREEMPT kernel for minimal image  [2016-07-04 -> chanceled]
 
 ## sdk stuff
 - update sdk_builder config
@@ -65,10 +65,10 @@
 ## kernel stuff
 - add security and extentend attr to ext4 for all kernel
   (needed for set/getcap)
-  bananapi
-  bananapi-pro
-  olimex
-  cubietruck
+  bananapi                                                  [2016-07-04 -> done]
+  bananapi-pro                                              [2016-07-04 -> done]
+  olimex                                                    [2016-07-04 -> done]
+  cubietruck                                                [2016-07-04 -> done]
 
 
 #
@@ -76,7 +76,7 @@
 #
 
 ## target stuff
-- add libcurl-devel to all images
+- add libcurl-devel to all images                           [2016-07-04 -> done]
 
 
 #
@@ -141,8 +141,8 @@
 ## script stuff
 - make scripts aware of running platform -> it makes no sense to install
   toolchain if running on the olimex or so ...              [2016-04-08 -> done]
-- add bootmenu to olimex and bananapi u-boot config
-  (rt and non-rt ... with rt as default)
+- add bootmenu to olimex and bananapi u-boot config    
+  (rt and non-rt ... with rt as default)               [2016-07-07 -> chanceled]
 - get_latest_linux_kernel.sh -> untar rt kernel to
   linux-*_rt                                                [2016-03-xx -> done]
 
