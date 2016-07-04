@@ -2,6 +2,15 @@
 # TODO with date and progress
 #
 
+
+#
+# -------------- 2016-07-04 ----------------------------------------------------
+#
+
+## target stuff
+- dts support for mcp2515 (CAN)
+
+
 #
 # -------------- 2016-07-02 ----------------------------------------------------
 #
@@ -12,7 +21,7 @@
 
 ## script stuff
 - add support for $*_SHARED in brand_image.sh
-- rework init_sdk.sh to remove the ugly coded rsync parts 
+- rework init_sdk.sh to remove the ugly coded rsync parts
 
 ## target stuff
 - provide basic skeleton for $*_SHARED (/lib/modules ...)
@@ -21,9 +30,9 @@
 - make void-linux RT-PREEMPT kernel package for all devices
   and bring it mainline
 - make void-linux u-boot packages for all devices and bring
-  it mainline 
+  it mainline
 - blacklist kvm driver -> use jailhouse
-- build unified kernel for PREEMPT and RT-PREEMPT 
+- build unified kernel for PREEMPT and RT-PREEMPT
 - provide minimal image with PREEMPT and RT-PREEMPT kernel
 - provide minimal RT-PREEMPT kernel for minimal image
 

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2016/15.08.2015
+# Date/Beginn :    04.07.2016/15.08.2015
 #
-# Version     :    V0.08
+# Version     :    V0.09
 #
-# Milestones  :    V0.08 (jul 2016) -> some minor improvements
+# Milestones  :    V0.09 (jul 2016) -> update RT to 4.6
+#                  V0.08 (jul 2016) -> some minor improvements
 #                  V0.07 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
 #                                      fix wrong rt-preempt-patch download link
 #                  V0.06 (mar 2016) -> untar rt source to linux-*_rt
@@ -57,7 +58,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.08'
+VER='0.09'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -225,7 +226,7 @@ get_kernel_source()
 # --- get the rt-preempt patch sources
 get_rt_patch_source()
 {
-    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.4/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
+    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
     echo "INFO: set rt-preempt patch download string to $DOWNLOAD_STRING"
 
     if [ -f patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz ]; then

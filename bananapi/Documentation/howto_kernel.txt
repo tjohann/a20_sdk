@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   10.05.2016/12.01.2016
+Date:   04.07.2016/12.01.2016
 
 Content:
 
@@ -25,11 +25,13 @@ Content:
 - Configure/build kernel
   -- Configure kernel
   -- Build dtb
+  -- Build dtb for the other devices (Cubietruck ... Olimex)
   -- Build kernel/modules
   -- Install modules
 
 - Deploy SD-Card
   -- Copy dtb
+  -- Copy dtb for the other devices (Cubietruck ... Olimex)
   -- Copy kernel/config
   -- Copy modules
   -- Copy cleaned source to sd card
@@ -55,15 +57,15 @@ Device
 Kernel version
 --------------
 
-- linux-4.4.9
-- linux-4.4.9-rt17 (latest RT-PREEMPT)
+- linux-4.6.3
+- linux-4.6.2-rt5 (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
 --------------------------------------
 
 - https://www.kernel.org/pub/linux/kernel/v4.x/
-- https://www.kernel.org/pub/linux/kernel/projects/rt/4.4/
+- https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/
 
 
 Mountpoints
@@ -105,8 +107,8 @@ Patch kernel
 RT-PREEMPT
 ----------
 
-DIR: $ARMHF_BIN/HOME/kernel/linux-4.4.9-rt
-KDO: zcat ../patch-4.4.9-rt17.patch.gz | patch -p1
+DIR: $ARMHF_BIN/HOME/kernel/linux-4.6.2_rt
+KDO: zcat ../patch-4.6.2-rt5.patch.gz | patch -p1
 
 
 Configure/build kernel
@@ -116,8 +118,8 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.4.x .config
-KDO(rt): cp $ARMHF_HOME/bananapi/configs/kernel_config_4.4.x_rt .config
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.6.x .config
+KDO(rt): cp $ARMHF_HOME/bananapi/configs/kernel_config_4.6.x_rt .config
 KDO: make ARCH=arm menuconfig
 
 
@@ -127,6 +129,19 @@ Build dtb
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/bananapi/configs/sun7i-a20-bananapi.dts arch/arm/boot/dts/sun7i-a20-bananapi.dts
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapi.dtb
+
+
+Build dtb for the other devices
+-------------------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
+KDO: cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
+KDO: cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
+
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
 
 
 Build kernel/modules
@@ -140,8 +155,8 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.9 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.4.9_rt modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.6.3 modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.6.2_rt modules_install
 
 
 
@@ -153,6 +168,15 @@ Copy dtb
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/
+
+
+Copy dtb for the other devices
+------------------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_kernel/
+KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/bananapi/bananapi_kernel/
+KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /mnt/bananapi/bananapi_kernel/
 
 
 Copy kernel/config
@@ -168,8 +192,8 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avc ../modules_4.4.9/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avc ../modules_4.4.9_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO: sudo rsync -avc ../modules_4.6.3/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avc ../modules_4.6.2_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -177,8 +201,8 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -av --delete linux-4.4.9 /mnt/bananapi/bananapi_rootfs/usr/src/.
-KDO(rt): sudo rsync -av --delete linux-4.4.9_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO: sudo rsync -av --delete linux-4.6.3 /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO(rt): sudo rsync -av --delete linux-4.6.2_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
 
@@ -190,14 +214,14 @@ Finish -> after login (non-rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.4.9 linux
+KDO: ln -s linux-4.6.3 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (non-rt)
 ------------------------------------------------------------------------
 
-DIR: /usr/src/linux-4.4.9
+DIR: /usr/src/linux-4.6.3
 KDO: make clean
 KDO: make scripts
 
@@ -205,12 +229,8 @@ KDO: make scripts
 Prepare modules to link (non-rt)
 --------------------------------
 
-DIR: /lib/modules/4.4.9
+DIR: /lib/modules/4.6.3
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.4.9 source
-KDO: ln -s /usr/src/linux-4.4.9 build
-
-
-
-
+KDO: ln -s /usr/src/linux-4.6.3 source
+KDO: ln -s /usr/src/linux-4.6.3 build

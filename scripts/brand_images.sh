@@ -184,7 +184,7 @@ check_mounted_sdcard()
     #
     # Note: only check for one dir within the directory
     #
-    
+
     if [[ "$SD_KERNEL" ]]; then
 	if [ -d ${SD_KERNEL}/non-rt ]; then
             echo "$SD_KERNEL seems to be mounted"
@@ -242,7 +242,7 @@ brand_image()
     echo "brand_image with content of ${SRC_BRANDING}"
 
     SRC_BRANDING=${ARMHF_HOME}/${BRAND}/branding
-    
+
     if [ -d ${SRC_BRANDING}/rootfs ]; then
 	cd ${SD_ROOTFS}
 	#rsync -av ${SRC_BRANDING}/rootfs/. .
@@ -291,7 +291,7 @@ case "$BRAND" in
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED	
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
 	check_mounted_sdcard
 	brand_image
         ;;
@@ -299,7 +299,7 @@ case "$BRAND" in
         SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED	
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
 	check_mounted_sdcard
 	brand_image
         ;;
@@ -315,7 +315,7 @@ case "$BRAND" in
         SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
-	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED	
+	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
 	check_mounted_sdcard
 	brand_image
         ;;

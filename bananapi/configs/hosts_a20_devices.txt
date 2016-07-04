@@ -11,9 +11,10 @@
 192.168.0.102           olimex.my.domain                        olimex
 192.168.0.103           bananapi.my.domain                      bananapi
 192.168.0.105           imx233.my.domain                        imx233
+192.168.0.109           bananapi-pro.my.domain                  bananapi-pro
 
 #
-# real machines
+# nfs share
 192.168.0.42            echnaton.my.domain      echnaton
 
 #
