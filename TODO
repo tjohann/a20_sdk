@@ -38,7 +38,8 @@
 
 ## script stuff
 - add support for $*_SHARED in brand_image.sh
-- rework init_sdk.sh to remove the ugly coded rsync parts
+- rework init_sdk.sh to remove the ugly coded rsync
+  parts                                                 [2016-07-05 -> canceled]
 
 ## target stuff
 - provide basic skeleton for $*_SHARED (/lib/modules ...)

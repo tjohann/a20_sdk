@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2016/25.01.2016
+# Date/Beginn :    05.07.2016/25.01.2016
 #
-# Version     :    V0.08
+# Version     :    V1.00
 #
-# Milestones  :    V0.08 (jul 2016) -> some minor improvements
+# Milestones  :    V1.00 (jul 2016) -> some minor improvements
+#                  V0.08 (jul 2016) -> some minor improvements
 #                  V0.07 (may 2016) -> add argument to init home and opt
 #                  V0.06 (apr 2016) -> use rsync for all links
 #                                      some smaller fixes
@@ -58,7 +59,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.08'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -267,7 +268,6 @@ if [ "$INIT_OPT" = 'true' ]; then
 	rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
     else
 	echo "$ARMHF_BIN_HOME does not exist"
-	cleanup
     fi
 
     add_documentations_links_opt
@@ -290,7 +290,6 @@ if [ "$INIT_USER_HOME" = 'true' ]; then
 	rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
     else
 	echo "$ARMHF_SRC_HOME does not exist"
-	cleanup
     fi
 
     add_documentations_links_home

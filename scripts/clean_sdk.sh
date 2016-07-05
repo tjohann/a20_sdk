@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2016/17.04.2016
+# Date/Beginn :    05.07.2016/17.04.2016
 #
-# Version     :    V0.05
+# Version     :    V1.00
 #
-# Milestones  :    V0.05 (jul 2016) -> some minor improvements
+# Milestones  :    V1.00 (jul 2016) -> release V1.00
+#                  V0.05 (jul 2016) -> some minor improvements
 #                  V0.04 (may 2016) -> add libbaalue and baalued
 #                  V0.03 (may 2016) -> add missing externals
 #                                      add cleanup $ARMHF_SRC_DIR
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'

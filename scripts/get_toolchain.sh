@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2016/15.08.2015
+# Date/Beginn :    05.07.2016/15.08.2015
 #
-# Version     :    V0.05
+# Version     :    V1.00
 #
-# Milestones  :    V0.05 (jul 2016) -> some minor improvements
+# Milestones  :    V1.00 (jul 2016) -> some minor improvements
+#                  V0.05 (jul 2016) -> some minor improvements
 #                  V0.04 (apr 2016) -> check for architecture
 #                                      some more error checks/cleanups
 #                  V0.03 (jan 2016) -> adapt for new architecture
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -228,8 +229,6 @@ untar_toolchain()
 	echo "|                                      |"
 	echo "+--------------------------------------+"
 	echo " "
-
-	cleanup
     fi
 
     if [ -f host_x86_64.tgz ]; then
@@ -243,8 +242,6 @@ untar_toolchain()
 	echo "|                                      |"
 	echo "+--------------------------------------+"
 	echo " "
-
-	cleanup
     fi
 }
 
@@ -267,10 +264,10 @@ if [ $(uname -m) == 'x86_64' ]; then
 	cleanup
 	clear
 	echo " "
-	echo "+------------------------------------------+"
-	echo "|  ERROR: $ARMHF_BIN_HOME                  "
-	echo "|         doesn't exist!                   |"
-	echo "+------------------------------------------+"
+	echo "+---------------------------------------------+"
+	echo "|  ERROR: $ARMHF_BIN_HOME                      "
+	echo "|         doesn't exist -> do a make init_sdk |"
+	echo "+---------------------------------------------+"
 	echo " "
 	exit
     fi
