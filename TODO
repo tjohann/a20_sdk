@@ -8,10 +8,10 @@
 
 ## sdk stuff
 - add argument to only untar already downloaded linux kernel
-  in get_latest_linux_kernel.sh
+  in get_latest_linux_kernel.sh                         [2016-07-05 -> canceled]
 - add a small script to check if actual $ARMHF_KERNEL_VER == value of armhf
   -> fix problems after git pull and forgotten re-sourcing of
-     armhf_env
+     armhf_env                                              [2016-07-05 -> done]
 
 
 #
@@ -34,7 +34,7 @@
 
 ## target && sdk stuff
 - add file like os-release for target device and release to
-  /etc (a20_sdk-release)                               [2016-07-04 -> chanceled]
+  /etc (a20_sdk-release)                                [2016-07-04 -> canceled]
 
 ## script stuff
 - add support for $*_SHARED in brand_image.sh
@@ -48,10 +48,10 @@
   and bring it mainline
 - make void-linux u-boot packages for all devices and bring
   it mainline
-- blacklist kvm driver -> use jailhouse                [2016-07-04 -> chanceled]
+- blacklist kvm driver -> use jailhouse                 [2016-07-04 -> canceled]
 - build unified kernel for PREEMPT and RT-PREEMPT           [2016-07-04 -> done]
 - provide minimal image with PREEMPT and RT-PREEMPT kernel
-- provide minimal RT-PREEMPT kernel for minimal image  [2016-07-04 -> chanceled]
+- provide minimal RT-PREEMPT kernel for minimal image   [2016-07-04 -> canceled]
 
 ## sdk stuff
 - update sdk_builder config

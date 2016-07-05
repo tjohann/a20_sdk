@@ -26,9 +26,10 @@
 #
 # Date/Beginn :    05.07.2016/05.07.2016
 #
-# Version     :    V0.01
+# Version     :    V1.00
 #
-# Milestones  :    V0.01 (jul 2016) -> first functional version
+# Milestones  :    V1.00 (jul 2016) -> some smaller changes
+#                  V0.01 (jul 2016) -> first functional version
 #
 # Requires    :
 #
@@ -47,7 +48,7 @@
 ################################################################################
 
 # VERSION-NUMBER
-VER='0.01'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -191,6 +192,12 @@ if [ "$TMP_STRING" != "$ARMHF_RT_VER" ]; then
     cleanup
     exit 2
 fi
+
+echo " "
+echo "+----------------------------------------+"
+echo "| env variable and env script are in sync|"
+echo "+----------------------------------------+"
+echo " "
 
 cleanup
 echo " "

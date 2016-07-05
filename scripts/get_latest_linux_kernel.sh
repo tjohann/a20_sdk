@@ -258,8 +258,8 @@ get_rt_patch_source()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
-./${ARMHF_HOME}/scripts/check_for_valid_env.sh
-if [ $? -ne 0 ]
+${ARMHF_HOME}/scripts/check_for_valid_env.sh
+if [ $? -ne 0 ]; then
     echo "+--------------------------------------+"
     echo "| env variable and env script are NOT  |"
     echo "| in sync                              |"
