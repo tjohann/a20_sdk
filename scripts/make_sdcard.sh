@@ -42,7 +42,7 @@ function print_drive_details()
 function get_mount_points()
 {
     local drive=$1
-    echo $( grep ${drive} /proc/mounts | sort | cut -d ' ' -f 2 ) 
+    echo $( grep ${drive} /proc/mounts | sort | cut -d ' ' -f 2 )
 }
 
 function get_sdcard_layouts()
@@ -72,7 +72,7 @@ function sfdisk_overwrite()
 {
     local drive=$1
     local layout="${BAALUE_HOME}/images/${2}"
-    menu ""  
+    menu ""
     sudo sfdisk /dev/${drive} < ${layout}
 }
 
@@ -88,7 +88,7 @@ function clean_sdcard()
     local keep_partition=$2
 
     echo "keep_partition: ${keep_partition}"
-    
+
     if [ $keep_partition -eq 0 ]; then
 	echo "sudo dd if=/dev/zero of=/dev/${card} bs=1M count=1"
 	sudo dd if=/dev/zero of=/dev/${card} bs=1M count=1

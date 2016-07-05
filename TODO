@@ -2,6 +2,17 @@
 # TODO with date and progress
 #
 
+#
+# -------------- 2016-07-05 ----------------------------------------------------
+#
+
+## sdk stuff
+- add argument to only untar already downloaded linux kernel
+  in get_latest_linux_kernel.sh
+- add a small script to check if actual $ARMHF_KERNEL_VER == value of armhf
+  -> fix problems after git pull and forgotten re-sourcing of
+     armhf_env
+
 
 #
 # -------------- 2016-07-04 ----------------------------------------------------

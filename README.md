@@ -239,7 +239,7 @@ Single devices:
 	192.168.0.101           cubietruck.my.domain            cubietruck
 	192.168.0.102           olimex.my.domain		olimex
 	192.168.0.103		bananapi.my.domain		bananapi
-	192.168.0.XXX		bananapi-pro.my.domain		bananapi-pro
+	192.168.0.109		bananapi-pro.my.domain		bananapi-pro
 	192.168.0.105           imx233.my.domain                imx233
 
 

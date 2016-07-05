@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.07.2016/15.08.2015
+# Date/Beginn :    05.07.2016/15.08.2015
 #
-# Version     :    V0.09
+# Version     :    V1.00
 #
-# Milestones  :    V0.09 (jul 2016) -> update RT to 4.6
+# Milestones  :    V1.00 (jul 2016) -> add check for sync of armhf_env and $ARM*
+#                                      fix RT download dependency
+#                  V0.09 (jul 2016) -> update RT to 4.6
 #                  V0.08 (jul 2016) -> some minor improvements
 #                  V0.07 (apr 2016) -> create $ARMHF_BIN_HOME/* if it not exist
 #                                      fix wrong rt-preempt-patch download link
@@ -58,7 +60,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.09'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -78,11 +80,11 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ./get_latest_linux_kernel.sh                    |"
-    echo "|        [-v] -> print version info                      |"
-    echo "|        [-h] -> this help                               |"
     echo "|        [-r] -> download only rt kernel parts           |"
     echo "|        [-n] -> download only non-rt kernel parts       |"
     echo "|        [-a] -> download all parts                      |"
+    echo "|        [-v] -> print version info                      |"
+    echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
     echo "| This small tool download based on the values of        |"
     echo "| ARMHF_KERNEL_VER, ARMHF_RT_KERNEL_VER and              |"
@@ -172,7 +174,6 @@ fi
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
-    clear
     echo " "
     echo "+--------------------------------------+"
     echo "|  ERROR: missing env                  |"
@@ -212,8 +213,6 @@ get_kernel_source()
 	    echo "|  ERROR: cant download!               |"
 	    echo "+--------------------------------------+"
 	    echo " "
-
-	    cleanup
 	else
 	   tar xvf linux-${KERNEL_VER}.tar.xz
 	fi
@@ -226,7 +225,8 @@ get_kernel_source()
 # --- get the rt-preempt patch sources
 get_rt_patch_source()
 {
-    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
+    MAYOR_MINOR=`echo $ARMHF_RT_KERNEL_VER | cut -d . -f 1,2`
+    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/${MAYOR_MINOR}/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
     echo "INFO: set rt-preempt patch download string to $DOWNLOAD_STRING"
 
     if [ -f patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz ]; then
@@ -243,24 +243,9 @@ get_rt_patch_source()
 	if [ $? -ne 0 ]; then
 	    echo " "
 	    echo "+--------------------------------------+"
-	    echo "|  INFO: cant download using dir older |"
+	    echo "|  ERROR: cant download patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz |"
 	    echo "+--------------------------------------+"
 	    echo " "
-
-	    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/projects/rt/4.4/older/patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
-	    echo "INFO: set rt-preempt patch download string to $DOWNLOAD_STRING"
-
-	    wget $DOWNLOAD_STRING
-
-	    if [ $? -ne 0 ]; then
-		echo " "
-		echo "+--------------------------------------+"
-		echo "|  ERROR: cant download patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz |"
-		echo "+--------------------------------------+"
-		echo " "
-
-		cleanup
-	    fi
 	fi
     fi
 
@@ -272,6 +257,16 @@ get_rt_patch_source()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+./${ARMHF_HOME}/scripts/check_for_valid_env.sh
+if [ $? -ne 0 ]
+    echo "+--------------------------------------+"
+    echo "| env variable and env script are NOT  |"
+    echo "| in sync                              |"
+    echo "+--------------------------------------+"
+    cleanup
+    exit
+fi
 
 echo " "
 echo "+----------------------------------------+"

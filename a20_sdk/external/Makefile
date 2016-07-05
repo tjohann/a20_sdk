@@ -18,7 +18,29 @@ MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v documents)
 MODULES_GIT = $(shell ls -d */ | cut -f1 -d'/')
 
 all::
-	@echo Cheers
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|                  Nothing to build                        |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	@echo "| Example:                                                 |"
+	@echo "| make get_external_repos -> get ALL git repos like u-boot |"
+	@echo "| make get_rt-tests       -> clone rt test suite           |"
+	@echo "| make get_uboot          -> clone u-boot                  |"
+	@echo "| make get_can-utils      -> clone can-utils               |"
+	@echo "| make get_jailhouse      -> clone jailhouse hypervisor    |"
+	@echo "| make get_allwinner      -> get allwinner docs            |"
+	@echo "| make get_sdk_builder    -> clone my sdk_builder gui      |"
+	@echo "| make get_lcd1602        -> clone my lcd kernel driver    |"
+	@echo "| make get_mydriver       -> clone my learning kernel      |"
+	@echo "|                            driver                        |"
+	@echo "| make get_libbaalue      -> clone my common librar        |"
+	@echo "| make get_baalued        -> clone my admin daemon         |"
+	@echo "| make get_tt-env         -> clone time-triggert           |"
+	@echo "|                            environment playground        |"
+	@echo "| make clean              -> clean all dir/subdirs         |"
+	@echo "| make distclean          -> complete cleanup/delete       |"
+	@echo "+----------------------------------------------------------+"
 
 clean::
 	rm -f *~ *.o .*~
