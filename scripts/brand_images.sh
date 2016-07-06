@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2016/02.07.2016
+# Date/Beginn :    06.07.2016/02.07.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jul 2016) -> first functional version
+# Milestones  :    V0.02 (jul 2016) -> first working version
+#                  V0.01 (jul 2016) -> initial skeleton
 #
 # Requires    :
 #
@@ -42,30 +43,17 @@
 #   - ...
 #
 # Differences of the images (bananapi is the master!)
-#   - written boodloader (dd if=...)
-#   - *_SDCARD_KERNEL
-#     - bootloader parts (SPL + cmd)
-#     - all dts/dtb must be installed
 #   - *_SDCARD_ROOTFS
 #     - hostname
 #     - dhcpd.conf
-#     - hosts must include all devices
-#     - change /etc/a20_sdk-release
-#   - *_SDCARD_HOME
-#     - should be similiar for all devices
-#
-# Differences to void-linux default image
-# (https://repo.voidlinux.eu/live/current/void-cubieboard2-rootfs-XXXXX.tar.xz)
-#   - change root password from voidlinux to root
-#   - change kernel to mainline
-#   (- change sdcard layout to (kernel/rootfs/home))
-#   (- change fstab entry)
+#     - fstab
+#     - create /boot_${DEVICENAME}
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -74,9 +62,7 @@ MISSING_ENV='false'
 BRAND='none'
 
 # mounted images
-SD_KERNEL='none'
 SD_ROOTFS='none'
-SD_HOME='none'
 SD_SHARED='none'
 
 # source for branding
@@ -157,6 +143,18 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
+if [[ ! ${BANANAPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${OLIMEX_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${CUBIETRUCK_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
@@ -179,99 +177,32 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-check_mounted_sdcard()
-{
-    #
-    # Note: only check for one dir within the directory
-    #
-
-    if [[ "$SD_KERNEL" ]]; then
-	if [ -d ${SD_KERNEL}/non-rt ]; then
-            echo "$SD_KERNEL seems to be mounted"
-	else
-            echo "ERROR -> ${SD_KERNEL}/non-rt not available"
-	    #my_usage
-	fi
-    else
-	echo "ERROR -> image_mountpoint for kernel not set"
-	#my_usage
-    fi
-
-    if [[ "$SD_ROOTFS" ]]; then
-	if [ -d ${SD_ROOTFS}/etc ]; then
-            echo "$SD_ROOTFS seems to be mounted"
-	else
-            echo "ERROR -> ${SD_ROOTFS}/etc not available"
-	    #my_usage
-	fi
-    else
-	echo "ERROR -> image_mountpoint for rootfs not set"
-	#my_usage
-    fi
-
-    if [[ "$SD_HOME" ]]; then
-	if [ -d ${SD_HOME}/baalue ]; then
-            echo "$SD_HOME seems to be mounted"
-	else
-            echo "ERROR -> ${SD_HOME}/baalue not available"
-	    #my_usage
-	fi
-    else
-	echo "ERROR -> image_mountpoint for home not set"
-	#my_usage
-    fi
-
-    #
-    # TODO: usage of SHARED -> for hdd support
-    #
-    if [[ "$SD_SHARED" ]]; then
-	if [ -d ${SD_SHARED}/lib/modules ]; then
-            echo "$SD_SHARED seems to be mounted"
-	else
-            echo "ERROR -> ${SD_SHARED}/lib/modules not available"
-	    # my_usage
-	fi
-    else
-	echo "ERROR -> image_mountpoint for shared not set"
-	# my_usage
-    fi
-}
-
 brand_image()
 {
-    echo "brand_image with content of ${SRC_BRANDING}"
-
     SRC_BRANDING=${ARMHF_HOME}/${BRAND}/branding
 
-    if [ -d ${SRC_BRANDING}/rootfs ]; then
-	cd ${SD_ROOTFS}
-	#rsync -av ${SRC_BRANDING}/rootfs/. .
+    mountpoint $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "${SD_ROOTFS} not mounted, i try it now"
+	mount $SD_ROOTFS
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mount ${SD_ROOTFS}"
+	    my_usage
+	fi
+    fi
+
+    if [ -d ${SD_ROOTFS}/etc ]; then
+        echo "$SD_ROOTFS seems to be mounted"
+    else
+        echo "ERROR -> ${SD_ROOTFS}/etc not available"
+	mount ${SD_ROOTFS}
+	my_usage
+    fi
+
+    if [ -d ${SRC_BRANDING} ]; then
+	cp -rf ${SRC_BRANDING}/* ${SD_ROOTFS}/etc
     else
 	echo "ERROR: no dir ${SRC_BRANDING}/rootfs"
-    fi
-
-    if [ -d ${SRC_BRANDING}/kernel ]; then
-	cd ${SD_KERNEL}
-	#rsync -av ${SRC_BRANDING}/kernel/. .
-    else
-	echo "ERROR: no dir ${SRC_BRANDING}/kernel"
-    fi
-
-    if [ -d ${SRC_BRANDING}/home ]; then
-	cd ${SD_HOME}
-	#rsync -av ${SRC_BRANDING}/kernel/. .
-    else
-	echo "ERROR: no dir ${SRC_BRANDING}/kernel"
-    fi
-
-    #
-    # TODO: usage of SHARED -> for hdd support
-    #
-    if [ -d ${SRC_BRANDING}/shared ]; then
-	cd ${SD_SHARED}
-	#rsync -av ${SRC_BRANDING}/shared/. .
-    else
-	echo "ERROR: no dir ${SRC_BRANDING}/shared"
     fi
 }
 
@@ -288,43 +219,25 @@ echo " "
 
 case "$BRAND" in
     'bananapi')
-	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	check_mounted_sdcard
 	brand_image
         ;;
     'bananapi-pro')
-        SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	check_mounted_sdcard
 	brand_image
         ;;
     'olimex')
-        SD_KERNEL=$OLIMEX_SDCARD_KERNEL
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
-	SD_HOME=$OLIMEX_SDCARD_HOME
-	SD_SHARED='none'
-	check_mounted_sdcard
 	brand_image
         ;;
     'cubietruck')
-        SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
-	SD_HOME=$CUBIETRUCK_SDCARD_HOME
-	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
-	check_mounted_sdcard
 	brand_image
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check"
         my_usage
 esac
-
-
 
 cleanup
 echo " "
