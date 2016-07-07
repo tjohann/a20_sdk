@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.07.2016/15.08.2015
+# Date/Beginn :    07.07.2016/15.08.2015
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> add check for sync of armhf_env and $ARM*
+# Milestones  :    V1.01 (jul 2016) -> some minor improvements
+#                  V1.00 (jul 2016) -> add check for sync of armhf_env and $ARM*
 #                                      fix RT download dependency
 #                  V0.09 (jul 2016) -> update RT to 4.6
 #                  V0.08 (jul 2016) -> some minor improvements
@@ -60,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -104,12 +105,11 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    clear
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
@@ -206,13 +206,8 @@ get_kernel_source()
 	tar xvf linux-${KERNEL_VER}.tar.xz
     else
 	wget $DOWNLOAD_STRING
-
 	if [ $? -ne 0 ]; then
-	    echo " "
-	    echo "+--------------------------------------+"
-	    echo "|  ERROR: cant download!               |"
-	    echo "+--------------------------------------+"
-	    echo " "
+	    echo " ERROR -> could not download ${DOWNLOAD_STRING}"
 	else
 	   tar xvf linux-${KERNEL_VER}.tar.xz
 	fi
@@ -239,13 +234,8 @@ get_rt_patch_source()
 	echo " "
     else
 	wget $DOWNLOAD_STRING
-
 	if [ $? -ne 0 ]; then
-	    echo " "
-	    echo "+--------------------------------------+"
-	    echo "|  ERROR: cant download patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz |"
-	    echo "+--------------------------------------+"
-	    echo " "
+	    echo "ERROR -> could not download patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
 	fi
     fi
 
@@ -264,8 +254,7 @@ if [ $? -ne 0 ]; then
     echo "| env variable and env script are NOT  |"
     echo "| in sync                              |"
     echo "+--------------------------------------+"
-    cleanup
-    exit
+    my_exit
 fi
 
 echo " "
@@ -274,11 +263,15 @@ echo "|       get/install kernel source        |"
 echo "+----------------------------------------+"
 echo " "
 
-if [ -d $ARMHF_BIN_HOME/kernel ]; then
-    cd $ARMHF_BIN_HOME/kernel
+if [ -d ${ARMHF_BIN_HOME}/kernel ]; then
+    cd ${ARMHF_BIN_HOME}/kernel
 else
-    mkdir -p $ARMHF_BIN_HOME/kernel
-    cd $ARMHF_BIN_HOME/kernel
+    mkdir -p ${ARMHF_BIN_HOME}/kernel
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mkdir -p ${ARMHF_BIN_HOME}/kernel"
+	my_exit
+    fi
+    cd ${ARMHF_BIN_HOME}/kernel
 fi
 
 if [ "$DOWNLOAD_RT" = 'true' ]; then
@@ -289,13 +282,16 @@ if [ "$DOWNLOAD_RT" = 'true' ]; then
 
     # mv linux-$ARMHF_RT_KERNEL_VER to linux-$ARMHF_RT_KERNEL_VER_rt
     mv linux-${ARMHF_RT_KERNEL_VER} linux-${ARMHF_RT_KERNEL_VER}_rt
+     if [ $? -ne 0 ] ; then
+	echo "ERROR -> could mv linux-${ARMHF_RT_KERNEL_VER} to linux-${ARMHF_RT_KERNEL_VER}_rt"
+	my_exit
+    fi
 
     # rt-preempt patch
     get_rt_patch_source
 fi
 
 if [ "$DOWNLOAD_NONRT" = 'true' ]; then
-    # PREEMPT handling
     KERNEL_VER=$ARMHF_KERNEL_VER
     get_kernel_source
 fi
@@ -303,7 +299,7 @@ fi
 cleanup
 echo " "
 echo "+----------------------------------------+"
-echo "|          Cheers $USER                |"
+echo "|            Cheers $USER"
 echo "+----------------------------------------+"
 echo " "
 

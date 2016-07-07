@@ -4,7 +4,7 @@
 # <file system>	<dir>	         <type>	  <options>		<dump>	<pass>
 tmpfs		/tmp	          tmpfs	  defaults,nosuid,nodev   0       0
 
-/dev/mmcblk0p1  /boot_bananapi    vfat    noatime          	  0       1
+/dev/mmcblk0p1  /boot_olimex      vfat    noatime          	  0       1
 /dev/mmcblk0p3  /home             ext4    defaults                0       1
 
 # Swap:

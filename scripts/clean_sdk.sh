@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.07.2016/17.04.2016
+# Date/Beginn :    07.07.2016/17.04.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> release V1.00
+# Milestones  :    V1.01 (jul 2016) -> some minor improvements
+#                  V1.00 (jul 2016) -> release V1.00
 #                  V0.05 (jul 2016) -> some minor improvements
 #                  V0.04 (may 2016) -> add libbaalue and baalued
 #                  V0.03 (may 2016) -> add missing externals
@@ -55,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -96,12 +97,11 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    clear
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
@@ -160,7 +160,6 @@ fi
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
-    clear
     echo " "
     echo "+--------------------------------------+"
     echo "|                                      |"
@@ -197,7 +196,7 @@ if [ "$CLEAN_IMAGES" = 'true' ]; then
 	rm -rf *.tgz
 	echo "cleanup image dir"
     else
-        echo "INFO: no dir images below ${ARMHF_BIN_HOME}/images"
+        echo "INFO: no directory ${ARMHF_BIN_HOME}/images"
     fi
 else
     echo "do not clean ${ARMHF_BIN_HOME}/images"
@@ -219,7 +218,7 @@ if [ "$CLEAN_EXTERNAL" = 'true' ]; then
 	rm -rf baalued
 	rm -rf time_triggert_env
     else
-        echo "INFO: no dir external below ${ARMHF_BIN_HOME}/external"
+        echo "INFO: no directory ${ARMHF_BIN_HOME}/external"
     fi
 else
     echo "do not clean ${ARMHF_BIN_HOME}/external"
@@ -233,7 +232,7 @@ if [ "$CLEAN_KERNEL" = 'true' ]; then
 	rm -rf modules_*
 	rm -rf patch-*
     else
-        echo "INFO: no dir kernel below ${ARMHF_BIN_HOME}/kernel"
+        echo "INFO: no directory ${ARMHF_BIN_HOME}/kernel"
     fi
 else
     echo "do not clean ${ARMHF_BIN_HOME}/kernel"
@@ -246,7 +245,7 @@ if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then
 	rm -rf host*
 	rm -rf toolchain*
     else
-        echo "INFO: no $ARMHF_BIN_HOME"
+        echo "INFO: no directory $ARMHF_BIN_HOME"
     fi
 else
     echo "do not clean toolchain parts"
@@ -261,7 +260,7 @@ if [ "$CLEAN_USER" = 'true' ]; then
 	rm -rf include
 	rm -rf lib*
     else
-        echo "INFO: no $ARMHF_SRC_HOME"
+        echo "INFO: no directory $ARMHF_SRC_HOME"
     fi
 else
     echo "do not clean toolchain parts"
@@ -270,6 +269,6 @@ fi
 cleanup
 echo " "
 echo "+----------------------------------------+"
-echo "|          Cheers $USER                |"
+echo "|            Cheers $USER"
 echo "+----------------------------------------+"
 echo " "

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2016/24.08.2015
+# Date/Beginn :    07.07.2016/24.08.2015
 #
-# Version     :    V0.11
+# Version     :    V0.12
 #
-# Milestones  :    V0.11 (jul 2016) -> some minor improvements
+# Milestones  :    V0.12 (jul 2016) -> some minor improvements
+#                  V0.11 (jul 2016) -> some minor improvements
 #                  V0.10 (apr 2016) -> add baalue
 #                  V0.09 (apr 2016) -> add cubietruck-hdd
 #                                      add bananapi-pro-hdd
@@ -64,7 +65,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.11'
+VER='0.12'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -82,7 +83,6 @@ OLIMEX='false'
 KERNEL_IMAGE='none'
 ROOTFS_IMAGE='none'
 HOME_IMAGE='none'
-
 
 # my usage method
 my_usage()
@@ -114,12 +114,11 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    clear
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
@@ -182,7 +181,6 @@ fi
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
-    clear
     echo " "
     echo "+--------------------------------------+"
     echo "|                                      |"
@@ -290,45 +288,23 @@ create_download_string_olimex()
 # --- download image tarball
 get_image_tarball()
 {
-    if [ "$KERNEL_IMAGE" = 'none' ]; then
-	echo " "
-	echo "+--------------------------------------+"
-	echo "|                                      |"
-	echo "|  ERROR: KERNEL_IMAGE is  none!       |"
-	echo "|                                      |"
-	echo "+--------------------------------------+"
-	echo " "
-
-	cleanup
-    fi
-
-    if [ "$ROOTFS_IMAGE" = 'none' ]; then
-	echo " "
-	echo "+--------------------------------------+"
-	echo "|                                      |"
-	echo "|  ERROR: ROOTFS_IMAGE is  none!       |"
-	echo "|                                      |"
-	echo "+--------------------------------------+"
-	echo " "
-
-	cleanup
-    fi
-
-    if [ "$HOME_IMAGE" = 'none' ]; then
-	echo " "
-	echo "+--------------------------------------+"
-	echo "|                                      |"
-	echo "|  ERROR: HOME_IMAGE is  none!         |"
-	echo "|                                      |"
-	echo "+--------------------------------------+"
-	echo " "
-
-	cleanup
-    fi
-
     wget $KERNEL_IMAGE
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not download ${KERNEL_IMAGE}"
+	my_exit
+    fi
+
     wget $ROOTFS_IMAGE
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not download ${ROOTFS_IMAGE}"
+	my_exit
+    fi
+
     wget $HOME_IMAGE
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not download ${ROOTFS_IMAGE}"
+	my_exit
+    fi
 
     # clear all
     KERNEL_IMAGE='none'
@@ -349,11 +325,15 @@ echo " "
 
 if [ $(uname -m) == 'x86_64' ]; then
 
-    if [ -d $ARMHF_BIN_HOME/images ]; then
-	cd $ARMHF_BIN_HOME/images
+    if [ -d ${ARMHF_BIN_HOME}/images ]; then
+	cd ${ARMHF_BIN_HOME}/images
     else
-	mkdir -p $ARMHF_BIN_HOME/images
-	cd $ARMHF_BIN_HOME/images
+	mkdir -p ${ARMHF_BIN_HOME}/images
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> mkdir -p ${ARMHF_BIN_HOME}/images"
+	    my_exit
+	fi
+	cd ${ARMHF_BIN_HOME}/images
     fi
 
     if [ "$BANANAPI" = 'true' ]; then
@@ -397,6 +377,6 @@ fi
 cleanup
 echo " "
 echo "+----------------------------------------+"
-echo "|          Cheers $USER                |"
+echo "|            Cheers $USER"
 echo "+----------------------------------------+"
 echo " "

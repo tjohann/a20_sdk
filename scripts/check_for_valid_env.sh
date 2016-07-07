@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.07.2016/05.07.2016
+# Date/Beginn :    07.07.2016/05.07.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> some smaller changes
+# Milestones  :    V1.01 (jul 2016) -> some smaller improvements
+#                  V1.00 (jul 2016) -> some smaller changes
 #                  V0.01 (jul 2016) -> first functional version
 #
 # Requires    :
@@ -48,7 +49,7 @@
 ################################################################################
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -77,12 +78,11 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    clear
     echo "+------------------------------------------+"
     echo "|          Cheers $USER                   |"
     echo "+------------------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
@@ -130,7 +130,6 @@ fi
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
-    clear
     echo " "
     echo "+--------------------------------------+"
     echo "|                                      |"
@@ -166,7 +165,7 @@ if [ "$TMP_STRING" != "$ARMHF_KERNEL_VER" ]; then
     echo "+----------------------------------------+"
     echo " "
     cleanup
-    exit 2
+    my_exit
 fi
 
 TMP_STRING=`grep ARMHF_RT_KERNEL_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
@@ -178,7 +177,7 @@ if [ "$TMP_STRING" != "$ARMHF_RT_KERNEL_VER" ]; then
     echo "+----------------------------------------+"
     echo " "
     cleanup
-    exit 2
+    my_exit
 fi
 
 TMP_STRING=`grep ARMHF_RT_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
@@ -190,7 +189,7 @@ if [ "$TMP_STRING" != "$ARMHF_RT_VER" ]; then
     echo "+----------------------------------------+"
     echo " "
     cleanup
-    exit 2
+    my_exit
 fi
 
 echo " "
@@ -202,6 +201,6 @@ echo " "
 cleanup
 echo " "
 echo "+----------------------------------------+"
-echo "|          Cheers $USER                |"
+echo "|            Cheers $USER "
 echo "+----------------------------------------+"
 echo " "

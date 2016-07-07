@@ -3,6 +3,36 @@
 #
 
 #
+# -------------- 2016-07-07 ----------------------------------------------------
+#
+
+## target stuff
+- mv /boot dir to /boot_old
+- change fstab to mount /... to /boot instead of
+  /boot_bananapi
+
+## target stuff
+- add support for HD installation for the unified images
+  -> for all devices
+  -> use *shared* partition
+  -> small scripts to automate the process -> use the miniimages for it
+- add support for baalue and the different nodes
+
+## script stuff
+- create script to create image
+  - download image tarballs -> get_image_tarballs.sh
+  - create partition table on sd_card
+  - untar downloaded images to sd_card
+  - write bootloader to it
+  - brand image -> brand_images.sh                          [2016-07-07 -> done]
+  - put all in a dialog based script -> make_sdcard.sh
+
+## sdk stuff
+- add will to AUTHORS (original make_sdcard.sh was
+  his work)
+- prepare something like a roadmap for new features         [2016-07-07 -> done]
+
+#
 # -------------- 2016-07-05 ----------------------------------------------------
 #
 

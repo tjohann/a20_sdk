@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.07.2016/15.08.2015
+# Date/Beginn :    07.07.2016/15.08.2015
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> some minor improvements
+# Milestones  :    V1.01 (jul 2016) -> some minor improvements
+#                  V1.00 (jul 2016) -> some minor improvements
 #                  V0.05 (jul 2016) -> some minor improvements
 #                  V0.04 (apr 2016) -> check for architecture
 #                                      some more error checks/cleanups
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -98,12 +99,11 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    clear
     echo "+------------------------------------------+"
     echo "|          Cheers $USER                   |"
     echo "+------------------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
@@ -151,7 +151,6 @@ fi
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
-    clear
     echo " "
     echo "+--------------------------------------+"
     echo "|                                      |"
@@ -187,32 +186,34 @@ get_toolchain_tarball()
     if [ "$TOOLCHAIN_DOWNLOAD_STRING" = 'none' ]; then
 	echo " "
 	echo "+--------------------------------------+"
-	echo "|                                      |"
 	echo "|  ERROR: TOOLCHAIN_DOWNLOAD_STRING is |"
 	echo "|         none!                        |"
-	echo "|                                      |"
 	echo "+--------------------------------------+"
 	echo " "
-
-	cleanup
+	my_exit
     fi
 
     if [ "$TOOLCHAIN_HOST_DOWNLOAD_STRING" = 'none' ]; then
 	echo " "
 	echo "+--------------------------------------+"
-	echo "|                                      |"
 	echo "|  ERROR:                              |"
 	echo "|        TOOLCHAIN_HOST_DOWNLOAD_STRING|"
 	echo "|        is none!                      |"
-	echo "|                                      |"
 	echo "+--------------------------------------+"
 	echo " "
-
-	cleanup
+	my_exit
     fi
 
     wget $TOOLCHAIN_DOWNLOAD_STRING
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not download ${TOOLCHAIN_DOWNLOAD_STRING}"
+	my_exit
+    fi
     wget $TOOLCHAIN_HOST_DOWNLOAD_STRING
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not download ${TOOLCHAIN_HOST_DOWNLOAD_STRING}"
+	my_exit
+    fi
 }
 
 # --- untar toolchain source
@@ -221,27 +222,15 @@ untar_toolchain()
     if [ -f toolchain_x86_64.tgz ]; then
 	tar xzvf toolchain_x86_64.tgz
     else
-	echo " "
-	echo "+--------------------------------------+"
-	echo "|                                      |"
-	echo "|  ERROR: toolchain_x86_64.tgz does    |"
-	echo "|         not exist!                   |"
-	echo "|                                      |"
-	echo "+--------------------------------------+"
-	echo " "
+	echo "ERROR -> toolchain_x86_64.tgz does not exist"
+	my_exit
     fi
 
     if [ -f host_x86_64.tgz ]; then
 	tar xzvf host_x86_64.tgz
     else
-	echo " "
-	echo "+--------------------------------------+"
-	echo "|                                      |"
-	echo "|  ERROR: host_x86_64.tgz does not     |"
-	echo "|         exist!                       |"
-	echo "|                                      |"
-	echo "+--------------------------------------+"
-	echo " "
+	echo "ERROR -> host_x86_64.tgz does not exist"
+	my_exit
     fi
 }
 
@@ -261,15 +250,8 @@ if [ $(uname -m) == 'x86_64' ]; then
     if [ -d $ARMHF_BIN_HOME ]; then
 	cd $ARMHF_BIN_HOME
     else
-	cleanup
-	clear
-	echo " "
-	echo "+---------------------------------------------+"
-	echo "|  ERROR: $ARMHF_BIN_HOME                      "
-	echo "|         doesn't exist -> do a make init_sdk |"
-	echo "+---------------------------------------------+"
-	echo " "
-	exit
+	echo "ERROR -> $ARMHF_BIN_HOME doesn't exist -> do a make init_sdk"
+	my_exit
     fi
 
     create_download_string
@@ -282,7 +264,7 @@ fi
 cleanup
 echo " "
 echo "+----------------------------------------+"
-echo "|          Cheers $USER                |"
+echo "|            Cheers $USER"
 echo "+----------------------------------------+"
 echo " "
 

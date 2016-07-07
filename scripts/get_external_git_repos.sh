@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2016/15.08.2015
+# Date/Beginn :    07.07.2016/15.08.2015
 #
-# Version     :    V0.24
+# Version     :    V1.00
 #
-# Milestones  :    V0.24 (jul 2016) -> some minor improvements
+# Milestones  :    V1.00 (jul 2016) -> bump version
+#                  V0.24 (jul 2016) -> some minor improvements
 #                  V0.23 (may 2016) -> add time_triggert_env
 #                  V0.22 (may 2016) -> add libbaalue and baalued
 #                  V0.21 (apr 2016) -> add mydriver because of the examples
@@ -81,7 +82,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.24'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -154,51 +155,22 @@ cleanup() {
    rm $_log 2>/dev/null
 }
 
-# cheers user
-cheers_user()
-{
-    echo "+--------------------------------------------------------+"
-    echo "|                                                        |"
-    echo "|                  Cheers $USER "
-    echo "|                                                        |"
-    echo "+--------------------------------------------------------+"
-}
-
-# cheers because of missing env
-cheers_missing_env()
-{
-    cleanup
-    clear
-    echo " "
-    echo "+--------------------------------------------------------+"
-    echo "|                                                        |"
-    echo "|  ERROR: missing env                                    |"
-    echo "|         have you sourced env-file?                     |"
-    echo "|                                                        |"
-    echo "|          Cheers $USER                                 |"
-    echo "|                                                        |"
-    echo "+--------------------------------------------------------+"
-    echo " "
-    exit
-}
-
 # my exit method
 my_exit()
 {
-    clear
-    cheers_user
+    echo "+-----------------------------------+"
+    echo "|          Cheers $USER            |"
+    echo "+-----------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
 print_version()
 {
-    echo "+--------------------------------------------------------+"
-    echo "|                                                        |"
-    echo "|           You are using version: ${VER}                  |"
-    echo "|                                                        |"
-    echo "+--------------------------------------------------------+"
+    echo "+-----------------------------------+"
+    echo "| You are using version: ${VER}       |"
+    echo "+-----------------------------------+"
     cleanup
     exit
 }
@@ -237,9 +209,20 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-# check and maybe exit
+# show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
-    cheers_missing_env
+    cleanup
+    echo " "
+    echo "+--------------------------------------+"
+    echo "|                                      |"
+    echo "|  ERROR: missing env                  |"
+    echo "|         have you sourced env-file?   |"
+    echo "|                                      |"
+    echo "|          Cheers $USER               |"
+    echo "|                                      |"
+    echo "+--------------------------------------+"
+    echo " "
+    exit
 fi
 
 
@@ -275,7 +258,6 @@ set_repo_names()
     repo_names_array[9]=${libbaalue}
     repo_names_array[10]=${tt_env}
 }
-
 
 # --- get repo name
 get_repo_name()
@@ -320,7 +302,6 @@ get_repo_name()
     esac
 }
 
-
 # --- get repo name
 check_protocol()
 {
@@ -347,14 +328,16 @@ check_protocol()
     fi
 }
 
-
 # --- clone the repo
 clone_repo()
 {
     echo "start to clone repo $REPO_NAME"
     git clone $REPO_NAME
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not clone ${REPO_NAME}"
+	# we do not want to exit
+    fi
 }
-
 
 # --- clone all repos
 clone_all_repos()
@@ -406,9 +389,7 @@ fi
 
 cleanup
 echo " "
-cheers_user
+echo "+------------------------------------------+"
+echo "|             Cheers $USER                  "
+echo "+------------------------------------------+"
 echo " "
-
-
-############################# END OF ALL TIMES :-) ##############################
-

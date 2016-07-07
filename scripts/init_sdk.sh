@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    05.07.2016/25.01.2016
+# Date/Beginn :    07.07.2016/25.01.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> some minor improvements
+# Milestones  :    V1.01 (jul 2016) -> some minor improvements
+#                  V1.00 (jul 2016) -> some minor improvements
 #                  V0.08 (jul 2016) -> some minor improvements
 #                  V0.07 (may 2016) -> add argument to init home and opt
 #                  V0.06 (apr 2016) -> use rsync for all links
@@ -59,7 +60,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -94,12 +95,11 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    clear
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
@@ -152,7 +152,6 @@ fi
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
-    clear
     echo " "
     echo "+--------------------------------------+"
     echo "|                                      |"
@@ -177,6 +176,10 @@ add_documentations_links_opt()
     if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/bananapi
 	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi"
     fi
@@ -185,6 +188,10 @@ add_documentations_links_opt()
     if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi-pro ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/bananapi-pro
 	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi-pro/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi-pro"
     fi
@@ -193,6 +200,10 @@ add_documentations_links_opt()
     if [ -d ${ARMHF_BIN_HOME}/Documentation/cubietruck ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/cubietruck
 	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/cubietruck/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/cubietruck"
     fi
@@ -201,6 +212,10 @@ add_documentations_links_opt()
     if [ -d ${ARMHF_BIN_HOME}/Documentation/olimex ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/olimex
 	rsync -av --delete ${ARMHF_HOME}/olimex/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/olimex/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/olimex"
     fi
@@ -212,6 +227,10 @@ add_documentations_links_home()
     if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/bananapi
 	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi"
     fi
@@ -220,6 +239,10 @@ add_documentations_links_home()
     if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi-pro ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/bananapi-pro
 	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi-pro/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi-pro"
     fi
@@ -228,6 +251,10 @@ add_documentations_links_home()
     if [ -d ${ARMHF_SRC_HOME}/Documentation/cubietruck ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/cubietruck
 	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/cubietruck/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/cubietruck"
     fi
@@ -236,6 +263,10 @@ add_documentations_links_home()
     if [ -d ${ARMHF_SRC_HOME}/Documentation/olimex ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/olimex
 	rsync -av --delete ${ARMHF_HOME}/olimex/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi/Documentation/."
+	    my_exit
+	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/olimex"
     fi
@@ -258,14 +289,30 @@ if [ "$INIT_OPT" = 'true' ]; then
     else
 	echo "Create $ARMHF_BIN_HOME -> need sudo rights! "
 	sudo mkdir -p $ARMHF_BIN_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mkdir -p $ARMHF_BIN_HOME"
+	    my_exit
+	fi
 	sudo chown $USER:users $ARMHF_BIN_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not chown $USER:users $ARMHF_BIN_HOME"
+	    my_exit
+	fi
 	sudo chmod 775 $ARMHF_BIN_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not chmod 775 $ARMHF_BIN_HOME"
+	    my_exit
+	fi
     fi
 
     if [ -d $ARMHF_BIN_HOME ]; then
 	echo "Rsync content of ${ARMHF_HOME}/a20_sdk/ to $ARMHF_BIN_HOME"
 	cd $ARMHF_BIN_HOME
 	rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could notrsync -av --delete ${ARMHF_HOME}/a20_sdk/."
+	    my_exit
+	fi
     else
 	echo "$ARMHF_BIN_HOME does not exist"
     fi
@@ -274,6 +321,10 @@ if [ "$INIT_OPT" = 'true' ]; then
 
     echo "need sudo rights to chown ${USER}:users ${ARMHF_BIN_HOME}"
     sudo chown $USER:users $ARMHF_BIN_HOME
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not chown $USER:users $ARMHF_BIN_HOME"
+	my_exit
+    fi
 fi
 
 if [ "$INIT_USER_HOME" = 'true' ]; then
@@ -282,12 +333,20 @@ if [ "$INIT_USER_HOME" = 'true' ]; then
     else
 	echo "Create $ARMHF_SRC_HOME"
 	mkdir -p $ARMHF_SRC_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mkdir -p $ARMHF_SRC_HOME"
+	    my_exit
+	fi
     fi
 
     if [ -d $ARMHF_SRC_HOME ]; then
 	cd $ARMHF_SRC_HOME
 	echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
 	rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/."
+	    my_exit
+	fi
     else
 	echo "$ARMHF_SRC_HOME does not exist"
     fi
@@ -298,6 +357,6 @@ fi
 cleanup
 echo " "
 echo "+----------------------------------------+"
-echo "|          Cheers $USER                |"
+echo "|            Cheers $USER"
 echo "+----------------------------------------+"
 echo " "

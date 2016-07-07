@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    06.07.2016/02.07.2016
+# Date/Beginn :    07.07.2016/02.07.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jul 2016) -> first working version
+# Milestones  :    V0.03 (jul 2016) -> some fixes and improvements
+#                  V0.02 (jul 2016) -> first working version
 #                  V0.01 (jul 2016) -> initial skeleton
 #
 # Requires    :
@@ -46,14 +47,12 @@
 #   - *_SDCARD_ROOTFS
 #     - hostname
 #     - dhcpd.conf
-#     - fstab
-#     - create /boot_${DEVICENAME}
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -92,12 +91,11 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    clear
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit
+    exit 2
 }
 
 # print version info
@@ -158,7 +156,6 @@ fi
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
-    clear
     echo " "
     echo "+--------------------------------------+"
     echo "|                                      |"
@@ -181,28 +178,32 @@ brand_image()
 {
     SRC_BRANDING=${ARMHF_HOME}/${BRAND}/branding
 
+    if [[ ! -d "${SD_ROOTFS}" ]]; then
+	echo "ERROR -> ${SD_ROOTFS} not available!"
+	echo "         have you added them to your fstab? (see README.md)"
+	my_usage
+    fi
+
     mountpoint $SD_ROOTFS
     if [ $? -ne 0 ] ; then
 	echo "${SD_ROOTFS} not mounted, i try it now"
 	mount $SD_ROOTFS
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not mount ${SD_ROOTFS}"
-	    my_usage
+	    my_exit
 	fi
     fi
 
-    if [ -d ${SD_ROOTFS}/etc ]; then
-        echo "$SD_ROOTFS seems to be mounted"
-    else
-        echo "ERROR -> ${SD_ROOTFS}/etc not available"
-	mount ${SD_ROOTFS}
-	my_usage
+    if [[ ! -d "${SD_ROOTFS}/etc" ]]; then
+	echo "ERROR -> ${SD_ROOTFS}/etc not available ... abort now!"
+	my_exit
     fi
 
     if [ -d ${SRC_BRANDING} ]; then
 	cp -rf ${SRC_BRANDING}/* ${SD_ROOTFS}/etc
     else
 	echo "ERROR: no dir ${SRC_BRANDING}/rootfs"
+	my_exit
     fi
 }
 
@@ -242,6 +243,6 @@ esac
 cleanup
 echo " "
 echo "+----------------------------------------+"
-echo "|          Cheers $USER                |"
+echo "|            Cheers $USER "
 echo "+----------------------------------------+"
 echo " "

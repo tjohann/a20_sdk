@@ -6,11 +6,13 @@ A common development environment for ARMv7 boards based on Allwinners A20 proces
 
 As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
 
+WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet. If you face a bug then pls use create an issue (https://github.com/tjohann/a20_sdk/issues).
+
 
 Requirement
 -----------
 
-The only yet know requirements are git (to clone/update runtimedir) and rsync (to sync content below workdir and srcdir).
+The only yet know requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to buildup your sdcard -> make_sdcard.sh)
 
 
 Description
@@ -27,7 +29,7 @@ The location below /var/lib/ is the runtime environment. There you find all basi
 
 Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories (/opt/a20_sdk/external). Also useful could be the download of kernel and RT-PREEMPT patch to /opt/a20_sdk/kernel. The whole content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore (Note: make distclean removes all downloaded/untared content in the working dir /opt/a20_sdk).
 
-The sdk comes with documentation and source code examples. You can find it in ${HOME}/src/a20_sdk (docs also in /opt/a20_sdk/Documentation).
+The sdk comes with documentation and source code examples. You can find it in ${HOME}/src/a20_sdk/Documentation.
 
 
 Setup
@@ -99,8 +101,8 @@ Clone ALL external repos:
 
 If you only need/want u-boot, then you only need
 
-   	cd /opt/a20_sdk/external
-	make uboot
+   cd /opt/a20_sdk/external
+   make uboot
 
 
 Download latest supported kernel sources (for normal use and with RT_PREEMPT support):
@@ -110,7 +112,7 @@ Download latest supported kernel sources (for normal use and with RT_PREEMPT sup
 
 if you only need/want the RT-PREEMPT parts, then you only need
 
-	make get_latest_rt_kernel
+   make get_latest_rt_kernel
 
 
 Now you should have the complete content on your disk.
@@ -161,7 +163,7 @@ The first number is the mayor number which reflect bigger changes. The second nu
 	- kernel/updates of all 4 devices
 
 
-So a simple version update of the olimex kernel will not update the minor number, it will update the third number (age number)
+So a simple version update of the olimex kernel will not increase the minor number, it will increase the third number (age number):
 
 	- bugfixes
 	- update kernel versions only on one device
@@ -266,7 +268,7 @@ My nfs share:
 Cubietruck (CB3)
 ----------------
 
-My two cubietrucks are acting as a master nodes for my Bananapi Cluster (cubietruck_master/cubietruck_slave). On the cubietruck_slave node everthing is on a sd-card, i use it also as 9th baalue-node or as the distribution node into the cluster (openmpi). So it act also as a possible master node although i named it cubietruck_slave. The node cubietruck_master has a hard-disk as root device. I use it mostly as distcc server node and the 8 cluster nodes as distcc clients.
+My two cubietrucks are acting as master nodes for my Bananapi Cluster (cubietruck_master/cubietruck_slave). On the cubietruck_slave node everthing is on a sd-card, i use it also as 9th baalue-node or as the distribution node into the cluster (openmpi). So it act also as a possible master node although i named it cubietruck_slave. The node cubietruck_master has a hard-disk as root device. I use it mostly as distcc server node and the 8 cluster nodes as distcc clients.
 The two cubietrucks are also my test environment for the jailhouse hypervisor. On this device i use mainline kernel in all images.
 
 
@@ -349,13 +351,20 @@ Addtional mount points (host):
     LABEL=ROOTFS_OLI    /mnt/olimex/olimex_rootfs          auto  noauto,user,rw  0 0
     LABEL=HOME_OLI      /mnt/olimex/olimex_home            auto  noauto,user,rw  0 0
 
+    LABEL=SHARED_OLI    /mnt/olimex/olimex_shared          auto  noauto,user,rw  0 0
+
 
 Outlook (next development steps)
 --------------------------------
 
 (until mid of july)
-Due to the fact that there's no real support for the sunxi kernel within my images i will remove them and concentrate on mainline kernel.
+- Due to the fact that there's no real support for the sunxi kernel within my images i will remove them and concentrate on mainline kernel.
 
 (until end of july)
-There is some effort needed to unify all images over the different devices. The idea is to have only one base image (ROOT-Image -> Bananapi) and a script (./scripts/brand_image.sh) which copy/rsync the needed changes to the mounted sdcards. Additonally i will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
+- There is some effort needed to unify all images over the different devices. The idea is to have only one base image (ROOT-Image -> Bananapi) and a script (./scripts/brand_image.sh) which copy/rsync the needed changes to the mounted sdcards.
+- To make the usage a little bit easier i will provide a set of scripts to generate a ready to boot sd-card.
+
+(until mid of august)
+- Finally i provide dialog based script (make_sdcard.sh) to put all scipts (from above) together to a unified userinterface (handle image creation).
+- I will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
 
