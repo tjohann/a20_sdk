@@ -261,27 +261,27 @@ case "$BRAND" in
     'bananapi')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	brand_image_etc
-	brand_image_home()
+	brand_image_home
         ;;
     'bananapi-pro')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	brand_image_etc
-	brand_image_home()
+	brand_image_home
         ;;
     'baalue')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	brand_image_etc
-	brand_image_home()
+	brand_image_home
         ;;
     'olimex')
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
 	brand_image_etc
-	brand_image_home()
+	brand_image_home
         ;;
     'cubietruck')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	brand_image_etc
-	brand_image_home()
+	brand_image_home
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check"
