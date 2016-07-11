@@ -294,7 +294,7 @@ else
 fi
 
 if [ "$CLEAN_EXTERNAL" = 'true' ]; then
-    clean_exernal
+    clean_external
 else
     echo "do not clean ${ARMHF_BIN_HOME}/external"
 fi
