@@ -29,6 +29,7 @@
 # Version     :    V1.01
 #
 # Milestones  :    V1.01 (jul 2016) -> change exit code to 3
+#                                      some minor fixes/improvements
 #                  V1.00 (jul 2016) -> bump version
 #                  V0.24 (jul 2016) -> some minor improvements
 #                  V0.23 (may 2016) -> add time_triggert_env
@@ -367,7 +368,12 @@ echo " "
 if [ -d $ARMHF_BIN_HOME/external ]; then
     cd $ARMHF_BIN_HOME/external
 else
+    echo "${ARMHF_BIN_HOME}/external not available -> try to create it"
     mkdir -p $ARMHF_BIN_HOME/external
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not create ${ARMHF_BIN_HOME}/external -> did you a make init_sdk?"
+	my_exit
+    fi
     cd $ARMHF_BIN_HOME/external
 fi
 set_repo_names
