@@ -271,7 +271,7 @@ do_mrproper()
     fi
     if [ -d $ARMHF_BIN_HOME ]; then
 	cd $ARMHF_HOME
-	rm -rf $ARMHF_BIN_HOME
+	sudo rm -rf $ARMHF_BIN_HOME
     else
         echo "INFO: no directory $ARMHF_BIN_HOME"
     fi
@@ -284,6 +284,7 @@ do_mrproper()
 echo " "
 echo "+----------------------------------------+"
 echo "|             cleanup the sdk            |"
+echo "| --> prepare your password for sudo     |"
 echo "+----------------------------------------+"
 echo " "
 
