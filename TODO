@@ -42,7 +42,7 @@
   - put all in a dialog based script -> make_sdcard.sh
 
 ## sdk stuff
-- add will to AUTHORS (original make_sdcard.sh was
+- add will to AUTHORS (original make_sdcard.sh was          [2016-07-11 -> done]
   his work)
 - prepare something like a roadmap for new features         [2016-07-07 -> done]
 
