@@ -8,7 +8,7 @@
 
 ## target stuff
 - add motd to brand_images.sh
-- add support for baalue
+- add support for baalue                                    [2016-07-11 -> done]
 - add new ip name translation to base image
 
 ## sdk stuff
@@ -28,11 +28,11 @@
   -> for all devices
   -> use *shared* partition
   -> small scripts to automate the process -> use the miniimages for it
-- add support for baalue and the different nodes
+- add support for baalue and the different nodes            [2016-07-11 -> done]
 
 ## script stuff
 - create script to create image
-  - download image tarballs -> get_image_tarballs.sh
+  - download image tarballs -> get_image_tarballs.sh        [2016-07-11 -> done]
   - create partition table on sd_card
   - untar downloaded images to sd_card
   - write bootloader to it
@@ -79,7 +79,7 @@
   /etc (a20_sdk-release)                                [2016-07-04 -> canceled]
 
 ## script stuff
-- add support for $*_SHARED in brand_image.sh
+- add support for $*_SHARED in brand_image.sh               [2016-07-11 -> done]
 - rework init_sdk.sh to remove the ugly coded rsync
   parts                                                 [2016-07-05 -> canceled]
 

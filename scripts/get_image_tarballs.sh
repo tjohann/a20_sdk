@@ -205,13 +205,13 @@ get_tarball()
     echo "INFO: try to download ${DOWNLOAD_IMAGE}"
 
     local download_file=`echo ${DOWNLOAD_IMAGE} | awk -F '[/]' '{print $(NF-0)}'`
-    if [ -f download_file ]; then
+    if [ -f ${download_file} ]; then
 	echo "${DOWNLOAD_IMAGE} already exist -> do nothing"
     else
 	wget $DOWNLOAD_IMAGE
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not download ${DOWNLOAD_IMAGE}"
-	    my_exit
+	    #my_exit
 	fi
     fi
 
@@ -254,7 +254,7 @@ case "$BRAND" in
 	get_tarball
         ;;
     'olimex')
-	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/olimex_kernel.tgz"
+	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_kernel.tgz"
 	get_tarball
         ;;
     'cubietruck')

@@ -47,19 +47,14 @@ distclean::
 get_image_tarballs::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
-	@echo "|       Download all latest supported image tarballs       |"
+	@echo "|        Download latest supported image tarballs          |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -a)
-
-get_bananapi_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|     Download latest supported bananapi image tarballs    |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
-
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b baalue)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
 
 get_bananapi_image_tarballs::
 	@echo "+----------------------------------------------------------+"
@@ -67,7 +62,15 @@ get_bananapi_image_tarballs::
 	@echo "|        Download latest bananapi image tarballs           |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi)
+
+get_baalue_image_tarballs::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest bananapi image tarballs           |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b baalue)
 
 get_bananapi-pro_image_tarballs::
 	@echo "+----------------------------------------------------------+"
@@ -75,15 +78,7 @@ get_bananapi-pro_image_tarballs::
 	@echo "|        Download latest bananapi-pro image tarballs       |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -p)
-
-get_bananapi-pro-hdd_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest bananapi-pro-hdd image tarballs   |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -e)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
 
 get_cubietruck_image_tarballs::
 	@echo "+----------------------------------------------------------+"
@@ -91,15 +86,7 @@ get_cubietruck_image_tarballs::
 	@echo "|        Download latest cubietruck image tarballs         |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -c)
-
-get_cubietruck-hdd_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest cubietruck-hdd image tarballs     |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -d)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
 
 get_olimex_image_tarballs::
 	@echo "+----------------------------------------------------------+"
@@ -107,4 +94,16 @@ get_olimex_image_tarballs::
 	@echo "|        Download latest olimex image tarballs             |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -o)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
+
+
+#
+# create ready to use sdcards
+#
+make_sdcard::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Start tool to make a SD-Card                |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/make_sdcard.sh)
