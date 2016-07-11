@@ -75,8 +75,8 @@ BASE_IMAGE='none'
 # minimal size of a SD-Card
 # 4G for minimal image
 # 8G for full image
-MIN_SD_SIZE_FULL=16580608
-MIN_SD_SIZE_SMALL=8388608
+MIN_SD_SIZE_FULL=15000000
+MIN_SD_SIZE_SMALL=8000000
 
 # my usage method
 my_usage()
@@ -161,7 +161,7 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-# bananapi-{M1/Pro}
+# bananapi-{M1/Pro}/baalue
 if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
@@ -275,11 +275,6 @@ check_directories()
 	my_exit
     fi
 
-    #
-    # if HDD installation:
-    # -> root only min image
-    # -> no home
-    # -> content on shared
     if [[ ! -d "${SD_HOME}" ]]; then
 	echo "ERROR -> ${SD_HOME} not available!"
 	echo "         have you added them to your fstab? (see README.md)"
@@ -296,7 +291,7 @@ check_directories()
 clean_sdcard()
 {
     echo "sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1"
-    #sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
+    sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not clear ${DEVNODE}"
 	my_exit
@@ -316,14 +311,8 @@ partition_sdcard()
 	my_exit
     fi
 
-    #
-    # if HDD installation:
-    # -> root only min image
-    # -> no home
-    # -> content on shared
-
     echo "sudo sfdisk ${DEVNODE} < ${layout}"
-    #sudo sfdisk ${DEVNODE} < ${layout}
+    sudo sfdisk ${DEVNODE} < ${layout}
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not write parition layout ${layout}"
 	my_exit
@@ -332,35 +321,29 @@ partition_sdcard()
 
 format_partitions()
 {
-    #
-    # if HDD installation:
-    # -> root only min image
-    # -> no home
-    # -> content on shared
-
     echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
-    #sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
+    sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not format parition ${DEVNODE}1"
 	my_exit
     fi
 
     echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
-    #sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
+    sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not format parition ${DEVNODE}2"
 	my_exit
     fi
 
     echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-    #sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+    sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not format parition ${DEVNODE}3"
 	my_exit
     fi
 
     echo "sudo mkswap ${DEVNODE}4"
-    #sudo mkswap ${DEVNODE}4
+    sudo mkswap ${DEVNODE}4
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not format parition ${DEVNODE}4"
 	my_exit
@@ -381,11 +364,6 @@ mount_partitions()
 	my_exit
     fi
 
-    #
-    # if HDD installation:
-    # -> root only min image
-    # -> no home
-    # -> content on shared
     mount $SD_HOME
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not mount ${SD_HOME}"
@@ -413,11 +391,6 @@ umount_partitions()
 	my_exit
     fi
 
-    #
-    # if HDD installation:
-    # -> root only min image
-    # -> no home
-    # -> content on shared
     umount $SD_HOME
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_HOME}"
