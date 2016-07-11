@@ -206,7 +206,7 @@ get_tarball()
 
     local download_file=`echo ${DOWNLOAD_IMAGE} | awk -F '[/]' '{print $(NF-0)}'`
     if [ -f download_file ]; then
-	echo "${DOWNLOAD_IMAGE} already exist -> do nothing" 
+	echo "${DOWNLOAD_IMAGE} already exist -> do nothing"
     else
 	wget $DOWNLOAD_IMAGE
 	if [ $? -ne 0 ] ; then
@@ -214,7 +214,7 @@ get_tarball()
 	    my_exit
 	fi
     fi
-	
+
     DOWNLOAD_IMAGE='none'
 }
 

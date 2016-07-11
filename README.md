@@ -228,7 +228,7 @@ Base-installation:
 	Cubietruck -> PREEMPT kernel
 
 Note: with the upcomming new image scheme only mainline kernel is supported (PREEMPT and RT-PREEMPT on all devices).
-Note 02: both kernel (RT-PREEMPT and PREEMPT) are supported on every device. If you want to use the other kernel than the base version, then copy no-rt or rt of $*SDCARD_KERNEL/*rt to $*SDCARD_KERNEL. 
+Note 02: both kernel (RT-PREEMPT and PREEMPT) are supported on every device. If you want to use the other kernel than the base version, then copy no-rt or rt of $*SDCARD_KERNEL/*rt to $*SDCARD_KERNEL.
 
 
 Network
@@ -359,7 +359,7 @@ Development model
 
 I support only one stable version described by a tag (see checkout info above). The toolchain and images are for that version. Older tags wont be supported anymore.
 
-If you want to follow the development, then you can checkout the main branch. 
+If you want to follow the development, then you can checkout the main branch.
 
 
 Outlook (next development steps)

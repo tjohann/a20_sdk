@@ -17,7 +17,19 @@ endif
 MODULES = $(shell ls -d */ | cut -f1 -d'/')
 
 all::
-	@echo Cheers
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|                  Nothing to build                        |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	@echo "| Example:                                                 |"
+	@echo "| make make_sdcard        -> make a sdcard                 |"
+	@echo "| make init_user_home     -> init ${ARMHF_SRC_HOME}         "
+	@echo "| make clean_user_home    -> clean ${ARMHF_SRC_HOME}        "
+	@echo "| make clean              -> clean all dir/subdirs         |"
+	@echo "| make distclean          -> complete cleanup/delete       |"
+	@echo "+----------------------------------------------------------+"
+
 
 clean_user_home::
 	($(ARMHF_HOME)/scripts/clean_sdk.sh -u)

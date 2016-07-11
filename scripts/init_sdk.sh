@@ -29,6 +29,7 @@
 # Version     :    V1.03
 #
 # Milestones  :    V1.03 (jul 2016) -> change exit code to 3
+#                                      add baalue as supported device
 #                  V1.02 (jul 2016) -> create links of kernel/... to $ARMF_SRC_HOME
 #                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> some minor improvements
@@ -187,6 +188,18 @@ add_documentations_links_opt()
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi"
     fi
 
+    # baalue related docs
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/baalue ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/baalue
+	rsync -av --delete ${ARMHF_HOME}/baalue/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/baalue/Documentation/."
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/baalue"
+    fi
+
     # bananapi-pro related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi-pro ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/bananapi-pro
@@ -236,6 +249,18 @@ add_documentations_links_home()
 	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi"
+    fi
+
+    # baalue related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/baalue ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/baalue
+	rsync -av --delete ${ARMHF_HOME}/baalue/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/baalue/Documentation/."
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/baalue"
     fi
 
     # bananapi-pro related docs

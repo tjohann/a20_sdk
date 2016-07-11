@@ -1,1 +1,0 @@
-../../bananapi/Documentation/info_image_adds.txt

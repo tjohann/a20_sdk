@@ -310,7 +310,7 @@ partition_sdcard()
     else
 	local layout=${ARMHF_HOME}/${BRAND}/configs/partition_base.layout
     fi
-    
+
     if [[ ! -f "$layout" ]]; then
 	echo "ERROR: parition layout ${layout} does not exist ... check your repo"
 	my_exit
