@@ -38,7 +38,6 @@ Setup
 Follow the steps below to setup your enviroment. If you use my sdk_builder (not finshed yet), then the tool will do this all for you.
 
 
-
 Create the runtime locations:
 
     sudo mkdir /var/lib/a20_sdk
@@ -52,7 +51,7 @@ Change group to users and chmod it to 775:
 
 Clone this repo to /var/lib/a20_sdk
 
-    git clone https://github.com/tjohann/a20_sdk.git /var/lib/a20_sdk
+    git clone -b A20_SDK_V1.0.0 https://github.com/tjohann/a20_sdk.git /var/lib/a20_sdk
 
 
 Source the environment file armhf_env
@@ -116,7 +115,6 @@ if you only need/want the RT-PREEMPT parts, then you only need
 
 
 Now you should have the complete content on your disk.
-
 
 
 Update
@@ -221,13 +219,16 @@ The user baalue is available on all images, you can use it to login via ssh.
 Kernel
 ------
 
-	Olimex -> RT-PREEMPT and PREEMPT kernel
+Base-installation:
+
+	Olimex -> RT-PREEMPT kernel
 	Bananapi -> RT-PREEMPT
 	Baalue-Node -> PREEMPT kernel
 	Bananapi-Pro -> PREEMPT kernel (mainline)
 	Cubietruck -> PREEMPT kernel
 
 Note: with the upcomming new image scheme only mainline kernel is supported (PREEMPT and RT-PREEMPT on all devices).
+Note 02: both kernel (RT-PREEMPT and PREEMPT) are supported on every device. If you want to use the other kernel than the base version, then copy no-rt or rt of $*SDCARD_KERNEL/*rt to $*SDCARD_KERNEL. 
 
 
 Network
@@ -247,22 +248,21 @@ Single devices:
 
 My cluster:
 
-	192.168.0.80            bananapi-80.my.domain      	bananapi-80
-	192.168.0.81            bananapi-81.my.domain      	bananapi-81
-	192.168.0.82            bananapi-82.my.domain      	bananapi-82
-	192.168.0.83            bananapi-83.my.domain      	bananapi-83
-	192.168.0.84            bananapi-84.my.domain      	bananapi-84
-	192.168.0.85            bananapi-85.my.domain      	bananapi-85
-	192.168.0.86            bananapi-86.my.domain      	bananapi-86
-	192.168.0.87            bananapi-87.my.domain      	bananapi-87
-	192.168.0.90            cubietruck_master.my.domain     cubietruck_master
-	192.168.0.91            cubietruck_slave.my.domain      cubietruck_slave
+	192.168.0.80            baalue-80.my.domain      	baalue-00
+	192.168.0.81            baalue-81.my.domain      	baalue-01
+	192.168.0.82            baalue-82.my.domain      	baalue-02
+	192.168.0.83            baalue-83.my.domain      	baalue-03
+	192.168.0.84            baalue-84.my.domain      	baalue-04
+	192.168.0.85            baalue-85.my.domain      	baalue-05
+	192.168.0.86            baalue-86.my.domain      	baalue-06
+	192.168.0.87            baalue-87.my.domain      	baalue-07
+	192.168.0.90            baalue_master.my.domain     	baalue_master
+	192.168.0.91            baalue_slave.my.domain      	baalue_slave
 
 
 My nfs share:
 
 	192.168.0.42            echnaton.my.domain              echnaton
-
 
 
 Cubietruck (CB3)
@@ -354,6 +354,14 @@ Addtional mount points (host):
     LABEL=SHARED_OLI    /mnt/olimex/olimex_shared          auto  noauto,user,rw  0 0
 
 
+Development model
+-----------------
+
+I support only one stable version described by a tag (see checkout info above). The toolchain and images are for that version. Older tags wont be supported anymore.
+
+If you want to follow the development, then you can checkout the main branch. 
+
+
 Outlook (next development steps)
 --------------------------------
 
@@ -367,4 +375,5 @@ Outlook (next development steps)
 (until mid of august)
 - Finally i provide dialog based script (make_sdcard.sh) to put all scipts (from above) together to a unified userinterface (handle image creation).
 - I will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
+- support for hdd installation
 

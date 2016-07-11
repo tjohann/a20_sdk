@@ -2,6 +2,19 @@
 # some news ... see also TODO for hints
 #
 
+
+2016-07-11 -> ## script stuff
+	      add skeleton for new scripts
+	      add skeleton of make_sdcard.sh
+	      a lot of minor updates/cleanups
+
+	      ## sdk & target stuff
+	      add baalue as independent target
+
+2016-07-10 -> ## script stuff
+	      first working version of partition_sdcard script
+	      a lot of minor updates/cleanups
+
 2016-07-07 -> ## script stuff
 	      first working version of "branding" script
 

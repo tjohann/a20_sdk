@@ -1,213 +1,165 @@
 #!/usr/bin/env bash
+################################################################################
+#
+# Title       :    make_sdcard.sh
+#
+# License:
+#
+# GPL
+# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+################################################################################
+#
+# Date/Beginn :    10.07.2016/10.07.2016
+#
+# Version     :    V0.01
+#
+# Milestones  :    V0.01 (jul 2016) -> initial skeleton
+#
+# Requires    :
+#
+#
+################################################################################
+# Description
+#
+#   A simple tool for user interaction of sdcard generation
+#
+# Some features
+#   - ...
+#
+################################################################################
+#
 
-if [ "${BAALUE_HOME}" == "" ]; then
-    echo "error: please source baalue_env first!"
-    exit -1
+# VERSION-NUMBER
+VER='0.01'
+
+# if env is sourced
+MISSING_ENV='false'
+
+# my usage method
+my_usage()
+{
+    echo " "
+    echo "+--------------------------------------------------------+"
+    echo "| Usage: ./make_sdcard.sh                                |"
+    echo "|        [-v] -> print version info                      |"
+    echo "|        [-h] -> this help                               |"
+    echo "|                                                        |"
+    echo "+--------------------------------------------------------+"
+    echo " "
+    exit
+}
+
+# my cleanup
+cleanup() {
+    rm $_temp 2>/dev/null
+    rm $_log 2>/dev/null
+}
+
+# my exit method
+my_exit()
+{
+    echo "+-----------------------------------+"
+    echo "|          Cheers $USER            |"
+    echo "+-----------------------------------+"
+    cleanup
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
+}
+
+# print version info
+print_version()
+{
+    echo "+-----------------------------------+"
+    echo "| You are using version: ${VER}       |"
+    echo "+-----------------------------------+"
+    cleanup
+    exit
+}
+
+# ---- Some values for internal use ----
+_temp="/tmp/make_sdcard.$$"
+_log="/tmp/make_sdcard.log"
+
+
+# check the args
+while getopts 'hv' opts 2>$_log
+do
+    case $opts in
+        h) my_usage ;;
+        v) print_version ;;
+        ?) my_usage ;;
+    esac
+done
+
+
+# ******************************************************************************
+# ***             Error handling for missing shell values                    ***
+# ******************************************************************************
+
+if [[ ! ${ARMHF_HOME} ]]; then
+    MISSING_ENV='true'
 fi
 
-function menu()
-{
-    local prompt=$1
-    declare -a options=(${!2})
-
-    PS3="$prompt (or 0 to exit): "
-    select opt in "${options[@]}"; do
-    echo $opt
-    break
-    done
-}
-
-function get_removable_drives()
-{
-    echo $(
-	grep -Hv ^0$ /sys/block/*/removable |
-	sed s/removable:.*$/device\\/uevent/ |
-	xargs grep -H ^DRIVER=sd |
-	sed s/device.uevent.*$/size/ |
-	xargs grep -Hv ^0$ |
-	cut -d / -f 4
-    )
-
-}
-
-function print_drive_details()
-{
-    local drives=$1
-    local paths=${drives[@]/#/\/dev\/}
-
-    echo "Displaying information for each removable device:"
-    lsblk -d -b -l -o NAME,MODEL ${paths[@]}
-}
-
-function get_mount_points()
-{
-    local drive=$1
-    echo $( grep ${drive} /proc/mounts | sort | cut -d ' ' -f 2 )
-}
-
-function get_sdcard_layouts()
-{
-    local names=$( ls ${BAALUE_HOME}/images/*.layout )
-    local layouts
-    for layout in ${names[@]}; do
-	layouts=("${layouts[@]}" "$(basename $layout)")
-    done
-
-    echo ${layouts[@]}
-}
-
-function proceed_query()
-{
-    while true; do
-	read -p "Proceed? " yn
-	case $yn in
-            [Yy]* ) break;;
-            [Nn]* ) exit;;
-            * ) echo "Please answer yes or no.";;
-	esac
-    done
-}
-
-function sfdisk_overwrite()
-{
-    local drive=$1
-    local layout="${BAALUE_HOME}/images/${2}"
-    menu ""
-    sudo sfdisk /dev/${drive} < ${layout}
-}
-
-function select_layout()
-{
-    local layouts=$(get_sdcard_layouts)
-    echo $( menu "select layout for sdcard" layouts[@] )
-}
-
-function clean_sdcard()
-{
-    local card=$1
-    local keep_partition=$2
-
-    echo "keep_partition: ${keep_partition}"
-
-    if [ $keep_partition -eq 0 ]; then
-	echo "sudo dd if=/dev/zero of=/dev/${card} bs=1M count=1"
-	sudo dd if=/dev/zero of=/dev/${card} bs=1M count=1
-    else
-	echo "sudo dd if=/dev/zero of=/dev/${card} bs=1k count=1023 seek=1"
-	sudo dd if=/dev/zero of=/dev/${card} bs=1k count=1023 seek=1
-    fi
-}
-
-function yes_no_question()
-{
-    local question=$1
-    local retval
-    while true; do
-	read -p "${question} [y/n] " yn
-	case $yn in
-            [Yy]* )
-		echo 1
-		break;;
-            [Nn]* )
-		echo 0
-		break;;
-            * ) echo "Please answer yes or no.";;
-	esac
-    done
-}
-
-function wait_for_remount()
-{
-    local drive=$1
-    local mounts
-    local finished=0
-
-    while [ $finished -eq 0 ]; do
-	mounts=$( grep ${drive} /proc/mounts | sort | cut -d ' ' -f 1 | sed s/^.*${drive}// | tr '\n' ' ' )
-	finished=$(echo $mounts | grep -c "1 2 3")
-    done
-}
-
-################################################################
-# start of script
-################################################################
-drives=$(get_removable_drives)
-if [ "$drives" == "" ]; then
-    echo "error: no removable drive found"
-    exit -1
+if [[ ! ${ARMHF_BIN_HOME} ]]; then
+    MISSING_ENV='true'
 fi
 
-# select the target device
-# =========================
-print_drive_details $drives
-echo ""
-drv=$( menu "select device with sdcard" drives[@] )
-if [ "$drv" == "" ]; then
-    echo "aborting"
-    exit -2
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
+    MISSING_ENV='true'
 fi
 
-# clean the card
-# ================
-mounts=$( get_mount_points $drv )
-if [ "${mounts}" != "" ]; then
-    echo "Umounting ${drv} before partitioning"
-    sudo umount ${mounts}
+# show a usage screen and exit
+if [ "$MISSING_ENV" = 'true' ]; then
+    cleanup
+    echo " "
+    echo "+--------------------------------------+"
+    echo "|                                      |"
+    echo "|  ERROR: missing env                  |"
+    echo "|         have you sourced env-file?   |"
+    echo "|                                      |"
+    echo "|          Cheers $USER               |"
+    echo "|                                      |"
+    echo "+--------------------------------------+"
+    echo " "
+    exit
 fi
 
-keep_partition=$(yes_no_question "Do you want to keep the partition table?")
-echo "keep_partition: ${keep_partition}"
-clean_sdcard $drv $keep_partition
 
-if [ $keep_partition -eq 0 ]; then
-    # select partition layout
-    # ========================
-    echo "Writing partition table"
-    layout=$(select_layout)
-    sfdisk_overwrite ${drv} ${layout}
-    echo "... finished"
-fi
-proceed_query
+# ******************************************************************************
+# ***                      The functions for main_menu                       ***
+# ******************************************************************************
 
-# update partition settings
-mounts=$( get_mount_points $drv )
-echo "Umounting ${drv} before creating file systems"
-sudo umount ${mounts}
-sudo mkfs.vfat -F 32 -n KERNEL_BANA /dev/${drv}1
-sudo mkfs.ext4 -O ^has_journal -L ROOTFS_BANA /dev/${drv}2
-sudo mkfs.ext4 -O ^has_journal -L HOME_BANA /dev/${drv}3
-sudo mkswap /dev/${drv}4
 
-echo "Waiting for remount of partitions"
-wait_for_remount $drv
 
-cd ${BAALUE_HOME}/bananapi/u-boot/
-sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/${drv} bs=1024 seek=8
-proceed_query
+# ******************************************************************************
+# ***                         Main Loop                                      ***
+# ******************************************************************************
 
-# check for the mount points
-# ===========================
-mounts=( $( get_mount_points $drv ) )
-kernel_mnt=${mounts[0]}
-root_mnt=${mounts[1]}
-home_mnt=${mounts[2]}
+echo " "
+echo "+----------------------------------------+"
+echo "|                 .....                  |"
+echo "+----------------------------------------+"
+echo " "
 
-echo ""
-echo "Detected following mount points:"
-echo "    kernel: $kernel_mnt"
-echo "    root  : $root_mnt"
-echo "    home  : $home_mnt"
-echo "The contents of these partitions will be overwritten"
-proceed_query
 
-cd ${BAALUE_HOME}/bananapi/u-boot/
-sudo cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${kernel_mnt}/
-cd $root_mnt
-sudo tar xzpvf ${BAALUE_HOME}/images/rootfs_baalue_bananapi.tgz .
-cd $home_mnt
-sudo tar xzpvf ${BAALUE_HOME}/images/home_baalue_bananapi.tgz .
-cd $kernel_mnt
-sudo tar xzpvf ${BAALUE_HOME}/images/kernel_baalue_bananapi.tgz .
-
-echo "Finished!!!"
-exit 0
+cleanup
+echo " "
+echo "+----------------------------------------+"
+echo "|            Cheers $USER "
+echo "+----------------------------------------+"
+echo " "

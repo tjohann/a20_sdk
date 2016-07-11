@@ -1,11 +1,1 @@
-baalue@bananapi-80:/opt/a20_sdk/external$ df
-Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
-/dev/root       9,8G    3,2G  6,1G   35% /
-devtmpfs        466M    4,0K  466M    1% /dev
-run             467M    292K  466M    1% /run
-shm             467M       0  467M    0% /dev/shm
-cgroup          467M       0  467M    0% /sys/fs/cgroup
-tmpfs           467M       0  467M    0% /tmp
-/dev/mmcblk0p1   33M     11M   22M   34% /boot_bananapi
-/dev/mmcblk0p3  4,2G     11M  3,9G    1% /home
-none            467M       0  467M    0% /run/user/1000
+../../baalue/Documentation/diskfree_baalue_sdcard.txt

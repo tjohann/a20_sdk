@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.07.2016/15.08.2015
+# Date/Beginn :    11.07.2016/15.08.2015
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> bump version
+# Milestones  :    V1.01 (jul 2016) -> change exit code to 3
+#                  V1.00 (jul 2016) -> bump version
 #                  V0.24 (jul 2016) -> some minor improvements
 #                  V0.23 (may 2016) -> add time_triggert_env
 #                  V0.22 (may 2016) -> add libbaalue and baalued
@@ -82,7 +83,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -162,7 +163,8 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info

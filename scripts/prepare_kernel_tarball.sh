@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    check_for_valid_env.sh
+# Title       :    prepare_kernel_tarball.sh
 #
 # License:
 #
@@ -24,14 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/05.07.2016
+# Date/Beginn :    11.07.2016/10.07.2016
 #
-# Version     :    V1.02
+# Version     :    V0.01
 #
-# Milestones  :    V1.02 (jul 2016) -> change exit code to 3
-#                  V1.01 (jul 2016) -> some smaller improvements
-#                  V1.00 (jul 2016) -> some smaller changes
-#                  V0.01 (jul 2016) -> first functional version
+# Milestones  :    V0.01 (jul 2016) -> initial skeleton
+#                                      change exit code to 3
 #
 # Requires    :
 #
@@ -39,33 +37,30 @@
 ################################################################################
 # Description
 #
-#   A simple tool to check if arm_env.sh and $ARMHF_KERNEL* in sync
+#   A simple tool to prepare a tarball with all kernel context ("bin")
 #
 # Some features
 #   - ...
 #
-# Notes
-#   - ...
-#
 ################################################################################
+#
 
 # VERSION-NUMBER
-VER='1.02'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
-
 
 # my usage method
 my_usage()
 {
     echo " "
-    echo "+------------------------------------------+"
-    echo "| Usage: ./check_for_valid_env.sh          |"
-    echo "|        [-v] -> print version info        |"
-    echo "|        [-h] -> this help                 |"
-    echo "|                                          |"
-    echo "+------------------------------------------+"
+    echo "+--------------------------------------------------------+"
+    echo "| Usage: ./prepare_kernel_tarball.sh                     |"
+    echo "|        [-v] -> print version info                      |"
+    echo "|        [-h] -> this help                               |"
+    echo "|                                                        |"
+    echo "+--------------------------------------------------------+"
     echo " "
     exit
 }
@@ -79,27 +74,27 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    echo "+------------------------------------------+"
-    echo "|          Cheers $USER                   |"
-    echo "+------------------------------------------+"
-    cleanup
-    exit 2
-}
-
-# print version info
-print_version()
-{
-    echo "+------------------------------------------+"
-    echo "| You are using version: ${VER}            |"
-    echo "+------------------------------------------+"
+    echo "+-----------------------------------+"
+    echo "|          Cheers $USER            |"
+    echo "+-----------------------------------+"
     cleanup
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
 
+# print version info
+print_version()
+{
+    echo "+-----------------------------------+"
+    echo "| You are using version: ${VER}       |"
+    echo "+-----------------------------------+"
+    cleanup
+    exit
+}
+
 # ---- Some values for internal use ----
-_temp="/tmp/get_toolchain.$$"
-_log="/tmp/get_toolchain.log"
+_temp="/tmp/prepare_kernel_tarballd.$$"
+_log="/tmp/prepare_kernel_tarball.log"
 
 
 # check the args
@@ -147,58 +142,21 @@ fi
 
 
 # ******************************************************************************
+# ***                      The functions for main_menu                       ***
+# ******************************************************************************
+
+
+
+# ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
 echo " "
 echo "+----------------------------------------+"
-echo "|  check if env variable and env script  |"
-echo "|  are in sync                           |"
+echo "|                 .....                  |"
 echo "+----------------------------------------+"
 echo " "
 
-
-TMP_STRING=`grep ARMHF_KERNEL_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
-if [ "$TMP_STRING" != "$ARMHF_KERNEL_VER" ]; then
-    echo " "
-    echo "+---------------- ERROR -----------------+"
-    echo "| The versions of ARMHF_KERNEL_VER: ${ARMHF_KERNEL_VER}"
-    echo "| and armhf_env: ${TMP_STRING} are different!"
-    echo "+----------------------------------------+"
-    echo " "
-    cleanup
-    my_exit
-fi
-
-TMP_STRING=`grep ARMHF_RT_KERNEL_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
-if [ "$TMP_STRING" != "$ARMHF_RT_KERNEL_VER" ]; then
-    echo " "
-    echo "+---------------- ERROR -----------------+"
-    echo "| The versions of ARMHF_RT_KERNEL_VER: ${ARMHF_RT_KERNEL_VER}"
-    echo "| and armhf_env: ${TMP_STRING} are different!"
-    echo "+----------------------------------------+"
-    echo " "
-    cleanup
-    my_exit
-fi
-
-TMP_STRING=`grep ARMHF_RT_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
-if [ "$TMP_STRING" != "$ARMHF_RT_VER" ]; then
-    echo " "
-    echo "+---------------- ERROR -----------------+"
-    echo "| The versions of ARMHF_RT_VER: ${ARMHF_RT_VER}"
-    echo "| and armhf_env: ${TMP_STRING} are different!"
-    echo "+----------------------------------------+"
-    echo " "
-    cleanup
-    my_exit
-fi
-
-echo " "
-echo "+----------------------------------------+"
-echo "| env variable and env script are in sync|"
-echo "+----------------------------------------+"
-echo " "
 
 cleanup
 echo " "

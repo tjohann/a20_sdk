@@ -14,7 +14,7 @@ ifeq "${ARMHF_SRC_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-MODULES = bananapi bananapi-pro olimex cubietruck
+MODULES = bananapi bananapi-pro baalue olimex cubietruck
 MODULES += include man pics configs scripts
 MODULES += a20_sdk a20_sdk_src
 
@@ -60,6 +60,8 @@ clean_user_home::
 
 clean_opt: clean_toolchain clean_external clean_kernel clean_images
 
+mrproper: clean
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -m)
 
 init_sdk: distclean
 	@echo "+----------------------------------------------------------+"
@@ -88,7 +90,7 @@ init_opt: clean_opt
 #
 # run all get actions in sequence
 #
-get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
+get_all: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|               All 'get' actions complete                 |"
@@ -190,3 +192,15 @@ get_olimex_image_tarballs::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -o)
+
+
+#
+# create ready to use sdcards
+#
+make_sdcard::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Start tool to make a SD-Card                |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/make_sdcard.sh)

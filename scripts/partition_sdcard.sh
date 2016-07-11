@@ -24,11 +24,15 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.07.2016/07.07.2016
+# Date/Beginn :    11.07.2016/07.07.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jul 2016) -> initial version
+# Milestones  :    V0.02 (jul 2016) -> add support for baalue
+#                                      add first support for hdd installation
+#                                      change exit code to 3
+#                                      start to support base image
+#                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
 #
@@ -45,7 +49,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -62,6 +66,12 @@ SD_SHARED='none'
 # which devnode?
 DEVNODE='none'
 
+# HDD installation?
+PREP_HDD_INST='none'
+
+# use only base image
+BASE_IMAGE='none'
+
 # minimal size of a SD-Card
 # 4G for minimal image
 # 8G for full image
@@ -76,7 +86,10 @@ my_usage()
     echo "|                                                        |"
     echo "| Usage: ./partition_sdcard.sh                           |"
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
-    echo "|        [-b] -> bananapi/bananapi-pro/olimex/cubietruck |"
+    echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
+    echo "|                cubietruck                              |"
+    echo "|        [-m] -> download the minimal images             |"
+    echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -98,7 +111,8 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info
@@ -117,13 +131,15 @@ _log="/tmp/partition_sdcard.log"
 
 
 # check the args
-while getopts 'hvb:d:' opts 2>$_log
+while getopts 'hvmb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
+	m) BASE_IMAGE='true' ;;
 	d) DEVNODE=$OPTARG ;;
+	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -222,26 +238,26 @@ check_devnode()
     local mounted=`grep ${DEVNODE} /proc/mounts | sort | cut -d ' ' -f 1`
     if [[ "${mounted}" ]]; then
 	echo "ERROR: ${DEVNODE} has already mounted partitions"
-	#my_exit
+	my_exit
     fi
 
     mounted=`echo ${DEVNODE} | awk -F '[/]' '{print $3}'`
     grep 1 /sys/block/${mounted}/removable 1>$_log
     if [ $? -ne 0 ] ; then
 	echo "ERROR: ${DEVNODE} has is not removeable device"
-	#my_exit
+	my_exit
     fi
 
     grep 0 /sys/block/${mounted}/ro 1>$_log
     if [ $? -ne 0 ] ; then
 	echo "ERROR: ${DEVNODE} is only readable"
-	#my_exit
+	my_exit
     fi
 
     local size=$(< /sys/block/${mounted}/size)
     if [[ "$size" -lt "$MIN_SD_SIZE_FULL" ]]; then
 	echo "ERROR: ${DEVNODE} is to small with ${size} sectors"
-	#my_exit
+	my_exit
     fi
 }
 
@@ -258,18 +274,23 @@ check_directories()
 	echo "         have you added them to your fstab? (see README.md)"
 	my_exit
     fi
-    
+
+    #
+    # if HDD installation:
+    # -> root only min image
+    # -> no home
+    # -> content on shared
     if [[ ! -d "${SD_HOME}" ]]; then
 	echo "ERROR -> ${SD_HOME} not available!"
 	echo "         have you added them to your fstab? (see README.md)"
 	my_exit
     fi
 
-    if [[ ! -d "${SD_SHARED}" ]]; then
-	echo "ERROR -> ${SD_SHARED} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
-	my_exit
-    fi
+#    if [[ ! -d "${SD_SHARED}" ]]; then
+#	echo "ERROR -> ${SD_SHARED} not available!"
+#	echo "         have you added them to your fstab? (see README.md)"
+#	my_exit
+#    fi
 }
 
 clean_sdcard()
@@ -284,12 +305,23 @@ clean_sdcard()
 
 partition_sdcard()
 {
-    local layout=${ARMHF_HOME}/${BRAND}/configs/partition.layout
+    if [ "$BASE_IMAGE" = 'true' ]; then
+	local layout=${ARMHF_HOME}/${BRAND}/configs/partition.layout
+    else
+	local layout=${ARMHF_HOME}/${BRAND}/configs/partition_base.layout
+    fi
+    
     if [[ ! -f "$layout" ]]; then
 	echo "ERROR: parition layout ${layout} does not exist ... check your repo"
 	my_exit
     fi
-	
+
+    #
+    # if HDD installation:
+    # -> root only min image
+    # -> no home
+    # -> content on shared
+
     echo "sudo sfdisk ${DEVNODE} < ${layout}"
     #sudo sfdisk ${DEVNODE} < ${layout}
     if [ $? -ne 0 ] ; then
@@ -299,14 +331,20 @@ partition_sdcard()
 }
 
 format_partitions()
-{    
+{
+    #
+    # if HDD installation:
+    # -> root only min image
+    # -> no home
+    # -> content on shared
+
     echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
     #sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not format parition ${DEVNODE}1"
 	my_exit
     fi
-    
+
     echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
     #sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
     if [ $? -ne 0 ] ; then
@@ -334,27 +372,31 @@ mount_partitions()
     mount $SD_KERNEL
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not mount ${SD_KERNEL}"
-	#my_exit
+	my_exit
     fi
 
     mount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not mount ${SD_ROOTFS}"
-	#my_exit
+	my_exit
     fi
 
+    #
+    # if HDD installation:
+    # -> root only min image
+    # -> no home
+    # -> content on shared
     mount $SD_HOME
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not mount ${SD_HOME}"
-	#my_exit
+	my_exit
     fi
 
-    # see ../TODO
-    mount $SD_SHARED
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_SHARED}"
-	#my_exit
-    fi
+#    mount $SD_SHARED
+#    if [ $? -ne 0 ] ; then
+#	echo "ERROR -> could not mount ${SD_SHARED}"
+#	my_exit
+#    fi
 }
 
 umount_partitions()
@@ -362,27 +404,31 @@ umount_partitions()
     umount $SD_KERNEL
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_KERNEL}"
-	#my_exit
+	my_exit
     fi
 
     umount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_ROOTFS}"
-	#my_exit
+	my_exit
     fi
 
+    #
+    # if HDD installation:
+    # -> root only min image
+    # -> no home
+    # -> content on shared
     umount $SD_HOME
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_HOME}"
-	#my_exit
+	my_exit
     fi
 
-    # see ../TODO
-    umount $SD_SHARED
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_SHARED}"
-	#my_exit
-    fi
+#    umount $SD_SHARED
+#    if [ $? -ne 0 ] ; then
+#	echo "ERROR -> could not umount ${SD_SHARED}"
+#	my_exit
+#    fi
 }
 
 
@@ -405,6 +451,13 @@ case "$BRAND" in
 	SD_PART_NAME_POST_LABEL="BANA"
         ;;
     'bananapi-pro')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
+	SD_PART_NAME_POST_LABEL="BANA"
+        ;;
+    'baalue')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME

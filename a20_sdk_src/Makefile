@@ -37,3 +37,15 @@ init_user_home: clean_user_home
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/init_sdk.sh -u)
 
+#
+# create ready to use sdcards
+#
+make_sdcard::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Start tool to make a SD-Card                |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/make_sdcard.sh)
+
+

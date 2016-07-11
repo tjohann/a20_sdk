@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.07.2016/25.01.2016
+# Date/Beginn :    11.07.2016/25.01.2016
 #
-# Version     :    V1.01
+# Version     :    V1.03
 #
-# Milestones  :    V1.01 (jul 2016) -> some minor improvements
+# Milestones  :    V1.03 (jul 2016) -> change exit code to 3
+#                  V1.02 (jul 2016) -> create links of kernel/... to $ARMF_SRC_HOME
+#                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> some minor improvements
 #                  V0.08 (jul 2016) -> some minor improvements
 #                  V0.07 (may 2016) -> add argument to init home and opt
@@ -60,7 +62,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -99,7 +101,8 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info
@@ -305,16 +308,12 @@ if [ "$INIT_OPT" = 'true' ]; then
 	fi
     fi
 
-    if [ -d $ARMHF_BIN_HOME ]; then
-	echo "Rsync content of ${ARMHF_HOME}/a20_sdk/ to $ARMHF_BIN_HOME"
-	cd $ARMHF_BIN_HOME
-	rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could notrsync -av --delete ${ARMHF_HOME}/a20_sdk/."
-	    my_exit
-	fi
-    else
-	echo "$ARMHF_BIN_HOME does not exist"
+    echo "Rsync content of ${ARMHF_HOME}/a20_sdk/ to $ARMHF_BIN_HOME"
+    cd $ARMHF_BIN_HOME
+    rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could notrsync -av --delete ${ARMHF_HOME}/a20_sdk/."
+	my_exit
     fi
 
     add_documentations_links_opt
@@ -339,16 +338,18 @@ if [ "$INIT_USER_HOME" = 'true' ]; then
 	fi
     fi
 
-    if [ -d $ARMHF_SRC_HOME ]; then
-	cd $ARMHF_SRC_HOME
-	echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
-	rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/."
-	    my_exit
-	fi
-    else
-	echo "$ARMHF_SRC_HOME does not exist"
+    cd $ARMHF_SRC_HOME
+    echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
+    rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/."
+	my_exit
+    fi
+
+    if [ -d $ARMHF_BIN_HOME/kernel ]; then
+	ln -s $ARMHF_BIN_HOME/kernel $ARMHF_SRC_HOME/kernel
+	ln -s $ARMHF_BIN_HOME/images $ARMHF_SRC_HOME/images
+	ln -s $ARMHF_BIN_HOME/external $ARMHF_SRC_HOME/external
     fi
 
     add_documentations_links_home

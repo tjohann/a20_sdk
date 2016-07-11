@@ -3,6 +3,18 @@
 #
 
 #
+# -------------- 2016-07-10 ----------------------------------------------------
+#
+
+## target stuff
+- add motd to brand_images.sh
+- add support for baalue
+- add new ip name translation to base image
+
+## sdk stuff
+- after migrate to unified image get rid of some makefile targets
+
+#
 # -------------- 2016-07-07 ----------------------------------------------------
 #
 
@@ -52,8 +64,8 @@
 - dts support for mcp2515 (CAN)
 
 ## sdk stuff
-- provide small script to generate a kernel tarball with all
-  dt[s,b], modules_* and kernel images + config
+- provide make target below $ARMHF_BIN_HOME/kernel to generate a kernel tarball
+  with all dt[s,b], modules_* and kernel images + config
   -> to upload it on sourceforge as base for all
      kernel sdcard images
 

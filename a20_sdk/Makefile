@@ -84,7 +84,7 @@ init_opt: clean_opt
 	($(ARMHF_HOME)/scripts/init_sdk.sh -o)
 
 # run all get actions in sequence
-get_all:: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
+get_all: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|               All 'get' actions complete                 |"
@@ -186,3 +186,14 @@ get_olimex_image_tarballs::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -o)
+
+#
+# create ready to use sdcards
+#
+make_sdcard::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|              Start tool to make a SD-Card                |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/make_sdcard.sh)

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.07.2016/15.08.2015
+# Date/Beginn :    11.07.2016/15.08.2015
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> some minor improvements
+# Milestones  :    V1.02 (jul 2016) -> change exit code to 3
+#                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> some minor improvements
 #                  V0.05 (jul 2016) -> some minor improvements
 #                  V0.04 (apr 2016) -> check for architecture
@@ -49,13 +50,28 @@
 #   - ...
 #
 # Notes
-#   - ...
+#   - Images reside on sourceforge with the following structure
+#     "root on sf"
+#     -> .
+#         "device specific kernel images":
+#         -> bananapi/bananapi_kernel.tgz
+#         -> ...
+#         -> olimex/olmex_kernel.tgz
+#         "common parts for all images":
+#         -> common
+#                  -> a20_sdk_rootfs.tgz
+#                  -> a20_sdk_home.tgz
+#                  -> a20_sdk_base_rootfs.tgz
+#         -> toolchain*.tgz
+#         -> host_*.tgz
+#         -> checksum.sha256
+#         -> README.txt
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -103,7 +119,8 @@ my_exit()
     echo "|          Cheers $USER                   |"
     echo "+------------------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info

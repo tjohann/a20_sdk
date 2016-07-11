@@ -30,6 +30,7 @@ export BANANAPI_SDCARD_SHARED=/mnt/bananapi/bananapi_shared
 export OLIMEX_SDCARD_KERNEL=/mnt/olimex/olimex_kernel
 export OLIMEX_SDCARD_ROOTFS=/mnt/olimex/olimex_rootfs
 export OLIMEX_SDCARD_HOME=/mnt/olimex/olimex_home
+export OLIMEX_SDCARD_SHARED=/mnt/olimex/olimex_shared
 
 # set mount points for the sdcard -> cubietruck
 export CUBIETRUCK_SDCARD_KERNEL=/mnt/cubietruck/cubietruck_kernel

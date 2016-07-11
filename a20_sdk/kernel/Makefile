@@ -23,7 +23,7 @@ all::
 	@echo "| make get_latest_kernel  -> download latest kernel version|"
 	@echo "| make get_latest_rt_kernel -> download latest rt kernel   |"
 	@echo "| make get_latest_nonrt_kernel -> download latest nonrt ...|"
-	@echo "| make clean              -> clean all dir/subdirs         |"
+	@echo "| make clean              -> simple clean (no subdir)      |"
 	@echo "| make distclean          -> rm also downloaded/build parts|"
 	@echo "+----------------------------------------------------------+"
 

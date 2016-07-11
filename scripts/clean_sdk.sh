@@ -24,11 +24,15 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.07.2016/17.04.2016
+# Date/Beginn :    11.07.2016/17.04.2016
 #
-# Version     :    V1.01
+# Version     :    V1.03
 #
-# Milestones  :    V1.01 (jul 2016) -> some minor improvements
+# Milestones  :    V1.03 (jul 2016) -> add mrproper to remove $ARMHF_*_HOME
+#                                      some minor rework of the code
+#                                      change exit code to 3
+#                  V1.02 (jul 2016) -> remove links to kernel/...
+#                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> release V1.00
 #                  V0.05 (jul 2016) -> some minor improvements
 #                  V0.04 (may 2016) -> add libbaalue and baalued
@@ -56,7 +60,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -67,6 +71,7 @@ CLEAN_EXTERNAL='false'
 CLEAN_IMAGES='false'
 CLEAN_TOOLCHAIN='false'
 CLEAN_USER='false'
+MRPROPER='false'
 
 # my usage method
 my_usage()
@@ -80,6 +85,8 @@ my_usage()
     echo "|        [-i] -> cleanup image dir                       |"
     echo "|        [-t] -> cleanup toolchain parts                 |"
     echo "|        [-u] -> cleanup user home dir parts             |"
+    echo "|        [-m] -> remove /opt/a20* and $HOME/src/a20*     |"
+    echo "|                parts                                   |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -101,7 +108,8 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info
@@ -120,7 +128,7 @@ _log="/tmp/clean_sdk.log"
 
 
 # check the args
-while getopts 'hvaketiu' opts 2>$_log
+while getopts 'hvaketium' opts 2>$_log
 do
     case $opts in
 	k) CLEAN_KERNEL='true' ;;
@@ -128,6 +136,7 @@ do
 	i) CLEAN_IMAGES='true' ;;
 	t) CLEAN_TOOLCHAIN='true' ;;
 	u) CLEAN_USER='true' ;;
+	m) MRPROPER='true' ;;
 	a) CLEAN_KERNEL='true'
            CLEAN_EXTERNAL='true'
            CLEAN_IMAGES='true'
@@ -173,24 +182,12 @@ if [ "$MISSING_ENV" = 'true' ]; then
     exit
 fi
 
-
 # ******************************************************************************
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-
-
-# ******************************************************************************
-# ***                         Main Loop                                      ***
-# ******************************************************************************
-
-echo " "
-echo "+----------------------------------------+"
-echo "|             cleanup the sdk            |"
-echo "+----------------------------------------+"
-echo " "
-
-if [ "$CLEAN_IMAGES" = 'true' ]; then
+clean_images()
+{
     if [ -d $ARMHF_BIN_HOME/images ]; then
         cd $ARMHF_BIN_HOME/images
 	rm -rf *.tgz
@@ -198,11 +195,10 @@ if [ "$CLEAN_IMAGES" = 'true' ]; then
     else
         echo "INFO: no directory ${ARMHF_BIN_HOME}/images"
     fi
-else
-    echo "do not clean ${ARMHF_BIN_HOME}/images"
-fi
+}
 
-if [ "$CLEAN_EXTERNAL" = 'true' ]; then
+clean_external()
+{
     if [ -d $ARMHF_BIN_HOME/external ]; then
         cd $ARMHF_BIN_HOME/external
 	echo "cleanup external dir"
@@ -220,11 +216,10 @@ if [ "$CLEAN_EXTERNAL" = 'true' ]; then
     else
         echo "INFO: no directory ${ARMHF_BIN_HOME}/external"
     fi
-else
-    echo "do not clean ${ARMHF_BIN_HOME}/external"
-fi
+}
 
-if [ "$CLEAN_KERNEL" = 'true' ]; then
+clean_kernel()
+{
     if [ -d $ARMHF_BIN_HOME/kernel ]; then
         cd $ARMHF_BIN_HOME/kernel
 	echo "cleanup kernel dir"
@@ -234,11 +229,10 @@ if [ "$CLEAN_KERNEL" = 'true' ]; then
     else
         echo "INFO: no directory ${ARMHF_BIN_HOME}/kernel"
     fi
-else
-    echo "do not clean ${ARMHF_BIN_HOME}/kernel"
-fi
+}
 
-if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then
+clean_toolchain()
+{
     if [ -d $ARMHF_BIN_HOME ]; then
 	cd $ARMHF_BIN_HOME
     	echo "cleanup toolchain parts"
@@ -247,11 +241,10 @@ if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then
     else
         echo "INFO: no directory $ARMHF_BIN_HOME"
     fi
-else
-    echo "do not clean toolchain parts"
-fi
+}
 
-if [ "$CLEAN_USER" = 'true' ]; then
+clean_user()
+{
     if [ -d $ARMHF_SRC_HOME ]; then
 	cd $ARMHF_SRC_HOME
     	echo "cleanup user specific parts"
@@ -259,11 +252,75 @@ if [ "$CLEAN_USER" = 'true' ]; then
 	rm -rf examples
 	rm -rf include
 	rm -rf lib*
+	rm -rf Documentation
+	rm -rf kernel
+	rm -rf images
+	rm -rf external
     else
         echo "INFO: no directory $ARMHF_SRC_HOME"
     fi
+}
+
+do_mrproper()
+{
+    if [ -d $ARMHF_SRC_HOME ]; then
+	cd $ARMHF_HOME
+	rm -rf $ARMHF_SRC_HOME
+    else
+        echo "INFO: no directory $ARMHF_SRC_HOME"
+    fi
+    if [ -d $ARMHF_BIN_HOME ]; then
+	cd $ARMHF_HOME
+	rm -rf $ARMHF_BIN_HOME
+    else
+        echo "INFO: no directory $ARMHF_BIN_HOME"
+    fi
+}
+
+# ******************************************************************************
+# ***                         Main Loop                                      ***
+# ******************************************************************************
+
+echo " "
+echo "+----------------------------------------+"
+echo "|             cleanup the sdk            |"
+echo "+----------------------------------------+"
+echo " "
+
+if [ "$CLEAN_IMAGES" = 'true' ]; then
+    clean_images
+else
+    echo "do not clean ${ARMHF_BIN_HOME}/images"
+fi
+
+if [ "$CLEAN_EXTERNAL" = 'true' ]; then
+    clean_exernal
+else
+    echo "do not clean ${ARMHF_BIN_HOME}/external"
+fi
+
+if [ "$CLEAN_KERNEL" = 'true' ]; then
+    clean_kernel
+else
+    echo "do not clean ${ARMHF_BIN_HOME}/kernel"
+fi
+
+if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then
+    clean_toolchain
 else
     echo "do not clean toolchain parts"
+fi
+
+if [ "$CLEAN_USER" = 'true' ]; then
+	clean_user
+else
+    echo "do not clean $ARMHF_SRC_HOME"
+fi
+
+if [ "$MRPROPER" = 'true' ]; then
+	do_mrproper
+else
+    echo "do not mrproper"
 fi
 
 cleanup

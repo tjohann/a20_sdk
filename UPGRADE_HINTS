@@ -2,6 +2,9 @@
 # a list of hints regarding upgrade between different versions of this sdk
 #
 
+## 2016-04-19 --> 2016-07-11 (RELEASE V1.1.1)
+- i have changed a lot of the scripts -> do a make distclean and make init_sdk
+
 ## 2016-04-09 --> 2016-04-19 (RELEASE V0.1.0)
 - i have changed a lot of the scripts -> do a make distclean and make init_sdk
 

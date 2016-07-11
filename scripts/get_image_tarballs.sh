@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.07.2016/24.08.2015
+# Date/Beginn :    11.07.2016/24.08.2015
 #
-# Version     :    V0.12
+# Version     :    V1.00
 #
-# Milestones  :    V0.12 (jul 2016) -> some minor improvements
+# Milestones  :    V1.00 (jul 2016) -> implement unified images download
+#                  V0.13 (jul 2016) -> change exit code to 3
+#                  V0.12 (jul 2016) -> some minor improvements
 #                  V0.11 (jul 2016) -> some minor improvements
 #                  V0.10 (apr 2016) -> add baalue
 #                  V0.09 (apr 2016) -> add cubietruck-hdd
@@ -59,30 +61,43 @@
 #   - ...
 #
 # Notes
-#   - ...
+#   - Images reside on sourceforge with the following structure
+#     "root on sf"
+#     -> .
+#         "device specific kernel images":
+#         -> bananapi/bananapi_kernel.tgz
+#         -> ...
+#         -> olimex/olmex_kernel.tgz
+#         "common parts for all images":
+#         -> common
+#                  -> a20_sdk_rootfs.tgz
+#                  -> a20_sdk_home.tgz
+#                  -> a20_sdk_base_rootfs.tgz
+#         -> toolchain*.tgz
+#         -> host_*.tgz
+#         -> checksum.sha256
+#         -> README.txt
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='0.12'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
 
-# supported devices
-BAALUE='false'
-BANANAPI='false'
-BANANAPIPRO='false'
-BANANAPIPRO_HDD='false'
-CUBIETRUCK='false'
-CUBIETRUCK_HDD='false'
-OLIMEX='false'
+# which brand?
+BRAND='none'
 
-# actual set nothing
-KERNEL_IMAGE='none'
-ROOTFS_IMAGE='none'
-HOME_IMAGE='none'
+# to download
+DOWNLOAD_IMAGE='none'
+
+# use only base image
+BASE_IMAGE='none'
+
+# HDD installation?
+PREP_HDD_INST='none'
 
 # my usage method
 my_usage()
@@ -92,14 +107,10 @@ my_usage()
     echo "| Usage: ./get_image_tarballs.sh                         |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
-    echo "|        [-a] -> download ALL images                     |"
-    echo "|        [-b] -> download bananapi images                |"
-    echo "|        [-f] -> download baalue cluster images          |"
-    echo "|        [-p] -> download bananapi-pro images            |"
-    echo "|        [-e] -> download bananapi-pro-hdd images        |"
-    echo "|        [-c] -> download cubietruck images              |"
-    echo "|        [-d] -> download cubietruck-hdd images          |"
-    echo "|        [-o] -> download olimex images                  |"
+    echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
+    echo "|                cubietruck                              |"
+    echo "|        [-m] -> download the minimal images             |"
+    echo "|        [-s] -> download images for hdd installation    |"
     echo "+--------------------------------------------------------+"
     echo " "
     exit
@@ -118,7 +129,8 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info
@@ -137,24 +149,12 @@ _log="/tmp/get_image_tarballs.log"
 
 
 # check the args
-while getopts 'bcdefopahv' opts 2>$_log
+while getopts 'hvmsb:' opts 2>$_log
 do
     case $opts in
-	f) BAALUE='true' ;;
-	b) BANANAPI='true' ;;
-	c) CUBIETRUCK='true' ;;
-	d) CUBIETRUCK_HDD='true' ;;
-	o) OLIMEX='true' ;;
-	p) BANANAPIPRO='true' ;;
-	e) BANANAPIPRO_HDD='true' ;;
-	a) OLIMEX='true'
-	   BANANAPI='true'
-	   BAALUE='true' ;;
-	   BANANAPI_HDD='true'
-	   CUBIETRUCK='true'
-	   CUBIETRUCK_HDD='true'
-	   BANANAPIPRO='true'
-	   ;;
+	b) BRAND=$OPTARG ;;
+	s) PREP_HDD_INST='true' ;;
+	m) BASE_IMAGE='true' ;;
         h) my_usage ;;
 	v) print_version ;;
         ?) my_usage ;;
@@ -199,117 +199,23 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-
-# --- create download string
-create_download_string_bananapi()
+# --- download a tarballs from sf
+get_tarball()
 {
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_rootfs.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
+    echo "INFO: try to download ${DOWNLOAD_IMAGE}"
 
-    echo "INFO: set kernel download string to $KERNEL_IMAGE"
-    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
-    echo "INFO: set home download string to $HOME_IMAGE"
-}
-
-# --- create download string
-create_download_string_baalue()
-{
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_kernel.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_rootfs.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_home.tgz"
-
-    echo "INFO: set kernel download string to $KERNEL_IMAGE"
-    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
-    echo "INFO: set home download string to $HOME_IMAGE"
-}
-
-# --- create download string
-create_download_string_bananapi-pro()
-{
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_rootfs.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_home.tgz"
-
-    echo "INFO: set kernel download string to $KERNEL_IMAGE"
-    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
-    echo "INFO: set home download string to $HOME_IMAGE"
-}
-
-# --- create download string
-create_download_string_bananapi-pro_hdd()
-{
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_kernel.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_rootfs.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_home.tgz"
-
-    echo "INFO: set kernel download string to $KERNEL_IMAGE"
-    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
-    echo "INFO: set home download string to $HOME_IMAGE"
-}
-
-# --- create download string
-create_download_string_cubietruck()
-{
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_rootfs.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_home.tgz"
-
-    echo "INFO: set kernel download string to $KERNEL_IMAGE"
-    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
-    echo "INFO: set home download string to $HOME_IMAGE"
-}
-
-# --- create download string
-create_download_string_cubietruck_hdd()
-{
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_kernel.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_rootfs.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_home.tgz"
-
-    echo "INFO: set kernel download string to $KERNEL_IMAGE"
-    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
-    echo "INFO: set home download string to $HOME_IMAGE"
-}
-
-# --- create download string
-create_download_string_olimex()
-{
-    KERNEL_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_kernel.tgz"
-    ROOTFS_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_rootfs.tgz"
-    HOME_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_home.tgz"
-
-    echo "INFO: set kernel download string to $KERNEL_IMAGE"
-    echo "INFO: set rootfs download string to $ROOTFS_IMAGE"
-    echo "INFO: set home download string to $HOME_IMAGE"
-}
-
-
-# --- download image tarball
-get_image_tarball()
-{
-    wget $KERNEL_IMAGE
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not download ${KERNEL_IMAGE}"
-	my_exit
+    local download_file=`echo ${DOWNLOAD_IMAGE} | awk -F '[/]' '{print $(NF-0)}'`
+    if [ -f download_file ]; then
+	echo "${DOWNLOAD_IMAGE} already exist -> do nothing" 
+    else
+	wget $DOWNLOAD_IMAGE
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not download ${DOWNLOAD_IMAGE}"
+	    my_exit
+	fi
     fi
-
-    wget $ROOTFS_IMAGE
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not download ${ROOTFS_IMAGE}"
-	my_exit
-    fi
-
-    wget $HOME_IMAGE
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not download ${ROOTFS_IMAGE}"
-	my_exit
-    fi
-
-    # clear all
-    KERNEL_IMAGE='none'
-    ROOTFS_IMAGE='none'
-    HOME_IMAGE='none'
+	
+    DOWNLOAD_IMAGE='none'
 }
 
 
@@ -323,55 +229,58 @@ echo "|  dowload latest image tarballs               |"
 echo "+----------------------------------------------+"
 echo " "
 
-if [ $(uname -m) == 'x86_64' ]; then
-
-    if [ -d ${ARMHF_BIN_HOME}/images ]; then
-	cd ${ARMHF_BIN_HOME}/images
-    else
-	mkdir -p ${ARMHF_BIN_HOME}/images
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> mkdir -p ${ARMHF_BIN_HOME}/images"
-	    my_exit
-	fi
-	cd ${ARMHF_BIN_HOME}/images
-    fi
-
-    if [ "$BANANAPI" = 'true' ]; then
-	create_download_string_bananapi
-	get_image_tarball
-    fi
-
-    if [ "$BAALUE" = 'true' ]; then
-	create_download_string_baalue
-	get_image_tarball
-    fi
-
-    if [ "$BANANAPIPRO" = 'true' ]; then
-	create_download_string_bananapi-pro
-	get_image_tarball
-    fi
-
-    if [ "$BANANAPIPRO_HDD" = 'true' ]; then
-	create_download_string_bananapi-pro_hdd
-	get_image_tarball
-    fi
-
-    if [ "$CUBIETRUCK" = 'true' ]; then
-	create_download_string_cubietruck
-	get_image_tarball
-    fi
-
-    if [ "$CUBIETRUCK_HDD" = 'true' ]; then
-	create_download_string_cubietruck_hdd
-	get_image_tarball
-    fi
-
-    if [ "$OLIMEX" = 'true' ]; then
-	create_download_string_olimex
-	get_image_tarball
-    fi
+if [ -d ${ARMHF_BIN_HOME}/images ]; then
+    cd ${ARMHF_BIN_HOME}/images
 else
-    echo "INFO: image handling on $(uname -m) not supported"
+    mkdir -p ${ARMHF_BIN_HOME}/images
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> mkdir -p ${ARMHF_BIN_HOME}/images"
+	my_exit
+    fi
+    cd ${ARMHF_BIN_HOME}/images
+fi
+
+case "$BRAND" in
+    'bananapi')
+	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_kernel.tgz"
+	get_tarball
+        ;;
+    'bananapi-pro')
+	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
+	get_tarball
+        ;;
+    'baalue')
+	 DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_kernel.tgz"
+	get_tarball
+        ;;
+    'olimex')
+	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/olimex_kernel.tgz"
+	get_tarball
+        ;;
+    'cubietruck')
+	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
+	get_tarball
+        ;;
+    *)
+        echo "ERROR -> ${BRAND} is not supported ... pls check"
+        my_usage
+esac
+
+# download common rootfs (base or full)
+if [ "$BASE_IMAGE" = 'true' ]; then
+    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_base_rootfs.tgz"
+else
+    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_rootfs.tgz"
+fi
+get_tarball
+
+# download common home
+DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_home.tgz"
+get_tarball
+
+# download base rootfs if needed
+if [ "$PREP_HDD_INST" = 'true' ]; then
+    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_base_rootfs.tgz"
 fi
 
 cleanup

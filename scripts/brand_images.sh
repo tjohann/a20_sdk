@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.07.2016/02.07.2016
+# Date/Beginn :    11.07.2016/02.07.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (jul 2016) -> some fixes and improvements
+# Milestones  :    V0.04 (jul 2016) -> split branding into different dir
+#                                      add support for baalue
+#                                      change exit code to 3
+#                  V0.03 (jul 2016) -> some fixes and improvements
 #                  V0.02 (jul 2016) -> first working version
 #                  V0.01 (jul 2016) -> initial skeleton
 #
@@ -52,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -73,7 +76,8 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ./brand_images.sh                               |"
-    echo "|        [-b] -> bananapi/bananapi-pro/olimex/cubietruck |"
+    echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
+    echo "|                cubietruck                              |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -95,7 +99,8 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info
@@ -174,36 +179,69 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-brand_image()
+brand_image_etc()
 {
-    SRC_BRANDING=${ARMHF_HOME}/${BRAND}/branding
+    local src_branding=${ARMHF_HOME}/${BRAND}/branding/etc
 
-    if [[ ! -d "${SD_ROOTFS}" ]]; then
-	echo "ERROR -> ${SD_ROOTFS} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
-	my_usage
-    fi
+    if [ -d ${src_branding} ]; then
+	if [[ ! -d "${SD_ROOTFS}" ]]; then
+	    echo "ERROR -> ${SD_ROOTFS} not available!"
+	    echo "         have you added them to your fstab? (see README.md)"
+	    my_usage
+	fi
 
-    mountpoint $SD_ROOTFS
-    if [ $? -ne 0 ] ; then
-	echo "${SD_ROOTFS} not mounted, i try it now"
-	mount $SD_ROOTFS
+	mountpoint $SD_ROOTFS
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_ROOTFS}"
+	    echo "${SD_ROOTFS} not mounted, i try it now"
+	    mount $SD_ROOTFS
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR -> could not mount ${SD_ROOTFS}"
+		my_exit
+	    fi
+	fi
+
+	if [[ ! -d "${SD_ROOTFS}/etc" ]]; then
+	    echo "ERROR -> ${SD_ROOTFS}/etc not available ... abort now!"
 	    my_exit
 	fi
-    fi
 
-    if [[ ! -d "${SD_ROOTFS}/etc" ]]; then
-	echo "ERROR -> ${SD_ROOTFS}/etc not available ... abort now!"
-	my_exit
-    fi
-
-    if [ -d ${SRC_BRANDING} ]; then
-	cp -rf ${SRC_BRANDING}/* ${SD_ROOTFS}/etc
+	echo "sudo rsync -av ${src_branding}/. ${SD_ROOTFS}/etc/."
+	sudo rsync -av ${src_branding}/. ${SD_ROOTFS}/etc/.
     else
-	echo "ERROR: no dir ${SRC_BRANDING}/rootfs"
-	my_exit
+	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
+    fi
+}
+
+brand_image_home()
+{
+    local src_branding=${ARMHF_HOME}/${BRAND}/branding/home
+
+    if [ -d ${src_branding} ]; then
+	if [[ ! -d "${SD_HOME}" ]]; then
+	    echo "ERROR -> ${SD_HOME} not available!"
+	    echo "         have you added them to your fstab? (see README.md)"
+	    my_usage
+	fi
+
+	mountpoint $SD_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "${SD_HOME} not mounted, i try it now"
+	    mount $SD_HOME
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR -> could not mount ${SD_HOME}"
+		my_exit
+	    fi
+	fi
+
+	if [[ ! -d "${SD_HOME}/baalue" ]]; then
+	    echo "ERROR -> ${SD_ROOTFS}/baalue not available ... abort now!"
+	    my_exit
+	fi
+
+	echo "sudo rsync -av ${src_branding}/. ${SD_HOME}/baalue/."
+	sudo rsync -av ${src_branding}/. ${SD_HOME}/baalue/.
+    else
+	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
     fi
 }
 
@@ -214,26 +252,36 @@ brand_image()
 
 echo " "
 echo "+----------------------------------------+"
-echo "|    brand installed device image        |"
+echo "| brand installed device image           |"
+echo "| --> prepare your password for sudo     |"
 echo "+----------------------------------------+"
 echo " "
 
 case "$BRAND" in
     'bananapi')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	brand_image
+	brand_image_etc
+	brand_image_home()
         ;;
     'bananapi-pro')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	brand_image
+	brand_image_etc
+	brand_image_home()
+        ;;
+    'baalue')
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	brand_image_etc
+	brand_image_home()
         ;;
     'olimex')
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
-	brand_image
+	brand_image_etc
+	brand_image_home()
         ;;
     'cubietruck')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
-	brand_image
+	brand_image_etc
+	brand_image_home()
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check"
