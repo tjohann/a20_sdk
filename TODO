@@ -7,21 +7,23 @@
 #
 
 ## target stuff
-- add motd to brand_images.sh
+- add motd to brand_images.sh                               [2016-07-11 -> done]
 - add support for baalue                                    [2016-07-11 -> done]
-- add new ip name translation to base image
+- add new ip name translation to base image                 [2016-07-11 -> done]
 
 ## sdk stuff
 - after migrate to unified image get rid of some makefile targets
+- provide something like a makefile tag lib for common tags
+
 
 #
 # -------------- 2016-07-07 ----------------------------------------------------
 #
 
 ## target stuff
-- mv /boot dir to /boot_old
+- mv /boot dir to /boot_old                                 [2016-07-11 -> done]
 - change fstab to mount /... to /boot instead of
-  /boot_bananapi
+  /boot_bananapi                                            [2016-07-11 -> done]
 
 ## target stuff
 - add support for HD installation for the unified images
