@@ -2,6 +2,8 @@
 # some news ... see also TODO for hints
 #
 
+2016-07-12 -> ## script stuff
+	      add format_sdcard.sh to format an already partitioned sdcard
 
 2016-07-11 -> ## script stuff
 	      add skeleton for new scripts

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    partition_sdcard.sh
+# Title       :    format_sdcard.sh
 #
 # License:
 #
@@ -24,16 +24,10 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.07.2016/07.07.2016
+# Date/Beginn :    12.07.2016/12.07.2016
 #
-# Version     :    V0.03
+# Version     :    V0.01
 #
-# Milestones  :    V0.03 (jul 2016) -> prepare hdd installation
-#                                      fix sfdisk behaviour
-#                  V0.02 (jul 2016) -> add support for baalue
-#                                      add first support for hdd installation
-#                                      change exit code to 3
-#                                      start to support base image
 #                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
@@ -42,7 +36,7 @@
 ################################################################################
 # Description
 #
-#   A simple tool to create a partition table on a sdcard
+#   A simple tool to format a sdcard
 #
 # Some features
 #   - ...
@@ -51,7 +45,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -71,26 +65,16 @@ DEVNODE='none'
 # HDD installation?
 PREP_HDD_INST='none'
 
-# use only base image
-BASE_IMAGE='none'
-
-# minimal size of a SD-Card
-# 4G for minimal image
-# 8G for full image
-MIN_SD_SIZE_FULL=15000000
-MIN_SD_SIZE_SMALL=8000000
-
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
     echo "|                                                        |"
-    echo "| Usage: ./partition_sdcard.sh                           |"
+    echo "| Usage: ./format_sdcard.sh                              |"
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
-    echo "|        [-m] -> download the minimal images             |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -128,18 +112,17 @@ print_version()
 }
 
 # ---- Some values for internal use ----
-_temp="/tmp/partition_sdcard.$$"
-_log="/tmp/partition_sdcard.log"
+_temp="/tmp/format_sdcard.$$"
+_log="/tmp/format_sdcard.log"
 
 
 # check the args
-while getopts 'hvmb:d:' opts 2>$_log
+while getopts 'hvb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
-	m) BASE_IMAGE='true' ;;
 	d) DEVNODE=$OPTARG ;;
 	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
@@ -255,19 +238,6 @@ check_devnode()
 	echo "ERROR: ${DEVNODE} is only readable"
 	my_exit
     fi
-
-    local size=$(< /sys/block/${mounted}/size)
-    if [ "$BASE_IMAGE" = 'true' ]; then
-	if [[ "$size" -lt "$MIN_SD_SIZE_SMALL" ]]; then
-	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors"
-	    my_exit
-	fi
-    else
-	if [[ "$size" -lt "$MIN_SD_SIZE_FULL" ]]; then
-	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors"
-	    my_exit
-	fi
-    fi
 }
 
 check_directories()
@@ -284,7 +254,7 @@ check_directories()
 	my_exit
     fi
 
-    if [ "$PREP_HDD_INST" = 'true' ]; then
+    if [ "$PREP_HDD_INST" = 'true' ]; then    
 	if [[ ! -d "${SD_SHARED}" ]]; then
 	    echo "ERROR -> ${SD_SHARED} not available!"
 	    echo "         have you added them to your fstab? (see README.md)"
@@ -296,40 +266,6 @@ check_directories()
 	    echo "         have you added them to your fstab? (see README.md)"
 	    my_exit
 	fi
-    fi
-}
-
-clean_sdcard()
-{
-    echo "sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1"
-    sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not clear ${DEVNODE}"
-	my_exit
-    fi
-}
-
-partition_sdcard()
-{
-    if [ "$BASE_IMAGE" = 'true' ]; then
-	sudo blockdev --rereadpt ${DEVNODE}
-	cat <<EOT | sudo sfdisk ${DEVNODE}
-1M,32M,c
-,2G,L
-,,L
-EOT
-    else
-	sudo blockdev --rereadpt ${DEVNODE}
-	cat <<EOT | sudo sfdisk ${DEVNODE}
-1M,32M,c
-,6G,L
-,,L
-EOT
-    fi
-
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not create partitions"
-	my_exit
     fi
 }
 
@@ -349,7 +285,7 @@ format_partitions()
 	my_exit
     fi
 
-    if [ "$PREP_HDD_INST" = 'true' ]; then
+    if [ "$PREP_HDD_INST" = 'true' ]; then    
 	echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
 	sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
 	if [ $? -ne 0 ] ; then
@@ -380,7 +316,7 @@ mount_partitions()
 	my_exit
     fi
 
-    if [ "$PREP_HDD_INST" = 'true' ]; then
+    if [ "$PREP_HDD_INST" = 'true' ]; then    
 	mount $SD_SHARED
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not mount ${SD_SHARED}"
@@ -408,8 +344,8 @@ umount_partitions()
 	echo "ERROR -> could not umount ${SD_ROOTFS}"
 	my_exit
     fi
-
-    if [ "$PREP_HDD_INST" = 'true' ]; then
+    
+    if [ "$PREP_HDD_INST" = 'true' ]; then    
 	umount $SD_SHARED
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not umount ${SD_SHARED}"
@@ -481,20 +417,6 @@ echo "+------------------------------------------+"
 echo "| check needed directories                 |"
 echo "+------------------------------------------+"
 check_directories
-
-echo " "
-echo "+------------------------------------------+"
-echo "| clean $DEVNODE ...                        "
-echo "| --> prepare your password for sudo       |"
-echo "+------------------------------------------+"
-clean_sdcard
-
-echo " "
-echo "+------------------------------------------+"
-echo "| start paritioning $DEVNODE                "
-echo "| --> prepare your password for sudo       |"
-echo "+------------------------------------------+"
-partition_sdcard
 
 echo " "
 echo "+------------------------------------------+"

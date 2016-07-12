@@ -2,6 +2,15 @@
 # TODO with date and progress
 #
 
+
+#
+# -------------- 2016-07-12 ----------------------------------------------------
+#
+
+## target stuff
+- remove swap from fstab and ...
+
+
 #
 # -------------- 2016-07-10 ----------------------------------------------------
 #
@@ -12,8 +21,10 @@
 - add new ip name translation to base image                 [2016-07-11 -> done]
 
 ## sdk stuff
-- after migrate to unified image get rid of some makefile targets
-- provide something like a makefile tag lib for common tags
+- after migrate to unified image get rid of some makefile
+  targets
+- provide something like a makefile tag lib for common
+  tags
 
 
 #
@@ -29,7 +40,8 @@
 - add support for HD installation for the unified images
   -> for all devices
   -> use *shared* partition
-  -> small scripts to automate the process -> use the miniimages for it
+  -> small scripts to automate the process -> use the
+     mini-images for it
 - add support for baalue and the different nodes            [2016-07-11 -> done]
 
 ## script stuff
@@ -42,8 +54,8 @@
   - put all in a dialog based script -> make_sdcard.sh
 
 ## sdk stuff
-- add will to AUTHORS (original make_sdcard.sh was          [2016-07-11 -> done]
-  his work)
+- add will to AUTHORS (original make_sdcard.sh was
+  his work)                                                 [2016-07-11 -> done]
 - prepare something like a roadmap for new features         [2016-07-07 -> done]
 
 #
