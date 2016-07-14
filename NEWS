@@ -2,6 +2,17 @@
 # some news ... see also TODO for hints
 #
 
+2016-07-14 -> ## script stuff
+	      add dialog based script make_sdcard.sh to guide through the
+	      creation process of a ready to use sdcard
+
+	      ## target stuff
+	      remove usage of swap -> not neeeded
+	      update kernel to 4.6.4 and 4.6.4-rt6
+
+	      ## sdk & target stuff
+	      change device naming of all cluster nodes (see ./bananapi/configs/host*)
+
 2016-07-12 -> ## script stuff
 	      add format_sdcard.sh to format an already partitioned sdcard
 

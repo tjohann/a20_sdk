@@ -147,6 +147,20 @@ In short:
     make get_image_tarballs (if needed)
 
 
+Make a sd-card for a target device
+----------------------------------
+
+To make a ready to use sd-card you can use the small dialog based tool avaiblable via
+
+   ./script/make_sdcard.sh
+
+or
+
+   make make_sdcard
+
+It will guide you throught the process.
+
+
 Versioninfo
 -----------
 
@@ -154,12 +168,10 @@ I use a standard version scheme via git tags based on 3 numbers:
 
 	A20_SDK_V1.0.1
 
-
 The first number is the mayor number which reflect bigger changes. The second number (minor) will be changed because of
 
 	- new scripts
 	- kernel/updates of all 4 devices
-
 
 So a simple version update of the olimex kernel will not increase the minor number, it will increase the third number (age number):
 
@@ -177,7 +189,6 @@ You find storylines for some of my usescases/devices below ./DEVICE_NAME/Documen
 
 All devices
 -----------
-
 
 Within /var/lib/a20_sdk/ you find the 4 supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
@@ -240,9 +251,9 @@ Single devices:
 
 	192.168.0.100           arietta.my.domain               arietta
 	192.168.0.101           cubietruck.my.domain            cubietruck
-	192.168.0.102           olimex.my.domain		olimex
-	192.168.0.103		bananapi.my.domain		bananapi
-	192.168.0.109		bananapi-pro.my.domain		bananapi-pro
+	192.168.0.102           olimex.my.domain	        olimex
+	192.168.0.103	        bananapi.my.domain	        bananapi
+	192.168.0.109	        bananapi-pro.my.domain	        bananapi-pro
 	192.168.0.105           imx233.my.domain                imx233
 
 

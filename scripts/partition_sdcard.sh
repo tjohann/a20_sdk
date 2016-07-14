@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.07.2016/07.07.2016
+# Date/Beginn :    14.07.2016/07.07.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (jul 2016) -> prepare hdd installation
+# Milestones  :    V0.04 (jul 2016) -> add check for device-nodes
+#                                      some smaller improvements
+#                  V0.03 (jul 2016) -> prepare hdd installation
 #                                      fix sfdisk behaviour
 #                  V0.02 (jul 2016) -> add support for baalue
 #                                      add first support for hdd installation
@@ -51,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -69,10 +71,10 @@ SD_SHARED='none'
 DEVNODE='none'
 
 # HDD installation?
-PREP_HDD_INST='none'
+PREP_HDD_INST='false'
 
 # use only base image
-BASE_IMAGE='none'
+BASE_IMAGE='false'
 
 # minimal size of a SD-Card
 # 4G for minimal image
@@ -335,34 +337,46 @@ EOT
 
 format_partitions()
 {
-    echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
-    sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not format parition ${DEVNODE}1"
-	my_exit
-    fi
-
-    echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
-    sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not format parition ${DEVNODE}2"
-	my_exit
-    fi
-
-    if [ "$PREP_HDD_INST" = 'true' ]; then
-	echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+    if [[ -b ${DEVNODE}1 ]]; then
+	echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
+	sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}3"
+	    echo "ERROR: could not format parition ${DEVNODE}1"
 	    my_exit
 	fi
     else
-	echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+	echo "ERROR -> ${DEVNODE}1 not available"
+    fi
+
+    if [[ -b ${DEVNODE}2 ]]; then
+	echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
+	sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}3"
+	    echo "ERROR: could not format parition ${DEVNODE}2"
 	    my_exit
 	fi
+    else
+	echo "ERROR -> ${DEVNODE}2 not available"
+    fi
+
+    if [[ -b ${DEVNODE}3 ]]; then
+	if [ "$PREP_HDD_INST" = 'true' ]; then
+	    echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
+	    sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR: could not format parition ${DEVNODE}3"
+		my_exit
+	    fi
+	else
+	    echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
+	    sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR: could not format parition ${DEVNODE}3"
+		my_exit
+	    fi
+	fi
+    else
+	echo "ERROR -> ${DEVNODE}3 not available"
     fi
 }
 

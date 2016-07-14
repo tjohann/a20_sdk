@@ -35,6 +35,8 @@ all::
 	@echo "| make clean              -> clean all dir/subdirs         |"
 	@echo "| make distclean          -> complete cleanup/delete       |"
 	@echo "| ...                                                      |"
+	@echo "| make make_sdcard        -> small tool to make a read to  |"
+	@echo "|                            use SD-Card                   |"
 	@echo "+----------------------------------------------------------+"
 
 clean::
@@ -188,7 +190,6 @@ get_olimex_image_tarballs::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
-
 
 #
 # create ready to use sdcards

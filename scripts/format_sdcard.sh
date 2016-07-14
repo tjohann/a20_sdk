@@ -24,10 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.07.2016/12.07.2016
+# Date/Beginn :    14.07.2016/12.07.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
+# Milestones  :    V0.02 (jul 2016) -> add check for device-nodes
+#                                      some smaller improvements
 #                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
@@ -63,7 +65,7 @@ SD_SHARED='none'
 DEVNODE='none'
 
 # HDD installation?
-PREP_HDD_INST='none'
+PREP_HDD_INST='false'
 
 # my usage method
 my_usage()
@@ -75,7 +77,7 @@ my_usage()
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
-    echo "|        [-s] -> prepare images for hdd installation     |"
+    echo "|        [-s] -> prepare sd-card for hdd installation    |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -210,7 +212,7 @@ if [ "$MISSING_ENV" = 'true' ]; then
     echo "|                                      |"
     echo "+--------------------------------------+"
     echo " "
-    exit
+    exit 3
 fi
 
 
@@ -254,7 +256,7 @@ check_directories()
 	my_exit
     fi
 
-    if [ "$PREP_HDD_INST" = 'true' ]; then    
+    if [ "$PREP_HDD_INST" = 'true' ]; then
 	if [[ ! -d "${SD_SHARED}" ]]; then
 	    echo "ERROR -> ${SD_SHARED} not available!"
 	    echo "         have you added them to your fstab? (see README.md)"
@@ -271,34 +273,46 @@ check_directories()
 
 format_partitions()
 {
-    echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
-    sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not format parition ${DEVNODE}1"
-	my_exit
-    fi
-
-    echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
-    sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not format parition ${DEVNODE}2"
-	my_exit
-    fi
-
-    if [ "$PREP_HDD_INST" = 'true' ]; then    
-	echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+    if [[ -b ${DEVNODE}1 ]]; then
+	echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
+	sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}3"
+	    echo "ERROR: could not format parition ${DEVNODE}1"
 	    my_exit
 	fi
     else
-	echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+	echo "ERROR -> ${DEVNODE}1 not available"
+    fi
+
+    if [[ -b ${DEVNODE}2 ]]; then
+	echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
+	sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}3"
+	    echo "ERROR: could not format parition ${DEVNODE}2"
 	    my_exit
 	fi
+    else
+	echo "ERROR -> ${DEVNODE}2 not available"
+    fi
+
+    if [[ -b ${DEVNODE}3 ]]; then
+	if [ "$PREP_HDD_INST" = 'true' ]; then
+	    echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
+	    sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR: could not format parition ${DEVNODE}3"
+		my_exit
+	    fi
+	else
+	    echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
+	    sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR: could not format parition ${DEVNODE}3"
+		my_exit
+	    fi
+	fi
+    else
+	echo "ERROR -> ${DEVNODE}3 not available"
     fi
 }
 
@@ -316,7 +330,7 @@ mount_partitions()
 	my_exit
     fi
 
-    if [ "$PREP_HDD_INST" = 'true' ]; then    
+    if [ "$PREP_HDD_INST" = 'true' ]; then
 	mount $SD_SHARED
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not mount ${SD_SHARED}"
@@ -344,8 +358,8 @@ umount_partitions()
 	echo "ERROR -> could not umount ${SD_ROOTFS}"
 	my_exit
     fi
-    
-    if [ "$PREP_HDD_INST" = 'true' ]; then    
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
 	umount $SD_SHARED
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not umount ${SD_SHARED}"
@@ -409,7 +423,7 @@ case "$BRAND" in
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check"
-        my_usage
+        my_exit
 esac
 
 echo " "
