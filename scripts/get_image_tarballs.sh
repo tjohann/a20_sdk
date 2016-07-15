@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/24.08.2015
+# Date/Beginn :    15.07.2016/24.08.2015
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> implement unified images download
+# Milestones  :    V1.01 (jul 2016) -> some smaller improvements/cleanups
+#                  V1.00 (jul 2016) -> implement unified images download
 #                  V0.13 (jul 2016) -> change exit code to 3
 #                  V0.12 (jul 2016) -> some minor improvements
 #                  V0.11 (jul 2016) -> some minor improvements
@@ -191,7 +192,7 @@ if [ "$MISSING_ENV" = 'true' ]; then
     echo "|                                      |"
     echo "+--------------------------------------+"
     echo " "
-    exit
+    exit 3
 fi
 
 
@@ -211,7 +212,7 @@ get_tarball()
 	wget $DOWNLOAD_IMAGE
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not download ${DOWNLOAD_IMAGE}"
-	    #my_exit
+	    my_exit
 	fi
     fi
 

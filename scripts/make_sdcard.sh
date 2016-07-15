@@ -24,14 +24,20 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.07.2016/10.07.2016
+# Date/Beginn :    15.07.2016/10.07.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jul 2016) -> fist code parts
+# Milestones  :    V0.03 (jul 2016) -> add code to handle sd-card
+#                                      fix a lot of bugs and minor problems
+#                                      add code to download images
+#                                      add code to untar images to sd-card
+#                                      add code to brand a sd-card
+#                                      add code to write bootloader
+#                  V0.02 (jul 2016) -> fist code parts
 #                  V0.01 (jul 2016) -> initial skeleton
 #
-# Requires    :
+# Requires    :    dialog, xterm
 #
 #
 ################################################################################
@@ -46,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -176,19 +182,11 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-# --- only a dummy function
-dummy_function()
-{
-    echo "dummy_function"
-    echo "dummy_function" >>$_log 2>&1
-    $DIALOG --infobox "DUMMY" 3 30
-}
-
 # --- use xterm as something like a logterm
 start_logterm()
 {
     if [ -f /proc/${PID_LOGTERM}/exe ]; then
-	$DIALOG --msgbox "$TERM already running" 6 46
+	echo "$TERM already running" >>$_log 2>&1
     else
 	$TERM -e tail -f ${_log} &
 	PID_LOGTERM=$!
@@ -209,43 +207,169 @@ Only base image?: ${BASE_IMAGE}"
 # --- start partition_sdcard.sh
 partition_sdcard()
 {
-    if [[ -b ${DEVNODE} ]]; then
-	 $DIALOG --infobox "Start script to partition ${DEVNODE}" 3 30
+    if [[ ! -b ${DEVNODE} ]]; then
+	$DIALOG --msgbox "ERROR: ${DEVNODE} is not a block device!" 6 45
+	return
+    fi
 
-	 local do_hdd_inst=""
-	 local use_base_image=""
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
 
-	 echo "${ARMHF_HOME}/scripts/partition_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
-	 ${ARMHF_HOME}/scripts/partition_sdcard.sh  ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
-	 if [ $? -ne 0 ] ; then
-	     $DIALOG --msgbox "ERROR: could not partition ${DEVNODE} ... pls check logterm output" 6 45
-	 else
-	     $DIALOG --msgbox "Finished partition of ${DEVNODE}" 6 30
-	 fi
-     else
-	 $DIALOG --msgbox "ERROR: ${DEVNODE} is not a block device!" 6 45
-     fi
+    if [ "$BASE_IMAGE" = 'true' ]; then
+	local use_base_image="-m"
+    fi
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
+    start_logterm
+
+    $DIALOG --infobox "Start script to partition ${DEVNODE}" 6 45
+
+    echo "${ARMHF_HOME}/scripts/partition_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/partition_sdcard.sh  ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not partition ${DEVNODE} ... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished partition of ${DEVNODE}" 6 45
+    fi
 }
 
 # --- start format_sdcard.sh
 format_sdcard()
 {
-     if [[ -b ${DEVNODE} ]]; then
-	 $DIALOG --infobox "Start script to format ${DEVNODE}" 3 30
+    if [[ ! -b ${DEVNODE} ]]; then
+	$DIALOG --msgbox "ERROR: ${DEVNODE} is not a block device!" 6 45
+	return
+    fi
 
-	 local do_hdd_inst=""
-	 local use_base_image=""
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
 
-	 echo "${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
-	 ${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
-	 if [ $? -ne 0 ] ; then
-	     $DIALOG --msgbox "ERROR: could not format ${DEVNODE} ... pls check logterm output" 6 45
-	 else
-	     $DIALOG --msgbox "Finished formating of ${DEVNODE}" 6 30
-	 fi
-     else
-	 $DIALOG --msgbox "ERROR: ${DEVNODE} is not a block device!" 6 45
-     fi
+    start_logterm
+
+    $DIALOG --infobox "Start script to format ${DEVNODE}" 6 45
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
+    echo "${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not format ${DEVNODE} ... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished formating of ${DEVNODE}" 6 45
+    fi
+}
+
+# --- download the images
+download_images()
+{
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
+
+    if [ "$BASE_IMAGE" = 'true' ]; then
+	local use_base_image="-m"
+    fi
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
+    start_logterm
+
+    $DIALOG --infobox "Download images for ${BRAND}" 6 45
+
+    echo "${ARMHF_HOME}/scripts/get_image_tarballs.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/get_image_tarballs.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not download images ... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished download images for ${BRAND}" 6 45
+    fi
+}
+
+# --- write images to sd-card
+write_images()
+{
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
+
+    start_logterm
+
+    $DIALOG --infobox "Write images for ${BRAND}" 6 45
+
+    echo "${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh -b ${BRAND} >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not write images for ${BRAND}... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished write of images for ${BRAND} to ${DEVNODE}" 6 45
+    fi
+}
+
+# --- brand a sd-card
+brand_sd-card()
+{
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
+
+    start_logterm
+
+    $DIALOG --infobox "Brand images for ${BRAND}" 6 45
+
+    echo "${ARMHF_HOME}/scripts/brand_images.sh -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/brand_images.sh -b ${BRAND} >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not brand images for ${BRAND}... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished branding of images for ${BRAND} to ${DEVNODE}" 6 45
+    fi
+}
+
+# --- write u-boot to sd-card
+write_bootloader()
+{
+    if [[ ! -b ${DEVNODE} ]]; then
+	$DIALOG --msgbox "ERROR: ${DEVNODE} is not a block device!" 6 45
+	return
+    fi
+
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
+
+    start_logterm
+
+    $DIALOG --infobox "Start script to write bootloader to ${DEVNODE}" 6 45
+
+    echo "${ARMHF_HOME}/scripts/write_bootloader.sh -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/write_bootloader.sh -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not write bootloader to ${DEVNODE} ... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished writing bootloader to ${DEVNODE}" 6 45
+    fi
+}
+
+# --- show actual partition table of sd-card
+show_partition_table()
+{
+    echo "show_partition_table -> dummy" >>$_log 2>&1
+    $DIALOG --msgbox "show_partition_table -> dummy" 6 45
 }
 
 # --- show content of ${ARMHF_HOME}/README.md (something like a help info)
@@ -266,12 +390,31 @@ enter_device_node()
 # --- select a supported target device
 select_target()
 {
+    local def_bananapi_pro="off"
+    local def_bananapi="off"
+    local def_baalue="off"
+    local def_cubietruck="off"
+    local def_olimex="off"
+
+    case "$BRAND" in
+	*bananapi-pro*)
+	    def_bananapi_pro="on" ;;
+	*bananapi*)
+	    def_bananapi="on" ;;
+	*baalue*)
+	    def_baalue="on" ;;
+	*cubietruck*)
+	    def_cubietruck="on" ;;
+	*olimex*)
+	    def_olimex="on" ;;
+    esac
+
     dialog --radiolist "Target device to choose:" 15 60 15 \
-           01 "Bananapi-Pro" off\
-           02 "Bananapi" on\
-           03 "Baalue" off\
-           04 "Cubietruck" off\
-           05 "Olimex" off 2>$_temp
+           01 "Bananapi-Pro" ${def_bananapi_pro} \
+           02 "Bananapi" ${def_bananapi} \
+           03 "Baalue" ${def_baalue} \
+           04 "Cubietruck" ${def_cubietruck} \
+           05 "Olimex" ${def_olimex} 2>$_temp
     local result=`cat $_temp`
 
     case "$result" in
@@ -293,17 +436,34 @@ select_target()
 # --- select format options
 select_adds()
 {
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local def_prep_hdd_inst="on"
+    else
+	local def_prep_hdd_inst="off"
+    fi
+
+    if [ "$BASE_IMAGE" = 'true' ]; then
+	local def_base_image="on"
+    else
+	local def_base_image="off"
+    fi
+
     dialog --checklist "Additional options:" 15 60 15 \
-           01 "Prepare HDD installation" off\
-           02 "Use minimal images" off 2>$_temp
+           01 "Prepare HDD installation" ${def_prep_hdd_inst}\
+           02 "Use minimal images" ${def_base_image} 2>$_temp
     local result=`cat $_temp`
 
-    case "$result" in
-	*01*)
-	    PREP_HDD_INST='true' ;;
-	*02*)
-	    BASE_IMAGE='true'
-    esac
+    if [[ $result == *01* ]]; then
+	PREP_HDD_INST='true'
+    else
+	PREP_HDD_INST='false'
+    fi
+
+    if [[ $result == *02* ]]; then
+	BASE_IMAGE='true'
+    else
+	BASE_IMAGE='false'
+    fi
 
     local config="
 HDD installation?: ${PREP_HDD_INST}\n
@@ -314,9 +474,20 @@ Only base image?: ${BASE_IMAGE}"
 # --- call everything in line
 do_all_in_line()
 {
+    # user input for configuration
     enter_device_node
     select_target
     select_adds
+    show_configuration
+
+    # download parts
+    download_images
+
+    # make sd-card
+    partition_sdcard
+    write_images
+    brand_sd-card
+    write_bootloader
 
     # ...
 }
@@ -362,7 +533,10 @@ menu_sdcard()
 		 --menu " Move using [UP] [DOWN] and [Enter] to select an entry" 20 60 20 \
 		 1 "Partition (and format) SD-Card ${DEVNODE}" \
 		 2 "Format already partitioned SD-Card ${DEVNODE}" \
-		 3 "Show actual partitions of SD-Card ${DEVNODE}" \
+		 3 "Write images to ${DEVNODE}" \
+		 4 "Write bootloader to ${DEVNODE}" \
+		 5 "Brand SD-Card" \
+		 6 "Show partition table of SD-Card ${DEVNODE}" \
 		 x "Main menu" 2>$_temp
 
 	retv=$?
@@ -373,7 +547,10 @@ menu_sdcard()
 	case $menuitem in
 	    1) partition_sdcard;;
 	    2) format_sdcard;;
-	    3) dummy_function;;
+	    3) write_images;;
+	    4) write_bootloader;;
+	    5) brand_sd-card;;
+	    6) show_partition_table;;
 	    x) menu;;
 	esac
     done
@@ -388,13 +565,11 @@ menu()
 	     --menu " Move using [UP] [DOWN] and [Enter] to select an entry" 20 60 20 \
 	     1 "Configuration menu" \
 	     2 "SD-Card menu" \
-	     3 "Download SD-Card images for target device ${BRAND}" \
-	     4 "Write images of ${BRAND} to ${DEVNODE}" \
-	     5 "Write bootloader to ${DEVNODE}" \
-	     6 "Do all steps in line" \
-	     7 "Show actual configuration" \
-	     8 "Start logging via ${TERM} console output" \
-	     9 "Show ${ARMHF_HOME}/README.md" \
+	     3 "Download images for target device ${BRAND}" \
+	     4 "Do all steps in line" \
+	     5 "Show actual configuration" \
+	     6 "Start logging via ${TERM} console output" \
+	     7 "Show ${ARMHF_HOME}/README.md" \
              x "Exit" 2>$_temp
 
     retv=$?
@@ -405,29 +580,43 @@ menu()
     case $menuitem in
 	1) menu_config ;;
 	2) menu_sdcard;;
-	3) dummy_function;;
-	4) dummy_function;;
-	5) dummy_function;;
-	6) do_all_in_line;;
-	7) dummy_function;;
-	8) start_logterm;;
-	9) show_help;;
+	3) download_images;;
+	4) do_all_in_line;;
+	5) show_configuration;;
+	6) start_logterm;;
+	7) show_help;;
         x) normal_exit;;
     esac
 }
 
-
+#
+# Temp store for links realted to bash scripting
+# -> will be moved to my_common_docs.git
+#
 # http://subsignal.org/doc/AliensBashTutorial.html
 # http://www.cc-c.de/german/linux/linux-dialog.php
 # http://www.linuxjournal.com/article/2807?page=0,2
 # http://www.linuxintro.org/wiki/BaBE_-_Bash_By_Examples
 # http://mywiki.wooledge.org/BashFAQ
 # http://superuser.com/questions/829921/how-to-get-status-code-of-program-piped-to-linux-dialog-command
-
+# http://unix.stackexchange.com/questions/81181/graphically-ask-for-password-in-a-bash-script-and-retain-default-sudo-timeout-se
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+# sudo handling up-front
+echo " "
+echo "+------------------------------------------+"
+echo "| Make a ready-to-use sdcard for your      |"
+echo "| target device.                           |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
+echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 while true;
 do

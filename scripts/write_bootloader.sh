@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    format_sdcard.sh
+# Title       :    write_bootloader.sh
 #
 # License:
 #
@@ -24,14 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/12.07.2016
+# Date/Beginn :    15.07.2016/15.07.2016
 #
-# Version     :    V0.03
+# Version     :    V0.01
 #
-# Milestones  :    V0.03 (jul 2016) -> some smaller cleanups
-#                  V0.02 (jul 2016) -> add check for device-nodes
-#                                      some smaller improvements
-#                  V0.01 (jul 2016) -> initial version
+# Milestones  :    V0.01 (jul 2016) -> initial version
 #
 # Requires    :
 #
@@ -39,7 +36,7 @@
 ################################################################################
 # Description
 #
-#   A simple tool to format a sdcard
+#   A simple tool to write u-boot to a sd-card
 #
 # Some features
 #   - ...
@@ -48,7 +45,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -58,15 +55,9 @@ BRAND='none'
 
 # mountpoints
 SD_KERNEL='none'
-SD_ROOTFS='none'
-SD_HOME='none'
-SD_SHARED='none'
 
 # which devnode?
 DEVNODE='none'
-
-# HDD installation?
-PREP_HDD_INST='false'
 
 # my usage method
 my_usage()
@@ -74,11 +65,10 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "|                                                        |"
-    echo "| Usage: ./format_sdcard.sh                              |"
+    echo "| Usage: ./write_bootloader.sh                              |"
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
-    echo "|        [-s] -> prepare sd-card for hdd installation    |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -115,19 +105,18 @@ print_version()
 }
 
 # ---- Some values for internal use ----
-_temp="/tmp/format_sdcard.$$"
-_log="/tmp/format_sdcard.log"
+_temp="/tmp/write_bootloader.$$"
+_log="/tmp/write_bootloader.log"
 
 
 # check the args
-while getopts 'hvsb:d:' opts 2>$_log
+while getopts 'hvb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
 	d) DEVNODE=$OPTARG ;;
-	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -154,49 +143,13 @@ if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
-if [[ ! ${BANANAPI_SDCARD_ROOTFS} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${BANANAPI_SDCARD_HOME} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${BANANAPI_SDCARD_SHARED} ]]; then
-    MISSING_ENV='true'
-fi
-
 # olimex
 if [[ ! ${OLIMEX_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
-if [[ ! ${OLIMEX_SDCARD_ROOTFS} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${OLIMEX_SDCARD_HOME} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${OLIMEX_SDCARD_SHARED} ]]; then
-    MISSING_ENV='true'
-fi
-
 # cubietruck
 if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${CUBIETRUCK_SDCARD_ROOTFS} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${CUBIETRUCK_SDCARD_HOME} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${CUBIETRUCK_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -250,71 +203,6 @@ check_directories()
 	echo "         have you added them to your fstab? (see README.md)"
 	my_exit
     fi
-
-    if [[ ! -d "${SD_ROOTFS}" ]]; then
-	echo "ERROR -> ${SD_ROOTFS} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
-	my_exit
-    fi
-
-    if [ "$PREP_HDD_INST" = 'true' ]; then
-	if [[ ! -d "${SD_SHARED}" ]]; then
-	    echo "ERROR -> ${SD_SHARED} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
-	    my_exit
-	fi
-    else
-	if [[ ! -d "${SD_HOME}" ]]; then
-	    echo "ERROR -> ${SD_HOME} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
-	    my_exit
-	fi
-    fi
-}
-
-format_partitions()
-{
-    if [[ -b ${DEVNODE}1 ]]; then
-	echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
-	sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}1"
-	    my_exit
-	fi
-    else
-	echo "ERROR -> ${DEVNODE}1 not available"
-    fi
-
-    if [[ -b ${DEVNODE}2 ]]; then
-	echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
-	sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}2"
-	    my_exit
-	fi
-    else
-	echo "ERROR -> ${DEVNODE}2 not available"
-    fi
-
-    if [[ -b ${DEVNODE}3 ]]; then
-	if [ "$PREP_HDD_INST" = 'true' ]; then
-	    echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	    sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
-	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
-		my_exit
-	    fi
-	else
-	    echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	    sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
-	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
-		my_exit
-	    fi
-	fi
-    else
-	echo "ERROR -> ${DEVNODE}3 not available"
-    fi
 }
 
 mount_partitions()
@@ -324,26 +212,6 @@ mount_partitions()
 	echo "ERROR -> could not mount ${SD_KERNEL}"
 	my_exit
     fi
-
-    mount $SD_ROOTFS
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_ROOTFS}"
-	my_exit
-    fi
-
-    if [ "$PREP_HDD_INST" = 'true' ]; then
-	mount $SD_SHARED
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_SHARED}"
-	    my_exit
-	fi
-    else
-	mount $SD_HOME
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_HOME}"
-	    my_exit
-	fi
-    fi
 }
 
 umount_partitions()
@@ -352,26 +220,6 @@ umount_partitions()
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_KERNEL}"
 	my_exit
-    fi
-
-    umount $SD_ROOTFS
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_ROOTFS}"
-	my_exit
-    fi
-
-    if [ "$PREP_HDD_INST" = 'true' ]; then
-	umount $SD_SHARED
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_SHARED}"
-	    my_exit
-	fi
-    else
-	umount $SD_HOME
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_HOME}"
-	    my_exit
-	fi
     fi
 }
 
@@ -389,72 +237,34 @@ check_devnode
 case "$BRAND" in
     'bananapi')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
-	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="BANA"
         ;;
     'bananapi-pro')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
-	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="BANA"
         ;;
     'baalue')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
-	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="BANA"
         ;;
     'olimex')
 	SD_KERNEL=$OLIMEX_SDCARD_KERNEL
-	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
-	SD_HOME=$OLIMEX_SDCARD_HOME
-	SD_SHARED=$OLIMEX_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="OLI"
         ;;
     'cubietruck')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
-	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
-	SD_HOME=$CUBIETRUCK_SDCARD_HOME
-	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="CUBI"
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check"
         my_exit
 esac
 
-echo " "
-echo "+------------------------------------------+"
-echo "| check needed directories                 |"
-echo "+------------------------------------------+"
+#
+# write bootloader
+#
+
 check_directories
-
-echo " "
-echo "+------------------------------------------+"
-echo "| start formating the partitions           |"
-echo "+------------------------------------------+"
-format_partitions
-
-echo " "
-echo "+------------------------------------------+"
-echo "| check if we can mount the partitions     |"
-echo "+------------------------------------------+"
 mount_partitions
-
-echo " "
-echo "+------------------------------------------+"
-echo "| check if we can umount the partitions    |"
-echo "+------------------------------------------+"
+#
+# copy bootloader to sd-card
+#
 umount_partitions
-
-echo " "
-echo "+------------------------------------------+"
-echo "| $DEVNODE is ready to use                  "
-echo "+------------------------------------------+"
 
 cleanup
 echo " "

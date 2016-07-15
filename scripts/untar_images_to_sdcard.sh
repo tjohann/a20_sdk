@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    format_sdcard.sh
+# Title       :    untar_images_to_sdcard.sh
 #
 # License:
 #
@@ -24,14 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/12.07.2016
+# Date/Beginn :    15.07.2016/15.07.2016
 #
-# Version     :    V0.03
+# Version     :    V0.01
 #
-# Milestones  :    V0.03 (jul 2016) -> some smaller cleanups
-#                  V0.02 (jul 2016) -> add check for device-nodes
-#                                      some smaller improvements
-#                  V0.01 (jul 2016) -> initial version
+# Milestones  :    V0.01 (jul 2016) -> initial version
 #
 # Requires    :
 #
@@ -39,7 +36,7 @@
 ################################################################################
 # Description
 #
-#   A simple tool to format a sdcard
+#   A simple tool to untar downloaded images to a sd-card
 #
 # Some features
 #   - ...
@@ -48,7 +45,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -62,11 +59,11 @@ SD_ROOTFS='none'
 SD_HOME='none'
 SD_SHARED='none'
 
-# which devnode?
-DEVNODE='none'
-
 # HDD installation?
 PREP_HDD_INST='false'
+
+# use only base image
+BASE_IMAGE='false'
 
 # my usage method
 my_usage()
@@ -74,11 +71,11 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "|                                                        |"
-    echo "| Usage: ./format_sdcard.sh                              |"
-    echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
+    echo "| Usage: ./untar_images_to_sdcard.sh                     |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
-    echo "|        [-s] -> prepare sd-card for hdd installation    |"
+    echo "|        [-m] -> download the minimal images             |"
+    echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -115,18 +112,17 @@ print_version()
 }
 
 # ---- Some values for internal use ----
-_temp="/tmp/format_sdcard.$$"
-_log="/tmp/format_sdcard.log"
-
+_temp="/tmp/untar_images_to_sdcard.$$"
+_log="/tmp/untar_images_to_sdcard.log"
 
 # check the args
-while getopts 'hvsb:d:' opts 2>$_log
+while getopts 'hvmb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
-	d) DEVNODE=$OPTARG ;;
+	m) BASE_IMAGE='true' ;;
 	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
@@ -221,28 +217,6 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-check_devnode()
-{
-    local mounted=`grep ${DEVNODE} /proc/mounts | sort | cut -d ' ' -f 1`
-    if [[ "${mounted}" ]]; then
-	echo "ERROR: ${DEVNODE} has already mounted partitions"
-	my_exit
-    fi
-
-    mounted=`echo ${DEVNODE} | awk -F '[/]' '{print $3}'`
-    grep 1 /sys/block/${mounted}/removable 1>$_log
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: ${DEVNODE} has is not removeable device"
-	my_exit
-    fi
-
-    grep 0 /sys/block/${mounted}/ro 1>$_log
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: ${DEVNODE} is only readable"
-	my_exit
-    fi
-}
-
 check_directories()
 {
     if [[ ! -d "${SD_KERNEL}" ]]; then
@@ -269,51 +243,6 @@ check_directories()
 	    echo "         have you added them to your fstab? (see README.md)"
 	    my_exit
 	fi
-    fi
-}
-
-format_partitions()
-{
-    if [[ -b ${DEVNODE}1 ]]; then
-	echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
-	sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}1"
-	    my_exit
-	fi
-    else
-	echo "ERROR -> ${DEVNODE}1 not available"
-    fi
-
-    if [[ -b ${DEVNODE}2 ]]; then
-	echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
-	sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}2"
-	    my_exit
-	fi
-    else
-	echo "ERROR -> ${DEVNODE}2 not available"
-    fi
-
-    if [[ -b ${DEVNODE}3 ]]; then
-	if [ "$PREP_HDD_INST" = 'true' ]; then
-	    echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	    sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
-	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
-		my_exit
-	    fi
-	else
-	    echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
-	    sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
-	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
-		my_exit
-	    fi
-	fi
-    else
-	echo "ERROR -> ${DEVNODE}3 not available"
     fi
 }
 
@@ -380,81 +309,51 @@ umount_partitions()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
-echo " "
-echo "+------------------------------------------+"
-echo "| do some testing on $DEVNODE ...           "
-echo "+------------------------------------------+"
-check_devnode
-
 case "$BRAND" in
     'bananapi')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="BANA"
         ;;
     'bananapi-pro')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="BANA"
         ;;
     'baalue')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="BANA"
         ;;
     'olimex')
 	SD_KERNEL=$OLIMEX_SDCARD_KERNEL
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
 	SD_HOME=$OLIMEX_SDCARD_HOME
 	SD_SHARED=$OLIMEX_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="OLI"
         ;;
     'cubietruck')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
 	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
-	SD_PART_NAME_POST_LABEL="CUBI"
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check"
-        my_exit
+        my_usage
 esac
 
-echo " "
-echo "+------------------------------------------+"
-echo "| check needed directories                 |"
-echo "+------------------------------------------+"
 check_directories
-
-echo " "
-echo "+------------------------------------------+"
-echo "| start formating the partitions           |"
-echo "+------------------------------------------+"
-format_partitions
-
-echo " "
-echo "+------------------------------------------+"
-echo "| check if we can mount the partitions     |"
-echo "+------------------------------------------+"
 mount_partitions
 
-echo " "
-echo "+------------------------------------------+"
-echo "| check if we can umount the partitions    |"
-echo "+------------------------------------------+"
-umount_partitions
+#
+# the code
+#
 
-echo " "
-echo "+------------------------------------------+"
-echo "| $DEVNODE is ready to use                  "
-echo "+------------------------------------------+"
+
+umount_partitions
 
 cleanup
 echo " "

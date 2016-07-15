@@ -92,7 +92,7 @@ normal_exit()
 {
     # kill log_term only if no error occured
     killall -u ${USER} -15 tail 2>$_log
-    
+
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
@@ -216,11 +216,11 @@ menu()
 	     3 "menu entry number three"  \
 	     4 "menu entry number four"  \
 	     5 "start log term ${TERM}" \
-             x "Exit" 2>$_temp      
-    
+             x "Exit" 2>$_temp
+
     retv=$?
     if [ $retv != 0 ]; then my_exit; fi
-    
+
     menuitem=`cat $_temp`
     echo "menu=$menuitem"
     case $menuitem in
@@ -238,7 +238,7 @@ menu()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
-while true; 
+while true;
 do
     menu
 done

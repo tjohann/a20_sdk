@@ -4,6 +4,17 @@
 
 
 #
+# -------------- 2016-07-15 ----------------------------------------------------
+#
+
+## script stuff
+- make_sdcard.sh -> error handling in do_all_in_line()
+
+## sdk stuff
+- update screenshot of partition scheme below ./pics
+
+
+#
 # -------------- 2016-07-12 ----------------------------------------------------
 #
 

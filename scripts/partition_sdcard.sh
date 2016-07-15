@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    14.07.2016/07.07.2016
+# Date/Beginn :    15.07.2016/07.07.2016
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (jul 2016) -> add check for device-nodes
+# Milestones  :    V0.05 (jul 2016) -> some smaller cleanups
+#                  V0.04 (jul 2016) -> add check for device-nodes
 #                                      some smaller improvements
 #                  V0.03 (jul 2016) -> prepare hdd installation
 #                                      fix sfdisk behaviour
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -81,6 +82,9 @@ BASE_IMAGE='false'
 # 8G for full image
 MIN_SD_SIZE_FULL=15000000
 MIN_SD_SIZE_SMALL=8000000
+
+# addition to patitionlabel (like KERNEL_BANA or ROOTFS_OLI)
+SD_PART_NAME_POST_LABEL='none'
 
 # my usage method
 my_usage()
@@ -135,7 +139,7 @@ _log="/tmp/partition_sdcard.log"
 
 
 # check the args
-while getopts 'hvmb:d:' opts 2>$_log
+while getopts 'hsvmb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -229,7 +233,7 @@ if [ "$MISSING_ENV" = 'true' ]; then
     echo "|                                      |"
     echo "+--------------------------------------+"
     echo " "
-    exit
+    exit 3
 fi
 
 
@@ -499,21 +503,18 @@ check_directories
 echo " "
 echo "+------------------------------------------+"
 echo "| clean $DEVNODE ...                        "
-echo "| --> prepare your password for sudo       |"
 echo "+------------------------------------------+"
 clean_sdcard
 
 echo " "
 echo "+------------------------------------------+"
 echo "| start paritioning $DEVNODE                "
-echo "| --> prepare your password for sudo       |"
 echo "+------------------------------------------+"
 partition_sdcard
 
 echo " "
 echo "+------------------------------------------+"
 echo "| start formating the partitions           |"
-echo "| --> prepare your password for sudo       |"
 echo "+------------------------------------------+"
 format_partitions
 
