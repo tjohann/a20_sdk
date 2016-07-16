@@ -276,6 +276,24 @@ My nfs share:
 	192.168.0.42            echnaton.my.domain              echnaton
 
 
+Directory/File structure on sourceforge
+---------------------------------------
+
+All binary/big files (toolchain or images) are on sourceforge (https://sourceforge.net/projects/a20devices/files/). The scripts to setup the environment using that location to download them.
+
+In the root directory you find the toolchain tarballs and the checksum.sh256 from the git-repository. The devices are represented through the named directorys. Below them you find only the kernel images. Due to the unified image approach the rootfs and home are below the directory named common.
+
+Naming convention:
+
+	toochain_x86_64.tgz/host_x86_64.tgz -> cross-toolchain for x86_64 hosts
+	common/a20_sdk_*.tgz -> rootfs and home for all devices (master is bananapi) which need to be branded during make_sdcard.sh
+	common/a20_sdk_base_rootfs.tgz -> this is the base/minimal rootfs
+	bananapi/bananapi_kernel.tgz -> kernel image for the devices (bananapi)
+	bananapi-pro/bananapi-pro_kernel.tgz -> kernel image for the devices (bananapi-pro)
+	cubietruck/cubietruck_kernel.tgz -> kernel image for the devices (cubietruck)
+	olimex/olimex_kernel.tgz -> kernel image for the devices (olimex)
+
+
 Cubietruck (CB3)
 ----------------
 
