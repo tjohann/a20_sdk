@@ -1,0 +1,147 @@
+# ------------------------------------------------------------------------------
+#
+# some image realted infos
+#
+# ------------------------------------------------------------------------------
+#
+# see -> https://github.com/voidlinux/documentation/wiki/cubieboard2#rootfs-install
+
+#
+# user/passwd
+#
+root/root
+baalue/baalue
+
+
+#
+# groups
+#
+
+
+#
+# basic image
+#
+wget https://repo.voidlinux.eu/live/current/void-cubieboard2-rootfs-20160420.tar.xz
+
+
+#
+# add serial console after unpacking image to sd-card (location: /mnt/bananapi/bananapi_rootfs)
+#
+ln -s /etc/sv/agetty-ttyS0 /mnt/bananapi/bananapi_rootfs/etc/runit/runsvdir/default
+
+
+#
+# addtional installations
+#
+inetutils-ifconfig
+gcc
+make
+automake
+autoconf
+binutils-devel
+git
+linux-firmware
+vim (instead of vi)
+gdb
+ltrace
+strace
+rsyslogd
+libbsd-devel
+confuse-devel
+libconfig-devel
+void-repo-nonfree
+htop
+tree
+bash-completion
+libvdpau-sunxi
+sunxi-tools
+sunxi-mali-devel
+rsync
+librsync
+librsync-devel
+pkg-config
+xz
+libcapng
+libcapng-devel
+gettext (and related)
+wget
+i2c-tools
+cowsay
+trace-cmd
+
+
+#
+# config addtions/changes
+#
+
+# --- some simple stuff
+chsh /bin/bash  (for root)
+rm agetty-tty[2-6]
+
+# --- dhcpd.conf
+# Static IP configuration.
+interface eth0
+static ip_address=192.168.0.103
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1
+
+# --- hostname
+bananapi.my.domain
+
+# --- rc.conf
+TIMEZONE="Europe/Berlin"
+FONT="ter-v14n"
+
+# --- modprobe.d/cfg80211.conf
+blacklist cfg80211
+
+# --- hosts
+192.168.0.103           bananapi.my.domain      bananapi
+192.168.0.102		olimex.my.domain	olimex
+192.168.0.42		echnaton.my.domain	echnaton
+
+#
+# my cluster nodes (new style)
+192.168.0.80            baalue-80.my.domain			baalue-00
+192.168.0.81            baalue-81.my.domain                   	baalue-01
+192.168.0.82            baalue-82.my.domain                   	baalue-02
+192.168.0.83            baalue-83.my.domain                   	baalue-03
+192.168.0.84            baalue-84.my.domain                   	baalue-04
+192.168.0.85            baalue-85.my.domain                   	baalue-05
+192.168.0.86            baalue-86.my.domain                   	baalue-06
+192.168.0.87            baalue-87.my.domain                   	baalue-07
+192.168.0.90            baalue_master.my.domain                	baalue_master
+192.168.0.91            baalue_slave.my.domain                 	baalue_slave
+
+
+# --- fstab
+# Bananapi
+/dev/mmcblk0p1  /boot_bananapi    vfat    noatime          0       1
+/dev/mmcblk0p3  /home             ext4    noatime          0       1
+
+
+# --- sshd_config
+# my config
+X11Forwarding yes
+AllowTcpForwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+
+
+#
+# the "rest"
+#
+
+# --- syslog
+xbps-install -Sy socklog-void
+usermod -aG socklog baalue
+ln -s /etc/sv/socklog-unix /var/service/
+ln -s /etc/sv/nanoklogd /var/service/
+
+# --- update locale
+# enable /etc/defaults/glibc-locales
+en_US.UTF-8 UTF-8
+de_DE.UTF-8 UTF-8
+
+# rebuild locale
+xbps-reconfigure -f glibc-locales
