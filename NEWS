@@ -2,10 +2,19 @@
 # some news ... see also TODO for hints
 #
 
+2016-07-17 -> ## target stuff
+	      regular image update
+
+	      ## sdk stuff
+	      regular toolchain update
+
 2016-07-15 -> ## script stuff
 	      add skeleton untar_images_to_sdcard.sh
 	      add skeleton write_bootloader_to_sdcard.sh
 	      first working version of make_sdcard.sh
+
+	      ## target stuff
+	      update kernel 4.6.4-rt8
 
 2016-07-14 -> ## script stuff
 	      add dialog based script make_sdcard.sh to guide through the
