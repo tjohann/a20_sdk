@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/15.07.2016
+# Date/Beginn :    18.07.2016/15.07.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jul 2016) -> initial version
+# Milestones  :    V0.02 (jul 2016) -> first content
+#                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
 #
@@ -45,7 +46,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -74,7 +75,7 @@ my_usage()
     echo "| Usage: ./untar_images_to_sdcard.sh                     |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
-    echo "|        [-m] -> download the minimal images             |"
+    echo "|        [-m] -> use the minimal images                  |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -246,6 +247,35 @@ check_directories()
     fi
 }
 
+check_tarballs()
+{
+    if [[ ! -f "${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" ]]; then
+	echo "ERROR -> ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz not available!"
+	my_exit
+    fi
+
+    if [ "$BASE_IMAGE" = 'true' ]; then
+	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz" ]]; then
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz not available!"
+	    my_exit
+	fi
+    else
+	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz" ]]; then
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz not available!"
+	    my_exit
+	fi
+    fi
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	echo "prepare hdd installation -> no home tarball needed"
+    else
+	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" ]]; then
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz not available!"
+	    my_exit
+	fi
+    fi
+}
+
 mount_partitions()
 {
     mount $SD_KERNEL
@@ -304,6 +334,50 @@ umount_partitions()
     fi
 }
 
+untar_images()
+{
+    cd $SD_KERNEL
+    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz"
+	my_exit
+    fi
+
+    cd $SD_ROOTFS
+    if [ "$BASE_IMAGE" = 'true' ]; then
+	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+    else
+	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
+    fi
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/a20_sdk_*rootfs.tgz"
+	my_exit
+    fi
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	cd $SD_SHARED
+	echo "copy all needed files to $SD_SHARED"
+
+	cp ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+	cp ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
+	if [ "$BASE_IMAGE" = 'true' ]; then
+	    cp ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+	else
+	    cp ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
+	fi
+	# check only once -> check_directory and check_tarballs do it first
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not copy tarballs to ${SD_SHARED}"
+	    my_exit
+	fi
+    else
+	cd $SD_HOME
+	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+    fi
+
+    cd ${HOME}
+}
+
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
@@ -346,12 +420,10 @@ case "$BRAND" in
 esac
 
 check_directories
+check_tarballs
 mount_partitions
 
-#
-# the code
-#
-
+untar_images
 
 umount_partitions
 

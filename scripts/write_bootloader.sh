@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/15.07.2016
+# Date/Beginn :    18.07.2016/15.07.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jul 2016) -> initial version
+# Milestones  :    V0.02 (jul 2016) -> add first code
+#                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
 #
@@ -45,7 +46,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -184,41 +185,37 @@ check_devnode()
 
     mounted=`echo ${DEVNODE} | awk -F '[/]' '{print $3}'`
     grep 1 /sys/block/${mounted}/removable 1>$_log
-    if [ $? -ne 0 ] ; then
+    if [ $? -ne 0 ]; then
 	echo "ERROR: ${DEVNODE} has is not removeable device"
 	my_exit
     fi
 
     grep 0 /sys/block/${mounted}/ro 1>$_log
-    if [ $? -ne 0 ] ; then
+    if [ $? -ne 0 ]; then
 	echo "ERROR: ${DEVNODE} is only readable"
 	my_exit
     fi
 }
 
-check_directories()
+copy_bootloader()
 {
-    if [[ ! -d "${SD_KERNEL}" ]]; then
-	echo "ERROR -> ${SD_KERNEL} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
+    cd ${ARMHF_HOME}/${BRAND}/u-boot/
+
+    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/${BRAND}/
+    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/
+    if [ $? -ne 0 ]; then
+	echo "ERROR: could not copy bootloader to ${SD_KERNEL}"
 	my_exit
     fi
 }
 
-mount_partitions()
+write_bootloader()
 {
-    mount $SD_KERNEL
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_KERNEL}"
-	my_exit
-    fi
-}
+    echo "sudo dd if=u-boot-sunxi-with-spl.bin of=${DEVNODE} bs=1024 seek=8"
+    sudo dd if=u-boot-sunxi-with-spl.bin of=${DEVNODE} bs=1024 seek=8
 
-umount_partitions()
-{
-    umount $SD_KERNEL
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_KERNEL}"
+    if [ $? -ne 0 ]; then
+	echo "ERROR: could not write bootloader to ${DEVNODE}"
 	my_exit
     fi
 }
@@ -255,16 +252,32 @@ case "$BRAND" in
         my_exit
 esac
 
-#
-# write bootloader
-#
+if [[ ! -d "${SD_KERNEL}" ]]; then
+    echo "ERROR -> ${SD_KERNEL} not available!"
+    echo "         have you added them to your fstab? (see README.md)"
+    my_exit
+fi
 
-check_directories
-mount_partitions
-#
-# copy bootloader to sd-card
-#
-umount_partitions
+mount $SD_KERNEL
+if [ $? -ne 0 ]; then
+    echo "ERROR -> could not mount ${SD_KERNEL}"
+    my_exit
+fi
+
+if [[ ! -d "${ARMHF_HOME}/${BRAND}/u-boot" ]]; then
+    echo "ERROR -> ${SD_KERNEL} not available!"
+    echo "         have you added them to your fstab? (see README.md)"
+    my_exit
+fi
+
+copy_bootloader
+write_bootloader
+
+umount $SD_KERNEL
+if [ $? -ne 0 ]; then
+    echo "ERROR -> could not umount ${SD_KERNEL}"
+    my_exit
+fi
 
 cleanup
 echo " "

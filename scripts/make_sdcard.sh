@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/10.07.2016
+# Date/Beginn :    17.07.2016/10.07.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (jul 2016) -> add code to handle sd-card
+# Milestones  :    V0.04 (jul 2016) -> add help menu-entry
+#                  V0.03 (jul 2016) -> add code to handle sd-card
 #                                      fix a lot of bugs and minor problems
 #                                      add code to download images
 #                                      add code to untar images to sd-card
@@ -129,7 +130,7 @@ print_version()
     exit
 }
 
-# ---- Some values for internal use ----
+# --- Some values for internal use
 _temp="/tmp/make_sdcard.$$"
 _log="/tmp/make_sdcard.log"
 
@@ -373,9 +374,15 @@ show_partition_table()
 }
 
 # --- show content of ${ARMHF_HOME}/README.md (something like a help info)
-show_help()
+show_sdk_readme()
 {
     $DIALOG --textbox ${ARMHF_HOME}/README.md 50 100
+}
+
+# --- show help info
+show_help()
+{
+    $DIALOG --textbox ${ARMHF_HOME}/scripts/make_sdcard_help.md 50 100
 }
 
 # --- enter a device node
@@ -564,12 +571,13 @@ menu()
     $DIALOG  --title " Main menu make_sdcard.sh - version $VER " \
 	     --menu " Move using [UP] [DOWN] and [Enter] to select an entry" 20 60 20 \
 	     1 "Configuration menu" \
-	     2 "SD-Card menu" \
-	     3 "Download images for target device ${BRAND}" \
+	     2 "Download images for target device ${BRAND}" \
+	     3 "SD-Card menu" \
 	     4 "Do all steps in line" \
 	     5 "Show actual configuration" \
 	     6 "Start logging via ${TERM} console output" \
 	     7 "Show ${ARMHF_HOME}/README.md" \
+	     8 "Show help" \
              x "Exit" 2>$_temp
 
     retv=$?
@@ -579,12 +587,13 @@ menu()
     echo "menu=$menuitem"
     case $menuitem in
 	1) menu_config ;;
-	2) menu_sdcard;;
-	3) download_images;;
+	2) download_images;;
+	3) menu_sdcard;;
 	4) do_all_in_line;;
 	5) show_configuration;;
 	6) start_logterm;;
-	7) show_help;;
+	7) show_sdk_readme;;
+	8) show_help;;
         x) normal_exit;;
     esac
 }

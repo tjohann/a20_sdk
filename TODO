@@ -35,7 +35,7 @@
 - after migrate to unified image get rid of some makefile
   targets
 - provide something like a makefile tag lib for common
-  tags
+  makefile tags
 
 
 #
@@ -58,11 +58,11 @@
 ## script stuff
 - create script to create image
   - download image tarballs -> get_image_tarballs.sh        [2016-07-11 -> done]
-  - create partition table on sd_card
-  - untar downloaded images to sd_card
-  - write bootloader to it
+  - create partition table on sd_card                       [2016-07-17 -> done]
+  - untar downloaded images to sd_card                      [2016-07-19 -> done]
+  - write bootloader to it                                  [2016-07-19 -> done]
   - brand image -> brand_images.sh                          [2016-07-07 -> done]
-  - put all in a dialog based script -> make_sdcard.sh
+  - put all in a dialog based script -> make_sdcard.sh      [2016-07-19 -> done]
 
 ## sdk stuff
 - add will to AUTHORS (original make_sdcard.sh was
@@ -109,7 +109,7 @@
   parts                                                 [2016-07-05 -> canceled]
 
 ## target stuff
-- provide basic skeleton for $*_SHARED (/lib/modules ...)
+- provide basic skeleton for $*_SHARED (/lib/modules ..)[2016-07-18 -> canceled]
 - make void-linux kernel package for all devices and bring it
   mainline
 - make void-linux RT-PREEMPT kernel package for all devices
@@ -130,7 +130,7 @@
 #
 
 ## target && sdk stuff
-- unify all images -> only one image for all devices
+- unify all images -> only one image for all devices        [2016-07-19 -> done]
 
 
 #
