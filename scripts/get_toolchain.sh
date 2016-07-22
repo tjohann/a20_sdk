@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/15.08.2015
+# Date/Beginn :    22.07.2016/15.08.2015
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (jul 2016) -> change exit code to 3
+# Milestones  :    V1.03 (jul 2016) -> redirect errors to >&2
+#                  V1.02 (jul 2016) -> change exit code to 3
 #                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> some minor improvements
 #                  V0.05 (jul 2016) -> some minor improvements
@@ -71,7 +72,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -223,12 +224,12 @@ get_toolchain_tarball()
 
     wget $TOOLCHAIN_DOWNLOAD_STRING
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not download ${TOOLCHAIN_DOWNLOAD_STRING}"
+	echo "ERROR -> could not download ${TOOLCHAIN_DOWNLOAD_STRING}" >&2
 	my_exit
     fi
     wget $TOOLCHAIN_HOST_DOWNLOAD_STRING
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not download ${TOOLCHAIN_HOST_DOWNLOAD_STRING}"
+	echo "ERROR -> could not download ${TOOLCHAIN_HOST_DOWNLOAD_STRING}" >&2
 	my_exit
     fi
 }
@@ -239,14 +240,14 @@ untar_toolchain()
     if [ -f toolchain_x86_64.tgz ]; then
 	tar xzvf toolchain_x86_64.tgz
     else
-	echo "ERROR -> toolchain_x86_64.tgz does not exist"
+	echo "ERROR -> toolchain_x86_64.tgz does not exist" >&2
 	my_exit
     fi
 
     if [ -f host_x86_64.tgz ]; then
 	tar xzvf host_x86_64.tgz
     else
-	echo "ERROR -> host_x86_64.tgz does not exist"
+	echo "ERROR -> host_x86_64.tgz does not exist" >&2
 	my_exit
     fi
 }
@@ -267,7 +268,7 @@ if [ $(uname -m) == 'x86_64' ]; then
     if [ -d $ARMHF_BIN_HOME ]; then
 	cd $ARMHF_BIN_HOME
     else
-	echo "ERROR -> $ARMHF_BIN_HOME doesn't exist -> do a make init_sdk"
+	echo "ERROR -> $ARMHF_BIN_HOME doesn't exist -> do a make init_sdk" >&2
 	my_exit
     fi
 

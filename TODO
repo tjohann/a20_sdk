@@ -4,6 +4,16 @@
 
 
 #
+# -------------- 2016-07-22 ----------------------------------------------------
+#
+
+## script stuff
+- rework/rethink the usage of _log and _temp
+  -> use _temp for dialog, getopt and co
+  -> provide logging via /tmp/script_file_name.$$ and/or syslog
+
+
+#
 # -------------- 2016-07-15 ----------------------------------------------------
 #
 

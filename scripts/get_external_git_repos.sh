@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/15.08.2015
+# Date/Beginn :    22.07.2016/15.08.2015
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> change exit code to 3
+# Milestones  :    V1.02 (jul 2016) -> redirect errors to >&2
+#                  V1.01 (jul 2016) -> change exit code to 3
 #                                      some minor fixes/improvements
 #                  V1.00 (jul 2016) -> bump version
 #                  V0.24 (jul 2016) -> some minor improvements
@@ -84,7 +85,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -300,7 +301,7 @@ get_repo_name()
 	    REPO_NAME="${PROTOCOL}${tt_env}"
 	    ;;
 	*)
-	    echo "ERROR -> ${REPO} is no valid repo ... pls check"
+	    echo "ERROR -> ${REPO} is no valid repo ... pls check" >&2
 	    my_usage
     esac
 }
@@ -326,7 +327,7 @@ check_protocol()
     fi
 
     if [ $PROTOCOL_VALID = 'false' ]; then
-	echo "ERROR -> ${PROTOCOL} is no valid network protocol ... pls check"
+	echo "ERROR -> ${PROTOCOL} is no valid network protocol ... pls check" >&2
 	my_usage
     fi
 }
@@ -337,8 +338,8 @@ clone_repo()
     echo "start to clone repo $REPO_NAME"
     git clone $REPO_NAME
     if [ $? -ne 0 ] ; then
-	echo "ERROR: could not clone ${REPO_NAME}"
-	# we do not want to exit
+	echo "ERROR: could not clone ${REPO_NAME}" >&2
+	# try the next and do not exit
     fi
 }
 
@@ -369,7 +370,7 @@ else
     echo "${ARMHF_BIN_HOME}/external not available -> try to create it"
     mkdir -p $ARMHF_BIN_HOME/external
     if [ $? -ne 0 ] ; then
-	echo "ERROR: could not create ${ARMHF_BIN_HOME}/external -> did you a make init_sdk?"
+	echo "ERROR: could not create ${ARMHF_BIN_HOME}/external -> did you a make init_sdk?" >&2
 	my_exit
     fi
     cd $ARMHF_BIN_HOME/external

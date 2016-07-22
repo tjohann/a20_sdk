@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.07.2016/10.07.2016
+# Date/Beginn :    22.07.2016/10.07.2016
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (jul 2016) -> add help menu-entry
+# Milestones  :    V0.05 (jul 2016) -> version number fix
+#                  V0.04 (jul 2016) -> add help menu-entry
 #                  V0.03 (jul 2016) -> add code to handle sd-card
 #                                      fix a lot of bugs and minor problems
 #                                      add code to download images
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.05'
 
 # use dialog maybe later zenity
 DIALOG=dialog

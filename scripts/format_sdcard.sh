@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/12.07.2016
+# Date/Beginn :    22.07.2016/12.07.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (jul 2016) -> some smaller cleanups
+# Milestones  :    V0.04 (jul 2016) -> redirect errors to >&2
+#                  V0.03 (jul 2016) -> some smaller cleanups
 #                  V0.02 (jul 2016) -> add check for device-nodes
 #                                      some smaller improvements
 #                  V0.01 (jul 2016) -> initial version
@@ -48,7 +49,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -225,14 +226,14 @@ check_devnode()
 {
     local mounted=`grep ${DEVNODE} /proc/mounts | sort | cut -d ' ' -f 1`
     if [[ "${mounted}" ]]; then
-	echo "ERROR: ${DEVNODE} has already mounted partitions"
+	echo "ERROR: ${DEVNODE} has already mounted partitions" >&2
 	my_exit
     fi
 
     mounted=`echo ${DEVNODE} | awk -F '[/]' '{print $3}'`
     grep 1 /sys/block/${mounted}/removable 1>$_log
     if [ $? -ne 0 ] ; then
-	echo "ERROR: ${DEVNODE} has is not removeable device"
+	echo "ERROR: ${DEVNODE} has is not removeable device" >&2
 	my_exit
     fi
 
@@ -246,27 +247,27 @@ check_devnode()
 check_directories()
 {
     if [[ ! -d "${SD_KERNEL}" ]]; then
-	echo "ERROR -> ${SD_KERNEL} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
+	echo "ERROR -> ${SD_KERNEL} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
     if [[ ! -d "${SD_ROOTFS}" ]]; then
-	echo "ERROR -> ${SD_ROOTFS} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
+	echo "ERROR -> ${SD_ROOTFS} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	if [[ ! -d "${SD_SHARED}" ]]; then
-	    echo "ERROR -> ${SD_SHARED} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
+	    echo "ERROR -> ${SD_SHARED} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
 	    my_exit
 	fi
     else
 	if [[ ! -d "${SD_HOME}" ]]; then
-	    echo "ERROR -> ${SD_HOME} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
+	    echo "ERROR -> ${SD_HOME} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
 	    my_exit
 	fi
     fi
@@ -278,22 +279,22 @@ format_partitions()
 	echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
 	sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}1"
+	    echo "ERROR: could not format parition ${DEVNODE}1" >&2
 	    my_exit
 	fi
     else
-	echo "ERROR -> ${DEVNODE}1 not available"
+	echo "ERROR -> ${DEVNODE}1 not available" >&2
     fi
 
     if [[ -b ${DEVNODE}2 ]]; then
 	echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
 	sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}2"
+	    echo "ERROR: could not format parition ${DEVNODE}2" >&2
 	    my_exit
 	fi
     else
-	echo "ERROR -> ${DEVNODE}2 not available"
+	echo "ERROR -> ${DEVNODE}2 not available" >&2
     fi
 
     if [[ -b ${DEVNODE}3 ]]; then
@@ -301,19 +302,19 @@ format_partitions()
 	    echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
 	    sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
 	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
+		echo "ERROR: could not format parition ${DEVNODE}3" >&2
 		my_exit
 	    fi
 	else
 	    echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
 	    sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
 	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
+		echo "ERROR: could not format parition ${DEVNODE}3" >&2
 		my_exit
 	    fi
 	fi
     else
-	echo "ERROR -> ${DEVNODE}3 not available"
+	echo "ERROR -> ${DEVNODE}3 not available" >&2
     fi
 }
 
@@ -321,26 +322,26 @@ mount_partitions()
 {
     mount $SD_KERNEL
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_KERNEL}"
+	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
 	my_exit
     fi
 
     mount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_ROOTFS}"
+	echo "ERROR -> could not mount ${SD_ROOTFS}" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	mount $SD_SHARED
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_SHARED}"
+	    echo "ERROR -> could not mount ${SD_SHARED}" >&2
 	    my_exit
 	fi
     else
 	mount $SD_HOME
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_HOME}"
+	    echo "ERROR -> could not mount ${SD_HOME}" >&2
 	    my_exit
 	fi
     fi
@@ -350,26 +351,26 @@ umount_partitions()
 {
     umount $SD_KERNEL
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_KERNEL}"
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
 	my_exit
     fi
 
     umount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_ROOTFS}"
+	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	umount $SD_SHARED
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_SHARED}"
+	    echo "ERROR -> could not umount ${SD_SHARED}" >&2
 	    my_exit
 	fi
     else
 	umount $SD_HOME
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_HOME}"
+	    echo "ERROR -> could not umount ${SD_HOME}" >&2
 	    my_exit
 	fi
     fi
@@ -423,7 +424,7 @@ case "$BRAND" in
 	SD_PART_NAME_POST_LABEL="CUBI"
         ;;
     *)
-        echo "ERROR -> ${BRAND} is not supported ... pls check"
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_exit
 esac
 

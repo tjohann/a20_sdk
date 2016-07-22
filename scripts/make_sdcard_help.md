@@ -2,7 +2,7 @@ Help info for make_sdcard.sh
 ============================
 
 This tool should help you to make a ready-to-use sd-card for your prefered target device supported
-by the a20_sdk. 
+by the a20_sdk.
 
 
 Supported target devices

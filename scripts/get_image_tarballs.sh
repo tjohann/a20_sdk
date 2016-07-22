@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/24.08.2015
+# Date/Beginn :    22.07.2016/24.08.2015
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> some smaller improvements/cleanups
+# Milestones  :    V1.02 (jul 2016) -> redirect errors to >&2
+#                                      fix version number bug
+#                  V1.01 (jul 2016) -> some smaller improvements/cleanups
 #                  V1.00 (jul 2016) -> implement unified images download
 #                  V0.13 (jul 2016) -> change exit code to 3
 #                  V0.12 (jul 2016) -> some minor improvements
@@ -83,7 +85,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -211,7 +213,7 @@ get_tarball()
     else
 	wget $DOWNLOAD_IMAGE
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not download ${DOWNLOAD_IMAGE}"
+	    echo "ERROR -> could not download ${DOWNLOAD_IMAGE}" >&2
 	    my_exit
 	fi
     fi
@@ -235,7 +237,7 @@ if [ -d ${ARMHF_BIN_HOME}/images ]; then
 else
     mkdir -p ${ARMHF_BIN_HOME}/images
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> mkdir -p ${ARMHF_BIN_HOME}/images"
+	echo "ERROR -> mkdir -p ${ARMHF_BIN_HOME}/images" >&2
 	my_exit
     fi
     cd ${ARMHF_BIN_HOME}/images
@@ -263,7 +265,7 @@ case "$BRAND" in
 	get_tarball
         ;;
     *)
-        echo "ERROR -> ${BRAND} is not supported ... pls check"
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_usage
 esac
 

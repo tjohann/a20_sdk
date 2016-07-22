@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/02.07.2016
+# Date/Beginn :    22.07.2016/02.07.2016
 #
-# Version     :    V0.04
+# Version     :    V0.05
 #
-# Milestones  :    V0.04 (jul 2016) -> split branding into different dir
+# Milestones  :    V0.05 (jul 2016) -> redirect errors to >&2
+#                  V0.04 (jul 2016) -> split branding into different dir
 #                                      add support for baalue
 #                                      change exit code to 3
 #                  V0.03 (jul 2016) -> some fixes and improvements
@@ -55,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -185,8 +186,8 @@ brand_image_etc()
 
     if [ -d ${src_branding} ]; then
 	if [[ ! -d "${SD_ROOTFS}" ]]; then
-	    echo "ERROR -> ${SD_ROOTFS} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
+	    echo "ERROR -> ${SD_ROOTFS} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
 	    my_usage
 	fi
 
@@ -195,13 +196,13 @@ brand_image_etc()
 	    echo "${SD_ROOTFS} not mounted, i try it now"
 	    mount $SD_ROOTFS
 	    if [ $? -ne 0 ] ; then
-		echo "ERROR -> could not mount ${SD_ROOTFS}"
+		echo "ERROR -> could not mount ${SD_ROOTFS}" >&2
 		my_exit
 	    fi
 	fi
 
 	if [[ ! -d "${SD_ROOTFS}/etc" ]]; then
-	    echo "ERROR -> ${SD_ROOTFS}/etc not available ... abort now!"
+	    echo "ERROR -> ${SD_ROOTFS}/etc not available ... abort now!" >&2
 	    my_exit
 	fi
 
@@ -284,7 +285,7 @@ case "$BRAND" in
 	brand_image_home
         ;;
     *)
-        echo "ERROR -> ${BRAND} is not supported ... pls check"
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_usage
 esac
 

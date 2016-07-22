@@ -245,32 +245,32 @@ check_devnode()
 {
     local mounted=`grep ${DEVNODE} /proc/mounts | sort | cut -d ' ' -f 1`
     if [[ "${mounted}" ]]; then
-	echo "ERROR: ${DEVNODE} has already mounted partitions"
+	echo "ERROR: ${DEVNODE} has already mounted partitions" >&2
 	my_exit
     fi
 
     mounted=`echo ${DEVNODE} | awk -F '[/]' '{print $3}'`
     grep 1 /sys/block/${mounted}/removable 1>$_log
     if [ $? -ne 0 ] ; then
-	echo "ERROR: ${DEVNODE} has is not removeable device"
+	echo "ERROR: ${DEVNODE} has is not removeable device" >&2
 	my_exit
     fi
 
     grep 0 /sys/block/${mounted}/ro 1>$_log
     if [ $? -ne 0 ] ; then
-	echo "ERROR: ${DEVNODE} is only readable"
+	echo "ERROR: ${DEVNODE} is only readable" >&2
 	my_exit
     fi
 
     local size=$(< /sys/block/${mounted}/size)
     if [ "$BASE_IMAGE" = 'true' ]; then
 	if [[ "$size" -lt "$MIN_SD_SIZE_SMALL" ]]; then
-	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors"
+	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors" >&2
 	    my_exit
 	fi
     else
 	if [[ "$size" -lt "$MIN_SD_SIZE_FULL" ]]; then
-	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors"
+	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors" >&2
 	    my_exit
 	fi
     fi
@@ -279,27 +279,27 @@ check_devnode()
 check_directories()
 {
     if [[ ! -d "${SD_KERNEL}" ]]; then
-	echo "ERROR -> ${SD_KERNEL} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
+	echo "ERROR -> ${SD_KERNEL} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
     if [[ ! -d "${SD_ROOTFS}" ]]; then
-	echo "ERROR -> ${SD_ROOTFS} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
+	echo "ERROR -> ${SD_ROOTFS} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	if [[ ! -d "${SD_SHARED}" ]]; then
-	    echo "ERROR -> ${SD_SHARED} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
+	    echo "ERROR -> ${SD_SHARED} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
 	    my_exit
 	fi
     else
 	if [[ ! -d "${SD_HOME}" ]]; then
-	    echo "ERROR -> ${SD_HOME} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
+	    echo "ERROR -> ${SD_HOME} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
 	    my_exit
 	fi
     fi
@@ -310,7 +310,7 @@ clean_sdcard()
     echo "sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1"
     sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
     if [ $? -ne 0 ] ; then
-	echo "ERROR: could not clear ${DEVNODE}"
+	echo "ERROR: could not clear ${DEVNODE}" >&2
 	my_exit
     fi
 }
@@ -334,7 +334,7 @@ EOT
     fi
 
     if [ $? -ne 0 ] ; then
-	echo "ERROR: could not create partitions"
+	echo "ERROR: could not create partitions" >&2
 	my_exit
     fi
 }
@@ -345,22 +345,22 @@ format_partitions()
 	echo "sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1"
 	sudo mkfs.vfat -F 32 -n KERNEL_${SD_PART_NAME_POST_LABEL} ${DEVNODE}1
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}1"
+	    echo "ERROR: could not format parition ${DEVNODE}1" >&2
 	    my_exit
 	fi
     else
-	echo "ERROR -> ${DEVNODE}1 not available"
+	echo "ERROR -> ${DEVNODE}1 not available" >&2
     fi
 
     if [[ -b ${DEVNODE}2 ]]; then
 	echo "sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2"
 	sudo mkfs.ext4 -O ^has_journal -L ROOTFS_${SD_PART_NAME_POST_LABEL} ${DEVNODE}2
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not format parition ${DEVNODE}2"
+	    echo "ERROR: could not format parition ${DEVNODE}2" >&2
 	    my_exit
 	fi
     else
-	echo "ERROR -> ${DEVNODE}2 not available"
+	echo "ERROR -> ${DEVNODE}2 not available" >&2
     fi
 
     if [[ -b ${DEVNODE}3 ]]; then
@@ -368,19 +368,19 @@ format_partitions()
 	    echo "sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
 	    sudo mkfs.ext4 -O ^has_journal -L SHARED_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
 	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
+		echo "ERROR: could not format parition ${DEVNODE}3" >&2
 		my_exit
 	    fi
 	else
 	    echo "sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3"
 	    sudo mkfs.ext4 -O ^has_journal -L HOME_${SD_PART_NAME_POST_LABEL} ${DEVNODE}3
 	    if [ $? -ne 0 ] ; then
-		echo "ERROR: could not format parition ${DEVNODE}3"
+		echo "ERROR: could not format parition ${DEVNODE}3" >&2
 		my_exit
 	    fi
 	fi
     else
-	echo "ERROR -> ${DEVNODE}3 not available"
+	echo "ERROR -> ${DEVNODE}3 not available" >&2
     fi
 }
 
@@ -388,26 +388,26 @@ mount_partitions()
 {
     mount $SD_KERNEL
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_KERNEL}"
+	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
 	my_exit
     fi
 
     mount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_ROOTFS}"
+	echo "ERROR -> could not mount ${SD_ROOTFS}" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	mount $SD_SHARED
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_SHARED}"
+	    echo "ERROR -> could not mount ${SD_SHARED}" >&2
 	    my_exit
 	fi
     else
 	mount $SD_HOME
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_HOME}"
+	    echo "ERROR -> could not mount ${SD_HOME}" >&2
 	    my_exit
 	fi
     fi
@@ -417,26 +417,26 @@ umount_partitions()
 {
     umount $SD_KERNEL
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_KERNEL}"
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
 	my_exit
     fi
 
     umount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_ROOTFS}"
+	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	umount $SD_SHARED
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_SHARED}"
+	    echo "ERROR -> could not umount ${SD_SHARED}" >&2
 	    my_exit
 	fi
     else
 	umount $SD_HOME
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_HOME}"
+	    echo "ERROR -> could not umount ${SD_HOME}" >&2
 	    my_exit
 	fi
     fi
@@ -490,7 +490,7 @@ case "$BRAND" in
 	SD_PART_NAME_POST_LABEL="CUBI"
         ;;
     *)
-        echo "ERROR -> ${BRAND} is not supported ... pls check"
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_usage
 esac
 

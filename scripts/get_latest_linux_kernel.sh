@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/15.08.2015
+# Date/Beginn :    22.07.2016/15.08.2015
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (jul 2016) -> change exit code to 3
+# Milestones  :    V1.03 (jul 2016) -> redirect errors to >&2
+#                  V1.02 (jul 2016) -> change exit code to 3
 #                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> add check for sync of armhf_env and $ARM*
 #                                      fix RT download dependency
@@ -62,7 +63,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -209,7 +210,7 @@ get_kernel_source()
     else
 	wget $DOWNLOAD_STRING
 	if [ $? -ne 0 ]; then
-	    echo " ERROR -> could not download ${DOWNLOAD_STRING}"
+	    echo " ERROR -> could not download ${DOWNLOAD_STRING}" >&2
 	else
 	   tar xvf linux-${KERNEL_VER}.tar.xz
 	fi
@@ -237,7 +238,7 @@ get_rt_patch_source()
     else
 	wget $DOWNLOAD_STRING
 	if [ $? -ne 0 ]; then
-	    echo "ERROR -> could not download patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz"
+	    echo "ERROR -> could not download patch-${KERNEL_VER}-${ARMHF_RT_VER}.patch.gz" >&2
 	fi
     fi
 
@@ -270,7 +271,7 @@ if [ -d ${ARMHF_BIN_HOME}/kernel ]; then
 else
     mkdir -p ${ARMHF_BIN_HOME}/kernel
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mkdir -p ${ARMHF_BIN_HOME}/kernel"
+	echo "ERROR -> could not mkdir -p ${ARMHF_BIN_HOME}/kernel" >&2
 	my_exit
     fi
     cd ${ARMHF_BIN_HOME}/kernel
@@ -285,7 +286,7 @@ if [ "$DOWNLOAD_RT" = 'true' ]; then
     # mv linux-$ARMHF_RT_KERNEL_VER to linux-$ARMHF_RT_KERNEL_VER_rt
     mv linux-${ARMHF_RT_KERNEL_VER} linux-${ARMHF_RT_KERNEL_VER}_rt
      if [ $? -ne 0 ] ; then
-	echo "ERROR -> could mv linux-${ARMHF_RT_KERNEL_VER} to linux-${ARMHF_RT_KERNEL_VER}_rt"
+	echo "ERROR -> could mv linux-${ARMHF_RT_KERNEL_VER} to linux-${ARMHF_RT_KERNEL_VER}_rt" >&2
 	my_exit
     fi
 

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    18.07.2016/15.07.2016
+# Date/Beginn :    22.07.2016/15.07.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jul 2016) -> add first code
+# Milestones  :    V0.03 (jul 2016) -> redirect errors to >&2
+#                  V0.02 (jul 2016) -> add first code
 #                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
@@ -46,7 +47,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -179,20 +180,20 @@ check_devnode()
 {
     local mounted=`grep ${DEVNODE} /proc/mounts | sort | cut -d ' ' -f 1`
     if [[ "${mounted}" ]]; then
-	echo "ERROR: ${DEVNODE} has already mounted partitions"
+	echo "ERROR: ${DEVNODE} has already mounted partitions" >&2
 	my_exit
     fi
 
     mounted=`echo ${DEVNODE} | awk -F '[/]' '{print $3}'`
     grep 1 /sys/block/${mounted}/removable 1>$_log
     if [ $? -ne 0 ]; then
-	echo "ERROR: ${DEVNODE} has is not removeable device"
+	echo "ERROR: ${DEVNODE} has is not removeable device" >&2
 	my_exit
     fi
 
     grep 0 /sys/block/${mounted}/ro 1>$_log
     if [ $? -ne 0 ]; then
-	echo "ERROR: ${DEVNODE} is only readable"
+	echo "ERROR: ${DEVNODE} is only readable" >&2
 	my_exit
     fi
 }
@@ -204,7 +205,7 @@ copy_bootloader()
     cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/${BRAND}/
     cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/
     if [ $? -ne 0 ]; then
-	echo "ERROR: could not copy bootloader to ${SD_KERNEL}"
+	echo "ERROR: could not copy bootloader to ${SD_KERNEL}" >&2
 	my_exit
     fi
 }
@@ -215,7 +216,7 @@ write_bootloader()
     sudo dd if=u-boot-sunxi-with-spl.bin of=${DEVNODE} bs=1024 seek=8
 
     if [ $? -ne 0 ]; then
-	echo "ERROR: could not write bootloader to ${DEVNODE}"
+	echo "ERROR: could not write bootloader to ${DEVNODE}" >&2
 	my_exit
     fi
 }
@@ -248,25 +249,25 @@ case "$BRAND" in
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
         ;;
     *)
-        echo "ERROR -> ${BRAND} is not supported ... pls check"
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_exit
 esac
 
 if [[ ! -d "${SD_KERNEL}" ]]; then
-    echo "ERROR -> ${SD_KERNEL} not available!"
-    echo "         have you added them to your fstab? (see README.md)"
+    echo "ERROR -> ${SD_KERNEL} not available!" >&2
+    echo "         have you added them to your fstab? (see README.md)" >&2
     my_exit
 fi
 
 mount $SD_KERNEL
 if [ $? -ne 0 ]; then
-    echo "ERROR -> could not mount ${SD_KERNEL}"
+    echo "ERROR -> could not mount ${SD_KERNEL}" >&2
     my_exit
 fi
 
 if [[ ! -d "${ARMHF_HOME}/${BRAND}/u-boot" ]]; then
-    echo "ERROR -> ${SD_KERNEL} not available!"
-    echo "         have you added them to your fstab? (see README.md)"
+    echo "ERROR -> ${SD_KERNEL} not available!" >&2
+    echo "         have you added them to your fstab? (see README.md)" >&2
     my_exit
 fi
 
@@ -275,7 +276,7 @@ write_bootloader
 
 umount $SD_KERNEL
 if [ $? -ne 0 ]; then
-    echo "ERROR -> could not umount ${SD_KERNEL}"
+    echo "ERROR -> could not umount ${SD_KERNEL}" >&2
     my_exit
 fi
 

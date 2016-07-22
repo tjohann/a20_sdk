@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    18.07.2016/15.07.2016
+# Date/Beginn :    22.07.2016/15.07.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jul 2016) -> first content
+# Milestones  :    V0.03 (jul 2016) -> redirect errors to >&2
+#                  V0.02 (jul 2016) -> first content
 #                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
@@ -46,7 +47,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -221,27 +222,27 @@ fi
 check_directories()
 {
     if [[ ! -d "${SD_KERNEL}" ]]; then
-	echo "ERROR -> ${SD_KERNEL} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
+	echo "ERROR -> ${SD_KERNEL} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
     if [[ ! -d "${SD_ROOTFS}" ]]; then
-	echo "ERROR -> ${SD_ROOTFS} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
+	echo "ERROR -> ${SD_ROOTFS} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	if [[ ! -d "${SD_SHARED}" ]]; then
-	    echo "ERROR -> ${SD_SHARED} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
+	    echo "ERROR -> ${SD_SHARED} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
 	    my_exit
 	fi
     else
 	if [[ ! -d "${SD_HOME}" ]]; then
-	    echo "ERROR -> ${SD_HOME} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
+	    echo "ERROR -> ${SD_HOME} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
 	    my_exit
 	fi
     fi
@@ -250,18 +251,18 @@ check_directories()
 check_tarballs()
 {
     if [[ ! -f "${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" ]]; then
-	echo "ERROR -> ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz not available!"
+	echo "ERROR -> ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz not available!" >&2
 	my_exit
     fi
 
     if [ "$BASE_IMAGE" = 'true' ]; then
 	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz" ]]; then
-	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz not available!"
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz not available!" >&2
 	    my_exit
 	fi
     else
 	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz" ]]; then
-	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz not available!"
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz not available!" >&2
 	    my_exit
 	fi
     fi
@@ -270,7 +271,7 @@ check_tarballs()
 	echo "prepare hdd installation -> no home tarball needed"
     else
 	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" ]]; then
-	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz not available!"
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz not available!" >&2
 	    my_exit
 	fi
     fi
@@ -280,26 +281,26 @@ mount_partitions()
 {
     mount $SD_KERNEL
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_KERNEL}"
+	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
 	my_exit
     fi
 
     mount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_ROOTFS}"
+	echo "ERROR -> could not mount ${SD_ROOTFS}" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	mount $SD_SHARED
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_SHARED}"
+	    echo "ERROR -> could not mount ${SD_SHARED}" >&2
 	    my_exit
 	fi
     else
 	mount $SD_HOME
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_HOME}"
+	    echo "ERROR -> could not mount ${SD_HOME}" >&2
 	    my_exit
 	fi
     fi
@@ -309,26 +310,26 @@ umount_partitions()
 {
     umount $SD_KERNEL
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_KERNEL}"
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
 	my_exit
     fi
 
     umount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_ROOTFS}"
+	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
 	my_exit
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	umount $SD_SHARED
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_SHARED}"
+	    echo "ERROR -> could not umount ${SD_SHARED}" >&2
 	    my_exit
 	fi
     else
 	umount $SD_HOME
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_HOME}"
+	    echo "ERROR -> could not umount ${SD_HOME}" >&2
 	    my_exit
 	fi
     fi
@@ -339,7 +340,7 @@ untar_images()
     cd $SD_KERNEL
     sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz"
+	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" >&2
 	my_exit
     fi
 
@@ -350,7 +351,7 @@ untar_images()
 	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
     fi
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/a20_sdk_*rootfs.tgz"
+	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/a20_sdk_*rootfs.tgz" >&2
 	my_exit
     fi
 
@@ -367,7 +368,7 @@ untar_images()
 	fi
 	# check only once -> check_directory and check_tarballs do it first
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not copy tarballs to ${SD_SHARED}"
+	    echo "ERROR -> could not copy tarballs to ${SD_SHARED}" >&2
 	    my_exit
 	fi
     else
@@ -415,7 +416,7 @@ case "$BRAND" in
 	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
         ;;
     *)
-        echo "ERROR -> ${BRAND} is not supported ... pls check"
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_usage
 esac
 
