@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.07.2016/10.07.2016
+# Date/Beginn :    24.07.2016/10.07.2016
 #
-# Version     :    V0.05
+# Version     :    V0.06
 #
-# Milestones  :    V0.05 (jul 2016) -> version number fix
+# Milestones  :    V0.06 (jul 2016) -> add mount/umount script
+#                                      some more minor improvements
+#                  V0.05 (jul 2016) -> version number fix
 #                  V0.04 (jul 2016) -> add help menu-entry
 #                  V0.03 (jul 2016) -> add code to handle sd-card
 #                                      fix a lot of bugs and minor problems
@@ -54,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='0.06'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -374,6 +376,48 @@ show_partition_table()
     $DIALOG --msgbox "show_partition_table -> dummy" 6 45
 }
 
+# --- mount partitions
+mount_partitions()
+{
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
+
+    start_logterm
+
+    $DIALOG --infobox "Mount partions for ${BRAND}" 6 45
+
+    echo "${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -m" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -m >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not mount partitions for ${BRAND}... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished mount of partitions for ${BRAND}" 6 45
+    fi
+}
+
+# --- umount partitions
+umount_partitions()
+{
+    if [ "$BRAND" = 'none' ]; then
+	$DIALOG --msgbox "ERROR: ${BRAND} is not a valid target device!" 6 45
+	return
+    fi
+
+    start_logterm
+
+    $DIALOG --infobox "Un-mount partions for ${BRAND}" 6 45
+
+    echo "${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -u" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -u >>$_log 2>&1
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not un-mount partitions for ${BRAND}... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished un-mount of partitions for ${BRAND}" 6 45
+    fi
+}
+
 # --- show content of ${ARMHF_HOME}/README.md (something like a help info)
 show_sdk_readme()
 {
@@ -545,6 +589,9 @@ menu_sdcard()
 		 4 "Write bootloader to ${DEVNODE}" \
 		 5 "Brand SD-Card" \
 		 6 "Show partition table of SD-Card ${DEVNODE}" \
+		 7 "Show actual configuration" \
+		 8 "Mount partions for ${BRAND}" \
+		 9 "Un-mount partions for ${BRAND}" \
 		 x "Main menu" 2>$_temp
 
 	retv=$?
@@ -559,6 +606,9 @@ menu_sdcard()
 	    4) write_bootloader;;
 	    5) brand_sd-card;;
 	    6) show_partition_table;;
+	    7) show_configuration;;
+	    8) mount_partitions;;
+	    9) umount_partitions;;
 	    x) menu;;
 	esac
     done

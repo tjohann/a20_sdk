@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    write_bootloader.sh
+# Title       :    mount_partitions.sh
 #
 # License:
 #
@@ -24,14 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.07.2016/15.07.2016
+# Date/Beginn :    24.07.2016/24.07.2016
 #
-# Version     :    V0.04
+# Version     :    V0.01
 #
-# Milestones  :    V0.04 (jul 2016) -> add comment
-#                  V0.03 (jul 2016) -> redirect errors to >&2
-#                  V0.02 (jul 2016) -> add first code
-#                  V0.01 (jul 2016) -> initial version
+# Milestones  :    V0.01 (jul 2016) -> initial version
 #
 # Requires    :
 #
@@ -39,7 +36,7 @@
 ################################################################################
 # Description
 #
-#   A simple tool to write u-boot to a sd-card
+#   A simple tool to mount/unmount target partitions
 #
 # Some features
 #   - ...
@@ -48,7 +45,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -58,9 +55,15 @@ BRAND='none'
 
 # mountpoints
 SD_KERNEL='none'
+SD_ROOTFS='none'
+SD_HOME='none'
+SD_SHARED='none'
 
-# which devnode?
-DEVNODE='none'
+# HDD installation?
+PREP_HDD_INST='false'
+
+# what to to
+ACTION='umount'
 
 # my usage method
 my_usage()
@@ -68,10 +71,12 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "|                                                        |"
-    echo "| Usage: ./write_bootloader.sh                              |"
-    echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
+    echo "| Usage: ./mount_partitions.sh                           |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
+    echo "|        [-s] -> patitions for hdd installation          |"
+    echo "|        [-u] -> un-mount patitions (default)            |"
+    echo "|        [-m] -> mount patitions                         |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -92,6 +97,7 @@ my_exit()
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
+    umount_partitions
     cleanup
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
@@ -108,18 +114,19 @@ print_version()
 }
 
 # ---- Some values for internal use ----
-_temp="/tmp/write_bootloader.$$"
-_log="/tmp/write_bootloader.log"
-
+_temp="/tmp/mount_partitions.$$"
+_log="/tmp/mount_partitions.log"
 
 # check the args
-while getopts 'hvb:d:' opts 2>$_log
+while getopts 'hvmumb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
-	d) DEVNODE=$OPTARG ;;
+	m) ACTION='mount' ;;
+	u) ACTION='umount' ;;
+	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -146,13 +153,49 @@ if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
+if [[ ! ${BANANAPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${BANANAPI_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${BANANAPI_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
 # olimex
 if [[ ! ${OLIMEX_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
+if [[ ! ${OLIMEX_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${OLIMEX_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${OLIMEX_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
 # cubietruck
 if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${CUBIETRUCK_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${CUBIETRUCK_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${CUBIETRUCK_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -177,50 +220,90 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-check_devnode()
+check_directories()
 {
-    local mounted=`grep ${DEVNODE} /proc/mounts | sort | cut -d ' ' -f 1`
-    if [[ "${mounted}" ]]; then
-	echo "ERROR: ${DEVNODE} has already mounted partitions" >&2
+    if [[ ! -d "${SD_KERNEL}" ]]; then
+	echo "ERROR -> ${SD_KERNEL} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
-    mounted=`echo ${DEVNODE} | awk -F '[/]' '{print $3}'`
-    grep 1 /sys/block/${mounted}/removable 1>$_log
-    if [ $? -ne 0 ]; then
-	echo "ERROR: ${DEVNODE} has is not removeable device" >&2
+    if [[ ! -d "${SD_ROOTFS}" ]]; then
+	echo "ERROR -> ${SD_ROOTFS} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
 	my_exit
     fi
 
-    grep 0 /sys/block/${mounted}/ro 1>$_log
-    if [ $? -ne 0 ]; then
-	echo "ERROR: ${DEVNODE} is only readable" >&2
-	my_exit
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	if [[ ! -d "${SD_SHARED}" ]]; then
+	    echo "ERROR -> ${SD_SHARED} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
+	    my_exit
+	fi
+    else
+	if [[ ! -d "${SD_HOME}" ]]; then
+	    echo "ERROR -> ${SD_HOME} not available!" >&2
+	    echo "         have you added them to your fstab? (see README.md)" >&2
+	    my_exit
+	fi
     fi
 }
 
-copy_bootloader()
+mount_partitions()
 {
-    cd ${ARMHF_HOME}/${BRAND}/u-boot/
+    mount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
+	# do not exit -> will try to umount the others
+    fi
 
-    # not really needed
-    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/${BRAND}/
+    mount $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_ROOTFS}" >&2
+	# do not exit -> will try to umount the others
+    fi
 
-    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/
-    if [ $? -ne 0 ]; then
-	echo "ERROR: could not copy bootloader to ${SD_KERNEL}" >&2
-	my_exit
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	mount $SD_SHARED
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mount ${SD_SHARED}" >&2
+	    # do not exit -> will try to umount the others
+	fi
+    else
+	mount $SD_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mount ${SD_HOME}" >&2
+	    # do not exit -> will try to umount the others
+	fi
     fi
 }
 
-write_bootloader()
+umount_partitions()
 {
-    echo "sudo dd if=u-boot-sunxi-with-spl.bin of=${DEVNODE} bs=1024 seek=8"
-    sudo dd if=u-boot-sunxi-with-spl.bin of=${DEVNODE} bs=1024 seek=8
+    umount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
+	# do not exit -> will try to umount the others
+    fi
 
-    if [ $? -ne 0 ]; then
-	echo "ERROR: could not write bootloader to ${DEVNODE}" >&2
-	my_exit
+    umount $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
+	# do not exit -> will try to umount the others
+    fi
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	umount $SD_SHARED
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not umount ${SD_SHARED}" >&2
+	    # do not exit -> will try to umount the others
+	fi
+    else
+	umount $SD_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not umount ${SD_HOME}" >&2
+	    # do not exit -> will try to umount the others
+	fi
     fi
 }
 
@@ -229,58 +312,51 @@ write_bootloader()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
-echo " "
-echo "+------------------------------------------+"
-echo "| do some testing on $DEVNODE ...           "
-echo "+------------------------------------------+"
-check_devnode
-
 case "$BRAND" in
     'bananapi')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'bananapi-pro')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'baalue')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'olimex')
 	SD_KERNEL=$OLIMEX_SDCARD_KERNEL
+	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
+	SD_HOME=$OLIMEX_SDCARD_HOME
+	SD_SHARED=$OLIMEX_SDCARD_SHARED
         ;;
     'cubietruck')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
+	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+	SD_HOME=$CUBIETRUCK_SDCARD_HOME
+	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
-        my_exit
+        my_usage
 esac
 
-if [[ ! -d "${SD_KERNEL}" ]]; then
-    echo "ERROR -> ${SD_KERNEL} not available!" >&2
-    echo "         have you added them to your fstab? (see README.md)" >&2
-    my_exit
-fi
+check_directories
 
-mount $SD_KERNEL
-if [ $? -ne 0 ]; then
-    echo "ERROR -> could not mount ${SD_KERNEL}" >&2
-    my_exit
-fi
+echo "$ACTION"
 
-if [[ ! -d "${ARMHF_HOME}/${BRAND}/u-boot" ]]; then
-    echo "ERROR -> ${SD_KERNEL} not available!" >&2
-    echo "         have you added them to your fstab? (see README.md)" >&2
-    my_exit
-fi
-
-copy_bootloader
-write_bootloader
-
-umount $SD_KERNEL
-if [ $? -ne 0 ]; then
-    echo "ERROR -> could not umount ${SD_KERNEL}" >&2
-    my_exit
+if [ "$ACTION" = 'mount' ]; then
+    mount_partitions
+else
+    # ignore the rest -> umount
+    umount_partitions
 fi
 
 cleanup

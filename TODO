@@ -2,6 +2,20 @@
 # TODO with date and progress
 #
 
+#
+# -------------- 2016-07-24 ----------------------------------------------------
+#
+
+## sdk stuff
+- provide a useful .Xresources config -> for xterm
+
+## script stuff
+- use zenity and parallel for make_sdcard script
+- provide installation for make_sdcard to ${ARMHF_BIN_HOME}/bin and add it to
+  $PATH
+- add a script which checks state and content of a sdcard (is it mounted,
+  does the needed mountpoint exist, is the brand dir of ??? available, and
+  ... )
 
 #
 # -------------- 2016-07-22 ----------------------------------------------------
