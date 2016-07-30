@@ -10,6 +10,8 @@
 
 2017-07-30 -> ## sdk stuff
 	      add install makefile tag to install make_sdcard.sh to ${HOME}
+	      Starting with A20_SDK_V2.0.0 development will be done on a
+	      development branch
 
 
 ################## 2016-07-30 -> A20_SDK_V1.1.2 ############################

@@ -53,7 +53,7 @@ Change group to users and chmod it to 775:
 
 Clone this repo to /var/lib/a20_sdk
 
-    git clone -b A20_SDK_V1.0.0 https://github.com/tjohann/a20_sdk.git /var/lib/a20_sdk
+    git clone https://github.com/tjohann/a20_sdk.git /var/lib/a20_sdk
 
 
 Source the environment file armhf_env
@@ -154,11 +154,11 @@ Make a sd-card for a target device
 
 To make a ready to use sd-card (see also "Images" below) you can use the small dialog based tool avaiblable via
 
-   ./script/make_sdcard.sh
+	./script/make_sdcard.sh
 
 or
 
-   make make_sdcard
+	make make_sdcard
 
 It will guide you throught the process.
 
@@ -407,23 +407,23 @@ Addtional mount points (host):
 Development model
 -----------------
 
-I support only one stable version described by a tag (see checkout info above). The toolchain and images are for that version. Older tags wont be supported anymore.
-
-If you want to follow the development, then you can checkout the main branch.
+I support only one version described by a tag (see checkout info above). The toolchain and images are for that version. Older tags wont be supported anymore. Starting with version A20_SDK_V2.0.0 further development will be done on a development branch (this means head is always ready to use).
 
 
 Outlook (next development steps)
 --------------------------------
 
-(until mid of july)
+(until mid of july -> done)
 - Due to the fact that there's no real support for the sunxi kernel within my images i will remove them and concentrate on mainline kernel.
 
-(until end of july)
+(until end of july -> done)
 - There is some effort needed to unify all images over the different devices. The idea is to have only one base image (ROOT-Image -> Bananapi) and a script (./scripts/brand_image.sh) which copy/rsync the needed changes to the mounted sdcards.
 - To make the usage a little bit easier i will provide a set of scripts to generate a ready to boot sd-card.
+- Finally i provide dialog based script (make_sdcard.sh) to put all scipts (from above) together to a unified userinterface (handle image creation).
+
+(until end of july)
+- I will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
 
 (until mid of august)
-- Finally i provide dialog based script (make_sdcard.sh) to put all scipts (from above) together to a unified userinterface (handle image creation).
-- I will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
 - support for hdd installation
 
