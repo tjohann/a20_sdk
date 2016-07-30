@@ -12,7 +12,9 @@ WARNING: This is work in progress! So it's possible that something is not workin
 Requirement
 -----------
 
-The only yet know requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to buildup your sdcard -> make_sdcard.sh)
+The only yet know requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to buildup your sdcard -> make_sdcard.sh).
+
+For the two types of images ("normal" and "base/small") you need sd-cards with 4 or 8 gig of size.
 
 
 Description
@@ -150,7 +152,7 @@ In short:
 Make a sd-card for a target device
 ----------------------------------
 
-To make a ready to use sd-card you can use the small dialog based tool avaiblable via
+To make a ready to use sd-card (see also "Images" below) you can use the small dialog based tool avaiblable via
 
    ./script/make_sdcard.sh
 
@@ -168,12 +170,12 @@ I use a standard version scheme via git tags based on 3 numbers:
 
 	A20_SDK_V1.0.1
 
-The first number is the mayor number which reflect bigger changes. The second number (minor) will be changed because of
+The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
 	- new scripts
 	- kernel/updates of all 4 devices
 
-So a simple version update of the olimex kernel will not increase the minor number, it will increase the third number (age number):
+So a simple version update of the olimex kernel will not increase the minor number, instead it will increase the third number (age number):
 
 	- bugfixes
 	- update kernel versions only on one device
@@ -217,14 +219,33 @@ In short:
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
 
 
-User
-----
+Images
+------
+
+Two different versions of the images are supported:
+
+	"normal" -> it's a large image with all important parts installed
+	"base/small" -> it's a image where only base components are installed
+
+You can think of the base/small image as a starting point for your individual device config. The images size also reflects the partition size, so you need at least 4 or 8 gig sd-cards.
+
+A sd-card needs 3 different partitions which are reflected by the images tarballs itself:
+
+	1). kernel (fat32/32 meg) -> bananapi_kernel.tgz/cubietruck_kernel.tgz/...
+	2). rootfs (ext4/2 or 6 gig) -> a20_sdk_rootfs.tgz/a20_sdk_base_image.tgz
+	3). home (ext4/ the rest) -> a20_sdk_home.tgz
+
+The kernel images are device specific while all other images not.
+
+
+User (images)
+-------------
 
     root (password: root)
     baalue (password: baalue)
 
 
-The user baalue is available on all images, you can use it to login via ssh.
+The user baalue is available on all images, you can use it to login via ssh and then use sudo or su -l for root tasks.
 
 
 Kernel
@@ -238,7 +259,7 @@ Base-installation:
 	Bananapi-Pro -> PREEMPT kernel (mainline)
 	Cubietruck -> PREEMPT kernel
 
-Note: with the upcomming new image scheme only mainline kernel is supported (PREEMPT and RT-PREEMPT on all devices).
+Note: with the upcomming new image scheme mainline kernel is supported (PREEMPT and RT-PREEMPT) on all devices.
 Note 02: both kernel (RT-PREEMPT and PREEMPT) are supported on every device. If you want to use the other kernel than the base version, then copy no-rt or rt of $*SDCARD_KERNEL/*rt to $*SDCARD_KERNEL.
 
 
