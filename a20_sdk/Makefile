@@ -17,23 +17,25 @@ endif
 MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v toolchain | grep -v host)
 
 all::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|                  Nothing to build                        |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	@echo "| Example:                                                 |"
-	@echo "| make init_sdk           -> init all needed part          |"
-	@echo "| make get_external_repos -> get git repos like u-boot     |"
-	@echo "| make get_toolchain      -> install toolchain             |"
-	@echo "| make get_latest_kernel  -> download latest kernel version|"
-	@echo "| make get_image_tarballs -> download image tarballs       |"
-	@echo "| make get_..._image_tarballs -> download specific tarball |"
-	@echo "| make get_all            -> get all of the above          |"
-	@echo "| make clean              -> clean all dir/subdirs         |"
-	@echo "| make distclean          -> complete cleanup/delete       |"
-	@echo "| ...                                                      |"
-	@echo "+----------------------------------------------------------+"
+	@echo "+-----------------------------------------------------------+"
+	@echo "|                                                           |"
+	@echo "|                  Nothing to build                         |"
+	@echo "|                                                           |"
+	@echo "+-----------------------------------------------------------+"
+	@echo "| Example:                                                  |"
+	@echo "| make init_sdk           -> init all needed part           |"
+	@echo "| make get_external_repos -> get git repos like u-boot      |"
+	@echo "| make get_toolchain      -> install toolchain              |"
+	@echo "| make get_latest_kernel  -> download latest kernel version |"
+	@echo "| make get_image_tarballs -> download image tarballs        |"
+	@echo "| make get_..._image_tarballs -> download specific tarball  |"
+	@echo "| make get_all            -> get all of the above           |"
+	@echo "| make clean              -> clean all dir/subdirs          |"
+	@echo "| make distclean          -> complete cleanup/delete        |"
+	@echo "| ...                                                       |"
+	@echo "| make install            -> install some scripts to $(HOME)|"
+	@echo "| make uninstall          -> remove scripts from $(HOME)    |"
+	@echo "+-----------------------------------------------------------+"
 
 clean::
 	rm -f *~ .*~
@@ -60,6 +62,12 @@ clean_opt: clean_toolchain clean_external clean_kernel clean_images
 
 mrproper: clean
 	($(ARMHF_HOME)/scripts/clean_sdk.sh -m)
+
+install::
+	(install $(ARMHF_HOME)/scripts/make_sdcard.sh $(HOME)/bin/a20_sdk_make_sdcard.sh)
+
+uninstall::
+	(rm -rf $(HOME)/bin/a20_sdk_make_sdcard.sh)
 
 init_sdk: distclean
 	@echo "+----------------------------------------------------------+"

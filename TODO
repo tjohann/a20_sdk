@@ -19,15 +19,15 @@
 #
 
 ## sdk stuff
-- provide a useful .Xresources config -> for xterm
+- provide a useful .Xresources config -> for xterm      [2016-07-05 -> canceled]
 
 ## script stuff
-- use zenity and parallel for make_sdcard script
+- use zenity and parallel for make_sdcard script        [2016-07-30 -> canceled]
 - provide installation for make_sdcard to ${ARMHF_BIN_HOME}/bin and add it to
-  $PATH
+  $PATH                                                     [2016-07-30 -> done]
 - add a script which checks state and content of a sdcard (is it mounted,
   does the needed mountpoint exist, is the brand dir of ??? available, and
-  ... )
+  ... )                                                 [2016-07-30 -> canceled]
 
 #
 # -------------- 2016-07-22 ----------------------------------------------------

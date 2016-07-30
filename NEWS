@@ -2,6 +2,16 @@
 # some news ... see also TODO for hints
 #
 
+################## 2016-07-30 -> A20_SDK_V1.1.99 ###########################
+
+2017-07-30 -> ## script & sdk stuff
+	      a lot of fixes/adaptions to a unified image
+	      alpha version for the unified images
+
+2017-07-30 -> ## sdk stuff
+	      add install makefile tag to install make_sdcard.sh to ${HOME}
+
+
 ################## 2016-07-30 -> A20_SDK_V1.1.2 ############################
 
 2016-07-30 -> ## target stuff
