@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.07.2016/15.07.2016
+# Date/Beginn :    31.07.2016/15.07.2016
 #
-# Version     :    V0.04
+# Version     :    V1.00
 #
-# Milestones  :    V0.04 (jul 2016) -> add comment
+# Milestones  :    V1.00 (jul 2016) -> version bump
+#                  V0.05 (jul 2016) -> relax unmount function error handling
+#                  V0.04 (jul 2016) -> add comment
 #                  V0.03 (jul 2016) -> redirect errors to >&2
 #                  V0.02 (jul 2016) -> add first code
 #                  V0.01 (jul 2016) -> initial version
@@ -48,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -89,6 +91,9 @@ cleanup() {
 # my exit method
 my_exit()
 {
+    # if something is still mounted
+    umount_partitions
+    
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
@@ -224,6 +229,15 @@ write_bootloader()
     fi
 }
 
+umount_partitions()
+{
+    umount $SD_KERNEL
+    if [ $? -ne 0 ]; then
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
+	# do not exit -> will try to umount the others
+    fi
+}
+
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
@@ -277,11 +291,7 @@ fi
 copy_bootloader
 write_bootloader
 
-umount $SD_KERNEL
-if [ $? -ne 0 ]; then
-    echo "ERROR -> could not umount ${SD_KERNEL}" >&2
-    my_exit
-fi
+umount_partitions
 
 cleanup
 echo " "

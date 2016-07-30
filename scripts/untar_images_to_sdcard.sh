@@ -97,6 +97,9 @@ cleanup() {
 # my exit method
 my_exit()
 {
+    # if something is still mounted
+    umount_partitions
+
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
