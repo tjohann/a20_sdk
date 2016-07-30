@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.07.2016/02.07.2016
+# Date/Beginn :    30.07.2016/02.07.2016
 #
-# Version     :    V0.05
+# Version     :    V1.00
 #
-# Milestones  :    V0.05 (jul 2016) -> redirect errors to >&2
+# Milestones  :    V1.00 (jul 2016) -> version bump to V1.00
+#                  V0.06 (jul 2016) -> some fixes for branding home
+#                                      relax error handling due to umount
+#                  V0.05 (jul 2016) -> redirect errors to >&2
 #                  V0.04 (jul 2016) -> split branding into different dir
 #                                      add support for baalue
 #                                      change exit code to 3
@@ -56,7 +59,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -66,7 +69,7 @@ BRAND='none'
 
 # mounted images
 SD_ROOTFS='none'
-SD_SHARED='none'
+SD_HOME='none'
 
 # source for branding
 SRC_BRANDING='none'
@@ -96,6 +99,9 @@ cleanup() {
 # my exit method
 my_exit()
 {
+    # if something is still mounted
+    umount_partitions
+
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
@@ -180,6 +186,19 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
+umount_partitions()
+{
+    umount $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
+    fi
+
+    umount $SD_HOME
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_HOME}" >&2
+    fi
+}
+
 brand_image_etc()
 {
     local src_branding=${ARMHF_HOME}/${BRAND}/branding/etc
@@ -261,26 +280,31 @@ echo " "
 case "$BRAND" in
     'bananapi')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
 	brand_image_etc
 	brand_image_home
         ;;
     'bananapi-pro')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
 	brand_image_etc
 	brand_image_home
         ;;
     'baalue')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
 	brand_image_etc
 	brand_image_home
         ;;
     'olimex')
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
+	SD_HOME=$OLIMEX_SDCARD_HOME
 	brand_image_etc
 	brand_image_home
         ;;
     'cubietruck')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+	SD_HOME=$CUBIETRUCK_SDCARD_HOME
 	brand_image_etc
 	brand_image_home
         ;;
