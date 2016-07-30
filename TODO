@@ -3,6 +3,14 @@
 #
 
 #
+# -------------- 2016-07-30 ----------------------------------------------------
+#
+
+## script && target stuff
+- rethink dts/dtb handling on kernel images for rt and non-rt
+
+
+#
 # -------------- 2016-07-24 ----------------------------------------------------
 #
 
@@ -35,7 +43,7 @@
 - make_sdcard.sh -> error handling in do_all_in_line()
 
 ## sdk stuff
-- update screenshot of partition scheme below ./pics
+- update screenshot of partition scheme below ./pics        [2016-07-XX -> done]
 
 
 #
@@ -146,8 +154,8 @@
 - provide minimal RT-PREEMPT kernel for minimal image   [2016-07-04 -> canceled]
 
 ## sdk stuff
-- update sdk_builder config
-- prepare integration checklist
+- update sdk_builder config                                 [2016-07-XX -> done]
+- prepare integration checklist                         [2016-07-30 -> canceled]
 
 #
 # -------------- 2016-06-26 ----------------------------------------------------

@@ -2,6 +2,11 @@
 # some news ... see also TODO for hints
 #
 
+2016-07-30 -> ## target stuff
+	      regular image updates
+	      kernel updates to 4.6.5 and 4.6.5-rt9
+	      first version of a small image
+
 2016-07-17 -> ## target stuff
 	      regular image update
 
