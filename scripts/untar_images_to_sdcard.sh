@@ -29,6 +29,7 @@
 # Version     :    V1.00
 #
 # Milestones  :    V1.00 (jul 2016) -> version bump
+#                                   -> some minor updates
 #                  V0.04 (jul 2016) -> relax unmount function error handling
 #                  V0.03 (jul 2016) -> redirect errors to >&2
 #                  V0.02 (jul 2016) -> first content
@@ -430,6 +431,7 @@ check_tarballs
 mount_partitions
 
 untar_images
+sync
 
 umount_partitions
 
