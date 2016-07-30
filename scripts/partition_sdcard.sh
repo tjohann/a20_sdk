@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.07.2016/07.07.2016
+# Date/Beginn :    30.07.2016/07.07.2016
 #
-# Version     :    V0.05
+# Version     :    V1.00
 #
-# Milestones  :    V0.05 (jul 2016) -> some smaller cleanups
+# Milestones  :    V1.00 (jul 2016) -> version bump
+#                  V0.05 (jul 2016) -> some smaller cleanups
 #                  V0.04 (jul 2016) -> add check for device-nodes
 #                                      some smaller improvements
 #                  V0.03 (jul 2016) -> prepare hdd installation
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'

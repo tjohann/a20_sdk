@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.07.2016/12.07.2016
+# Date/Beginn :    30.07.2016/12.07.2016
 #
-# Version     :    V0.04
+# Version     :    V1.00
 #
-# Milestones  :    V0.04 (jul 2016) -> redirect errors to >&2
+# Milestones  :    V1.00 (jul 2016) -> version bump
+#                  V0.05 (jul 2016) -> relax unmount function error handling
+#                  V0.04 (jul 2016) -> redirect errors to >&2
 #                  V0.03 (jul 2016) -> some smaller cleanups
 #                  V0.02 (jul 2016) -> add check for device-nodes
 #                                      some smaller improvements
@@ -49,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -352,26 +354,26 @@ umount_partitions()
     umount $SD_KERNEL
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
-	my_exit
+	# do not exit -> will try to umount the others
     fi
 
     umount $SD_ROOTFS
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
-	my_exit
+	# do not exit -> will try to umount the others
     fi
 
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	umount $SD_SHARED
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not umount ${SD_SHARED}" >&2
-	    my_exit
+	    # do not exit -> will try to umount the others
 	fi
     else
 	umount $SD_HOME
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not umount ${SD_HOME}" >&2
-	    my_exit
+	    # do not exit -> will try to umount the others
 	fi
     fi
 }
