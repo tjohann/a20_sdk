@@ -9,6 +9,10 @@
 ## script && target stuff
 - rethink dts/dtb handling on kernel images for rt and non-rt
 
+## script stuff
+- add msbbox in start_logterm of make_sdcard.sh if its not possible to start
+  ${TERM} -> run script @ ttySx ...
+
 
 #
 # -------------- 2016-07-24 ----------------------------------------------------
