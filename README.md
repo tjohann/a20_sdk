@@ -186,7 +186,7 @@ So a simple version update of the olimex kernel will not increase the minor numb
 Storyline
 ---------
 
-You find storylines for some of my usescases/devices below ./DEVICE_NAME/Documentation/storyline.{txt,pdf}. They should describe the setup of a device and my usecase of it. You can use it as a guideline of howto.
+You find storylines for some of my usescases/devices below ./DEVICE_NAME/Documentation/storyline.md. They should describe the setup of a device and my usecase of it. You can use it as a guideline of howto.
 
 
 All devices
