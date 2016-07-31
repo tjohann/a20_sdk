@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.07.2016/10.07.2016
+# Date/Beginn :    31.07.2016/10.07.2016
 #
-# Version     :    V0.06
+# Version     :    V0.07
 #
-# Milestones  :    V0.06 (jul 2016) -> add mount/umount script
+# Milestones  :    V0.07 (jul 2016) -> change help.md location
+#                  V0.06 (jul 2016) -> add mount/umount script
 #                                      some more minor improvements
 #                  V0.05 (jul 2016) -> version number fix
 #                  V0.04 (jul 2016) -> add help menu-entry
@@ -56,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.06'
+VER='0.07'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -427,7 +428,7 @@ show_sdk_readme()
 # --- show help info
 show_help()
 {
-    $DIALOG --textbox ${ARMHF_HOME}/scripts/make_sdcard_help.md 50 100
+    $DIALOG --textbox ${ARMHF_HOME}/scripts/Documentation/make_sdcard_help.md 50 100
 }
 
 # --- enter a device node

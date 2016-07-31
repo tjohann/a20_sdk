@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    30.07.2016/02.07.2016
+# Date/Beginn :    31.07.2016/02.07.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> version bump to V1.00
+# Milestones  :    V1.01 (jul 2016) -> fix missing umount
+#                  V1.00 (jul 2016) -> version bump to V1.00
 #                  V0.06 (jul 2016) -> some fixes for branding home
 #                                      relax error handling due to umount
 #                  V0.05 (jul 2016) -> redirect errors to >&2
@@ -59,7 +60,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -312,6 +313,8 @@ case "$BRAND" in
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_usage
 esac
+
+umount_partitions
 
 cleanup
 echo " "
