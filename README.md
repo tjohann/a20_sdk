@@ -232,7 +232,7 @@ You can think of the base/small image as a starting point for your individual de
 A sd-card needs 3 different partitions which are reflected by the images tarballs itself:
 
 	1). kernel (fat32/32 meg) -> bananapi_kernel.tgz/cubietruck_kernel.tgz/...
-	2). rootfs (ext4/2 or 6 gig) -> a20_sdk_rootfs.tgz/a20_sdk_base_image.tgz
+	2). rootfs (ext4/3 or 6 gig) -> a20_sdk_rootfs.tgz/a20_sdk_base_image.tgz
 	3). home (ext4/ the rest) -> a20_sdk_home.tgz
 
 The kernel images are device specific while all other images not.

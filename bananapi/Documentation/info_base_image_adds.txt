@@ -52,6 +52,7 @@ libconfig-devel
 void-repo-nonfree
 htop
 tree
+bash
 bash-completion
 libvdpau-sunxi
 sunxi-tools

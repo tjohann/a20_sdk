@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    30.07.2016/07.07.2016
+# Date/Beginn :    31.07.2016/07.07.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> version bump
+# Milestones  :    V1.01 (jul 2016) -> increase size of small rootfs to 3G
+#                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> some smaller cleanups
 #                  V0.04 (jul 2016) -> add check for device-nodes
 #                                      some smaller improvements
@@ -322,7 +323,7 @@ partition_sdcard()
 	sudo blockdev --rereadpt ${DEVNODE}
 	cat <<EOT | sudo sfdisk ${DEVNODE}
 1M,32M,c
-,2G,L
+,3G,L
 ,,L
 EOT
     else
