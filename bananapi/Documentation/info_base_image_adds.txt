@@ -38,6 +38,7 @@ gcc
 make
 automake
 autoconf
+libtool
 binutils-devel
 git
 linux-firmware
@@ -46,8 +47,6 @@ gdb
 ltrace
 strace
 rsyslogd
-libbsd-devel
-confuse-devel
 libconfig-devel
 void-repo-nonfree
 htop
@@ -58,18 +57,25 @@ libvdpau-sunxi
 sunxi-tools
 sunxi-mali-devel
 rsync
-librsync
-librsync-devel
 pkg-config
 xz
-libcapng
-libcapng-devel
-gettext (and related)
+libcap-ng
+libcap-ng-devel
+gettext
+gettext-devel
 wget
 i2c-tools
 cowsay
+fortune-mod
 trace-cmd
-
+socklog
+socklog-void
+libressl-devel
+python-Mako
+libgit2-devel
+libcurl-devel
+libarchive-devel
+libbsd-devel
 
 #
 # config addtions/changes
@@ -146,3 +152,7 @@ de_DE.UTF-8 UTF-8
 
 # rebuild locale
 xbps-reconfigure -f glibc-locales
+
+# ---- visudo
+## Uncomment to allow members of group wheel to execute any command
+%wheel ALL=(ALL) ALL
