@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.07.2016/15.08.2015
+# Date/Beginn :    04.08.2016/15.08.2015
 #
-# Version     :    V1.03
+# Version     :    V1.04
 #
-# Milestones  :    V1.03 (jul 2016) -> redirect errors to >&2
+# Milestones  :    V1.04 (jul 2016) -> add features of make_sdcard.sh
+#                  V1.03 (jul 2016) -> redirect errors to >&2
 #                  V1.02 (jul 2016) -> change exit code to 3
 #                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> add check for sync of armhf_env and $ARM*
@@ -63,7 +64,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.03'
+VER='1.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -77,12 +78,15 @@ DOWNLOAD_STRING='none'
 DOWNLOAD_RT='false'
 DOWNLOAD_NONRT='false'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
-    echo "| Usage: ./get_latest_linux_kernel.sh                    |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-r] -> download only rt kernel parts           |"
     echo "|        [-n] -> download only non-rt kernel parts       |"
     echo "|        [-a] -> download all parts                      |"
@@ -118,16 +122,16 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/get_latest_linux_kernel.$$"
-_log="/tmp/get_latest_linux_kernel.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args

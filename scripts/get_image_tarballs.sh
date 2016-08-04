@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.07.2016/24.08.2015
+# Date/Beginn :    04.08.2016/24.08.2015
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (jul 2016) -> redirect errors to >&2
+# Milestones  :    V1.03 (jul 2016) -> add features of make_sdcard.sh
+#                  V1.02 (jul 2016) -> redirect errors to >&2
 #                                      fix version number bug
 #                  V1.01 (jul 2016) -> some smaller improvements/cleanups
 #                  V1.00 (jul 2016) -> implement unified images download
@@ -85,7 +86,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -102,12 +103,15 @@ BASE_IMAGE='none'
 # HDD installation?
 PREP_HDD_INST='none'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
-    echo "| Usage: ./get_image_tarballs.sh                         |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
@@ -139,16 +143,16 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/get_image_tarballs.$$"
-_log="/tmp/get_image_tarballs.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args

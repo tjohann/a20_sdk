@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    31.07.2016/02.07.2016
+# Date/Beginn :    04.08.2016/02.07.2016
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> fix missing umount
+# Milestones  :    V1.02 (jul 2016) -> add features of make_sdcard.sh
+#                  V1.01 (jul 2016) -> fix missing umount
 #                  V1.00 (jul 2016) -> version bump to V1.00
 #                  V0.06 (jul 2016) -> some fixes for branding home
 #                                      relax error handling due to umount
@@ -60,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -75,12 +76,15 @@ SD_HOME='none'
 # source for branding
 SRC_BRANDING='none'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
-    echo "| Usage: ./brand_images.sh                               |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
     echo "|        [-v] -> print version info                      |"
@@ -114,16 +118,16 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/brand_image.$$"
-_log="/tmp/brand_image.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args

@@ -2,9 +2,16 @@
 # some news ... see also TODO for hints
 #
 
+
+2016-08-04 -> ## script stuff
+	      some improvements of all scripts
+	      install the make_sdcard.sh script to a20_sdk_make_sdcard.sh
+	      in $HOME/bin
+
+
 ################## 2016-07-30 -> A20_SDK_V1.99.2 ############################
 
-2017-07-31 -> ## script stuff
+2016-07-31 -> ## script stuff
 	      add Documentation dir with first parts to docu main scripts
 
 	      ## target stuff
@@ -13,11 +20,11 @@
 
 ################## 2016-07-30 -> A20_SDK_V1.1.99 ###########################
 
-2017-07-30 -> ## script & sdk stuff
+2016-07-30 -> ## script & sdk stuff
 	      a lot of fixes/adaptions to a unified image
 	      alpha version for the unified images
 
-2017-07-30 -> ## sdk stuff
+2016-07-30 -> ## sdk stuff
 	      add install makefile tag to install make_sdcard.sh to ${HOME}
 	      Starting with A20_SDK_V2.0.0 development will be done on a
 	      development branch

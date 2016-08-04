@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    31.07.2016/07.07.2016
+# Date/Beginn :    04.08.2016/07.07.2016
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> increase size of small rootfs to 3G
+# Milestones  :    V1.02 (jul 2016) -> add features of make_sdcard.sh
+#                  V1.01 (jul 2016) -> increase size of small rootfs to 3G
 #                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> some smaller cleanups
 #                  V0.04 (jul 2016) -> add check for device-nodes
@@ -56,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -88,13 +89,16 @@ MIN_SD_SIZE_SMALL=8000000
 # addition to patitionlabel (like KERNEL_BANA or ROOTFS_OLI)
 SD_PART_NAME_POST_LABEL='none'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
     echo "|                                                        |"
-    echo "| Usage: ./partition_sdcard.sh                           |"
+    echo "| Usage:  ${PROGRAM_NAME} "
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
@@ -128,16 +132,16 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/partition_sdcard.$$"
-_log="/tmp/partition_sdcard.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args

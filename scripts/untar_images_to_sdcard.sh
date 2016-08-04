@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    30.07.2016/15.07.2016
+# Date/Beginn :    04.08.2016/15.07.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> version bump
+# Milestones  :    V1.01 (jul 2016) -> add features of make_sdcard.sh
+#                  V1.00 (jul 2016) -> version bump
 #                                   -> some minor updates
 #                  V0.04 (jul 2016) -> relax unmount function error handling
 #                  V0.03 (jul 2016) -> redirect errors to >&2
@@ -50,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -70,13 +71,16 @@ PREP_HDD_INST='false'
 # use only base image
 BASE_IMAGE='false'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
     echo "|                                                        |"
-    echo "| Usage: ./untar_images_to_sdcard.sh                     |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
     echo "|        [-m] -> use the minimal images                  |"
@@ -112,16 +116,16 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/untar_images_to_sdcard.$$"
-_log="/tmp/untar_images_to_sdcard.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 # check the args
 while getopts 'hvmb:' opts 2>$_log

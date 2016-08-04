@@ -26,9 +26,11 @@
 #
 # Date/Beginn :    24.07.2016/24.07.2016
 #
-# Version     :    V0.01
+# Version     :    V1.00
 #
-# Milestones  :    V0.01 (jul 2016) -> initial version
+# Milestones  :    V1.00 (jul 2016) -> version bump to V1.00
+#                  V0.02 (jul 2016) -> add features of make_sdcard.sh
+#                  V0.01 (jul 2016) -> initial version
 #
 # Requires    :
 #
@@ -45,7 +47,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='1.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -65,13 +67,16 @@ PREP_HDD_INST='false'
 # what to to
 ACTION='umount'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
     echo "|                                                        |"
-    echo "| Usage: ./mount_partitions.sh                           |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
     echo "|        [-s] -> patitions for hdd installation          |"
@@ -106,16 +111,17 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/mount_partitions.$$"
-_log="/tmp/mount_partitions.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
+
 
 # check the args
 while getopts 'hvmumb:' opts 2>$_log

@@ -24,11 +24,15 @@
 #
 ################################################################################
 #
-# Date/Beginn :    31.07.2016/10.07.2016
+# Date/Beginn :    04.08.2016/10.07.2016
 #
-# Version     :    V0.07
+# Version     :    V0.09
 #
-# Milestones  :    V0.07 (jul 2016) -> change help.md location
+# Milestones  :    V0.09 (jul 2016) -> some minor approvements around _log/_temp
+#                                      add PROGRAM_NAME and use it
+#                  V0.08 (jul 2016) -> add info dialog about logging
+#                                      fix a lot of minor bugs
+#                  V0.07 (jul 2016) -> change help.md location
 #                  V0.06 (jul 2016) -> add mount/umount script
 #                                      some more minor improvements
 #                  V0.05 (jul 2016) -> version number fix
@@ -57,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.07'
+VER='0.09'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -80,12 +84,15 @@ PREP_HDD_INST='false'
 # use only base image
 BASE_IMAGE='false'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
-    echo "| Usage: ./make_sdcard.sh                                |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -127,16 +134,16 @@ normal_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
 # --- Some values for internal use
-_temp="/tmp/make_sdcard.$$"
-_log="/tmp/make_sdcard.log"
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
@@ -148,7 +155,6 @@ do
         ?) my_usage ;;
     esac
 done
-
 
 # ******************************************************************************
 # ***             Error handling for missing shell values                    ***
@@ -191,11 +197,24 @@ fi
 start_logterm()
 {
     if [ -f /proc/${PID_LOGTERM}/exe ]; then
-	echo "$TERM already running" >>$_log 2>&1
+	echo "$TERM already running -> do nothing" >>$_log 2>&1
     else
-	$TERM -e tail -f ${_log} &
-	PID_LOGTERM=$!
+	if [ -s $DISPLAY ]; then
+	    $DIALOG --msgbox "To see logging output use tail on another tty:
+
+\"tail -n 50 -f ${_log}\"" 10 60
+	else
+	    $TERM -e tail -f ${_log} &
+	    if [ $? -ne 0 ] ; then
+		$DIALOG --msgbox "ERROR: could not use $TERM for logging -> pls use xterm/mrxvt" 6 45
+	    else
+		PID_LOGTERM=$!
+		echo "Using $TERM for logging" >>$_log 2>&1
+	    fi
+	fi
     fi
+
+    echo "$!" >>$_log 2>&1
 }
 
 # --- start partition_sdcard.sh
@@ -533,16 +552,45 @@ do_all_in_line()
     select_adds
     show_configuration
 
+    dialog --title "do all steps in line - step 1" \
+	   --yesno "Do you want to continue?" 6 45
+    local result=$?
+    case $result in
+	0) echo "continue" >>$_log 2>&1;;
+	1) menu ;;
+	255) menu;;
+    esac
+
     # download parts
     download_images
 
-    # make sd-card
+    dialog --title "do all steps in line - step 2" \
+	   --yesno "Do you want to continue?" 6 45
+    result=$?
+    case $result in
+	0) echo "continue" >>$_log 2>&1;;
+	1) menu ;;
+	255) menu;;
+    esac
+
+    # partition sd-card
     partition_sdcard
+
+    dialog --title "do all steps in line - step 3" \
+	   --yesno "Do you want to continue?" 6 45
+    result=$?
+    case $result in
+	0) echo "continue" >>$_log 2>&1;;
+	1) menu ;;
+	255) menu;;
+    esac
+
+    # prepare sd-card
     write_images
     brand_sd-card
     write_bootloader
 
-    # ...
+    $DIALOG --msgbox "Finished make of sd-card for ${BRAND}" 6 45
 }
 
 #
@@ -560,8 +608,8 @@ menu_config()
 		 4 "Show actual configuration" \
 		 x "Main menu" 2>$_temp
 
-	retv=$?
-	if [ $retv != 0 ]; then menu; fi
+	local result=$?
+	if [ $result != 0 ]; then menu; fi
 
 	local menuitem=`cat $_temp`
 	echo "menu=$menuitem"
@@ -595,8 +643,8 @@ menu_sdcard()
 		 9 "Un-mount partions for ${BRAND}" \
 		 x "Main menu" 2>$_temp
 
-	retv=$?
-	if [ $retv != 0 ]; then menu; fi
+	local result=$?
+	if [ $result != 0 ]; then menu; fi
 
 	local menuitem=`cat $_temp`
 	echo "menu=$menuitem"
@@ -620,7 +668,7 @@ menu_sdcard()
 #
 menu()
 {
-    $DIALOG  --title " Main menu make_sdcard.sh - version $VER " \
+    $DIALOG  --title " Main menu ${PROGRAM_NAME} - version $VER " \
 	     --menu " Move using [UP] [DOWN] and [Enter] to select an entry" 20 60 20 \
 	     1 "Configuration menu" \
 	     2 "Download images for target device ${BRAND}" \
@@ -632,8 +680,8 @@ menu()
 	     8 "Show help" \
              x "Exit" 2>$_temp
 
-    retv=$?
-    if [ $retv != 0 ]; then normal_exit; fi
+    local result=$?
+    if [ $result != 0 ]; then normal_exit; fi
 
     local menuitem=`cat $_temp`
     echo "menu=$menuitem"
@@ -667,6 +715,12 @@ echo " "
 sudo -v
 # keep-alive
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+if [ -s $DISPLAY ]; then
+    $DIALOG --msgbox "To see logging output use tail on another tty:
+
+\"tail -n 50 -f ${_log}\"" 10 60
+fi
 
 while true;
 do

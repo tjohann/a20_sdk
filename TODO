@@ -3,6 +3,14 @@
 #
 
 #
+# -------------- 2016-08-04 ----------------------------------------------------
+#
+
+## target stuff
+- add baalue_kernel.tgz -> it's missing!
+
+
+#
 # -------------- 2016-07-31 ----------------------------------------------------
 #
 
@@ -19,7 +27,7 @@
 
 ## script stuff
 - add msbbox in start_logterm of make_sdcard.sh if its not possible to start
-  ${TERM} -> run script @ ttySx ...
+  ${TERM} -> run script @ ttySx ...                         [2016-08-04 -> done]
 
 
 #
@@ -43,8 +51,9 @@
 
 ## script stuff
 - rework/rethink the usage of _log and _temp
-  -> use _temp for dialog, getopt and co
-  -> provide logging via /tmp/script_file_name.$$ and/or syslog
+  -> use _temp for dialog, getopt and co                    [2016-08-04 -> done]
+  -> provide logging via /tmp/script_file_name.$$ and/or
+     syslog                                                 [2016-08-04 -> done]
 
 
 #
@@ -52,7 +61,7 @@
 #
 
 ## script stuff
-- make_sdcard.sh -> error handling in do_all_in_line()
+- make_sdcard.sh -> error handling in do_all_in_line()      [2016-08-03 -> done]
 
 ## sdk stuff
 - update screenshot of partition scheme below ./pics        [2016-07-XX -> done]
@@ -77,9 +86,9 @@
 
 ## sdk stuff
 - after migrate to unified image get rid of some makefile
-  targets
+  targets                                                   [2016-08-04 -> done]
 - provide something like a makefile tag lib for common
-  makefile tags
+  makefile tags                                         [2016-08-03 -> canceled]
 
 
 #
@@ -182,7 +191,7 @@
 #
 
 ## target stuff
-- add support for nand
+- add support for nand (cubietruck)
 - try to boot cubietruck via nand
 - check jailhouse usage (problems with framebuffer?)
 

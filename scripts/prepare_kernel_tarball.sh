@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/10.07.2016
+# Date/Beginn :    04.08.2016/10.07.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jul 2016) -> initial skeleton
+# Milestones  :    V0.02 (jul 2016) -> add features of make_sdcard.sh
+#                  V0.01 (jul 2016) -> initial skeleton
 #                                      change exit code to 3
 #
 # Requires    :
@@ -46,17 +47,20 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'
+
+# program name
+PROGRAM_NAME=${0##*/}
 
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
-    echo "| Usage: ./prepare_kernel_tarball.sh                     |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -85,16 +89,16 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/prepare_kernel_tarballd.$$"
-_log="/tmp/prepare_kernel_tarball.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args

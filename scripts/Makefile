@@ -20,6 +20,12 @@ DOCS =
 all::
 	@echo Cheers
 
+install::
+	(install $(ARMHF_HOME)/scripts/make_sdcard.sh $(HOME)/bin/a20_sdk_make_sdcard.sh)
+
+uninstall::
+	(rm -rf $(HOME)/bin/a20_sdk_make_sdcard.sh)
+
 clean::
 	rm -f *~
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done

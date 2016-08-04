@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>a20_sdk_make_sdcard.html</title>
+
+</head>
+
+<body>
+
+<h1 id="the-make_sdcarda20_sdk_make_sdcard-script">The make_sdcard/a20_sdk_make_sdcard script</h1>
+<p>This is a simple howto on using the make_sdcard.sh/a20_sdk_make_sdcard.sh to make a working sd-card.</p>
+<h2 id="main-menu">Main menu</h2>
+<div class="figure">
+<img src="pics/main_menu.png?raw=true" title="..." alt="Alt text" />
+<p class="caption">Alt text</p>
+</div>
+<h2 id="config-menu">Config menu</h2>
+<p><img src="pics/config_menu.png?raw=true" title="..." alt="Alt text" /> <img src="pics/enter_devnode.png?raw=true" title="..." alt="Alt text" /> <img src="pics/select_target.png?raw=true" title="..." alt="Alt text" /> <img src="pics/actual_config.png?raw=true" title="..." alt="Alt text" /></p>
+<h2 id="download-images">Download images</h2>
+<div class="figure">
+<img src="pics/download_images.png?raw=true" title="..." alt="Alt text" />
+<p class="caption">Alt text</p>
+</div>
+<h2 id="sd-card-menu">Sd-card menu</h2>
+<p><img src="pics/sdcard_menu.png?raw=true" title="..." alt="Alt text" /> <img src="pics/partition_sdcard.png?raw=true" title="..." alt="Alt text" /> <img src="pics/write_bootloader.png?raw=true" title="..." alt="Alt text" /> <img src="pics/write_image.png?raw=true" title="..." alt="Alt text" /> <img src="pics/brand_sdcard.png?raw=true" title="..." alt="Alt text" /></p>
+
+</body>
+</html>

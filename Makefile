@@ -30,7 +30,6 @@ all::
 	@echo "| make get_toolchain      -> install toolchain              |"
 	@echo "| make get_latest_kernel  -> download latest kernel version |"
 	@echo "| make get_image_tarballs -> download image tarballs        |"
-	@echo "| make get_..._image_tarballs -> download specific tarball  |"
 	@echo "| make get_all            -> get all of the above           |"
 	@echo "| make clean              -> clean all dir/subdirs          |"
 	@echo "| make distclean          -> complete cleanup/delete        |"
@@ -123,22 +122,6 @@ get_latest_kernel::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh -a)
 
-get_latest_rt_kernel::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest supported rt kernel version       |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh -r)
-
-get_latest_nonrt_kernel::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest supported nonrt kernel version    |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh -n)
-
 get_toolchain::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
@@ -159,45 +142,6 @@ get_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
 
-get_bananapi_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest bananapi image tarballs           |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi)
-
-get_baalue_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest bananapi image tarballs           |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b baalue)
-
-get_bananapi-pro_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest bananapi-pro image tarballs       |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
-
-get_cubietruck_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest cubietruck image tarballs         |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
-
-get_olimex_image_tarballs::
-	@echo "+----------------------------------------------------------+"
-	@echo "|                                                          |"
-	@echo "|        Download latest olimex image tarballs             |"
-	@echo "|                                                          |"
-	@echo "+----------------------------------------------------------+"
-	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
 
 #
 # create ready to use sdcards

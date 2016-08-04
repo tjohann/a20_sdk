@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2016/17.04.2016
+# Date/Beginn :    04.08.2016/17.04.2016
 #
-# Version     :    V1.03
+# Version     :    V1.04
 #
-# Milestones  :    V1.03 (jul 2016) -> add mrproper to remove $ARMHF_*_HOME
+# Milestones  :    V1.04 (jul 2016) -> add features of make_sdcard.sh
+#                  V1.03 (jul 2016) -> add mrproper to remove $ARMHF_*_HOME
 #                                      some minor rework of the code
 #                                      change exit code to 3
 #                  V1.02 (jul 2016) -> remove links to kernel/...
@@ -60,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.03'
+VER='1.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -73,12 +74,15 @@ CLEAN_TOOLCHAIN='false'
 CLEAN_USER='false'
 MRPROPER='false'
 
+# program name
+PROGRAM_NAME=${0##*/}
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
-    echo "| Usage: ./clean_sdk.sh                                  |"
+    echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-a] -> cleanup all dir                         |"
     echo "|        [-k] -> cleanup kernel dir                      |"
     echo "|        [-e] -> cleanup external dir                    |"
@@ -115,16 +119,16 @@ my_exit()
 # print version info
 print_version()
 {
-    echo "+-----------------------------------+"
-    echo "| You are using version: ${VER}       |"
-    echo "+-----------------------------------+"
+    echo "+------------------------------------------------------------+"
+    echo "| You are using ${PROGRAM_NAME} with version ${VER} "
+    echo "+------------------------------------------------------------+"
     cleanup
     exit
 }
 
-# ---- Some values for internal use ----
-_temp="/tmp/clean_sdk.$$"
-_log="/tmp/clean_sdk.log"
+# --- Some values for internal use
+_temp="/tmp/${PROGRAM_NAME}.$$"
+_log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
