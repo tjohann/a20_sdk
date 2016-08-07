@@ -272,15 +272,15 @@ Single devices:
 
 	192.168.0.100           arietta.my.domain               arietta
 	192.168.0.101           cubietruck.my.domain            cubietruck
-	192.168.0.102           olimex.my.domain	        olimex
-	192.168.0.103	        bananapi.my.domain	        bananapi
-	192.168.0.109	        bananapi-pro.my.domain	        bananapi-pro
+	192.168.0.102           olimex.my.domain		olimex
+	192.168.0.103	        bananapi.my.domain              bananapi
+	192.168.0.109	        bananapi-pro.my.domain          bananapi-pro
 	192.168.0.105           imx233.my.domain                imx233
 
 
 My cluster:
 
-	192.168.0.80            baalue-80.my.domain      	baalue-00
+	192.168.0.80            baalue-80.my.domain		baalue-00
 	192.168.0.81            baalue-81.my.domain      	baalue-01
 	192.168.0.82            baalue-82.my.domain      	baalue-02
 	192.168.0.83            baalue-83.my.domain      	baalue-03
