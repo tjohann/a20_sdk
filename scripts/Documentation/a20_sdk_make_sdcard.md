@@ -52,8 +52,20 @@ Based on the configuration the script will download all needed images and place 
 Sd-card menu
 ------------
 
+To create a ready to use sd-card go to the sdcard_menu.
+
 ![Alt text](pics/sdcard_menu.png?raw=true "...")
+
+The fist step is to partition and format the sd-card. The input like device node and target device (file system LABEL) will come from the configuration menu.
+
 ![Alt text](pics/partition_sdcard.png?raw=true "...")
-![Alt text](pics/write_bootloader.png?raw=true "...")
+
+In the next step you write the downloaded tarballs to the sd-card and brand the it for Cubietruck or the other supported target devices.
+
 ![Alt text](pics/write_image.png?raw=true "...")
+
 ![Alt text](pics/brand_sdcard.png?raw=true "...")
+
+The final step is to write the bootloader (U-Boot) to the sd-card.
+
+![Alt text](pics/write_bootloader.png?raw=true "...")

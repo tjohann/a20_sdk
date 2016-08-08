@@ -11,45 +11,7 @@
 
 <body>
 
-<h1 id="the-make_sdcarda20_sdk_make_sdcard-script">The make_sdcard/a20_sdk_make_sdcard script</h1>
-<p>This is a simple howto on using the make_sdcard.sh/a20_sdk_make_sdcard.sh to make a working sd-card.</p>
-<h2 id="main-menu">Main menu</h2>
-<p>Within the main menu you first have input some configuration values, then download the images and finally make a sd-card. So the first menu point to enter is the configuration menu.</p>
-<div class="figure">
-<img src="pics/main_menu.png?raw=true" title="..." alt="Alt text" />
-<p class="caption">Alt text</p>
-</div>
-<h2 id="config-menu">Config menu</h2>
-<p>Within the configuration menu you can enter some inputs for the scripts which afterwards will be executed by the menu entrys below. At least you have to enter the device node of your sd-card and the device to use.</p>
-<div class="figure">
-<img src="pics/config_menu.png?raw=true" title="..." alt="Alt text" />
-<p class="caption">Alt text</p>
-</div>
-<p>To find out on which device node your sd-card appears, plug it in and check /var/log/messages for an entry like</p>
-<pre><code>SNIP
-xxxxx echnaton kernel: [15516.292219] sd 9:0:0:0: [sdd] Attached SCSI removable disk</code></pre>
-<p>In this case the sd-card is allocated as sdd, so this is the input.</p>
-<div class="figure">
-<img src="pics/enter_devnode.png?raw=true" title="..." alt="Alt text" />
-<p class="caption">Alt text</p>
-</div>
-<p>The next step is to choose a device.</p>
-<div class="figure">
-<img src="pics/select_target.png?raw=true" title="..." alt="Alt text" />
-<p class="caption">Alt text</p>
-</div>
-<p>Finally you can take a look on your inputs via show actual configuration menuentry. The last two lines are only relevant if you want to use the base image instead of the normal and/or you want to do make a installation media for hdd installation (see my cubietruck usecase).</p>
-<div class="figure">
-<img src="pics/actual_config.png?raw=true" title="..." alt="Alt text" />
-<p class="caption">Alt text</p>
-</div>
-<h2 id="download-images">Download images</h2>
-<div class="figure">
-<img src="pics/download_images.png?raw=true" title="..." alt="Alt text" />
-<p class="caption">Alt text</p>
-</div>
-<h2 id="sd-card-menu">Sd-card menu</h2>
-<p><img src="pics/sdcard_menu.png?raw=true" title="..." alt="Alt text" /> <img src="pics/partition_sdcard.png?raw=true" title="..." alt="Alt text" /> <img src="pics/write_bootloader.png?raw=true" title="..." alt="Alt text" /> <img src="pics/write_image.png?raw=true" title="..." alt="Alt text" /> <img src="pics/brand_sdcard.png?raw=true" title="..." alt="Alt text" /></p>
+/bin/bash: markdown: Kommando nicht gefunden.
 
 </body>
 </html>
