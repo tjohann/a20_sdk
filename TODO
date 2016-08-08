@@ -15,7 +15,7 @@
 #
 
 ## sdk & script stuff
-- add Documenation for make_sdcard.sh script
+- add Documenation for make_sdcard.sh script                [2016-08-08 -> done]
 
 
 #
@@ -23,7 +23,8 @@
 #
 
 ## script && target stuff
-- rethink dts/dtb handling on kernel images for rt and non-rt
+- rethink dts/dtb handling on kernel images for rt and
+  non-rt                                                    [2016-08-08 -> done]
 
 ## script stuff
 - add msbbox in start_logterm of make_sdcard.sh if its not possible to start

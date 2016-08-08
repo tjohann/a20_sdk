@@ -160,7 +160,7 @@ or
 
 	make make_sdcard
 
-It will guide you throught the process.
+It will guide you throught the process (see https://github.com/tjohann/a20_sdk/blob/master/scripts/Documentation/a20_sdk_make_sdcard.md).
 
 
 Versioninfo
@@ -420,10 +420,8 @@ Outlook (next development steps)
 - There is some effort needed to unify all images over the different devices. The idea is to have only one base image (ROOT-Image -> Bananapi) and a script (./scripts/brand_image.sh) which copy/rsync the needed changes to the mounted sdcards.
 - To make the usage a little bit easier i will provide a set of scripts to generate a ready to boot sd-card.
 - Finally i provide dialog based script (make_sdcard.sh) to put all scipts (from above) together to a unified userinterface (handle image creation).
-
-(until end of july)
 - I will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
 
-(until mid of august)
+(until end of august)
 - support for hdd installation
 

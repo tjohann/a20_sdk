@@ -2,7 +2,9 @@
 # some news ... see also TODO for hints
 #
 
-
+2016-08-08 -> ## script stuff
+	      add documentation for make_sdcard script
+	      
 2016-08-04 -> ## script stuff
 	      some improvements of all scripts
 	      install the make_sdcard.sh script to a20_sdk_make_sdcard.sh
