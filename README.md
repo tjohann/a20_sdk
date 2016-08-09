@@ -39,27 +39,22 @@ Setup
 
 Follow the steps below to setup your enviroment. If you use my sdk_builder (not finshed yet), then the tool will do this all for you.
 
-
 Create the runtime locations:
 
     sudo mkdir /var/lib/a20_sdk
-
 
 Change group to users and chmod it to 775:
 
     chown -R YOUR_USER_ACCOUNT:users /var/lib/a20_sdk
     chmod 775 /var/lib/a20_sdk
 
-
 Clone this repo to /var/lib/a20_sdk
 
     git clone https://github.com/tjohann/a20_sdk.git /var/lib/a20_sdk
 
-
 Source the environment file armhf_env
 
     . ./armhf_env
-
 
 or add it to your .bashrc
 
@@ -68,53 +63,43 @@ or add it to your .bashrc
       . /var/lib/a20_sdk/armhf_env
     fi
 
-
 or copy armhf_env.sh to /etc/profile.d/
 
     sudo cp armhf_env.sh /etc/profile.d/
-
 
 Init the SDK:
 
     cd /opt/a20_sdk (or /var/lib/a20_sdk)
     make init_sdk
 
-
 Download the compiler to /opt/a20_sdk/
 
     make get_toolchain
-
 
 Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~6 GByte)
 
     make get_image_tarballs
 
-
 If you're only interested in one device (like Cubietruck), then you only need
 
-   make get_cubietruck_image_tarballs
-
+	make get_cubietruck_image_tarballs
 
 Clone ALL external repos:
 
     make get_external_repos
 
-
 If you only need/want u-boot, then you only need
 
-   cd /opt/a20_sdk/external
-   make uboot
-
+	cd /opt/a20_sdk/external
+	make uboot
 
 Download latest supported kernel sources (for normal use and with RT_PREEMPT support):
 
     make get_latest_kernel
 
-
 if you only need/want the RT-PREEMPT parts, then you only need
 
-   make get_latest_rt_kernel
-
+	make get_latest_rt_kernel
 
 Now you should have the complete content on your disk.
 
@@ -124,23 +109,18 @@ Update
 
 I regulary update the images, toolchain and more. To stay up to date you can simply do the following steps.
 
-
 Pull the latest changes:
 
     cd /var/lib/a20_sdk
     git pull
 
-
 Take a look at the NEWS file to see what i've changed. See also UPGRADE_HINTS.
-
 
 If there're changes of the toolchain, then fist distclean all:
 
     make distclean
 
-
 and then proceed with the normal setup process above.
-
 
 In short:
 

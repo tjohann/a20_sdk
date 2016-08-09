@@ -33,6 +33,7 @@ all::
 	@echo "| make get_all            -> get all of the above           |"
 	@echo "| make clean              -> clean all dir/subdirs          |"
 	@echo "| make distclean          -> complete cleanup/delete        |"
+	@echo "| make mrproper           -> do mrproper cleanup            |"
 	@echo "| ...                                                       |"
 	@echo "| make make_sdcard        -> small tool to make a read to   |"
 	@echo "|                            use SD-Card                    |"

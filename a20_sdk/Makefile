@@ -60,9 +60,6 @@ clean_user_home::
 
 clean_opt: clean_toolchain clean_external clean_kernel clean_images
 
-mrproper: clean
-	($(ARMHF_HOME)/scripts/clean_sdk.sh -m)
-
 install::
 	(install $(ARMHF_HOME)/scripts/make_sdcard.sh $(HOME)/bin/a20_sdk_make_sdcard.sh)
 
