@@ -1,13 +1,26 @@
 #
 # TODO with date and progress
 #
+#
+
+#
+# -------------- 2016-08-12 ----------------------------------------------------
+#
+
+## target stuff
+- add cloning of my arm_cortex_sdk repo to baalue branding  [2016-08-13 -> done]
+  of home (baalue is the common embedded development
+  environment)
+- fix user permission while cloning (or ...) to target
+  user baalue
+
 
 #
 # -------------- 2016-08-04 ----------------------------------------------------
 #
 
 ## target stuff
-- add baalue_kernel.tgz -> it's missing!
+- add baalue_kernel.tgz -> it's missing!                    [2016-08-12 -> done]
 
 
 #

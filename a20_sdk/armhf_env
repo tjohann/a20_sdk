@@ -1,12 +1,12 @@
-# +------------------------- setup the armhf dev environment -----------------------+
-# |                                    armhf_env                                    |
-# +---------------------------------------------------------------------------------+
+# +--------------------- setup the armhf dev environment ----------------------+
+# |                                armhf_env                                    |
+# +----------------------------------------------------------------------------+
 
 # set MY_HOST_ARCH
 export MY_HOST_ARCH=$(uname -m)
 
 # set supported kernel version
-export ARMHF_KERNEL_VER=4.6.5
+export ARMHF_KERNEL_VER=4.6.6
 export ARMHF_RT_KERNEL_VER=4.6.5
 export ARMHF_RT_VER=rt10
 

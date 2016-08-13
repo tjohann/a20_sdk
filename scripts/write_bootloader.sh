@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/15.07.2016
+# Date/Beginn :    13.08.2016/15.07.2016
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.02 (aug 2016) -> be aware of HDD installation
+#                  V1.01 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> relax unmount function error handling
 #                  V0.04 (jul 2016) -> add comment
@@ -51,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -61,6 +62,10 @@ BRAND='none'
 
 # mountpoints
 SD_KERNEL='none'
+SD_SHARED='none'
+
+# HDD installation?
+PREP_HDD_INST='false'
 
 # which devnode?
 DEVNODE='none'
@@ -78,6 +83,7 @@ my_usage()
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
+    echo "|        [-s] -> prepare sdcard as base for hdd instal.  |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -122,13 +128,14 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvb:d:' opts 2>$_log
+while getopts 'hvsb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
 	d) DEVNODE=$OPTARG ;;
+	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -150,17 +157,26 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-# bananapi-{M1/Pro}/baalue
+if [[ ! ${ARMHF_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_BIN_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_SRC_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
 if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
-# olimex
 if [[ ! ${OLIMEX_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
-# cubietruck
 if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
@@ -240,6 +256,21 @@ umount_partitions()
 	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
 	# do not exit -> will try to umount the others
     fi
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	umount $SD_SHARED
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not umount ${SD_HOME}" >&2
+	fi
+    fi
+}
+
+handle_hdd_parts()
+{
+    #
+    # ..
+
+    echo "in handle_hdd_parts ..."
 }
 
 
@@ -294,6 +325,10 @@ fi
 
 copy_bootloader
 write_bootloader
+
+if [ "$PREP_HDD_INST" = 'true' ]; then
+    handle_hdd_parts
+fi
 
 umount_partitions
 

@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/02.07.2016
+# Date/Beginn :    12.08.2016/02.07.2016
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.03 (aug 2016) -> add special branding for baalue
+#                                      (clone of arm_cortex_sdk and arm926_sdk)
+#                                      be aware of HDD preparation
+#                  V1.02 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.01 (jul 2016) -> fix missing umount
 #                  V1.00 (jul 2016) -> version bump to V1.00
 #                  V0.06 (jul 2016) -> some fixes for branding home
@@ -61,7 +64,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -72,6 +75,10 @@ BRAND='none'
 # mounted images
 SD_ROOTFS='none'
 SD_HOME='none'
+SD_SHARED='none'
+
+# HDD installation?
+PREP_HDD_INST='false'
 
 # source for branding
 SRC_BRANDING='none'
@@ -87,6 +94,7 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
+    echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -131,12 +139,13 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvb:' opts 2>$_log
+while getopts 'hvsb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
+	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -155,6 +164,18 @@ if [[ ! ${ARMHF_BIN_HOME} ]]; then
 fi
 
 if [[ ! ${ARMHF_SRC_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_BIN_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ARMHF_SRC_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -198,9 +219,16 @@ umount_partitions()
 	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
     fi
 
-    umount $SD_HOME
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_HOME}" >&2
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	umount $SD_SHARED
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not umount ${SD_HOME}" >&2
+	fi
+    else
+	umount $SD_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not umount ${SD_HOME}" >&2
+	fi
     fi
 }
 
@@ -259,12 +287,73 @@ brand_image_home()
 	fi
 
 	if [[ ! -d "${SD_HOME}/baalue" ]]; then
-	    echo "ERROR -> ${SD_ROOTFS}/baalue not available ... abort now!"
+	    echo "ERROR -> ${SD_HOME}/baalue not available ... abort now!"
 	    my_exit
 	fi
 
 	echo "sudo rsync -av ${src_branding}/. ${SD_HOME}/baalue/."
 	sudo rsync -av ${src_branding}/. ${SD_HOME}/baalue/.
+    else
+	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
+    fi
+}
+
+brand_baalue()
+{
+    mountpoint $SD_HOME
+    if [ $? -ne 0 ] ; then
+	echo "${SD_HOME} not mounted, i try it now"
+	mount $SD_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mount ${SD_HOME}"
+	    my_exit
+	fi
+    fi
+
+    local repo_name="https://github.com/tjohann/arm_cortex_sdk.git"
+    echo "start to clone repo $repo_name"
+    sudo git clone $repo_name ${SD_HOME}/baalue/arm_cortex_sdk
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not clone ${repo_name}" >&2
+	my_exit
+    fi
+
+    repo_name="https://github.com/tjohann/arm926_sdk.git"
+    echo "start to clone repo $repo_name"
+    sudo git clone $repo_name ${SD_HOME}/baalue/arm926_sdk
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not clone ${repo_name}" >&2
+	my_exit
+    fi
+}
+
+brand_image_shared()
+{
+    local src_branding=${ARMHF_HOME}/${BRAND}/branding/hdd
+
+    if [ -d ${src_branding} ]; then
+	if [[ ! -d "${SD_SHARED}" ]]; then
+	    echo "ERROR -> ${SD_SHARED} not available!"
+	    echo "         have you added them to your fstab? (see README.md)"
+	    my_usage
+	fi
+
+	mountpoint $SD_SHARED
+	if [ $? -ne 0 ] ; then
+	    echo "${SD_SHARED} not mounted, i try it now"
+	    mount $SD_SHARED
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR -> could not mount ${SD_SHARED}"
+		my_exit
+	    fi
+	fi
+
+	echo "sudo cp ${src_branding}/hdd_branding.tgz ${SD_SHARED}"
+	sudo cp ${src_branding}/hdd_branding.tgz ${SD_SHARED}
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not clone ${repo_name}" >&2
+	    my_exit
+	fi
     else
 	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
     fi
@@ -282,41 +371,54 @@ echo "| --> prepare your password for sudo     |"
 echo "+----------------------------------------+"
 echo " "
 
+#
+# order of branding:
+# - etc
+# - home (simple rsync parts)
+# - device specific (see brand_baalue as example)
+#
 case "$BRAND" in
     'bananapi')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	brand_image_etc
-	brand_image_home
+	SD_HOME=$BANANAPI_SDCARD_SHARED
+	SD_SHARED=$BANANAPI_SDCARD_HOME
         ;;
     'bananapi-pro')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	brand_image_etc
-	brand_image_home
+	SD_HOME=$BANANAPI_SDCARD_SHARED
+	SD_SHARED=$BANANAPI_SDCARD_HOME
         ;;
     'baalue')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	brand_image_etc
-	brand_image_home
-        ;;
+	SD_HOME=$BANANAPI_SDCARD_SHARED
+	SD_SHARED=$BANANAPI_SDCARD_HOME
+	;;
     'olimex')
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
-	SD_HOME=$OLIMEX_SDCARD_HOME
-	brand_image_etc
-	brand_image_home
+	SD_HOME=$OLIMEX_SDCARD_SHARED
+	SD_SHARED=$OLIMEX_SDCARD_HOME
         ;;
     'cubietruck')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+	SD_HOME=$CUBIETRUCK_SDCARD_SHARED
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
-	brand_image_etc
-	brand_image_home
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_usage
 esac
+
+brand_image_etc
+if [ "$PREP_HDD_INST" = 'true' ]; then
+    brand_image_shared
+else
+    brand_image_home
+
+    # special handling needed for baalue
+    if [ "$BRAND" = 'baalue' ]; then
+	brand_baalue
+    fi
+fi
 
 umount_partitions
 

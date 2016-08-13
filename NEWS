@@ -2,6 +2,24 @@
 # some news ... see also TODO for hints
 #
 
+################## 2016-08-13 -> A20_SDK_V1.99.3 ############################
+
+2016-08-13 -> ## target stuff
+	      regular image updates
+	      update kernel to 4.6.6
+
+	      ## toolchain stuff
+	      add baalue kernel image tarball
+
+	      ## script stuff
+	      prepare everthing of script side to support hdd installation
+	      (open: hdd installation script on the device!)
+
+2016-08-12 -> ## script && target stuff
+	      add special baalue branding:
+	      - clone arm926_sdk and
+	      - arm_cortex_sdk to ${HOME}
+
 2016-08-08 -> ## script stuff
 	      add documentation for make_sdcard script
 

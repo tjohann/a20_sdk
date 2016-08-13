@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/10.07.2016
+# Date/Beginn :    12.08.2016/10.07.2016
 #
-# Version     :    V0.09
+# Version     :    V0.10
 #
-# Milestones  :    V0.09 (jul 2016) -> some minor approvements around _log/_temp
+# Milestones  :    V0.10 (aug 2016) -> be aware of HDD installation for
+#                                      brand_image, write_image and
+#                                      write_bootloader
+#                  V0.09 (aug 2016) -> some minor approvements around _log/_temp
 #                                      add PROGRAM_NAME and use it
 #                  V0.08 (jul 2016) -> add info dialog about logging
 #                                      fix a lot of minor bugs
@@ -61,7 +64,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.09'
+VER='0.10'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -275,13 +278,13 @@ format_sdcard()
 	return
     fi
 
-    start_logterm
-
-    $DIALOG --infobox "Start script to format ${DEVNODE}" 6 45
-
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	local do_hdd_inst="-s"
     fi
+
+    start_logterm
+
+    $DIALOG --infobox "Start script to format ${DEVNODE}" 6 45
 
     echo "${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
     ${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
@@ -329,12 +332,20 @@ write_images()
 	return
     fi
 
+    if [ "$BASE_IMAGE" = 'true' ]; then
+	local use_base_image="-m"
+    fi
+
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Write images for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh -b ${BRAND}" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh -b ${BRAND} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not write images for ${BRAND}... pls check logterm output" 6 45
     else
@@ -350,12 +361,16 @@ brand_sd-card()
 	return
     fi
 
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Brand images for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/brand_images.sh -b ${BRAND}" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/brand_images.sh -b ${BRAND} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/brand_images.sh ${do_hdd_inst} -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/brand_images.sh ${do_hdd_inst} -b ${BRAND} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not brand images for ${BRAND}... pls check logterm output" 6 45
     else
@@ -376,12 +391,16 @@ write_bootloader()
 	return
     fi
 
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Start script to write bootloader to ${DEVNODE}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/write_bootloader.sh -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/write_bootloader.sh -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/write_bootloader.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/write_bootloader.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not write bootloader to ${DEVNODE} ... pls check logterm output" 6 45
     else
