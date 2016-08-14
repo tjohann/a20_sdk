@@ -1,7 +1,5 @@
 # only for cleaning
 
-MODULES = $(shell ls -d */ | cut -f1 -d'/' | grep -v etc)
-
 .PHONY: all
 all:
 	@echo Cheers
@@ -10,6 +8,6 @@ all:
 clean:
 	rm -f *~
 	rm -f etc/*~
-	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
+	rm -f hdd/*~
 
 distclean: clean
