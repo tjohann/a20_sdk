@@ -29,6 +29,7 @@
 # Version     :    V1.03
 #
 # Milestones  :    V1.03 (aug 2016) -> finalize hdd installation
+#                                      fix some bugs
 #                  V1.02 (aug 2016) -> be aware of hdd installation
 #                  V1.01 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
@@ -155,18 +156,6 @@ if [[ ! ${ARMHF_BIN_HOME} ]]; then
 fi
 
 if [[ ! ${ARMHF_SRC_HOME} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${ARMHF_SHARED} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${ARMHF_BIN_SHARED} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${ARMHF_SRC_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 

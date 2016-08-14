@@ -30,6 +30,7 @@
 #
 # Milestones  :    V1.04 (aug 2016) -> fix sd-hard handling
 #                                      change location for hdd branding
+#                                      some more fixes
 #                  V1.03 (aug 2016) -> add special branding for baalue
 #                                      (clone of arm_cortex_sdk and arm926_sdk)
 #                                      be aware of HDD preparation
@@ -169,18 +170,6 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [[ ! ${ARMHF_SHARED} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${ARMHF_BIN_SHARED} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${ARMHF_SRC_SHARED} ]]; then
-    MISSING_ENV='true'
-fi
-
 if [[ ! ${BANANAPI_SDCARD_ROOTFS} ]]; then
     MISSING_ENV='true'
 fi
@@ -229,7 +218,7 @@ umount_partitions()
     else
 	umount $SD_HOME
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not umount ${SD_HOME}" >&2
+	    echo "INFO -> could not umount ${SD_HOME}" >&2
 	fi
     fi
 }
