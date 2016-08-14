@@ -174,6 +174,7 @@ Copy dtb for the other devices
 ------------------------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/baalue
 KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/bananapi
 KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_kernel/bananapi-pro
 KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/bananapi/bananapi_kernel/olimex
