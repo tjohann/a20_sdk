@@ -45,7 +45,6 @@ Makefile.in
 # SDK specifics
 toolchain
 host
-*.tgz
 *.gz
 *.bz2
 *.xz

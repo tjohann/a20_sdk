@@ -7,9 +7,7 @@ all:
 .PHONY: clean
 clean:
 	rm -f *~ .*~
-	rm -f sata_boot/.*~
-	rm -f sata_boot/*~
-	rm -f tty_console/.*~
+	rm -f hdd_boot/*~
 	rm -f tty_console/*~
 
 distclean: clean
