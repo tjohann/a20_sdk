@@ -8,6 +8,6 @@ all:
 clean:
 	rm -f *~
 	rm -f etc/*~
-	rm -f hdd/*~
+	rm -f hdd_branding/*~
 
 distclean: clean

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.08.2016/15.07.2016
+# Date/Beginn :    14.08.2016/15.07.2016
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (aug 2016) -> be aware of HDD installation
+# Milestones  :    V1.03 (aug 2016) -> finalize hdd installation
+#                  V1.02 (aug 2016) -> be aware of hdd installation
 #                  V1.01 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> relax unmount function error handling
@@ -52,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -267,10 +268,43 @@ umount_partitions()
 
 handle_hdd_parts()
 {
-    #
-    # ..
+    local src_hdd=${ARMHF_HOME}/${BRAND}/u-boot/
 
-    echo "in handle_hdd_parts ..."
+    if [[ ! -d "${SD_SHARED}" ]]; then
+	echo "ERROR -> ${SD_SHARED} not available!"
+	echo "         have you added them to your fstab? (see README.md)"
+	my_usage
+    fi
+
+    mountpoint $SD_SHARED
+    if [ $? -ne 0 ] ; then
+	echo "${SD_SHARED} not mounted, i try it now"
+	mount $SD_SHARED
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mount ${SD_SHARED}"
+	    my_exit
+	fi
+    fi
+
+    echo "sudo mkdir ${SD_SHARED}/hdd_boot"
+    sudo mkdir ${SD_SHARED}/hdd_boot
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not create ${SD_SHARED}/hdd_boot" >&2
+	my_exit
+    fi
+
+    echo "sudo cp ${src_hdd}/hdd_boot.tgz ${SD_SHARED}/hdd_boot"
+    sudo cp ${src_hdd}/hdd_boot.tgz ${SD_SHARED}/hdd_boot
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not copy ${src_hdd}/hdd_boot.tgz" >&2
+	my_exit
+    fi
+
+    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_SHARED}/hdd_boot
+    if [ $? -ne 0 ]; then
+	echo "ERROR: could not copy bootloader to ${SD_SHARED}" >&2
+	my_exit
+    fi
 }
 
 
@@ -287,18 +321,23 @@ check_devnode
 case "$BRAND" in
     'bananapi')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'bananapi-pro')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'baalue')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'olimex')
 	SD_KERNEL=$OLIMEX_SDCARD_KERNEL
+	SD_SHARED=$OLIMEX_SDCARD_SHARED
         ;;
     'cubietruck')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
+	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

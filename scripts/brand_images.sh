@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.08.2016/02.07.2016
+# Date/Beginn :    14.08.2016/02.07.2016
 #
-# Version     :    V1.03
+# Version     :    V1.04
 #
-# Milestones  :    V1.03 (aug 2016) -> add special branding for baalue
+# Milestones  :    V1.04 (aug 2016) -> fix sd-hard handling
+#                                      change location for hdd branding
+#                  V1.03 (aug 2016) -> add special branding for baalue
 #                                      (clone of arm_cortex_sdk and arm926_sdk)
 #                                      be aware of HDD preparation
 #                  V1.02 (aug 2016) -> add features of make_sdcard.sh
@@ -64,7 +66,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.03'
+VER='1.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -329,7 +331,7 @@ brand_baalue()
 
 brand_image_shared()
 {
-    local src_branding=${ARMHF_HOME}/${BRAND}/branding/hdd
+    local src_branding=${ARMHF_HOME}/${BRAND}/branding/
 
     if [ -d ${src_branding} ]; then
 	if [[ ! -d "${SD_SHARED}" ]]; then
@@ -351,7 +353,7 @@ brand_image_shared()
 	echo "sudo cp ${src_branding}/hdd_branding.tgz ${SD_SHARED}"
 	sudo cp ${src_branding}/hdd_branding.tgz ${SD_SHARED}
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not clone ${repo_name}" >&2
+	    echo "ERROR: could not copy ${src_branding}/hdd_branding.tgz" >&2
 	    my_exit
 	fi
     else
@@ -380,28 +382,28 @@ echo " "
 case "$BRAND" in
     'bananapi')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_SHARED
-	SD_SHARED=$BANANAPI_SDCARD_HOME
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'bananapi-pro')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_SHARED
-	SD_SHARED=$BANANAPI_SDCARD_HOME
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'baalue')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_SHARED
-	SD_SHARED=$BANANAPI_SDCARD_HOME
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
 	;;
     'olimex')
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
-	SD_HOME=$OLIMEX_SDCARD_SHARED
-	SD_SHARED=$OLIMEX_SDCARD_HOME
+	SD_HOME=$OLIMEX_SDCARD_HOME
+	SD_SHARED=$OLIMEX_SDCARD_SHARED
         ;;
     'cubietruck')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
-	SD_HOME=$CUBIETRUCK_SDCARD_SHARED
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
+	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

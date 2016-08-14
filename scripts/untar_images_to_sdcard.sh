@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/15.07.2016
+# Date/Beginn :    14.08.2016/15.07.2016
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.02 (aug 2016) -> be aware of hdd installation
+#                  V1.01 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
 #                                   -> some minor updates
 #                  V0.04 (jul 2016) -> relax unmount function error handling
@@ -51,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
