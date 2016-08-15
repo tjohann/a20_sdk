@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/24.08.2015
+# Date/Beginn :    15.08.2016/24.08.2015
 #
-# Version     :    V1.03
+# Version     :    V1.04
 #
-# Milestones  :    V1.03 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.04 (aug 2016) -> add hdd-only-sdcard parts
+#                  V1.03 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.02 (jul 2016) -> redirect errors to >&2
 #                                      fix version number bug
 #                  V1.01 (jul 2016) -> some smaller improvements/cleanups
@@ -69,7 +70,7 @@
 #     "root on sf"
 #     -> .
 #         "device specific kernel images":
-#         -> bananapi/bananapi_kernel.tgz
+#         -> bananapi/bananapi_(hdd_)kernel.tgz
 #         -> ...
 #         -> olimex/olmex_kernel.tgz
 #         "common parts for all images":
@@ -86,7 +87,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.03'
+VER='1.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -103,6 +104,9 @@ BASE_IMAGE='none'
 # HDD installation?
 PREP_HDD_INST='none'
 
+# HDD-boot only sd-card?
+HDD_BOOT_SDCARD='false'
+
 # program name
 PROGRAM_NAME=${0##*/}
 
@@ -118,6 +122,8 @@ my_usage()
     echo "|                cubietruck                              |"
     echo "|        [-m] -> download the minimal images             |"
     echo "|        [-s] -> download images for hdd installation    |"
+    echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
+    echo "|                -e AND others wont make sense ..-e rules|"
     echo "+--------------------------------------------------------+"
     echo " "
     exit
@@ -156,12 +162,13 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvmsb:' opts 2>$_log
+while getopts 'hvmesb:' opts 2>$_log
 do
     case $opts in
 	b) BRAND=$OPTARG ;;
 	s) PREP_HDD_INST='true' ;;
 	m) BASE_IMAGE='true' ;;
+	e) HDD_BOOT_SDCARD='true' ;;
         h) my_usage ;;
 	v) print_version ;;
         ?) my_usage ;;
@@ -249,29 +256,59 @@ fi
 
 case "$BRAND" in
     'bananapi')
-	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_kernel.tgz"
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi_kernel.tgz"
+	fi
 	get_tarball
         ;;
     'bananapi-pro')
-	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
+	fi
 	get_tarball
         ;;
     'baalue')
-	 DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_kernel.tgz"
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/baalue_kernel.tgz"
+	fi
 	get_tarball
         ;;
     'olimex')
-	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_kernel.tgz"
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/olimex/olimex_kernel.tgz"
+	fi
 	get_tarball
         ;;
     'cubietruck')
-	DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
+	fi
 	get_tarball
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
         my_usage
 esac
+
+# for a hdd-boot-only-sdcard more downloads wont be needed
+if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+    cleanup
+    echo " "
+    echo "+----------------------------------------+"
+    echo "|            Cheers $USER"
+    echo "+----------------------------------------+"
+    echo " "
+fi
 
 # download common rootfs (base or full)
 if [ "$BASE_IMAGE" = 'true' ]; then

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/07.07.2016
+# Date/Beginn :    15.08.2016/07.07.2016
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.03 (aug 2016) -> add hdd-only-sdcard parts
+#                  V1.02 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.01 (jul 2016) -> increase size of small rootfs to 3G
 #                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> some smaller cleanups
@@ -57,7 +58,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -76,6 +77,9 @@ DEVNODE='none'
 
 # HDD installation?
 PREP_HDD_INST='false'
+
+# HDD-boot only sd-card?
+HDD_BOOT_SDCARD='false'
 
 # use only base image
 BASE_IMAGE='false'
@@ -102,8 +106,10 @@ my_usage()
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
-    echo "|        [-m] -> download the minimal images             |"
-    echo "|        [-s] -> prepare images for hdd installation     |"
+    echo "|        [-m] -> partition for the minimal image         |"
+    echo "|        [-s] -> prepare partitions for hdd installation |"
+    echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
+    echo "|                will automatically set also -s          |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -145,7 +151,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hsvmb:d:' opts 2>$_log
+while getopts 'hsvmeb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -153,6 +159,7 @@ do
         b) BRAND=$OPTARG ;;
 	m) BASE_IMAGE='true' ;;
 	d) DEVNODE=$OPTARG ;;
+	e) HDD_BOOT_SDCARD='true' ;;
 	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
@@ -345,6 +352,21 @@ EOT
     fi
 }
 
+partition_hdd_boot_sdcard()
+{
+    sudo blockdev --rereadpt ${DEVNODE}
+    cat <<EOT | sudo sfdisk ${DEVNODE}
+1M,32M,c
+,100M,L
+,,L
+EOT
+
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not create partitions" >&2
+	my_exit
+    fi
+}
+
 format_partitions()
 {
     if [[ -b ${DEVNODE}1 ]]; then
@@ -453,6 +475,11 @@ umount_partitions()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
+# check conditions HDD_BOOT_SDCARD without HDD_BOOT_SDCARD makes no sense
+if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+    PREP_HDD_INST='true'
+fi
+
 echo " "
 echo "+------------------------------------------+"
 echo "| do some testing on $DEVNODE ...           "
@@ -516,7 +543,11 @@ echo " "
 echo "+------------------------------------------+"
 echo "| start paritioning $DEVNODE                "
 echo "+------------------------------------------+"
-partition_sdcard
+if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+    partition_hdd_boot_sdcard
+else
+    partition_sdcard
+fi
 
 echo " "
 echo "+------------------------------------------+"

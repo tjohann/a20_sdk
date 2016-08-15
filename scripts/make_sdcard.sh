@@ -87,6 +87,8 @@ DEVNODE='none'
 
 # HDD installation?
 PREP_HDD_INST='false'
+
+# HDD-boot only sd-card?
 HDD_BOOT_SDCARD='false'
 
 # use only base image
@@ -232,7 +234,8 @@ show_configuration()
 Device node: ${DEVNODE}\n
 Target device: ${BRAND}\n
 HDD installation?: ${PREP_HDD_INST}\n
-Only base image?: ${BASE_IMAGE}"
+Only base image?: ${BASE_IMAGE}\n
+Only HDD-boot-only image?: ${HDD_BOOT_SDCARD}"
     $DIALOG --msgbox "Actual configuration\n--------------------\n${config}" 15 60
 }
 
@@ -253,6 +256,10 @@ partition_sdcard()
 	local use_base_image="-m"
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local create_hdd_boot_image="-e"
+    fi
+
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	local do_hdd_inst="-s"
     fi
@@ -261,8 +268,8 @@ partition_sdcard()
 
     $DIALOG --infobox "Start script to partition ${DEVNODE}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/partition_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/partition_sdcard.sh  ${do_hdd_inst} ${use_base_image} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/partition_sdcard.sh ${do_hdd_inst} ${use_base_image} ${create_hdd_boot_image} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/partition_sdcard.sh  ${do_hdd_inst} ${use_base_image} ${create_hdd_boot_image} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not partition ${DEVNODE} ... pls check logterm output" 6 45
     else
@@ -316,12 +323,16 @@ download_images()
 	local do_hdd_inst="-s"
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local create_hdd_boot_image="-e"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Download images for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/get_image_tarballs.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND}" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/get_image_tarballs.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/get_image_tarballs.sh ${do_hdd_inst} ${use_base_image} ${create_hdd_boot_image} -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/get_image_tarballs.sh ${do_hdd_inst} ${use_base_image} ${create_hdd_boot_image} -b ${BRAND} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not download images ... pls check logterm output" 6 45
     else
@@ -345,12 +356,16 @@ write_images()
 	local do_hdd_inst="-s"
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local create_hdd_boot_image="-e"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Write images for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND}" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh ${do_hdd_inst} ${use_base_image} -b ${BRAND} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh ${do_hdd_inst} ${use_base_image} ${create_hdd_boot_image} -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/untar_images_to_sdcard.sh ${do_hdd_inst} ${use_base_image} ${create_hdd_boot_image} -b ${BRAND} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not write images for ${BRAND}... pls check logterm output" 6 45
     else
@@ -400,12 +415,16 @@ write_bootloader()
 	local do_hdd_inst="-s"
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local create_hdd_boot_image="-e"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Start script to write bootloader to ${DEVNODE}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/write_bootloader.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/write_bootloader.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/write_bootloader.sh ${do_hdd_inst}  ${create_hdd_boot_image} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/write_bootloader.sh ${do_hdd_inst}  ${create_hdd_boot_image} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not write bootloader to ${DEVNODE} ... pls check logterm output" 6 45
     else
@@ -545,9 +564,16 @@ select_adds()
 	local def_base_image="off"
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local def_boot_sdcard="on"
+    else
+	local def_boot_sdcard="off"
+    fi
+
     dialog --checklist "Additional options:" 15 60 15 \
            01 "Prepare HDD installation" ${def_prep_hdd_inst}\
-           02 "Use minimal images" ${def_base_image} 2>$_temp
+           02 "Use minimal images" ${def_base_image} \
+	   03 "HDD-boot-only images" ${def_boot_sdcard} 2>$_temp
     local result=`cat $_temp`
 
     if [[ $result == *01* ]]; then
@@ -562,9 +588,16 @@ select_adds()
 	BASE_IMAGE='false'
     fi
 
+    if [[ $result == *03* ]]; then
+	HDD_BOOT_SDCARD='true'
+    else
+	HDD_BOOT_SDCARD='false'
+    fi
+
     local config="
 HDD installation?: ${PREP_HDD_INST}\n
-Only base image?: ${BASE_IMAGE}"
+Only base image?: ${BASE_IMAGE}\n
+Only HDD-boot-only image?: ${HDD_BOOT_SDCARD}"
     $DIALOG --title " Addtional options selected " --msgbox "Actual configuration\n--------------------\n${config}" 10 60
 }
 

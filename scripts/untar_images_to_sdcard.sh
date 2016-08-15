@@ -26,9 +26,10 @@
 #
 # Date/Beginn :    15.08.2016/15.07.2016
 #
-# Version     :    V1.03
+# Version     :    V1.04
 #
-# Milestones  :    V1.03 (aug 2016) -> some smaller fixes
+# Milestones  :    V1.04 (aug 2016) -> add hdd-only-sdcard parts
+#                  V1.03 (aug 2016) -> some smaller fixes
 #                  V1.02 (aug 2016) -> be aware of hdd installation
 #                  V1.01 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.03'
+VER='1.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -69,6 +70,9 @@ SD_SHARED='none'
 
 # HDD installation?
 PREP_HDD_INST='false'
+
+# HDD-boot only sd-card?
+HDD_BOOT_SDCARD='false'
 
 # use only base image
 BASE_IMAGE='false'
@@ -87,6 +91,8 @@ my_usage()
     echo "|                cubietruck                              |"
     echo "|        [-m] -> use the minimal images                  |"
     echo "|        [-s] -> prepare images for hdd installation     |"
+    echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
+    echo "|                -e AND -s wont make sense -> -e rules   |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -130,7 +136,7 @@ _temp="/tmp/${PROGRAM_NAME}.$$"
 _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 # check the args
-while getopts 'hvsmb:' opts 2>$_log
+while getopts 'hvsemb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -138,6 +144,7 @@ do
         b) BRAND=$OPTARG ;;
 	m) BASE_IMAGE='true' ;;
 	s) PREP_HDD_INST='true' ;;
+	e) HDD_BOOT_SDCARD='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -262,29 +269,36 @@ check_directories()
 
 check_tarballs()
 {
-    if [[ ! -f "${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" ]]; then
-	echo "ERROR -> ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz not available!" >&2
-	my_exit
-    fi
-
-    if [ "$BASE_IMAGE" = 'true' ]; then
-	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz" ]]; then
-	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz not available!" >&2
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	if [[ ! -f "${ARMHF_BIN_HOME}/images/${BRAND}_hdd_kernel.tgz" ]]; then
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/${BRAND}_hdd_kernel.tgz not available!" >&2
 	    my_exit
 	fi
     else
-	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz" ]]; then
-	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz not available!" >&2
+	if [[ ! -f "${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" ]]; then
+	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz not available!" >&2
 	    my_exit
 	fi
-    fi
 
-    if [ "$PREP_HDD_INST" = 'true' ]; then
-	echo "prepare hdd installation -> no home tarball needed"
-    else
-	if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" ]]; then
-	    echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz not available!" >&2
-	    my_exit
+	if [ "$BASE_IMAGE" = 'true' ]; then
+	    if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz" ]]; then
+		echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz not available!" >&2
+		my_exit
+	    fi
+	else
+	    if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz" ]]; then
+		echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz not available!" >&2
+		my_exit
+	    fi
+	fi
+
+	if [ "$PREP_HDD_INST" = 'true' ]; then
+	    echo "prepare hdd installation -> no home tarball needed"
+	else
+	    if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" ]]; then
+		echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz not available!" >&2
+		my_exit
+	    fi
 	fi
     fi
 }
@@ -349,43 +363,54 @@ umount_partitions()
 
 untar_images()
 {
-    cd $SD_KERNEL
-    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" >&2
-	my_exit
-    fi
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	echo "No need to untar all tarballs"
 
-    cd $SD_ROOTFS
-    if [ "$BASE_IMAGE" = 'true' ]; then
-	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
-    else
-	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
-    fi
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/a20_sdk_*rootfs.tgz" >&2
-	my_exit
-    fi
-
-    if [ "$PREP_HDD_INST" = 'true' ]; then
-	cd $SD_SHARED
-	echo "copy all needed files to $SD_SHARED"
-
-	sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
-	sudo cp ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
-	if [ "$BASE_IMAGE" = 'true' ]; then
-	    sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
-	else
-	    sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
-	fi
-	# check only once -> check_directory and check_tarballs do it first
+	cd $SD_KERNEL
+	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_hdd_kernel.tgz .
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not copy tarballs to ${SD_SHARED}" >&2
+	    echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_hdd_kernel.tgz" >&2
 	    my_exit
 	fi
     else
-	cd $SD_HOME
-	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+	cd $SD_KERNEL
+	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" >&2
+	    my_exit
+	fi
+
+	cd $SD_ROOTFS
+	if [ "$BASE_IMAGE" = 'true' ]; then
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+	else
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
+	fi
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/a20_sdk_*rootfs.tgz" >&2
+	    my_exit
+	fi
+
+	if [ "$PREP_HDD_INST" = 'true' ]; then
+	    cd $SD_SHARED
+	    echo "copy all needed files to $SD_SHARED"
+
+	    sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+	    sudo cp ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
+	    if [ "$BASE_IMAGE" = 'true' ]; then
+		sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+	    else
+		sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
+	    fi
+	    # check only once -> check_directory and check_tarballs do it first
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR -> could not copy tarballs to ${SD_SHARED}" >&2
+		my_exit
+	    fi
+	else
+	    cd $SD_HOME
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+	fi
     fi
 
     cd ${HOME}
@@ -395,6 +420,11 @@ untar_images()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+# check conditions HDD_BOOT_SDCARD without HDD_BOOT_SDCARD makes no sense
+if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+    PREP_HDD_INST='true'
+fi
 
 case "$BRAND" in
     'bananapi')

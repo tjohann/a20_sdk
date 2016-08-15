@@ -218,6 +218,14 @@ A sd-card needs 3 different partitions which are reflected by the images tarball
 The kernel images are device specific while all other images not.
 
 
+HDD-Images
+----------
+
+The hdd installation uses mostly the sd-card images with some exceptions:
+
+	additional kernel image for boot via sd-card.
+
+
 User (images)
 -------------
 
@@ -282,17 +290,17 @@ Directory/File structure on sourceforge
 
 All binary/big files (toolchain or images) are on sourceforge (https://sourceforge.net/projects/a20devices/files/). The scripts to setup the environment using that location to download them.
 
-In the root directory you find the toolchain tarballs and the checksum.sh256 from the git-repository. The devices are represented through the named directorys. Below them you find only the kernel images. Due to the unified image approach the rootfs and home are below the directory named common.
+In the root directory you find the toolchain tarballs and the checksum.sh256 from the git-repository. The devices are represented through the named directorys. Below them you find only the kernel images (for sdcard installation and hdd installation). Due to the unified image approach the rootfs and home are below the directory named common.
 
 Naming convention:
 
 	toochain_x86_64.tgz/host_x86_64.tgz -> cross-toolchain for x86_64 hosts
 	common/a20_sdk_*.tgz -> rootfs and home for all devices (master is bananapi) which need to be branded during make_sdcard.sh
 	common/a20_sdk_base_rootfs.tgz -> this is the base/minimal rootfs
-	bananapi/bananapi_kernel.tgz -> kernel image for the devices (bananapi)
-	bananapi-pro/bananapi-pro_kernel.tgz -> kernel image for the devices (bananapi-pro)
-	cubietruck/cubietruck_kernel.tgz -> kernel image for the devices (cubietruck)
-	olimex/olimex_kernel.tgz -> kernel image for the devices (olimex)
+	bananapi/bananapi_(hdd_)kernel.tgz -> kernel image for the devices (bananapi)
+	bananapi-pro/bananapi-pro_(hdd_)kernel.tgz -> kernel image for the devices (bananapi-pro)
+	cubietruck/cubietruck_(hdd_)kernel.tgz -> kernel image for the devices (cubietruck)
+	olimex/olimex_(hdd_)kernel.tgz -> kernel image for the devices (olimex)
 
 
 Cubietruck (CB3)

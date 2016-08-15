@@ -14,6 +14,10 @@
   hdd boot-sd-card (after hdd_installation.sh did it's
   job)
 
+## sdk stuff
+- check all make tags around download and co after finish
+  of hdd handling
+
 
 #
 # -------------- 2016-08-12 ----------------------------------------------------
