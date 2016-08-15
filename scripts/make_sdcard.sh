@@ -26,9 +26,10 @@
 #
 # Date/Beginn :    15.08.2016/10.07.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (aug 2016) -> version bump
+# Milestones  :    V1.01 (aug 2016) -> add menuentry to create hdd-boot-sdcard
+#                  V1.00 (aug 2016) -> version bump
 #                  V0.11 (aug 2016) -> some minor fixes
 #                                      remove menu entry to show partitiontable
 #                  V0.10 (aug 2016) -> be aware of HDD installation for
@@ -67,7 +68,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -86,6 +87,7 @@ DEVNODE='none'
 
 # HDD installation?
 PREP_HDD_INST='false'
+HDD_BOOT_SDCARD='false'
 
 # use only base image
 BASE_IMAGE='false'
@@ -575,7 +577,7 @@ do_all_in_line()
     select_adds
     show_configuration
 
-    dialog --title "do all steps in line - step 1" \
+    dialog --title "Do all steps in line - step 1" \
 	   --yesno "Do you want to continue?" 6 45
     local result=$?
     case $result in
@@ -587,7 +589,7 @@ do_all_in_line()
     # download parts
     download_images
 
-    dialog --title "do all steps in line - step 2" \
+    dialog --title "Do all steps in line - step 2" \
 	   --yesno "Do you want to continue?" 6 45
     local result=$?
     case $result in
@@ -599,7 +601,7 @@ do_all_in_line()
     # partition sd-card
     partition_sdcard
 
-    dialog --title "do all steps in line - step 3" \
+    dialog --title "Do all steps in line - step 3" \
 	   --yesno "Do you want to continue?" 6 45
     local result=$?
     case $result in
@@ -614,6 +616,40 @@ do_all_in_line()
     write_bootloader
 
     $DIALOG --msgbox "Finished make of sd-card for ${BRAND}" 6 45
+}
+
+# --- create a hdd boot sd-card
+create_hdd_boot_sd-card()
+{
+    # download parts
+    download_images
+
+    dialog --title "Create a hdd boot sd-card - step 1" \
+	   --yesno "Do you want to continue?" 6 45
+    local result=$?
+    case $result in
+	0) echo "continue" >>$_log 2>&1;;
+	1) menu ;;
+	255) menu;;
+    esac
+
+    # partition sd-card
+    partition_sdcard
+
+    dialog --title "Create a hdd boot sd-card - step 2" \
+	   --yesno "Do you want to continue?" 6 45
+    local result=$?
+    case $result in
+	0) echo "continue" >>$_log 2>&1;;
+	1) menu ;;
+	255) menu;;
+    esac
+
+    # prepare sd-card
+    write_images
+    write_bootloader
+
+    $DIALOG --msgbox "Finished make of hdd-boot-sdcard for ${BRAND}" 6 45
 }
 
 #
@@ -695,10 +731,11 @@ menu()
 	     2 "Download images for target device ${BRAND}" \
 	     3 "SD-Card menu" \
 	     4 "Do all steps in line" \
-	     5 "Show actual configuration" \
-	     6 "Start logging via ${TERM} console output" \
-	     7 "Show ${ARMHF_HOME}/README.md" \
-	     8 "Show help" \
+	     5 "Create a HDD-Boot-SD-Card" \
+	     6 "Show actual configuration" \
+	     7 "Start logging via ${TERM} console output" \
+	     8 "Show ${ARMHF_HOME}/README.md" \
+	     9 "Show help" \
              x "Exit" 2>$_temp
 
     local result=$?
@@ -711,10 +748,11 @@ menu()
 	2) download_images;;
 	3) menu_sdcard;;
 	4) do_all_in_line;;
-	5) show_configuration;;
-	6) start_logterm;;
-	7) show_sdk_readme;;
-	8) show_help;;
+	5) create_hdd_boot_sd-card;;
+	6) show_configuration;;
+	7) start_logterm;;
+	8) show_sdk_readme;;
+	9) show_help;;
         x) normal_exit;;
     esac
 }

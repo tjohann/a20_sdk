@@ -7,6 +7,12 @@
 - add $SHARED also to normal fstab images to
   a20_sdk_rootfs.tgz                                        [2016-08-15 -> done]
   a20_sdk_base_rootfs.tgz                                   [2016-08-15 -> done]
+- add hdd-kernel-image tarballs
+
+## script stuff
+- make_sdcard.sh ... add menuentry to build a kernel only
+  hdd boot-sd-card (after hdd_installation.sh did it's
+  job)
 
 
 #
