@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.07.2016/24.07.2016
+# Date/Beginn :    15.08.2016/24.07.2016
 #
-# Version     :    V1.00
+# Version     :    V1.01
 #
-# Milestones  :    V1.00 (jul 2016) -> version bump to V1.00
+# Milestones  :    V1.01 (aug 2016) -> some smaller fixes
+#                  V1.00 (jul 2016) -> version bump to V1.00
 #                  V0.02 (jul 2016) -> add features of make_sdcard.sh
 #                  V0.01 (jul 2016) -> initial version
 #
@@ -47,7 +48,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.00'
+VER='1.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -124,7 +125,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvmumb:' opts 2>$_log
+while getopts 'hvmusb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;

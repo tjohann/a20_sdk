@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.08.2016/10.07.2016
+# Date/Beginn :    15.08.2016/10.07.2016
 #
-# Version     :    V0.10
+# Version     :    V1.00
 #
-# Milestones  :    V0.10 (aug 2016) -> be aware of HDD installation for
+# Milestones  :    V1.00 (aug 2016) -> version bump
+#                  V0.11 (aug 2016) -> some minor fixes
+#                                      remove menu entry to show partitiontable
+#                  V0.10 (aug 2016) -> be aware of HDD installation for
 #                                      brand_image, write_image and
 #                                      write_bootloader
 #                  V0.09 (aug 2016) -> some minor approvements around _log/_temp
@@ -64,7 +67,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.10'
+VER='1.00'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -408,13 +411,6 @@ write_bootloader()
     fi
 }
 
-# --- show actual partition table of sd-card
-show_partition_table()
-{
-    echo "show_partition_table -> dummy" >>$_log 2>&1
-    $DIALOG --msgbox "show_partition_table -> dummy" 6 45
-}
-
 # --- mount partitions
 mount_partitions()
 {
@@ -423,12 +419,16 @@ mount_partitions()
 	return
     fi
 
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Mount partions for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -m" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -m >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -m" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -m >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not mount partitions for ${BRAND}... pls check logterm output" 6 45
     else
@@ -444,12 +444,16 @@ umount_partitions()
 	return
     fi
 
+    if [ "$PREP_HDD_INST" = 'true' ]; then
+	local do_hdd_inst="-s"
+    fi
+
     start_logterm
 
     $DIALOG --infobox "Un-mount partions for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -u" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/mount_partitions.sh -b ${BRAND} -u >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -u" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -u >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not un-mount partitions for ${BRAND}... pls check logterm output" 6 45
     else
@@ -585,7 +589,7 @@ do_all_in_line()
 
     dialog --title "do all steps in line - step 2" \
 	   --yesno "Do you want to continue?" 6 45
-    result=$?
+    local result=$?
     case $result in
 	0) echo "continue" >>$_log 2>&1;;
 	1) menu ;;
@@ -597,7 +601,7 @@ do_all_in_line()
 
     dialog --title "do all steps in line - step 3" \
 	   --yesno "Do you want to continue?" 6 45
-    result=$?
+    local result=$?
     case $result in
 	0) echo "continue" >>$_log 2>&1;;
 	1) menu ;;
@@ -656,10 +660,9 @@ menu_sdcard()
 		 3 "Write images to ${DEVNODE}" \
 		 4 "Write bootloader to ${DEVNODE}" \
 		 5 "Brand SD-Card" \
-		 6 "Show partition table of SD-Card ${DEVNODE}" \
-		 7 "Show actual configuration" \
-		 8 "Mount partions for ${BRAND}" \
-		 9 "Un-mount partions for ${BRAND}" \
+		 6 "Show actual configuration" \
+		 7 "Mount partions for ${BRAND}" \
+		 8 "Un-mount partions for ${BRAND}" \
 		 x "Main menu" 2>$_temp
 
 	local result=$?
@@ -673,10 +676,9 @@ menu_sdcard()
 	    3) write_images;;
 	    4) write_bootloader;;
 	    5) brand_sd-card;;
-	    6) show_partition_table;;
-	    7) show_configuration;;
-	    8) mount_partitions;;
-	    9) umount_partitions;;
+	    6) show_configuration;;
+	    7) mount_partitions;;
+	    8) umount_partitions;;
 	    x) menu;;
 	esac
     done

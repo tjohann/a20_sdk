@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    14.08.2016/15.07.2016
+# Date/Beginn :    15.08.2016/15.07.2016
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (aug 2016) -> be aware of hdd installation
+# Milestones  :    V1.03 (aug 2016) -> some smaller fixes
+#                  V1.02 (aug 2016) -> be aware of hdd installation
 #                  V1.01 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
 #                                   -> some minor updates
@@ -52,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -129,7 +130,7 @@ _temp="/tmp/${PROGRAM_NAME}.$$"
 _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 # check the args
-while getopts 'hvmb:' opts 2>$_log
+while getopts 'hvsmb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -370,12 +371,12 @@ untar_images()
 	cd $SD_SHARED
 	echo "copy all needed files to $SD_SHARED"
 
-	cp ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
-	cp ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
+	sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+	sudo cp ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
 	if [ "$BASE_IMAGE" = 'true' ]; then
-	    cp ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+	    sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
 	else
-	    cp ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
+	    sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
 	fi
 	# check only once -> check_directory and check_tarballs do it first
 	if [ $? -ne 0 ] ; then
