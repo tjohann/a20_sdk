@@ -2,6 +2,41 @@
 # known issues
 #
 
+
+A20_SDK_V1.99.4: all versions with kernel 4.6.5-rtX
+
+There's a bug within the RT-PREEMPT parts (but has no impact ... as far as i have tested):
+
+root@bananapi:/etc# [  326.403415] BUG: sleeping function called from invalid context at kernel/locking/rtmutex.c:931
+[  326.403423] in_atomic(): 0, irqs_disabled(): 128, pid: 299, name: in:immark
+[  326.403427] INFO: lockdep is turned off.
+[  326.403431] irq event stamp: 0
+[  326.403443] hardirqs last  enabled at (0): [<  (null)>]   (null)
+[  326.403466] hardirqs last disabled at (0): [<c021c164>] copy_process.part.5+0x3b4/0x189c
+[  326.403477] softirqs last  enabled at (0): [<c021c164>] copy_process.part.5+0x3b4/0x189c
+[  326.403485] softirqs last disabled at (0): [<  (null)>]   (null)
+[  326.403497] CPU: 1 PID: 299 Comm: in:immark Tainted: G        W       4.6.5-rt9 #1
+[  326.403501] Hardware name: Allwinner sun7i (A20) Family
+[  326.403529] [<c020f9d4>] (unwind_backtrace) from [<c020b8c0>] (show_stack+0x20/0x24)
+[  326.403545] [<c020b8c0>] (show_stack) from [<c06e358c>] (dump_stack+0xa0/0xd8)
+[  326.403564] [<c06e358c>] (dump_stack) from [<c024b9ac>] (___might_sleep+0x23c/0x288)
+[  326.403584] [<c024b9ac>] (___might_sleep) from [<c09b9ba4>] (rt_spin_lock+0x30/0x6c)
+[  326.403603] [<c09b9ba4>] (rt_spin_lock) from [<c034fbd8>] (kmap_high_get+0x20/0x74)
+[  326.403619] [<c034fbd8>] (kmap_high_get) from [<c02186d4>] (kmap_atomic+0x6c/0x1bc)
+[  326.403634] [<c02186d4>] (kmap_atomic) from [<c034f6e4>] (__get_user_pages_fast+0x130/0x324)
+[  326.403647] [<c034f6e4>] (__get_user_pages_fast) from [<c034f90c>] (get_user_pages_fast+0x34/0x7c)
+[  326.403661] [<c034f90c>] (get_user_pages_fast) from [<c02ad7a0>] (get_futex_key+0x184/0x5a0)
+[  326.403674] [<c02ad7a0>] (get_futex_key) from [<c02ae774>] (futex_wake+0x68/0x164)
+[  326.403685] [<c02ae774>] (futex_wake) from [<c02b0484>] (do_futex+0x104/0x9f4)
+[  326.403697] [<c02b0484>] (do_futex) from [<c02b0eb4>] (SyS_futex+0x140/0x160)
+[  326.403708] [<c02b0eb4>] (SyS_futex) from [<c021bd08>] (mm_release+0xbc/0x108)
+[  326.403721] [<c021bd08>] (mm_release) from [<c0223cf8>] (do_exit+0x278/0xb64)
+[  326.403734] [<c0223cf8>] (do_exit) from [<c0224630>] (do_group_exit+0x0/0xcc)
+[  329.470749] EXT4-fs (mmcblk0p2): re-mounted. Opts: (null)
+[  329.590458] EXT4-fs (mmcblk0p2): re-mounted. Opts: data=ordered
+[  329.667191] reboot: System halted
+
+
 A20_SDK_V1.0.0: all versions below
 - wrong export of cubietruck images mount points (BUG)
 
