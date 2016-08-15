@@ -3,6 +3,12 @@
 #
 #
 
+## target stuff
+- add $SHARED also to normal fstab images to
+  a20_sdk_rootfs.tgz                                        [2016-08-15 -> done]
+  a20_sdk_base_rootfs.tgz                                   [2016-08-15 -> done]
+
+
 #
 # -------------- 2016-08-12 ----------------------------------------------------
 #
