@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    14.08.2016/02.07.2016
+# Date/Beginn :    15.08.2016/02.07.2016
 #
-# Version     :    V1.04
+# Version     :    V1.05
 #
-# Milestones  :    V1.04 (aug 2016) -> fix sd-hard handling
+# Milestones  :    V1.05 (aug 2016) -> copy also hdd_installation to ${SHARED}
+#                  V1.04 (aug 2016) -> fix sd-hard handling
 #                                      change location for hdd branding
 #                                      some more fixes
 #                  V1.03 (aug 2016) -> add special branding for baalue
@@ -67,7 +68,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.04'
+VER='1.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -343,6 +344,12 @@ brand_image_shared()
 	sudo cp ${src_branding}/hdd_branding.tgz ${SD_SHARED}
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR: could not copy ${src_branding}/hdd_branding.tgz" >&2
+	    my_exit
+	fi
+
+	sudo cp ${ARMHF_HOME}/scripts/hdd_installation.sh ${SD_SHARED}
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not copy ${ARMHF_HOME}/scripts/hdd_installation.sh" >&2
 	    my_exit
 	fi
     else
