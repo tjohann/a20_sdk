@@ -237,9 +237,9 @@ copy_bootloader()
 
     if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
 	# not really needed
-	cp hdd_boot/boot.cmd hdd_boot/boot.scr ${SD_KERNEL}/${BRAND}/
+	cp -rf hdd_boot ${SD_KERNEL}/${BRAND}/
 
-	cp hdd_boot/boot.cmd hdd_boot/boot.scr ${SD_KERNEL}/
+	cp -rf hdd_boot ${SD_KERNEL}/
     else
 	# not really needed
 	cp boot.cmd boot.scr ${SD_KERNEL}/${BRAND}/
