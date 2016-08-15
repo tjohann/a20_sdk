@@ -29,6 +29,7 @@
 # Version     :    V1.04
 #
 # Milestones  :    V1.04 (aug 2016) -> add hdd-only-sdcard parts
+#                                      some smaller fixes
 #                  V1.03 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.02 (jul 2016) -> redirect errors to >&2
 #                                      fix version number bug
@@ -308,6 +309,8 @@ if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
     echo "|            Cheers $USER"
     echo "+----------------------------------------+"
     echo " "
+
+    exit
 fi
 
 # download common rootfs (base or full)

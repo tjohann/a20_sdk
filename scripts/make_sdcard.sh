@@ -696,7 +696,7 @@ menu_config()
 		 --menu " Move using [UP] [DOWN] and [Enter] to select an entry" 20 60 20 \
 		 1 "Enter device node (/dev/sdx)" \
 		 2 "Select target device (Bananapi/...)" \
-		 3 "Addtional options (HDD/small)" \
+		 3 "Addtional options (HDD/small...)" \
 		 4 "Show actual configuration" \
 		 x "Main menu" 2>$_temp
 

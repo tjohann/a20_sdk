@@ -275,16 +275,20 @@ check_devnode()
 	my_exit
     fi
 
-    local size=$(< /sys/block/${mounted}/size)
-    if [ "$BASE_IMAGE" = 'true' ]; then
-	if [[ "$size" -lt "$MIN_SD_SIZE_SMALL" ]]; then
-	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors" >&2
-	    my_exit
-	fi
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	echo "No check of size needed"
     else
-	if [[ "$size" -lt "$MIN_SD_SIZE_FULL" ]]; then
-	    echo "ERROR: ${DEVNODE} is to small with ${size} sectors" >&2
-	    my_exit
+	local size=$(< /sys/block/${mounted}/size)
+	if [ "$BASE_IMAGE" = 'true' ]; then
+	    if [[ "$size" -lt "$MIN_SD_SIZE_SMALL" ]]; then
+		echo "ERROR: ${DEVNODE} is to small with ${size} sectors" >&2
+		my_exit
+	    fi
+	else
+	    if [[ "$size" -lt "$MIN_SD_SIZE_FULL" ]]; then
+		echo "ERROR: ${DEVNODE} is to small with ${size} sectors" >&2
+		my_exit
+	    fi
 	fi
     fi
 }
