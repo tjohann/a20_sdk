@@ -116,8 +116,8 @@
 
 ## target stuff
 - add support for HD installation for the unified images
-  -> for all devices
-  -> use *shared* partition
+  -> for all devices                                        [2016-08-13 -> done]
+  -> use *shared* partition                                 [2016-08-13 -> done]
   -> small scripts to automate the process -> use the
      mini-images for it
 - add support for baalue and the different nodes            [2016-07-11 -> done]

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    14.08.2016/15.07.2016
+# Date/Beginn :    15.08.2016/15.07.2016
 #
-# Version     :    V1.03
+# Version     :    V1.04
 #
-# Milestones  :    V1.03 (aug 2016) -> finalize hdd installation
+# Milestones  :    V1.04 (aug 2016) -> remove unneeded copy for hdd installation
+#                  V1.03 (aug 2016) -> finalize hdd installation
 #                                      fix some bugs
 #                  V1.02 (aug 2016) -> be aware of hdd installation
 #                  V1.01 (aug 2016) -> add features of make_sdcard.sh
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.03'
+VER='1.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -286,12 +287,6 @@ handle_hdd_parts()
     sudo cp ${src_hdd}/hdd_boot.tgz ${SD_SHARED}/hdd_boot
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not copy ${src_hdd}/hdd_boot.tgz" >&2
-	my_exit
-    fi
-
-    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_SHARED}/hdd_boot
-    if [ $? -ne 0 ]; then
-	echo "ERROR: could not copy bootloader to ${SD_SHARED}" >&2
 	my_exit
     fi
 }
