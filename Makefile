@@ -37,8 +37,10 @@ all::
 	@echo "| ...                                                       |"
 	@echo "| make make_sdcard        -> small tool to make a read to   |"
 	@echo "|                            use SD-Card                    |"
-	@echo "| make install            -> install some scripts to $(HOME)|"
-	@echo "| make uninstall          -> remove scripts from $(HOME)    |"
+	@echo "| make install            -> install some scripts to        |"
+	@echo "|                            $(HOME)/bin              |"
+	@echo "| make uninstall          -> remove scripts from            |"
+	@echo "|                            $(HOME)/bin              |"
 	@echo "+-----------------------------------------------------------+"
 
 clean::
