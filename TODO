@@ -3,16 +3,21 @@
 #
 #
 
+
+#
+# -------------- 2016-08-15 ----------------------------------------------------
+#
+
 ## target stuff
 - add $SHARED also to normal fstab images to
   a20_sdk_rootfs.tgz                                        [2016-08-15 -> done]
   a20_sdk_base_rootfs.tgz                                   [2016-08-15 -> done]
-- add hdd-kernel-image tarballs
+- add hdd-kernel-image tarballs                             [2016-08-15 -> done]
 
 ## script stuff
 - make_sdcard.sh ... add menuentry to build a kernel only
   hdd boot-sd-card (after hdd_installation.sh did it's
-  job)
+  job)                                                      [2016-08-15 -> done]
 
 ## sdk stuff
 - check all make tags around download and co after finish
@@ -24,9 +29,9 @@
 #
 
 ## target stuff
-- add cloning of my arm_cortex_sdk repo to baalue branding  [2016-08-13 -> done]
+- add cloning of my arm_cortex_sdk repo to baalue branding
   of home (baalue is the common embedded development
-  environment)
+  environment)                                              [2016-08-13 -> done]
 - fix user permission while cloning (or ...) to target
   user baalue
 

@@ -2,17 +2,17 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A common development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts and more. Additional you find all infos and binary/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like U-Boot and more.
+A common development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts and more. Additional you find all infos and binary/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like u-boot and more.
 
 As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
 
-WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet. If you face a bug then pls use create an issue (https://github.com/tjohann/a20_sdk/issues).
+WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet. If you face a bug then pls use https://github.com/tjohann/a20_sdk/issues to create an issue
 
 
 Requirement
 -----------
 
-The only yet know requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to buildup your sdcard -> make_sdcard.sh).
+The only yet know requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to make your sd-card -> a20_sdk_make_sdcard.sh).
 
 For the two types of images ("normal" and "base/small") you need sd-cards with 4 or 8 gig of size.
 
@@ -27,11 +27,11 @@ The a20_sdk use 3 different locations:
     ${HOME}/src/a20_sdk
 
 
-The location below /var/lib/ is the runtime environment. There you find all basic content you need. It's a git repository, so it's under version control and if i change something like supported kernel version, then i change it in the repository and you can pull these changes. See the NEWS for those info.
+The location below /var/lib/ is the runtime environment. There you find all needed basic content. It's a git repository, so it's under version control and if I change something like supported kernel version, then I change it in the repository and you can pull these changes (see ./NEWS for those info).
 
-Below /opt you find the downloaded content (http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories (/opt/a20_sdk/external). Also useful could be the download of kernel and RT-PREEMPT patch to /opt/a20_sdk/kernel. The whole content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore (Note: make distclean removes all downloaded/untared content in the working dir /opt/a20_sdk).
+Below /opt you find the downloaded content (from http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories (like u-boot). Also useful could be the download of kernel and RT-PREEMPT patch to /opt/a20_sdk/kernel. The whole content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore (Note: make distclean removes all downloaded/untared content in the working dir /opt/a20_sdk).
 
-The sdk comes with documentation and source code examples. You can find it in ${HOME}/src/a20_sdk/Documentation.
+The sdk comes with documentation and source code examples. You can find it in ${HOME}/src/a20_sdk/*.
 
 
 Setup
@@ -80,10 +80,6 @@ Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~6 GByte)
 
     make get_image_tarballs
 
-If you're only interested in one device (like Cubietruck), then you only need
-
-	make get_cubietruck_image_tarballs
-
 Clone ALL external repos:
 
     make get_external_repos
@@ -114,9 +110,9 @@ Pull the latest changes:
     cd /var/lib/a20_sdk
     git pull
 
-Take a look at the NEWS file to see what i've changed. See also UPGRADE_HINTS.
+Take a look at the ./NEWS file to see what i've changed. See also ./UPGRADE_HINTS.
 
-If there're changes of the toolchain, then fist distclean all:
+If there're changes of the toolchain, then first distclean all:
 
     make distclean
 
@@ -125,6 +121,17 @@ and then proceed with the normal setup process above.
 In short:
 
     make get_toolchain
+    make get_latest_kernel (if needed)
+    make get_image_tarballs (if needed)
+
+
+Sometimes it is needed to init the the whole sdk again (see ./UPGRADE_HINTS). Then simply do a
+
+	make init_sdk
+
+and then the rest (if needed)
+
+	make get_toolchain
     make get_latest_kernel (if needed)
     make get_image_tarballs (if needed)
 
