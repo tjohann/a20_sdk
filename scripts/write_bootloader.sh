@@ -26,9 +26,10 @@
 #
 # Date/Beginn :    15.08.2016/15.07.2016
 #
-# Version     :    V1.04
+# Version     :    V1.05
 #
-# Milestones  :    V1.04 (aug 2016) -> remove unneeded copy for hdd installation
+# Milestones  :    V1.05 (aug 2016) -> add hdd-only-sdcard parts
+#                  V1.04 (aug 2016) -> remove unneeded copy for hdd installation
 #                  V1.03 (aug 2016) -> finalize hdd installation
 #                                      fix some bugs
 #                  V1.02 (aug 2016) -> be aware of hdd installation
@@ -55,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.04'
+VER='1.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -69,6 +70,9 @@ SD_SHARED='none'
 
 # HDD installation?
 PREP_HDD_INST='false'
+
+# HDD-boot only sd-card?
+HDD_BOOT_SDCARD='false'
 
 # which devnode?
 DEVNODE='none'
@@ -87,6 +91,8 @@ my_usage()
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
     echo "|        [-s] -> prepare sdcard as base for hdd instal.  |"
+    echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
+    echo "|                -e AND -s wont make sense -> -e rules   |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -131,7 +137,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvsb:d:' opts 2>$_log
+while getopts 'hvesb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -139,6 +145,7 @@ do
         b) BRAND=$OPTARG ;;
 	d) DEVNODE=$OPTARG ;;
 	s) PREP_HDD_INST='true' ;;
+	e) HDD_BOOT_SDCARD='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -220,12 +227,28 @@ copy_bootloader()
     cd ${ARMHF_HOME}/${BRAND}/u-boot/
 
     # not really needed
-    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/${BRAND}/
+    cp u-boot-sunxi-with-spl.bin ${SD_KERNEL}/${BRAND}/
 
-    cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr ${SD_KERNEL}/
+    cp u-boot-sunxi-with-spl.bin ${SD_KERNEL}/
     if [ $? -ne 0 ]; then
 	echo "ERROR: could not copy bootloader to ${SD_KERNEL}" >&2
 	my_exit
+    fi
+
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	# not really needed
+	cp hdd_boot/boot.cmd hdd_boot/boot.scr ${SD_KERNEL}/${BRAND}/
+
+	cp hdd_boot/boot.cmd hdd_boot/boot.scr ${SD_KERNEL}/
+    else
+	# not really needed
+	cp boot.cmd boot.scr ${SD_KERNEL}/${BRAND}/
+
+	cp boot.cmd boot.scr ${SD_KERNEL}/
+    fi
+    if [ $? -ne 0 ]; then
+	    echo "ERROR: could not copy bootloader to ${SD_KERNEL}" >&2
+	    my_exit
     fi
 }
 
@@ -258,36 +281,40 @@ umount_partitions()
 
 handle_hdd_parts()
 {
-    local src_hdd=${ARMHF_HOME}/${BRAND}/u-boot/
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	echo "handle hdd parts makes no sense for hdd-boot-only-sdcard"
+    else
+	local src_hdd=${ARMHF_HOME}/${BRAND}/u-boot/
 
-    if [[ ! -d "${SD_SHARED}" ]]; then
-	echo "ERROR -> ${SD_SHARED} not available!"
-	echo "         have you added them to your fstab? (see README.md)"
-	my_usage
-    fi
+	if [[ ! -d "${SD_SHARED}" ]]; then
+	    echo "ERROR -> ${SD_SHARED} not available!"
+	    echo "         have you added them to your fstab? (see README.md)"
+	    my_usage
+	fi
 
-    mountpoint $SD_SHARED
-    if [ $? -ne 0 ] ; then
-	echo "${SD_SHARED} not mounted, i try it now"
-	mount $SD_SHARED
+	mountpoint $SD_SHARED
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_SHARED}"
+	    echo "${SD_SHARED} not mounted, i try it now"
+	    mount $SD_SHARED
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR -> could not mount ${SD_SHARED}"
+		my_exit
+	    fi
+	fi
+
+	echo "sudo mkdir ${SD_SHARED}/hdd_boot"
+	sudo mkdir ${SD_SHARED}/hdd_boot
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not create ${SD_SHARED}/hdd_boot" >&2
 	    my_exit
 	fi
-    fi
 
-    echo "sudo mkdir ${SD_SHARED}/hdd_boot"
-    sudo mkdir ${SD_SHARED}/hdd_boot
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not create ${SD_SHARED}/hdd_boot" >&2
-	my_exit
-    fi
-
-    echo "sudo cp ${src_hdd}/hdd_boot.tgz ${SD_SHARED}/hdd_boot"
-    sudo cp ${src_hdd}/hdd_boot.tgz ${SD_SHARED}/hdd_boot
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: could not copy ${src_hdd}/hdd_boot.tgz" >&2
-	my_exit
+	echo "sudo cp ${src_hdd}/hdd_boot.tgz ${SD_SHARED}/hdd_boot"
+	sudo cp ${src_hdd}/hdd_boot.tgz ${SD_SHARED}/hdd_boot
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not copy ${src_hdd}/hdd_boot.tgz" >&2
+	    my_exit
+	fi
     fi
 }
 
