@@ -2,6 +2,10 @@
 # some news ... see also TODO for hints
 #
 
+
+2016-08-18 -> ## target stuff
+	      update kernel to 4.6.7
+
 2016-08-15 -> ## target stuff
 	      add *_hdd_kernel.tgz for all devices
 
