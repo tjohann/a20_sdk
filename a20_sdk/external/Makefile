@@ -57,6 +57,14 @@ update_all::
 get_external_repos::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -p "git")
 
+get_base_repos::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-utils" -p "http")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "mydriver" -p "https")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "libbaalue" -p "https")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalued" -p "https")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "tt-env" -p "https")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "lcd1602" -p "https")
+
 get_rt-tests::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "rt-tests" -p "http")
 
