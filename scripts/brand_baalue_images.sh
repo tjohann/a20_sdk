@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    brand_images.sh
+# Title       :    brand_baalue_images.sh
 #
 # License:
 #
@@ -24,31 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/02.07.2016
+# Date/Beginn :    21.08.2016/21.08.2016
 #
-# Version     :    V1.07
+# Version     :    V0.01
 #
-# Milestones  :    V1.07 (aug 2016) -> fix owner permissions in /home/baalue
-#                  V1.06 (aug 2016) -> sudo handling at beginning
-#                  V1.05 (aug 2016) -> copy also hdd_installation to ${SHARED}
-#                  V1.04 (aug 2016) -> fix sd-hard handling
-#                                      change location for hdd branding
-#                                      some more fixes
-#                  V1.03 (aug 2016) -> add special branding for baalue
-#                                      (clone of arm_cortex_sdk and arm926_sdk)
-#                                      be aware of HDD preparation
-#                  V1.02 (aug 2016) -> add features of make_sdcard.sh
-#                  V1.01 (jul 2016) -> fix missing umount
-#                  V1.00 (jul 2016) -> version bump to V1.00
-#                  V0.06 (jul 2016) -> some fixes for branding home
-#                                      relax error handling due to umount
-#                  V0.05 (jul 2016) -> redirect errors to >&2
-#                  V0.04 (jul 2016) -> split branding into different dir
-#                                      add support for baalue
-#                                      change exit code to 3
-#                  V0.03 (jul 2016) -> some fixes and improvements
-#                  V0.02 (jul 2016) -> first working version
-#                  V0.01 (jul 2016) -> initial skeleton
+# Milestones  :    V0.01 (jul 2016) -> initial skeleton
 #
 # Requires    :
 #
@@ -56,7 +36,7 @@
 ################################################################################
 # Description
 #
-#   A simple tool to brand installed image
+#   A simple tool to brand the base baalue images
 #
 # Some features
 #   - ...
@@ -70,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.07'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -98,8 +78,7 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
-    echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck                              |"
+    echo "|        [-b] -> bananapi/cubietruck                     |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -228,7 +207,7 @@ umount_partitions()
 
 brand_image_etc()
 {
-    local src_branding=${ARMHF_HOME}/${BRAND}/branding/etc
+    local src_branding=${ARMHF_HOME}/baalue/${BRAND}/etc/
 
     if [ -d ${src_branding} ]; then
 	if [[ ! -d "${SD_ROOTFS}" ]]; then
@@ -259,121 +238,9 @@ brand_image_etc()
     fi
 }
 
-brand_image_home()
-{
-    local src_branding=${ARMHF_HOME}/${BRAND}/branding/home
-
-    if [ -d ${src_branding} ]; then
-	if [[ ! -d "${SD_HOME}" ]]; then
-	    echo "ERROR -> ${SD_HOME} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
-	    my_usage
-	fi
-
-	mountpoint $SD_HOME
-	if [ $? -ne 0 ] ; then
-	    echo "${SD_HOME} not mounted, i try it now"
-	    mount $SD_HOME
-	    if [ $? -ne 0 ] ; then
-		echo "ERROR -> could not mount ${SD_HOME}"
-		my_exit
-	    fi
-	fi
-
-	if [[ ! -d "${SD_HOME}/baalue" ]]; then
-	    echo "ERROR -> ${SD_HOME}/baalue not available ... abort now!"
-	    my_exit
-	fi
-
-	echo "sudo rsync -av --delete ${src_branding}/. ${SD_HOME}/baalue/."
-	sudo rsync -av --delete ${src_branding}/. ${SD_HOME}/baalue/.
-	sudo chown -R 1000:1000 ${SD_HOME}/baalue
-    else
-	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
-    fi
-}
-
-brand_baalue()
-{
-    mountpoint $SD_HOME
-    if [ $? -ne 0 ] ; then
-	echo "${SD_HOME} not mounted, i try it now"
-	mount $SD_HOME
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not mount ${SD_HOME}"
-	    my_exit
-	fi
-    fi
-
-    if [ -d ${SD_HOME}/baalue/arm_cortex_sdk ]; then
-	echo "${SD_HOME}/baalue/arm_cortex_sdk already exists -> do a pull"
-	cd ${SD_HOME}/baalue/arm_cortex_sdk
-	git pull
-    else
-	local repo_name="https://github.com/tjohann/arm_cortex_sdk.git"
-	echo "start to clone repo $repo_name"
-	sudo git clone $repo_name ${SD_HOME}/baalue/arm_cortex_sdk
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not clone ${repo_name}" >&2
-	    my_exit
-	else
-	    sudo chown -R 1000:1000 ${SD_HOME}/baalue/arm_cortex_sdk
-	fi
-    fi
-
-     if [ -d ${SD_HOME}/baalue/arm926_sdk ]; then
-	echo "${SD_HOME}/baalue/arm926_sdk already exists -> do a pull"
-	cd ${SD_HOME}/baalue/arm926_sdk
-	git pull
-    else
-	repo_name="https://github.com/tjohann/arm926_sdk.git"
-	echo "start to clone repo $repo_name"
-	sudo git clone $repo_name ${SD_HOME}/baalue/arm926_sdk
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not clone ${repo_name}" >&2
-	    my_exit
-	else
-	    sudo chown -R 1000:1000 ${SD_HOME}/baalue/arm926_sdk
-	fi
-     fi
-}
-
 brand_image_shared()
 {
-    local src_branding=${ARMHF_HOME}/${BRAND}/branding/
-
-    if [ -d ${src_branding} ]; then
-	if [[ ! -d "${SD_SHARED}" ]]; then
-	    echo "ERROR -> ${SD_SHARED} not available!"
-	    echo "         have you added them to your fstab? (see README.md)"
-	    my_usage
-	fi
-
-	mountpoint $SD_SHARED
-	if [ $? -ne 0 ] ; then
-	    echo "${SD_SHARED} not mounted, i try it now"
-	    mount $SD_SHARED
-	    if [ $? -ne 0 ] ; then
-		echo "ERROR -> could not mount ${SD_SHARED}"
-		my_exit
-	    fi
-	fi
-
-	echo "sudo cp ${src_branding}/hdd_branding.tgz ${SD_SHARED}"
-	sudo cp ${src_branding}/hdd_branding.tgz ${SD_SHARED}
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not copy ${src_branding}/hdd_branding.tgz" >&2
-	    my_exit
-	fi
-
-	sudo cp ${ARMHF_HOME}/scripts/hdd_installation.sh ${SD_SHARED}
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not copy ${ARMHF_HOME}/scripts/hdd_installation.sh" >&2
-	    my_exit
-	fi
-    else
-	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
-    fi
+    echo "some content needed"
 }
 
 
@@ -384,7 +251,7 @@ brand_image_shared()
 # sudo handling up-front
 echo " "
 echo "+------------------------------------------+"
-echo "| brand installed device image             |"
+echo "| brand baalue specific images             |"
 echo "| --> need sudo for some parts             |"
 echo "+------------------------------------------+"
 echo " "
@@ -393,12 +260,6 @@ sudo -v
 # keep-alive
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-#
-# order of branding:
-# - etc
-# - home (simple rsync parts)
-# - device specific (see brand_baalue as example)
-#
 case "$BRAND" in
     'bananapi')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
@@ -435,11 +296,6 @@ if [ "$PREP_HDD_INST" = 'true' ]; then
     brand_image_shared
 else
     brand_image_home
-
-    # special handling needed for baalue
-    if [ "$BRAND" = 'baalue' ]; then
-	brand_baalue
-    fi
 fi
 
 umount_partitions
