@@ -3,10 +3,15 @@
 #
 
 
+2016-08-21 -> ## script stuff
+	      reorg sudo handling of all scripts
+
+
 ################## 2016-08-18 -> A20_SDK_V1.99.5 ############################
 
 2016-08-18 -> ## target stuff
 	      update kernel to 4.6.7
+	      regular image updates 
 
 2016-08-15 -> ## target stuff
 	      add *_hdd_kernel.tgz for all devices

@@ -3,13 +3,21 @@
 #
 #
 
+#
+# -------------- 2016-08-21 ----------------------------------------------------
+#
+
+## srcipt & target stuff
+- add content to create hdd stuff after base installation
+  (hdd_installation.sh)
+
 
 #
 # -------------- 2016-08-19 ----------------------------------------------------
 #
 
 ## script stuff
-- handle sudo in all scripts like in make_sdcard.sh
+- handle sudo in all scripts like in make_sdcard.sh         [2016-08-21 -> done]
 
 
 #
