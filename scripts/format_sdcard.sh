@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/12.07.2016
+# Date/Beginn :    21.08.2016/12.07.2016
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.02 (aug 2016) -> sudo handling at beginning
+#                  V1.01 (jul 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> relax unmount function error handling
 #                  V0.04 (jul 2016) -> redirect errors to >&2
@@ -52,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -386,6 +387,18 @@ umount_partitions()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+# sudo handling up-front
+echo " "
+echo "+------------------------------------------+"
+echo "| format a sd-card                         |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
+echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 echo " "
 echo "+------------------------------------------+"

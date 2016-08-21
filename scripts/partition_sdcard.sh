@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2016/07.07.2016
+# Date/Beginn :    21.08.2016/07.07.2016
 #
-# Version     :    V1.03
+# Version     :    V1.04
 #
-# Milestones  :    V1.03 (aug 2016) -> add hdd-only-sdcard parts
+# Milestones  :    V1.04 (aug 2016) -> sudo handling at beginning
+#                  V1.03 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.02 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.01 (jul 2016) -> increase size of small rootfs to 3G
 #                  V1.00 (jul 2016) -> version bump
@@ -58,7 +59,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.03'
+VER='1.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -478,6 +479,18 @@ umount_partitions()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+# sudo handling up-front
+echo " "
+echo "+------------------------------------------+"
+echo "| partition sd-card                        |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
+echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # check conditions HDD_BOOT_SDCARD without HDD_BOOT_SDCARD makes no sense
 if [ "$HDD_BOOT_SDCARD" = 'true' ]; then

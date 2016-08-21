@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/17.04.2016
+# Date/Beginn :    21.08.2016/17.04.2016
 #
-# Version     :    V1.04
+# Version     :    V1.05
 #
-# Milestones  :    V1.04 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.05 (aug 2016) -> sudo handling at beginning
+#                  V1.04 (jul 2016) -> add features of make_sdcard.sh
 #                  V1.03 (jul 2016) -> add mrproper to remove $ARMHF_*_HOME
 #                                      some minor rework of the code
 #                                      change exit code to 3
@@ -61,7 +62,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.04'
+VER='1.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -285,12 +286,17 @@ do_mrproper()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
+# sudo handling up-front
 echo " "
-echo "+----------------------------------------+"
-echo "|             cleanup the sdk            |"
-echo "| --> prepare your password for sudo     |"
-echo "+----------------------------------------+"
+echo "+------------------------------------------+"
+echo "| cleanup the sdk                          |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
 echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 if [ "$CLEAN_IMAGES" = 'true' ]; then
     clean_images

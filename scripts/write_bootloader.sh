@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2016/15.07.2016
+# Date/Beginn :    21.08.2016/15.07.2016
 #
-# Version     :    V1.05
+# Version     :    V1.06
 #
-# Milestones  :    V1.05 (aug 2016) -> add hdd-only-sdcard parts
+# Milestones  :    V1.06 (aug 2016) -> sudo handling at beginning
+#                  V1.05 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.04 (aug 2016) -> remove unneeded copy for hdd installation
 #                  V1.03 (aug 2016) -> finalize hdd installation
 #                                      fix some bugs
@@ -56,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.05'
+VER='1.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -322,6 +323,18 @@ handle_hdd_parts()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+# sudo handling up-front
+echo " "
+echo "+------------------------------------------+"
+echo "| write bootloader to sd-card              |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
+echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 echo " "
 echo "+------------------------------------------+"

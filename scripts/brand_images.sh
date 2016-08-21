@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2016/02.07.2016
+# Date/Beginn :    21.08.2016/02.07.2016
 #
-# Version     :    V1.05
+# Version     :    V1.06
 #
-# Milestones  :    V1.05 (aug 2016) -> copy also hdd_installation to ${SHARED}
+# Milestones  :    V1.06 (aug 2016) -> sudo handling at beginning
+#                  V1.05 (aug 2016) -> copy also hdd_installation to ${SHARED}
 #                  V1.04 (aug 2016) -> fix sd-hard handling
 #                                      change location for hdd branding
 #                                      some more fixes
@@ -68,7 +69,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.05'
+VER='1.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -362,12 +363,17 @@ brand_image_shared()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
+# sudo handling up-front
 echo " "
-echo "+----------------------------------------+"
-echo "| brand installed device image           |"
-echo "| --> prepare your password for sudo     |"
-echo "+----------------------------------------+"
+echo "+------------------------------------------+"
+echo "| brand installed device image             |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
 echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 #
 # order of branding:

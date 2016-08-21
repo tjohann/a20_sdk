@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2016/15.07.2016
+# Date/Beginn :    21.08.2016/15.07.2016
 #
-# Version     :    V1.04
+# Version     :    V1.05
 #
-# Milestones  :    V1.04 (aug 2016) -> add hdd-only-sdcard parts
+# Milestones  :    V1.05 (aug 2016) -> sudo handling at beginning
+#                  V1.04 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.03 (aug 2016) -> some smaller fixes
 #                  V1.02 (aug 2016) -> be aware of hdd installation
 #                  V1.01 (aug 2016) -> add features of make_sdcard.sh
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.04'
+VER='1.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -420,6 +421,18 @@ untar_images()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+# sudo handling up-front
+echo " "
+echo "+------------------------------------------+"
+echo "| untar images to sd-card                  |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
+echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # check conditions HDD_BOOT_SDCARD without HDD_BOOT_SDCARD makes no sense
 if [ "$HDD_BOOT_SDCARD" = 'true' ]; then

@@ -24,15 +24,17 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/25.01.2016
+# Date/Beginn :    21.08.2016/25.01.2016
 #
-# Version     :    V1.05
+# Version     :    V1.06
 #
-# Milestones  :    V1.05 (jul 2016) -> add features of make_sdcard.sh
+# Milestones  :    V1.06 (aug 2016) -> sudo handling at beginning
+#                  V1.05 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.04 (jul 2016) -> redirect errors to >&2
 #                  V1.03 (jul 2016) -> change exit code to 3
 #                                      add baalue as supported device
-#                  V1.02 (jul 2016) -> create links of kernel/... to $ARMF_SRC_HOME
+#                  V1.02 (jul 2016) -> create links of kernel/... to
+#                                      $ARMF_SRC_HOME
 #                  V1.01 (jul 2016) -> some minor improvements
 #                  V1.00 (jul 2016) -> some minor improvements
 #                  V0.08 (jul 2016) -> some minor improvements
@@ -65,7 +67,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.04'
+VER='1.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -310,11 +312,17 @@ add_documentations_links_home()
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
+# sudo handling up-front
 echo " "
-echo "+----------------------------------------+"
-echo "|             init the sdk               |"
-echo "+----------------------------------------+"
+echo "+------------------------------------------+"
+echo "| init the sdk                             |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
 echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 if [ "$INIT_OPT" = 'true' ]; then
     if [ -d $ARMHF_BIN_HOME ]; then
