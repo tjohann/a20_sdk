@@ -131,7 +131,7 @@ do
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
-	b) NODE=$OPTARG ;;
+	n) NODE=$OPTARG ;;
 	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
@@ -205,7 +205,9 @@ umount_partitions()
 
 brand_image_etc()
 {
-    local src_branding=${ARMHF_HOME}/baalue/${BRAND}/etc_${NODE}/
+    local src_branding=${ARMHF_HOME}/baalue/${BRAND}/etc_${NODE}
+
+    echo "$src_branding"
 
     if [ -d ${src_branding} ]; then
 	if [[ ! -d "${SD_ROOTFS}" ]]; then
@@ -229,11 +231,16 @@ brand_image_etc()
 	    my_exit
 	fi
 
-	echo "sudo rsync -av ${src_branding}/. ${SD_ROOTFS}/etc/."
-	sudo rsync -av ${src_branding}/. ${SD_ROOTFS}/etc/.
+	echo "rsync -avz ${src_branding}/. ${SD_ROOTFS}/etc/."
+	rsync -avz ${src_branding}/. ${SD_ROOTFS}/etc/.
     else
 	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
     fi
+}
+
+brand_image_home()
+{
+    echo "some content needed"
 }
 
 brand_image_shared()
