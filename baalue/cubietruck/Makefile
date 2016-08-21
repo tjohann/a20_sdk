@@ -7,7 +7,7 @@ all:
 .PHONY: clean
 clean:
 	rm -f *~
-	rm -f etc/*~
-	rm -f hdd_branding/*~
+	rm -f etc_master/*~
+	rm -f etc_slave/*~
 
 distclean: clean
