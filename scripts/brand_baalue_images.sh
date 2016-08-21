@@ -66,8 +66,8 @@ SD_SHARED='none'
 # HDD installation?
 PREP_HDD_INST='false'
 
-# source for branding
-SRC_BRANDING='none'
+# Node (0 ... 9, master, slave)
+NODE='none'
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -79,6 +79,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/cubietruck                     |"
+    echo "|        [-n] -> node (0...9, master, slave)             |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -124,12 +125,13 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvsb:' opts 2>$_log
+while getopts 'hvsb:n:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
+	b) NODE=$OPTARG ;;
 	s) PREP_HDD_INST='true' ;;
         ?) my_usage ;;
     esac
@@ -153,10 +155,6 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
 fi
 
 if [[ ! ${BANANAPI_SDCARD_ROOTFS} ]]; then
-    MISSING_ENV='true'
-fi
-
-if [[ ! ${OLIMEX_SDCARD_ROOTFS} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -207,7 +205,7 @@ umount_partitions()
 
 brand_image_etc()
 {
-    local src_branding=${ARMHF_HOME}/baalue/${BRAND}/etc/
+    local src_branding=${ARMHF_HOME}/baalue/${BRAND}/etc_${NODE}/
 
     if [ -d ${src_branding} ]; then
 	if [[ ! -d "${SD_ROOTFS}" ]]; then
@@ -265,21 +263,6 @@ case "$BRAND" in
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
-        ;;
-    'bananapi-pro')
-	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED
-        ;;
-    'baalue')
-	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
-	SD_HOME=$BANANAPI_SDCARD_HOME
-	SD_SHARED=$BANANAPI_SDCARD_SHARED
-	;;
-    'olimex')
-	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
-	SD_HOME=$OLIMEX_SDCARD_HOME
-	SD_SHARED=$OLIMEX_SDCARD_SHARED
         ;;
     'cubietruck')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
