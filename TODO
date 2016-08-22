@@ -3,6 +3,18 @@
 #
 #
 
+
+#
+# -------------- 2016-08-22 ----------------------------------------------------
+#
+
+## script stuff
+- format_sdcard: fix handling of hdd-boot-only              [2016-08-22 -> done]
+
+## target stuff
+- add /mnt/tmp dir to rootfs and base_rootfs
+
+
 #
 # -------------- 2016-08-21 ----------------------------------------------------
 #

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2016/10.07.2016
+# Date/Beginn :    22.08.2016/10.07.2016
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (aug 2016) -> add menuentry to create hdd-boot-sdcard
+# Milestones  :    V1.02 (aug 2016) -> a lot of fixes around hdd-boot-sdcard
+#                  V1.01 (aug 2016) -> add menuentry to create hdd-boot-sdcard
 #                  V1.00 (aug 2016) -> version bump
 #                  V0.11 (aug 2016) -> some minor fixes
 #                                      remove menu entry to show partitiontable
@@ -68,7 +69,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -290,6 +291,10 @@ format_sdcard()
 	return
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local create_hdd_boot_image="-e"
+    fi
+
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	local do_hdd_inst="-s"
     fi
@@ -298,8 +303,8 @@ format_sdcard()
 
     $DIALOG --infobox "Start script to format ${DEVNODE}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst}  ${create_hdd_boot_image}  -b ${BRAND} -d ${DEVNODE} " >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/format_sdcard.sh ${do_hdd_inst}  ${create_hdd_boot_image} -b ${BRAND} -d ${DEVNODE} >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not format ${DEVNODE} ... pls check logterm output" 6 45
     else
@@ -440,6 +445,10 @@ mount_partitions()
 	return
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local create_hdd_boot_image="-e"
+    fi
+
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	local do_hdd_inst="-s"
     fi
@@ -448,8 +457,8 @@ mount_partitions()
 
     $DIALOG --infobox "Mount partions for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -m" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -m >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} ${create_hdd_boot_image} -b ${BRAND} -m" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} ${create_hdd_boot_image} -b ${BRAND} -m >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not mount partitions for ${BRAND}... pls check logterm output" 6 45
     else
@@ -465,6 +474,10 @@ umount_partitions()
 	return
     fi
 
+    if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	local create_hdd_boot_image="-e"
+    fi
+
     if [ "$PREP_HDD_INST" = 'true' ]; then
 	local do_hdd_inst="-s"
     fi
@@ -473,8 +486,8 @@ umount_partitions()
 
     $DIALOG --infobox "Un-mount partions for ${BRAND}" 6 45
 
-    echo "${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -u" >>$_log 2>&1
-    ${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} -b ${BRAND} -u >>$_log 2>&1
+    echo "${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} ${create_hdd_boot_image} -b ${BRAND} -u" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/mount_partitions.sh ${do_hdd_inst} ${create_hdd_boot_image} -b ${BRAND} -u >>$_log 2>&1
     if [ $? -ne 0 ] ; then
 	$DIALOG --msgbox "ERROR: could not un-mount partitions for ${BRAND}... pls check logterm output" 6 45
     else

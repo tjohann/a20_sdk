@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/12.07.2016
+# Date/Beginn :    22.08.2016/12.07.2016
 #
-# Version     :    V1.02
+# Version     :    V1.03
 #
-# Milestones  :    V1.02 (aug 2016) -> sudo handling at beginning
+# Milestones  :    V1.03 (aug 2016) -> add hdd-only-sdcard parts
+#                  V1.02 (aug 2016) -> sudo handling at beginning
 #                  V1.01 (jul 2016) -> add features of make_sdcard.sh
 #                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> relax unmount function error handling
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='1.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -69,6 +70,9 @@ SD_SHARED='none'
 
 # which devnode?
 DEVNODE='none'
+
+# HDD-boot only sd-card?
+HDD_BOOT_SDCARD='false'
 
 # HDD installation?
 PREP_HDD_INST='false'
@@ -87,6 +91,8 @@ my_usage()
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
     echo "|        [-s] -> prepare sd-card for hdd installation    |"
+    echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
+    echo "|                -e set also -s                          |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -128,7 +134,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvsb:d:' opts 2>$_log
+while getopts 'hvseb:d:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -136,6 +142,7 @@ do
         b) BRAND=$OPTARG ;;
 	d) DEVNODE=$OPTARG ;;
 	s) PREP_HDD_INST='true' ;;
+	e) HDD_BOOT_SDCARD='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -399,6 +406,11 @@ echo " "
 sudo -v
 # keep-alive
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# check conditions HDD_BOOT_SDCARD without PREP_HDD_INST makes no sense
+if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+    PREP_HDD_INST='true'
+fi
 
 echo " "
 echo "+------------------------------------------+"

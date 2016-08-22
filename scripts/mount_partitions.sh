@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2016/24.07.2016
+# Date/Beginn :    22.08.2016/24.07.2016
 #
-# Version     :    V1.01
+# Version     :    V1.02
 #
-# Milestones  :    V1.01 (aug 2016) -> some smaller fixes
+# Milestones  :    V1.02 (aug 2016) -> add hdd-only-sdcard parts
+#                  V1.01 (aug 2016) -> some smaller fixes
 #                  V1.00 (jul 2016) -> version bump to V1.00
 #                  V0.02 (jul 2016) -> add features of make_sdcard.sh
 #                  V0.01 (jul 2016) -> initial version
@@ -48,7 +49,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.01'
+VER='1.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -64,6 +65,9 @@ SD_SHARED='none'
 
 # HDD installation?
 PREP_HDD_INST='false'
+
+# HDD-boot only sd-card?
+HDD_BOOT_SDCARD='false'
 
 # what to to
 ACTION='umount'
@@ -81,6 +85,8 @@ my_usage()
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck                              |"
     echo "|        [-s] -> patitions for hdd installation          |"
+    echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
+    echo "|                -e set also -s                          |"
     echo "|        [-u] -> un-mount patitions (default)            |"
     echo "|        [-m] -> mount patitions                         |"
     echo "|        [-v] -> print version info                      |"
@@ -125,7 +131,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvmusb:' opts 2>$_log
+while getopts 'hvmeusb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -134,6 +140,7 @@ do
 	m) ACTION='mount' ;;
 	u) ACTION='umount' ;;
 	s) PREP_HDD_INST='true' ;;
+	e) HDD_BOOT_SDCARD='true' ;;
         ?) my_usage ;;
     esac
 done
@@ -318,6 +325,11 @@ umount_partitions()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+# check conditions HDD_BOOT_SDCARD without PREP_HDD_INST makes no sense
+if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+    PREP_HDD_INST='true'
+fi
 
 case "$BRAND" in
     'bananapi')

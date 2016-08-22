@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2016/15.08.2016
+# Date/Beginn :    22.08.2016/15.08.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jul 2016) -> initial skeleton
+# Milestones  :    V0.02 (jul 2016) -> some documentation
+#                  V0.01 (jul 2016) -> initial skeleton
 #
 # Requires    :
 #
@@ -41,11 +42,28 @@
 # Some features
 #   - ...
 #
+# Step 1:
+#   - ceate hdd preparation sd-card (make_sdcard.sh)
+# Step 2:
+#   - mount /mnt/bananapi/bananapi_shared
+#   - partition sda (sda1 -> / and sda2 /home)
+#   - format both
+#   - mount /dev/sda1 /mnt/tmp
+#   - untar /mnt/banan../...rootfs.tgz
+#   - untar hdd_branding to /mnt/tmp/etc
+#   - umount /dev/sda1
+#   - mount /dev/sda2
+#   - untar /mnt/ban.../...home.tgz
+#   - unmount /dev/sda2
+#
+# Step 3:
+#   - create hdd-boot-only sd-card (make_sdcard.sh)
+#
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'

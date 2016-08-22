@@ -3,6 +3,9 @@
 #
 
 
+2016-08-22 -> ## script stuff
+	      fix a lot of bugs and misbehaviour
+
 2016-08-21 -> ## script stuff
 	      reorg sudo handling of all scripts
 	      fix permission handling for $HOME branding
@@ -13,7 +16,7 @@
 
 2016-08-18 -> ## target stuff
 	      update kernel to 4.6.7
-	      regular image updates 
+	      regular image updates
 
 2016-08-15 -> ## target stuff
 	      add *_hdd_kernel.tgz for all devices

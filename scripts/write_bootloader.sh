@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/15.07.2016
+# Date/Beginn :    22.08.2016/15.07.2016
 #
-# Version     :    V1.06
+# Version     :    V1.07
 #
-# Milestones  :    V1.06 (aug 2016) -> sudo handling at beginning
+# Milestones  :    V1.07 (aug 2016) -> fix hdd handling
+#                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.04 (aug 2016) -> remove unneeded copy for hdd installation
 #                  V1.03 (aug 2016) -> finalize hdd installation
@@ -57,7 +58,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.06'
+VER='1.07'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -240,7 +241,8 @@ copy_bootloader()
 	# not really needed
 	cp -rf hdd_boot ${SD_KERNEL}/${BRAND}/
 
-	cp -rf hdd_boot ${SD_KERNEL}/
+	cp -rf hdd_boot/boot.cmd ${SD_KERNEL}/
+	cp -rf hdd_boot/boot.scr ${SD_KERNEL}/
     else
 	# not really needed
 	cp boot.cmd boot.scr ${SD_KERNEL}/${BRAND}/

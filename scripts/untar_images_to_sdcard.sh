@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/15.07.2016
+# Date/Beginn :    22.08.2016/15.07.2016
 #
-# Version     :    V1.05
+# Version     :    V1.06
 #
-# Milestones  :    V1.05 (aug 2016) -> sudo handling at beginning
+# Milestones  :    V1.06 (aug 2016) -> whitespaces
+#                  V1.05 (aug 2016) -> sudo handling at beginning
 #                  V1.04 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.03 (aug 2016) -> some smaller fixes
 #                  V1.02 (aug 2016) -> be aware of hdd installation
@@ -55,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.05'
+VER='1.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -434,7 +435,7 @@ sudo -v
 # keep-alive
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# check conditions HDD_BOOT_SDCARD without HDD_BOOT_SDCARD makes no sense
+# check conditions HDD_BOOT_SDCARD without PREP_HDD_INST makes no sense
 if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
     PREP_HDD_INST='true'
 fi
