@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.08.2016/15.08.2016
+# Date/Beginn :    23.08.2016/15.08.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jul 2016) -> some documentation
+# Milestones  :    V0.03 (aug 2016) -> first content
+#                  V0.02 (aug 2016) -> some documentation
 #                  V0.01 (jul 2016) -> initial skeleton
 #
 # Requires    :
@@ -54,7 +55,7 @@
 #   - umount /dev/sda1
 #   - mount /dev/sda2
 #   - untar /mnt/ban.../...home.tgz
-#   - unmount /dev/sda2
+#   - umount /dev/sda2
 #
 # Step 3:
 #   - create hdd-boot-only sd-card (make_sdcard.sh)
@@ -63,11 +64,21 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
 
+# device node (sda1 -> rootfs ... sda2 -> home)
+DEVNODE="/dev/sda"
+
+# mountpoint
+SD_SHARED="/mnt/bananapi/bananapi_shared"
+HDD_TMP="/mnt/tmp"
+
+# ...
+TARBALL='none'
+BASE_IMAGE='false'
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -96,6 +107,8 @@ cleanup() {
 # my exit method
 my_exit()
 {
+    umount_partitions
+    
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
@@ -131,45 +144,198 @@ done
 
 
 # ******************************************************************************
-# ***             Error handling for missing shell values                    ***
-# ******************************************************************************
-
-# TODO: fix it!
-if [[ ! ${ARMHF_HOME} ]]; then
-    MISSING_ENV='true'
-fi
-
-# show a usage screen and exit
-if [ "$MISSING_ENV" = 'true' ]; then
-    cleanup
-    echo " "
-    echo "+--------------------------------------+"
-    echo "|                                      |"
-    echo "|  ERROR: missing env                  |"
-    echo "|         have you sourced env-file?   |"
-    echo "|                                      |"
-    echo "|          Cheers $USER               |"
-    echo "|                                      |"
-    echo "+--------------------------------------+"
-    echo " "
-    exit 3
-fi
-
-
-# ******************************************************************************
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
+check_devnode()
+{
+    local mounted=`grep ${DEVNODE} /proc/mounts | sort | cut -d ' ' -f 1`
+    if [[ "${mounted}" ]]; then
+	echo "ERROR: ${DEVNODE} has already mounted partitions" >&2
+	my_exit
+    fi
+}
 
+check_mountpoints()
+{
+    if [[ ! -d "${SD_SHARED}" ]]; then
+	echo "ERROR -> ${SD_SHARED} not available!" >&2
+	my_exit
+    fi
 
+    if [[ ! -d "${HDD_TMP}" ]]; then
+	echo "ERROR -> ${HDD_TMP} not available!" >&2
+	my_exit
+    fi
+}
 
+umount_partitions()
+{
+    echo "umount $SD_SHARED"
+    umount $SD_SHARED
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_SHARED}" >&2
+	# do not exit -> will try to umount the others
+    fi
+
+    echo "sudo umount $HDD_TMP"
+    sudo umount $HDD_TMP
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${HDD_TMP}" >&2
+	# do not exit -> will try to umount the others
+    fi
+}
+
+check_tarballs()
+{
+    if [[ -f "${SD_SHARED}/a20_sdk_home.tgz" ]]; then
+	echo "ERROR -> ${SD_SHARED}/a20_sdk_home.tgz not available!" >&2
+	my_exit
+    fi
+
+    local missing_rootfs='true'
+    
+    if [[ -f "${SD_SHARED}/a20_sdk_base_rootfs.tgz" ]]; then
+	BASE_IMAGE='true'
+	missing_rootfs='false'
+    fi
+
+    if [[ -f "${SD_SHARED}/a20_sdk_rootfs.tgz" ]]; then
+	BASE_IMAGE='false'
+	missing_rootfs='false'
+    fi 
+
+    if [ "$missing_rootfs" = 'true' ]; then
+	echo "ERROR -> no rootfs available!" >&2
+	my_exit
+    fi
+    
+    # TODO: check for the rest
+}
+
+clean_hdd()
+{
+    echo "sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1"
+    sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not clear ${DEVNODE}" >&2
+	my_exit
+    fi
+}
+
+partition_hdd()
+{
+    sudo blockdev --rereadpt ${DEVNODE}
+    cat <<EOT | sudo sfdisk ${DEVNODE}
+1M,10G,L
+,,L
+EOT
+
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not create partitions" >&2
+	my_exit
+    fi
+}
+
+format_partitions()
+{
+    if [[ -b ${DEVNODE}1 ]]; then
+	echo "sudo mkfs.ext4 ${DEVNODE}1"
+	sudo mkfs.ext4 ${DEVNODE}1
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not format parition ${DEVNODE}1" >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR -> ${DEVNODE}1 not available" >&2
+	my_exit
+    fi
+
+    if [[ -b ${DEVNODE}2 ]]; then
+	echo "sudo mkfs.ext4 ${DEVNODE}2"
+	sudo mkfs.ext4 ${DEVNODE}2
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not format parition ${DEVNODE}2" >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR -> ${DEVNODE}2 not available" >&2
+	my_exit
+    fi
+}
+
+mount_hdd_tmp()
+{
+    echo "sudo mount $DEVNODE $HDD_TMP"
+    sudo mount $DEVNODE $HDD_TMP
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${DEVNODE} to ${HDD_TMP}" >&2
+	my_exit
+    fi
+}
+
+untar_images()
+{
+    sudo tar xzpvf ${TARBALL} .
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not untar ${TARBALL}" >&2
+	my_exit
+    fi
+}
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
+# sudo handling up-front
+echo " "
+echo "+------------------------------------------+"
+echo "| hdd installatio script                   |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
+echo " "
 
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+check_devnode
+check_mountpoints
+check_tarballs
+
+echo "mount $SD_SHARED"
+mount $SD_SHARED
+if [ $? -ne 0 ] ; then
+    echo "ERROR -> could not mount ${SD_SHARED}" >&2
+    my_exit
+fi
+
+# create partitions ...
+clean_hdd
+partition_hdd
+format_partitions
+
+# rootfs
+DEVNODE="/dev/sda1"
+mount_hdd_tmp
+cd $HDD_TMP
+if [ "$BASE_IMAGE" = 'true' ]; then
+    TARBALL="${SD_SHARED}/a20_sdk_base_rootfs.tgz"
+else
+    TARBALL="${SD_SHARED}/a20_sdk_rootfs.tgz"
+fi
+untar_images
+cd $SD_SHARED
+
+# home
+DEVNODE="/dev/sda2"
+mount_hdd_tmp
+cd $HDD_TMP
+TARBALL="${SD_SHARED}/a20_sdk_home.tgz"
+untar_images
+cd $SD_SHARED
+
+umount_partitions
 
 cleanup
 echo " "
