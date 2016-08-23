@@ -108,7 +108,7 @@ cleanup() {
 my_exit()
 {
     umount_partitions
-    
+
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
@@ -187,7 +187,7 @@ check_tarballs()
     fi
 
     local missing_rootfs='true'
-    
+
     if [[ -f "${SD_SHARED}/a20_sdk_base_rootfs.tgz" ]]; then
 	BASE_IMAGE='true'
 	missing_rootfs='false'
@@ -196,13 +196,13 @@ check_tarballs()
     if [[ -f "${SD_SHARED}/a20_sdk_rootfs.tgz" ]]; then
 	BASE_IMAGE='false'
 	missing_rootfs='false'
-    fi 
+    fi
 
     if [ "$missing_rootfs" = 'true' ]; then
 	echo "ERROR -> no rootfs available!" >&2
 	my_exit
     fi
-    
+
     # TODO: check for the rest
 }
 
