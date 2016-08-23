@@ -171,13 +171,6 @@ check_mountpoints()
 
 umount_partitions()
 {
-    echo "umount $SD_SHARED"
-    umount $SD_SHARED
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_SHARED}" >&2
-	# do not exit -> will try to umount the others
-    fi
-
     echo "sudo umount $HDD_TMP"
     sudo umount $HDD_TMP
     if [ $? -ne 0 ] ; then
@@ -188,7 +181,7 @@ umount_partitions()
 
 check_tarballs()
 {
-    if [[ -f "${SD_SHARED}/a20_sdk_home.tgz" ]]; then
+    if [[ ! -f "${SD_SHARED}/a20_sdk_home.tgz" ]]; then
 	echo "ERROR -> ${SD_SHARED}/a20_sdk_home.tgz not available!" >&2
 	my_exit
     fi
@@ -302,13 +295,6 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 check_devnode
 check_mountpoints
 check_tarballs
-
-echo "mount $SD_SHARED"
-mount $SD_SHARED
-if [ $? -ne 0 ] ; then
-    echo "ERROR -> could not mount ${SD_SHARED}" >&2
-    my_exit
-fi
 
 # create partitions ...
 clean_hdd
