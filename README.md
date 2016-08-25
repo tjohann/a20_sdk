@@ -99,6 +99,8 @@ if you only need/want the RT-PREEMPT parts, then you only need
 
 Now you should have the complete content on your disk.
 
+Note: to use all scripts you have to add the mount points for your device to your /etc/fstab and create the mount points below /mnt/ (see below). It also make sense to add your device to your /etc/hosts (see below for my network configuration).
+
 
 Update
 ------
@@ -261,7 +263,7 @@ Note 02: both kernel (RT-PREEMPT and PREEMPT) are supported on every device. If 
 Network
 -------
 
-For testing purpose i have physical (and virtual -> QEMU based nodes) network where all devices are conneted to.
+For testing purpose i have physical (and virtual -> QEMU based nodes) network where all devices are conneted to. The easiest way to use it is to add a usb-ethernet adapter to your main machine and add your target device to it, otherwise you have to do a lot of configuration by hand.
 
 Single devices:
 
@@ -290,6 +292,9 @@ My cluster:
 My nfs share:
 
 	192.168.0.42            echnaton.my.domain              echnaton
+
+
+Note: The devices imx233 and arietta are supported through my arm926_sdk (see https://github.com/tjohann/arm926_sdk). Additionally you find first content for A64 devices like Pine64 in my a64_sdk (https://github.com/tjohann/a64_sdk).
 
 
 Directory/File structure on sourceforge
@@ -417,6 +422,24 @@ Outlook (next development steps)
 - Finally i provide dialog based script (make_sdcard.sh) to put all scipts (from above) together to a unified userinterface (handle image creation).
 - I will provide a minimal image which could be the basic for your own systems (with PREEMPT and RT-PREEMPT kernel).
 
-(until end of august)
+(until end of august -> done)
 - support for hdd installation
 
+(until end of september)
+- add storyline for baalue (distcc)
+- add storyline for bananapi-pro (home cloud server)
+- add storyline for olimex and bananapi (embedded devices)
+- release of A20_SDK_V2.0.0
+- make use of lcd1602 module of cubietruck (baalue_master)
+
+(until end of october)
+- working jailhouse configuration for bananapi and olimex
+- simple example for using bare-metal cell within bananapi/olimex
+
+(until end of november)
+- working can parts for a20-can and mcp2515 (bananapi/olimex)
+- working can baremetal can example
+- simple baremetal lcd example
+
+(until end of december)
+- simple os for baremetal cell (see https://github.com/tjohann/miblos)
