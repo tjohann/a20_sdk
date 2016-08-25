@@ -9,10 +9,10 @@
 #
 
 ## target stuff
-- add mg to rootfs and base_rootfs
+- add mg to rootfs and base_rootfs                          [2016-08-25 -> done]
 
 ## sdk stuff
-- add howto for hdd installation
+- add howto for hdd installation                            [2016-08-25 -> done]
 
 
 #
@@ -23,7 +23,7 @@
 - format_sdcard: fix handling of hdd-boot-only              [2016-08-22 -> done]
 
 ## target stuff
-- add /mnt/tmp dir to rootfs and base_rootfs
+- add /mnt/tmp dir to rootfs and base_rootfs                [2016-08-25 -> done]
 
 
 #
@@ -32,7 +32,7 @@
 
 ## srcipt & target stuff
 - add content to create hdd stuff after base installation
-  (hdd_installation.sh)
+  (hdd_installation.sh)                                     [2016-08-25 -> done]
 
 
 #
@@ -179,7 +179,7 @@
   -> for all devices                                        [2016-08-13 -> done]
   -> use *shared* partition                                 [2016-08-13 -> done]
   -> small scripts to automate the process -> use the
-     mini-images for it
+     mini-images for it                                     [2016-08-25 -> done]
 - add support for baalue and the different nodes            [2016-07-11 -> done]
 
 ## script stuff
@@ -245,7 +245,7 @@
   it mainline
 - blacklist kvm driver -> use jailhouse                 [2016-07-04 -> canceled]
 - build unified kernel for PREEMPT and RT-PREEMPT           [2016-07-04 -> done]
-- provide minimal image with PREEMPT and RT-PREEMPT kernel
+- provide minimal image with PREEMPT and RT-PREEMPT kernel  [2016-07-XX -> done]
 - provide minimal RT-PREEMPT kernel for minimal image   [2016-07-04 -> canceled]
 
 ## sdk stuff
