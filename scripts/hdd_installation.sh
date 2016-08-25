@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.08.2016/15.08.2016
+# Date/Beginn :    25.08.2016/15.08.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (aug 2016) -> first content
+# Milestones  :    V0.04 (aug 2016) -> first working version
+#                  V0.03 (aug 2016) -> first content
 #                  V0.02 (aug 2016) -> some documentation
 #                  V0.01 (jul 2016) -> initial skeleton
 #
@@ -64,7 +65,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -269,7 +270,8 @@ mount_hdd_tmp()
 
 untar_images()
 {
-    sudo tar xzpvf ${TARBALL} .
+    echo "sudo tar xzpvf ${TARBALL}"
+    sudo tar xzpvf ${TARBALL}
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not untar ${TARBALL}" >&2
 	my_exit
@@ -311,7 +313,13 @@ else
     TARBALL="${SD_SHARED}/a20_sdk_rootfs.tgz"
 fi
 untar_images
+
+# branding etc
 cd $SD_SHARED
+TARBALL="${SD_SHARED}/hdd_branding.tgz"
+untar_images
+echo "rsync -av hdd_branding/. ${HDD_TMP}/etc/."
+sudo rsync -av hdd_branding/. ${HDD_TMP}/etc/.
 
 # home
 DEVNODE="/dev/sda2"

@@ -76,6 +76,7 @@ libgit2-devel
 libcurl-devel
 libarchive-devel
 libbsd-devel
+mg
 
 #
 # config addtions/changes

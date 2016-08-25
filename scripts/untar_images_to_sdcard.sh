@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.08.2016/15.07.2016
+# Date/Beginn :    25.08.2016/15.07.2016
 #
-# Version     :    V1.06
+# Version     :    V1.07
 #
-# Milestones  :    V1.06 (aug 2016) -> whitespaces
+# Milestones  :    V1.07 (aug 2016) -> remove dot from untar kdo (not needed)
+#                  V1.06 (aug 2016) -> whitespaces
 #                  V1.05 (aug 2016) -> sudo handling at beginning
 #                  V1.04 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.03 (aug 2016) -> some smaller fixes
@@ -56,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.06'
+VER='1.07'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -369,14 +370,14 @@ untar_images()
 	echo "No need to untar all tarballs"
 
 	cd $SD_KERNEL
-	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_hdd_kernel.tgz .
+	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_hdd_kernel.tgz
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_hdd_kernel.tgz" >&2
 	    my_exit
 	fi
     else
 	cd $SD_KERNEL
-	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
+	sudo tar xzpvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" >&2
 	    my_exit
@@ -384,9 +385,9 @@ untar_images()
 
 	cd $SD_ROOTFS
 	if [ "$BASE_IMAGE" = 'true' ]; then
-	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz
 	else
-	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz
 	fi
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/a20_sdk_*rootfs.tgz" >&2
@@ -411,7 +412,7 @@ untar_images()
 	    fi
 	else
 	    cd $SD_HOME
-	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz
 	fi
     fi
 
