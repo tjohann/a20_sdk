@@ -5,6 +5,9 @@
 2016-08-27 -> ## sdk & script stuff
 	      add content to prepare_all_kernel* helper script
 
+	      ## target stuff
+	      fix hdd_branding bug -> wrong hostname & ip
+
 
 ################## 2016-08-26 -> A20_SDK_V1.99.7 ############################
 
