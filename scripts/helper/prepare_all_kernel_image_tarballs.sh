@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    26.08.2016/26.08.2016
+# Date/Beginn :    27.08.2016/26.08.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (aug 2016) -> initial skeleton
+# Milestones  :    V0.02 (aug 2016) -> first working version
+#                  V0.01 (aug 2016) -> initial skeleton
 #
 # Requires    :
 #
@@ -36,7 +37,8 @@
 ################################################################################
 # Description
 #
-#   A simple tool to prepare a tarball for all kernel images
+#   A simple tool to prepare a tarball for all kernel images (based on
+#   bananapi_kernel.tgz)
 #
 # Some features
 #   - ...
@@ -49,6 +51,13 @@ VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
+
+# mountpoints
+SD_KERNEL='none'
+
+# ...
+BRAND="bananapi"
+HDD=''
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -76,6 +85,8 @@ cleanup() {
 # my exit method
 my_exit()
 {
+    umount_partition
+
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
@@ -122,7 +133,7 @@ if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [[ ! ${ARMHF_SRC_HOME} ]]; then
+if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -147,7 +158,92 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
+check_directory()
+{
+    if [[ ! -d "${SD_KERNEL}" ]]; then
+	echo "ERROR -> ${SD_KERNEL} not available!" >&2
+	echo "         have you added them to your fstab? (see README.md)" >&2
+	my_exit
+    fi
+}
 
+mount_partition()
+{
+    mount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
+	my_exit
+    fi
+}
+
+umount_partition()
+{
+    umount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
+	# do not exit
+    fi
+}
+
+untar_base_image()
+{
+    cd $SD_KERNEL
+    tar xzvf ${ARMHF_BIN_HOME}/images/bananapi_kernel.tgz
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/bananapi_kernel.tgz" >&2
+	my_exit
+    fi
+
+    cd -
+}
+
+copy_rt()
+{
+    cp ${SD_KERNEL}/rt/* $SD_KERNEL
+    cp ${SD_KERNEL}/rt/.config $SD_KERNEL
+    cp ${SD_KERNEL}/${BRAND}/* $SD_KERNEL
+}
+
+copy_hdd()
+{
+    cp ${SD_KERNEL}/${BRAND}/hdd_boot/* $SD_KERNEL
+}
+
+copy_nonrt()
+{
+    cp ${SD_KERNEL}/non-rt/* $SD_KERNEL
+    cp ${SD_KERNEL}/non-rt/.config $SD_KERNEL
+    cp ${SD_KERNEL}/${BRAND}/* $SD_KERNEL
+}
+
+tar_image()
+{
+    cd $SD_KERNEL
+    tar czvf ${ARMHF_BIN_HOME}/images/${BRAND}${HDD}_kernel.tgz .
+
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/${BRAND}${HDD}_kernel.tgz" >&2
+	my_exit
+    fi
+
+    cd -
+}
+
+do_all_rt()
+{
+    rm -f sun7i-a20-*.dt?
+    copy_rt
+    copy_hdd
+    tar_image
+}
+
+do_all_nonrt()
+{
+    rm -f sun7i-a20-*.dt?
+    copy_nonrt
+    copy_hdd
+    tar_image
+}
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
@@ -155,10 +251,53 @@ fi
 
 echo " "
 echo "+----------------------------------------+"
-echo "|                 .....                  |"
+echo "|    create all kernel image tarballs    |"
 echo "+----------------------------------------+"
 echo " "
 
+SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+check_directory
+mount_partition
+untar_base_image
+
+#
+# first all device with rt-preempt kernel (bananpi/olimex)
+#
+
+# bananapi -> only hdd image (bananapi_kernel.tgz is the base image)
+BRAND="bananapi"
+HDD="_hdd"
+do_all_rt
+
+# bananapi-pro
+BRAND="bananapi-pro"
+HDD=""
+do_all_nonrt
+HDD="_hdd"
+do_all_nonrt
+
+# baalue
+BRAND="baalue"
+HDD=""
+do_all_nonrt
+HDD="_hdd"
+do_all_nonrt
+
+# cubietruck
+BRAND="cubietruck"
+HDD=""
+do_all_nonrt
+HDD="_hdd"
+do_all_nonrt
+
+# olimex
+BRAND="olimex"
+HDD=""
+do_all_rt
+HDD="_hdd"
+do_all_rt
+
+umount_partition
 
 cleanup
 echo " "

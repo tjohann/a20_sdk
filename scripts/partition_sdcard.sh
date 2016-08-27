@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/07.07.2016
+# Date/Beginn :    27.08.2016/07.07.2016
 #
-# Version     :    V1.04
+# Version     :    V1.05
 #
-# Milestones  :    V1.04 (aug 2016) -> sudo handling at beginning
+# Milestones  :    V1.05 (aug 2016) -> add partprobe to inform kernel of changes
+#                                      clear also partition table
+#                  V1.04 (aug 2016) -> sudo handling at beginning
 #                  V1.03 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.02 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.01 (jul 2016) -> increase size of small rootfs to 3G
@@ -59,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.04'
+VER='1.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -325,12 +327,19 @@ check_directories()
 
 clean_sdcard()
 {
-    echo "sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1"
-    sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
+    # keep old partition table
+    # echo "sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1"
+    # sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
+
+    # clear also partition table
+    echo "sudo dd if=/dev/zero of=/dev/sdd bs=1M count=1"
+    sudo dd if=/dev/zero of=/dev/sdd bs=1M count=1
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not clear ${DEVNODE}" >&2
 	my_exit
     fi
+
+    sudo partprobe ${DEVNODE}
 }
 
 partition_sdcard()
@@ -355,6 +364,8 @@ EOT
 	echo "ERROR: could not create partitions" >&2
 	my_exit
     fi
+
+    sudo partprobe ${DEVNODE}
 }
 
 partition_hdd_boot_sdcard()
@@ -370,6 +381,8 @@ EOT
 	echo "ERROR: could not create partitions" >&2
 	my_exit
     fi
+
+    sudo partprobe ${DEVNODE}
 }
 
 format_partitions()
