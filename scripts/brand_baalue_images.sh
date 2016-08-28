@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/21.08.2016
+# Date/Beginn :    28.08.2016/21.08.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (jul 2016) -> initial skeleton
+# Milestones  :    V0.02 (jul 2016) -> some minor improvements/fixes
+#                  V0.01 (jul 2016) -> initial skeleton
 #
 # Requires    :
 #
@@ -50,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -231,8 +232,12 @@ brand_image_etc()
 	    my_exit
 	fi
 
-	echo "rsync -avz ${src_branding}/. ${SD_ROOTFS}/etc/."
-	rsync -avz ${src_branding}/. ${SD_ROOTFS}/etc/.
+	echo "sudo cp ${src_branding}/* ${SD_ROOTFS}/etc/"
+	sudo cp -f ${src_branding}/* ${SD_ROOTFS}/etc/
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could copy content to ${SD_ROOTFS}/etc" >&2
+	    my_exit
+	fi
     else
 	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
     fi
