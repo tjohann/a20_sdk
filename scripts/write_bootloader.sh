@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.08.2016/15.07.2016
+# Date/Beginn :    28.08.2016/15.07.2016
 #
-# Version     :    V1.07
+# Version     :    V1.08
 #
-# Milestones  :    V1.07 (aug 2016) -> fix hdd handling
+# Milestones  :    V1.08 (aug 2016) -> fix hdd_boot dir creation
+#                  V1.07 (aug 2016) -> fix hdd handling
 #                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.04 (aug 2016) -> remove unneeded copy for hdd installation
@@ -58,7 +59,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.07'
+VER='1.08'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -306,7 +307,7 @@ handle_hdd_parts()
 	fi
 
 	echo "sudo mkdir ${SD_SHARED}/hdd_boot"
-	sudo mkdir ${SD_SHARED}/hdd_boot
+	sudo mkdir -p ${SD_SHARED}/hdd_boot
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR: could not create ${SD_SHARED}/hdd_boot" >&2
 	    my_exit
