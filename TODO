@@ -11,6 +11,9 @@
 ## script stuff
 - remove arm926_sdk from everthing
 
+## target stuff
+- add ee.sh to $HOME
+
 
 #
 # -------------- 2016-08-25 ----------------------------------------------------
