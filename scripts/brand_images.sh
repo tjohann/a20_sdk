@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/02.07.2016
+# Date/Beginn :    07.09.2016/02.07.2016
 #
-# Version     :    V1.07
+# Version     :    V1.08
 #
-# Milestones  :    V1.07 (aug 2016) -> fix owner permissions in /home/baalue
+# Milestones  :    V1.08 (sep 2016) -> add -z to all rsync calls
+#                  V1.07 (aug 2016) -> fix owner permissions in /home/baalue
 #                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> copy also hdd_installation to ${SHARED}
 #                  V1.04 (aug 2016) -> fix sd-hard handling
@@ -70,7 +71,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.07'
+VER='1.08'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -252,8 +253,8 @@ brand_image_etc()
 	    my_exit
 	fi
 
-	echo "sudo rsync -av ${src_branding}/. ${SD_ROOTFS}/etc/."
-	sudo rsync -av ${src_branding}/. ${SD_ROOTFS}/etc/.
+	echo "sudo rsync -avz ${src_branding}/. ${SD_ROOTFS}/etc/."
+	sudo rsync -avz ${src_branding}/. ${SD_ROOTFS}/etc/.
     else
 	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
     fi
@@ -285,8 +286,8 @@ brand_image_home()
 	    my_exit
 	fi
 
-	echo "sudo rsync -av --delete ${src_branding}/. ${SD_HOME}/baalue/."
-	sudo rsync -av --delete ${src_branding}/. ${SD_HOME}/baalue/.
+	echo "sudo rsync -avz --delete ${src_branding}/. ${SD_HOME}/baalue/."
+	sudo rsync -avz --delete ${src_branding}/. ${SD_HOME}/baalue/.
 	sudo chown -R 1000:1000 ${SD_HOME}/baalue
     else
 	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"

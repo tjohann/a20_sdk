@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    prepare_kernel_tarball.sh
+# Title       :    prepare_kernel_folder.sh
 #
 # License:
 #
@@ -24,13 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    04.08.2016/10.07.2016
+# Date/Beginn :    07.09.2016/07.09.2016
 #
-# Version     :    V0.02
+# Version     :    V0.01
 #
-# Milestones  :    V0.02 (jul 2016) -> add features of make_sdcard.sh
-#                  V0.01 (jul 2016) -> initial skeleton
-#                                      change exit code to 3
+# Milestones  :    V0.01 (sep 2016) -> initial skeleton
 #
 # Requires    :
 #
@@ -38,19 +36,20 @@
 ################################################################################
 # Description
 #
-#   A simple tool to prepare a tarball with all kernel context ("bin")
-#
-# Some features
-#   - ...
+#   A simple tool to prepare a kernel folder as base for install to sdcard.sh
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
+
+# what to build
+PREPARE_RT='false'
+PREPARE_NONRT='false'
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -61,6 +60,8 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
+    echo "|        [-r] -> prepare rt kernel folder                |"
+    echo "|        [-n] -> prepare non-rt kernel folder            |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -82,6 +83,7 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
+    
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
@@ -102,9 +104,11 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hv' opts 2>$_log
+while getopts 'hvrn' opts 2>$_log
 do
     case $opts in
+	r) PREPARE_RT='true' ;;
+	n) PREPARE_NONRT='true' ;;
         h) my_usage ;;
         v) print_version ;;
         ?) my_usage ;;
@@ -157,10 +161,77 @@ fi
 
 echo " "
 echo "+----------------------------------------+"
-echo "|                 .....                  |"
+echo "|       prepare share kernel folder      |"
 echo "+----------------------------------------+"
 echo " "
 
+if [ -d ${ARMHF_BIN_HOME}/kernel ]; then
+    cd ${ARMHF_BIN_HOME}/kernel
+else
+    echo "ERROR -> ${ARMHF_BIN_HOME}/kernel not exists"
+fi
+
+if [ "$PREPARE_NONRT" = 'true' ]; then
+    echo "prepare non-rt kernel folder"
+
+    if [ -d ${ARMHF_BIN_HOME}/kernel/kernel_${ARMHF_KERNEL_VER} ]; then
+	echo "folder kernel_${ARMHF_KERNEL_VER} exists -> remove it"
+	rm -rf kernel_${ARMHF_KERNEL_VER}
+    fi
+
+    mkdir kernel_${ARMHF_KERNEL_VER}
+    if [ $? -ne 0 ] ; then
+        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}" >&2
+        my_exit
+    fi
+    
+    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+    if [ $? -ne 0 ] ; then
+        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}" >&2
+        my_exit
+    fi
+
+    cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+    cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+    cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+    cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+
+    cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+    cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+    
+    make ARCH=arm clean
+fi
+
+if [ "$PREPARE_RT" = 'true' ]; then
+    echo "prepare rt kernel folder"
+
+    if [ -d ${ARMHF_BIN_HOME}/kernel/kernel_${ARMHF_KERNEL_VER}_rt ]; then
+	echo "folder kernel_${ARMHF_KERNEL_VER} exists -> remove it"
+	rm -rf kernel_${ARMHF_KERNEL_VER}_rt
+    fi
+
+    mkdir kernel_${ARMHF_KERNEL_VER}_rt
+    if [ $? -ne 0 ] ; then
+        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}_rt" >&2
+        my_exit
+    fi
+
+    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_RT_KERNEL_VER}_rt
+    if [ $? -ne 0 ] ; then
+        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}_rt" >&2
+        my_exit
+    fi
+    
+    cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+    cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+    cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+    cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+
+    cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+    cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+    
+    make ARCH=arm clean
+fi
 
 cleanup
 echo " "

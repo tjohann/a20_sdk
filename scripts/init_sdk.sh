@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/25.01.2016
+# Date/Beginn :    07.09.2016/25.01.2016
 #
-# Version     :    V1.06
+# Version     :    V1.07
 #
-# Milestones  :    V1.06 (aug 2016) -> sudo handling at beginning
+# Milestones  :    V1.07 (sep 2016) -> add -z to all rsync calls
+#                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.04 (jul 2016) -> redirect errors to >&2
 #                  V1.03 (jul 2016) -> change exit code to 3
@@ -67,7 +68,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.06'
+VER='1.07'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -186,7 +187,7 @@ add_documentations_links_opt()
     # bananapi related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/bananapi
-	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/bananapi/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi/Documentation/." >&2
 	    my_exit
@@ -198,7 +199,7 @@ add_documentations_links_opt()
     # baalue related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/baalue ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/baalue
-	rsync -av --delete ${ARMHF_HOME}/baalue/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/baalue/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/baalue/Documentation/." >&2
 	    my_exit
@@ -210,7 +211,7 @@ add_documentations_links_opt()
     # bananapi-pro related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi-pro ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/bananapi-pro
-	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi-pro/Documentation/." >&2
 	    my_exit
@@ -222,7 +223,7 @@ add_documentations_links_opt()
     # cubietruck related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/cubietruck ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/cubietruck
-	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/cubietruck/Documentation/." >&2
 	    my_exit
@@ -234,7 +235,7 @@ add_documentations_links_opt()
     # olimex related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/olimex ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/olimex
-	rsync -av --delete ${ARMHF_HOME}/olimex/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/olimex/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/olimex/Documentation/." >&2
 	    my_exit
@@ -249,7 +250,7 @@ add_documentations_links_home()
     # bananapi related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/bananapi
-	rsync -av --delete ${ARMHF_HOME}/bananapi/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/bananapi/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi/Documentation/." >&2
 	    my_exit
@@ -261,7 +262,7 @@ add_documentations_links_home()
     # baalue related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/baalue ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/baalue
-	rsync -av --delete ${ARMHF_HOME}/baalue/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/baalue/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/baalue/Documentation/." >&2
 	    my_exit
@@ -273,7 +274,7 @@ add_documentations_links_home()
     # bananapi-pro related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi-pro ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/bananapi-pro
-	rsync -av --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/bananapi-pro/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi-pro/Documentation/." >&2
 	    my_exit
@@ -285,7 +286,7 @@ add_documentations_links_home()
     # cubietruck related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/cubietruck ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/cubietruck
-	rsync -av --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/cubietruck/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/cubietruck/Documentation/." >&2
 	    my_exit
@@ -297,7 +298,7 @@ add_documentations_links_home()
     # olimex related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/olimex ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/olimex
-	rsync -av --delete ${ARMHF_HOME}/olimex/Documentation/. .
+	rsync -avz --delete ${ARMHF_HOME}/olimex/Documentation/. .
 	if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi/Documentation/." >&2
 	    my_exit
@@ -348,9 +349,9 @@ if [ "$INIT_OPT" = 'true' ]; then
 
     echo "Rsync content of ${ARMHF_HOME}/a20_sdk/ to $ARMHF_BIN_HOME"
     cd $ARMHF_BIN_HOME
-    rsync -av --delete ${ARMHF_HOME}/a20_sdk/. .
+    rsync -avz --delete ${ARMHF_HOME}/a20_sdk/. .
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could notrsync -av --delete ${ARMHF_HOME}/a20_sdk/." >&2
+	echo "ERROR -> could not rsync ${ARMHF_HOME}/a20_sdk/." >&2
 	my_exit
     fi
 
@@ -378,9 +379,9 @@ if [ "$INIT_USER_HOME" = 'true' ]; then
 
     cd $ARMHF_SRC_HOME
     echo "Rsync content of ${ARMHF_HOME}/a20_sdk_src/ to $ARMHF_SRC_HOME"
-    rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/. .
+    rsync -avz --delete ${ARMHF_HOME}/a20_sdk_src/. .
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not rsync -av --delete ${ARMHF_HOME}/a20_sdk_src/." >&2
+	echo "ERROR -> could not rsync ${ARMHF_HOME}/a20_sdk_src/." >&2
 	my_exit
     fi
 
