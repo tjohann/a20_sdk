@@ -44,7 +44,7 @@
 #   - build rt kernel (see kdo argument)
 #   - install modules to ${ARMHF_BIN_HOME}
 #
-#   -> to install it on a device use helpers/install_kernel.sh 
+#   -> to install it on a device use helpers/install_kernel.sh
 #
 ################################################################################
 #
@@ -95,7 +95,7 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    
+
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
@@ -181,7 +181,7 @@ check_tarballs()
 	    echo "ERROR -> ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_RT_KERNEL_VER}.tar.xz not available!" >&2
 	    my_exit
 	fi
-	
+
 	if [[ ! -f "${ARMHF_BIN_HOME}/kernel/patch-${ARMHF_RT_KERNEL_VER}-${ARMHF_RT_VER}.patch.gz" ]]; then
 	    echo "ERROR -> ${ARMHF_BIN_HOME}/kernel/patch-${ARMHF_RT_KERNEL_VER}-${ARMHF_RT_VER}.patch.gz" >&2
 	    my_exit
@@ -238,18 +238,18 @@ if [ "$BUILD_NONRT" = 'true' ]; then
         echo "ERROR -> could not cd to kernel_${ARMHF_KERNEL_VER}" >&2
         my_exit
     fi
-    
+
     cp $ARMHF_HOME/bananapi/configs/kernel_config .config
     yes "" | make oldconfig
-    
+
     copy_dts
-    
+
     make -j{NUM_CORE} ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build kernel" >&2
         my_exit
     fi
-    
+
     build_dtb
     make ARCH=arm INSTALL_MOD_PATH=../modules_${ARMHF_KERNEL_VER} modules_install
 fi
@@ -261,21 +261,21 @@ if [ "$BUILD_RT" = 'true' ]; then
         echo "ERROR -> could not cd to kernel_${ARMHF_KERNEL_VER}_rt" >&2
         my_exit
     fi
-    
+
     zcat ../patch-${ARMHF_RT_KERNEL_VER}-${ARMHF_RT_VER}.patch.gz | patch -p1
     cp $ARMHF_HOME/bananapi/configs/kernel_config_rt .config
     yes "" | make oldconfig
-    
+
     copy_dts
-    
+
     make -j{NUM_CORE} ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build kernel" >&2
         my_exit
     fi
-    
+
     build_dtb
-    make ARCH=arm INSTALL_MOD_PATH=../modules_${ARMHF_RT_KERNEL_VER}_rt modules_install 
+    make ARCH=arm INSTALL_MOD_PATH=../modules_${ARMHF_RT_KERNEL_VER}_rt modules_install
 fi
 
 cleanup

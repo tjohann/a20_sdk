@@ -83,7 +83,7 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    
+
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
@@ -184,7 +184,7 @@ if [ "$PREPARE_NONRT" = 'true' ]; then
         echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}" >&2
         my_exit
     fi
-    
+
     cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}" >&2
@@ -198,7 +198,7 @@ if [ "$PREPARE_NONRT" = 'true' ]; then
 
     cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
     cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-    
+
     make ARCH=arm clean
 fi
 
@@ -221,7 +221,7 @@ if [ "$PREPARE_RT" = 'true' ]; then
         echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}_rt" >&2
         my_exit
     fi
-    
+
     cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
     cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
     cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
@@ -229,7 +229,7 @@ if [ "$PREPARE_RT" = 'true' ]; then
 
     cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
     cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
-    
+
     make ARCH=arm clean
 fi
 

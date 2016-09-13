@@ -95,7 +95,7 @@ my_exit()
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-    
+
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
@@ -197,9 +197,9 @@ copy_kernel_folder()
 {
     cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${SD_KERNEL}/baalue
     if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not copy to ${SD_KERNEL}/baalue" 
+	    echo "ERROR -> could not copy to ${SD_KERNEL}/baalue"
     fi
-    
+
     cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${SD_KERNEL}/bananapi
     if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not copy to ${SD_KERNEL}/bananapi"
@@ -224,7 +224,7 @@ copy_kernel_folder()
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not copy uImage ${SD_KERNEL}"
     fi
-    
+
     cp .config ${SD_KERNEL}
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not copy to .config ${SD_KERNEL}"
@@ -281,7 +281,7 @@ fi
 
 if [ "$INSTALL_NONRT" = 'true' ]; then
     echo "install non-rt kernel"
-    
+
     cd ${ARMHF_BIN_HOME}/kernel/kernel_${ARMHF_KERNEL_VER}
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not change to kernel_${ARMHF_KERNEL_VER}" >&2
@@ -302,8 +302,8 @@ if [ "$INSTALL_NONRT" = 'true' ]; then
         echo "ERROR -> could not  sudo rsync -av --delete linux-${ARMHF_KERNEL_VER} ${SD_ROOT}/usr/src/." >&2
         my_exit
     fi
-fi 
-   
+fi
+
 if [ "$INSTALL_RT" = 'true' ]; then
     echo "install rt kernel"
 
@@ -314,7 +314,7 @@ if [ "$INSTALL_RT" = 'true' ]; then
     fi
 
     copy_kernel_folder
-    
+
     cd ${ARMHF_BIN_HOME}/kernel
     sudo rsync -avz modules_${ARMHF_RT_KERNEL_VER}/lib/modules/. ${SD_ROOT}/lib/modules/.
     if [ $? -ne 0 ] ; then
