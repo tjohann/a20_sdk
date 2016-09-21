@@ -2,6 +2,14 @@
 # some news ... see also TODO for hints
 #
 
+2016-09-21 -> ## sdk stuff
+	      add storyline for bananapi and olimex
+	      add storyline for baalue
+	      some cleanups on documentation
+
+2016-09-20 -> ## target stuff
+	      update kernel to 4.6.7-rt13
+
 2016-09-11 -> ## target stuff
 	      update kernel to 4.6.7-rt12
 

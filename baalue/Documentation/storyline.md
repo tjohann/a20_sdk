@@ -1,7 +1,10 @@
 Storyline Baalue
 ================
 
-Baalue is my common embededd development environment. It is a cluster with 8 worker nodes and 2 different master nodes. If I use it as a development plattform baalue_master (see README.md.Network) ist the master node, otherwise baalue_slave is it. The difference is that baalue_master acts as a distcc server and the main usecase is distributed building/development while baalue_slave and all baalue nodes acts as plattform for parrallel programming within distributed address spaces.
+Baalue is my common embedded development environment. It is a cluster with 8 worker nodes and 1 master nodes. I use it for 2 different usecases:
+
+	- distributed build via distcc
+	- plattform for parallel programming within distributed address space
 
 
 Hardware
@@ -16,7 +19,6 @@ Baalue as embedded development environment
 Supported plattforms (devices):
 
 	- armhf (of course)
-	- armel (arm926_sdk.git)
 	- cortex M3 (arm_cortex_sdk.git)
 	- bare-metal (via jailhouse)
 	- ...

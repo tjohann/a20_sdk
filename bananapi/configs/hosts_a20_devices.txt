@@ -28,7 +28,6 @@
 192.168.0.86            bananapi-86.my.domain                   bananapi-86
 192.168.0.87            bananapi-87.my.domain                   bananapi-87
 192.168.0.90            cubietruck_master.my.domain             cubietruck_master
-192.168.0.91            cubietruck_slave.my.domain              cubietruck_slave
 
 #
 # my cluster nodes (new style)
@@ -41,6 +40,5 @@
 192.168.0.86            baalue-86.my.domain                   	baalue-06
 192.168.0.87            baalue-87.my.domain                   	baalue-07
 192.168.0.90            baalue_master.my.domain                	baalue_master
-192.168.0.91            baalue_slave.my.domain                 	baalue_slave
 
 # End of file
