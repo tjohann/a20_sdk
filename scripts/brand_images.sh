@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.09.2016/02.07.2016
+# Date/Beginn :    22.09.2016/02.07.2016
 #
-# Version     :    V1.08
+# Version     :    V1.09
 #
-# Milestones  :    V1.08 (sep 2016) -> add -z to all rsync calls
+# Milestones  :    V1.09 (sep 2016) -> remove arm926_sdk parts
+#                  V1.08 (sep 2016) -> add -z to all rsync calls
 #                  V1.07 (aug 2016) -> fix owner permissions in /home/baalue
 #                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> copy also hdd_installation to ${SHARED}
@@ -321,22 +322,6 @@ brand_baalue()
 	    sudo chown -R 1000:1000 ${SD_HOME}/baalue/arm_cortex_sdk
 	fi
     fi
-
-     if [ -d ${SD_HOME}/baalue/arm926_sdk ]; then
-	echo "${SD_HOME}/baalue/arm926_sdk already exists -> do a pull"
-	cd ${SD_HOME}/baalue/arm926_sdk
-	git pull
-    else
-	repo_name="https://github.com/tjohann/arm926_sdk.git"
-	echo "start to clone repo $repo_name"
-	sudo git clone $repo_name ${SD_HOME}/baalue/arm926_sdk
-	if [ $? -ne 0 ] ; then
-	    echo "ERROR: could not clone ${repo_name}" >&2
-	    my_exit
-	else
-	    sudo chown -R 1000:1000 ${SD_HOME}/baalue/arm926_sdk
-	fi
-     fi
 }
 
 brand_image_shared()

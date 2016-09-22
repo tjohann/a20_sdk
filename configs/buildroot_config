@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2016.08-rc2-00078-g38249d5 Configuration
+# Buildroot 2016.11-git-00385-gb10d29e Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOST_GCC_AT_LEAST_4_6=y
@@ -179,6 +179,7 @@ BR2_TOOLCHAIN_EXTERNAL_GCC_4_9=y
 # BR2_TOOLCHAIN_EXTERNAL_GCC_4_5 is not set
 # BR2_TOOLCHAIN_EXTERNAL_GCC_4_4 is not set
 # BR2_TOOLCHAIN_EXTERNAL_GCC_4_3 is not set
+# BR2_TOOLCHAIN_EXTERNAL_HEADERS_4_8 is not set
 # BR2_TOOLCHAIN_EXTERNAL_HEADERS_4_7 is not set
 # BR2_TOOLCHAIN_EXTERNAL_HEADERS_4_6 is not set
 # BR2_TOOLCHAIN_EXTERNAL_HEADERS_4_5 is not set
@@ -444,6 +445,7 @@ BR2_PACKAGE_GOOGLE_BREAKPAD_ARCH_SUPPORTS=y
 #
 # ktap needs a Linux kernel to be built
 #
+# BR2_PACKAGE_KVM_UNIT_TESTS is not set
 # BR2_PACKAGE_LATENCYTOP is not set
 # BR2_PACKAGE_LMBENCH is not set
 # BR2_PACKAGE_LTP_TESTSUITE is not set
@@ -502,6 +504,10 @@ BR2_PACKAGE_FLEX=y
 
 #
 # Filesystem and flash utilities
+#
+
+#
+# aufs-util needs a linux kernel and a toolchain w/ threads
 #
 # BR2_PACKAGE_AUTOFS is not set
 # BR2_PACKAGE_BTRFS_PROGS is not set
@@ -662,6 +668,7 @@ BR2_PACKAGE_QT5_JSCORE_AVAILABLE=y
 # BR2_PACKAGE_LINUX_FIRMWARE is not set
 # BR2_PACKAGE_RPI_FIRMWARE is not set
 # BR2_PACKAGE_SUNXI_BOARDS is not set
+# BR2_PACKAGE_TS4900_FPGA is not set
 # BR2_PACKAGE_UX500_FIRMWARE is not set
 # BR2_PACKAGE_WILC1000_FIRMWARE is not set
 # BR2_PACKAGE_ZD1211_FIRMWARE is not set
@@ -948,6 +955,8 @@ BR2_PACKAGE_LIBGPG_ERROR_SYSCFG="arm-unknown-linux-gnueabi"
 # BR2_PACKAGE_LIBSECRET is not set
 BR2_PACKAGE_LIBSHA1=y
 # BR2_PACKAGE_LIBSODIUM is not set
+# BR2_PACKAGE_LIBSSH is not set
+# BR2_PACKAGE_LIBSSH2 is not set
 # BR2_PACKAGE_LIBTOMCRYPT is not set
 # BR2_PACKAGE_LIBUECC is not set
 # BR2_PACKAGE_MBEDTLS is not set
@@ -1051,7 +1060,7 @@ BR2_PACKAGE_LIBSYSFS=y
 #
 
 #
-# libgtk3 needs an OpenGL or OpenGL EGL backend provided by mesa3d
+# libgtk3 needs an OpenGL or an OpenGL-EGL/wayland backend
 #
 # BR2_PACKAGE_LIBMNG is not set
 # BR2_PACKAGE_LIBPNG is not set
@@ -1188,6 +1197,7 @@ BR2_PACKAGE_LIBXMLRPC=y
 # BR2_PACKAGE_LIBXSLT is not set
 # BR2_PACKAGE_LIBYAML is not set
 # BR2_PACKAGE_MXML is not set
+# BR2_PACKAGE_PUGIXML is not set
 # BR2_PACKAGE_RAPIDJSON is not set
 # BR2_PACKAGE_RAPIDXML is not set
 # BR2_PACKAGE_RAPTOR is not set
@@ -1484,6 +1494,7 @@ BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS=y
 # BR2_PACKAGE_PROTOBUF_C is not set
 # BR2_PACKAGE_QHULL is not set
 # BR2_PACKAGE_QLIBC is not set
+# BR2_PACKAGE_SHAPELIB is not set
 # BR2_PACKAGE_SPHINXBASE is not set
 # BR2_PACKAGE_TINYCBOR is not set
 
@@ -1785,35 +1796,35 @@ BR2_PACKAGE_MONGREL2_LIBC_SUPPORTS=y
 #
 
 #
-# Please note:
+# Please note:                                           
 #
 
 #
-# - Buildroot does *not* generate binary packages,
+# - Buildroot does *not* generate binary packages,       
 #
 
 #
-# - Buildroot does *not* install any package database.
+# - Buildroot does *not* install any package database.   
 #
 
 #
-# *
+# *                                                      
 #
 
 #
-# It is up to you to provide those by yourself if you
+# It is up to you to provide those by yourself if you    
 #
 
 #
-# want to use any of those package managers.
+# want to use any of those package managers.             
 #
 
 #
-# *
+# *                                                      
 #
 
 #
-# See the manual:
+# See the manual:                                        
 #
 
 #
@@ -1877,7 +1888,7 @@ BR2_PACKAGE_AUDIT_ARCH_SUPPORTS=y
 # BR2_PACKAGE_CGROUPFS_MOUNT is not set
 
 #
-# circus needs Python and a toolchain w/ C++, wchar, threads
+# circus needs Python and a uClibc or glibc toolchain w/ C++, wchar, threads
 #
 # BR2_PACKAGE_CPULOAD is not set
 # BR2_PACKAGE_DOCKER_CONTAINERD is not set
@@ -1921,8 +1932,14 @@ BR2_PACKAGE_INITSCRIPTS=y
 BR2_PACKAGE_SYSTEMD_ARCH_SUPPORTS=y
 # BR2_PACKAGE_TPM_TOOLS is not set
 # BR2_PACKAGE_UNSCD is not set
-# BR2_PACKAGE_UTIL_LINUX is not set
+BR2_PACKAGE_UTIL_LINUX=y
+BR2_PACKAGE_UTIL_LINUX_LIBBLKID=y
+BR2_PACKAGE_UTIL_LINUX_LIBMOUNT=y
+# BR2_PACKAGE_UTIL_LINUX_LIBSMARTCOLS is not set
+BR2_PACKAGE_UTIL_LINUX_LIBUUID=y
+# BR2_PACKAGE_UTIL_LINUX_BINARIES is not set
 # BR2_PACKAGE_XEN is not set
+# BR2_PACKAGE_XVISOR is not set
 
 #
 # Text editors and viewers
@@ -2020,6 +2037,16 @@ BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS=y
 #
 
 #
+# Legacy options removed in 2016.11
+#
+# BR2_GCC_VERSION_4_8_ARC is not set
+# BR2_KERNEL_HEADERS_4_0 is not set
+# BR2_KERNEL_HEADERS_3_19 is not set
+# BR2_PACKAGE_LIBEVAS_GENERIC_LOADERS is not set
+# BR2_PACKAGE_ELEMENTARY is not set
+# BR2_LINUX_KERNEL_CUSTOM_LOCAL is not set
+
+#
 # Legacy options removed in 2016.08
 #
 # BR2_PACKAGE_SYSTEMD_COMPAT is not set
@@ -2071,7 +2098,7 @@ BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS=y
 # BR2_PACKAGE_CUPS_PDFTOPS is not set
 # BR2_KERNEL_HEADERS_3_16 is not set
 # BR2_PACKAGE_PYTHON_PYXML is not set
-BR2_ENABLE_SSP=y
+# BR2_ENABLE_SSP is not set
 # BR2_PACKAGE_DIRECTFB_CLE266 is not set
 # BR2_PACKAGE_DIRECTFB_UNICHROME is not set
 # BR2_PACKAGE_LIBELEMENTARY is not set

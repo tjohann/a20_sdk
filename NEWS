@@ -2,6 +2,12 @@
 # some news ... see also TODO for hints
 #
 
+2016-09-22 -> ## sdk stuff
+	      update buildroot parts of the toolchain
+
+	      ## script & target stuff
+	      remove arm926_sdk parts
+
 2016-09-21 -> ## sdk stuff
 	      add storyline for bananapi and olimex
 	      add storyline for baalue

@@ -5,11 +5,20 @@
 
 
 #
+# -------------- 2016-09-22 ----------------------------------------------------
+#
+
+## target stuff
+- remove old baalue node naming style from hosts file on
+  both images                                               [2016-09-22 -> done]
+
+
+#
 # -------------- 2016-09-21 ----------------------------------------------------
 #
 
 ## target stuff
-- remove cubietruck_slave from hosts file on both images
+- remove cubietruck_slave from hosts file off both images   [2016-09-22 -> done]
 
 
 #
@@ -17,7 +26,7 @@
 #
 
 ## script stuff
-- remove arm926_sdk from everthing
+- remove arm926_sdk from everthing                          [2016-09-22 -> done]
 
 ## target stuff
 - add ee.sh to $HOME
