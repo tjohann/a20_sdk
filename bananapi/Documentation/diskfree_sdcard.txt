@@ -1,3 +1,4 @@
+# ---- full image
 root@bananapi:~# df
 Dateisystem    Größe Benutzt Verf. Verw% Eingeh�ängt auf
 /dev/root       9,8G    4,7G  4,6G   51% /
@@ -9,4 +10,16 @@ tmpfs           465M       0  465M    0% /tmp
 /dev/mmcblk0p1   33M     20M   14M   60% /boot
 /dev/mmcblk0p3  4,2G     17M  3,9G    1% /home
 none            465M       0  465M    0% /run/user/0
+
+# ---- base image
+root@bananapi:~# df
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       3.0G  2.6G  293M  90% /
+devtmpfs        464M  4.0K  464M   1% /dev
+run             465M  240K  464M   1% /run
+shm             465M     0  465M   0% /dev/shm
+cgroup          465M     0  465M   0% /sys/fs/cgroup
+tmpfs           465M     0  465M   0% /tmp
+/dev/mmcblk0p1   32M   20M   13M  62% /boot
+/dev/mmcblk0p3   12G   43M   11G   1% /home
 
