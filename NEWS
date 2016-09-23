@@ -11,6 +11,7 @@
 	      add dialog based script as a brace over the kernel scripts
 	      a big documentation update on README.md and some storyline.md(s)
 	      cleanup of pics folder
+	      add uboot-tools to buildroot part of toolchain
 
 2016-09-22 -> ## sdk stuff
 	      update buildroot parts of the toolchain

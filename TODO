@@ -9,7 +9,7 @@
 #
 
 ## sdk stuff
-- add u-boot tools to buildroot part of the toolchain
+- add u-boot tools to buildroot part of the toolchain        [2016-09-23 -> done]
 - add note about the new baalue concept in README.md and storyline.md
   (standard node is bananapi -> make_sdcard.sh)              [2016-09-23 -> done]
 
@@ -20,7 +20,7 @@
   hdd_installation.sh with brand_image_home function)        [2016-09-23 -> done]
 
 ## target stuff
-- update diskree_sdcard.txt info below bananapi/Documentation
+- update diskree_sdcard.txt info below bananapi/Docu...      [2016-09-23 -> done]
 
 
 #
