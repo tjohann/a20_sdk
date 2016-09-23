@@ -5,6 +5,25 @@
 
 
 #
+# -------------- 2016-09-23 ----------------------------------------------------
+#
+
+## sdk stuff
+- add u-boot tools to buildroot part of the toolchain
+- add note about the new baalue concept in README.md and storyline.md
+  (standard node is bananapi -> make_sdcard.sh)              [2016-09-23 -> done]
+
+## script stuff
+- make brand_baalue_image.sh independent of the device -> bananapi, olimex, ...
+  every device could be a baalue node (_x or master)         [2016-09-23 -> done]
+- add baalue specific home handling hdd_installation.sh (copy of
+  hdd_installation.sh with brand_image_home function)        [2016-09-23 -> done]
+
+## target stuff
+- update diskree_sdcard.txt info below bananapi/Documentation
+
+
+#
 # -------------- 2016-09-22 ----------------------------------------------------
 #
 
@@ -249,7 +268,7 @@
 - provide make target below $ARMHF_BIN_HOME/kernel to generate a kernel tarball
   with all dt[s,b], modules_* and kernel images + config
   -> to upload it on sourceforge as base for all
-     kernel sdcard images
+     kernel sdcard images				    [2016-09-23 -> done]
 
 
 #
@@ -349,7 +368,7 @@
 - add Documentation to workdir/srcdir                       [2016-04-24 -> done]
 - add link of howto_kernel* to /opt/a20_sdk/Documentation   [2016-04-24 -> done]
 - add support to download only only kernel (RT or NON-RT)   [2016-04-24 -> done]
-- add something like a storyline to documentation
+- add something like a storyline to documentation           [2016-09-XX -> done]
 - add man pages for all scripts
 
 

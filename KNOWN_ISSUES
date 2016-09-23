@@ -3,7 +3,7 @@
 #
 
 
-A20_SDK_V1.99.4: all versions with kernel 4.6.5-rtX
+A20_SDK_V1.99.X: all versions with kernel 4.6.X-rtX
 
 There's a bug within the RT-PREEMPT parts (but has no impact ... as far as i have tested):
 

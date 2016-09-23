@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.08.2016/15.08.2016
+# Date/Beginn :    23.09.2016/15.08.2016
 #
-# Version     :    V0.05
+# Version     :    V0.06
 #
-# Milestones  :    V0.05 (aug 2016) -> some smaller fixes
+# Milestones  :    V0.06 (sep 2016) -> add baalue specfic branding
+#                  V0.05 (aug 2016) -> some smaller fixes
 #                  V0.04 (aug 2016) -> first working version
 #                  V0.03 (aug 2016) -> first content
 #                  V0.02 (aug 2016) -> some documentation
@@ -66,7 +67,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.05'
+VER='0.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -189,7 +190,6 @@ check_tarballs()
     fi
 
     local missing_rootfs='true'
-
     if [[ -f "${SD_SHARED}/a20_sdk_base_rootfs.tgz" ]]; then
 	BASE_IMAGE='true'
 	missing_rootfs='false'
@@ -205,7 +205,10 @@ check_tarballs()
 	my_exit
     fi
 
-    # TODO: check for the rest
+    if [[ ! -f "${SD_SHARED}/hdd_branding.tgz" ]]; then
+	echo "ERROR -> ${SD_SHARED}/hdd_branding.tgz not available!" >&2
+	my_exit
+    fi
 }
 
 clean_hdd()
@@ -279,6 +282,20 @@ untar_image()
     fi
 }
 
+brand_baalue()
+{
+    local repo_name="https://github.com/tjohann/arm_cortex_sdk.git"
+
+    echo "start to clone repo $repo_name"
+    sudo git clone $repo_name
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: could not clone ${repo_name}" >&2
+	my_exit
+    else
+	sudo chown -R 1000:1000 arm_cortex_sdk
+    fi
+}
+
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
@@ -332,6 +349,10 @@ mount_hdd_tmp
 cd $HDD_TMP
 TARBALL="${SD_SHARED}/a20_sdk_home.tgz"
 untar_image
+if [[ -f "${SD_SHARED}/brand_baalue" ]]; then
+    echo "brand home dir for baalue" >&2
+    brand_baalue
+fi
 cd $SD_SHARED
 
 umount_partitions

@@ -2,6 +2,9 @@
 # a list of hints regarding upgrade between different versions of this sdk
 #
 
+## 2016-09-23
+- i have changed a lot of the scripts -> do a make distclean and make init_sdk
+
 ## 2016-07-14 --> 2016-08-27 (A20_SDK_V1.99.8)
 - i have changed a lot of the scripts -> do a make distclean and make init_sdk
 

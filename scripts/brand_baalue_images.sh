@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    28.08.2016/21.08.2016
+# Date/Beginn :    23.09.2016/21.08.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jul 2016) -> some minor improvements/fixes
+# Milestones  :    V0.03 (sep 2016) -> add home and shared branding
+#                                   -> make branding device independent
+#                  V0.02 (aug 2016) -> some minor improvements/fixes
 #                  V0.01 (jul 2016) -> initial skeleton
 #
 # Requires    :
@@ -37,21 +39,19 @@
 ################################################################################
 # Description
 #
-#   A simple tool to brand the base baalue images
+#   A simple tool to brand a device images
 #
 # Some features
 #   - ...
 #
-# Differences of the images (bananapi is the master!)
-#   - *_SDCARD_ROOTFS
-#     - hostname
-#     - dhcpd.conf
+# Note:
+#   - this is only an "on-top" branding for a baalue node!
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -67,7 +67,7 @@ SD_SHARED='none'
 # HDD installation?
 PREP_HDD_INST='false'
 
-# Node (0 ... 9, master, slave)
+# Node (0 ... 9, master)
 NODE='none'
 
 # program name
@@ -79,8 +79,8 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
-    echo "|        [-b] -> bananapi/cubietruck                     |"
-    echo "|        [-n] -> node (0...9, master, slave)             |"
+    echo "|        [-b] -> bananapi/bananapi-pro/olimex/cubietruck |"
+    echo "|        [-n] -> node (0...9, master)                    |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -151,15 +151,42 @@ if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [[ ! ${ARMHF_SRC_HOME} ]]; then
-    MISSING_ENV='true'
-fi
-
+# bananapi-{M1/Pro}/baalue
 if [[ ! ${BANANAPI_SDCARD_ROOTFS} ]]; then
     MISSING_ENV='true'
 fi
 
+if [[ ! ${BANANAPI_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${BANANAPI_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+# olimex
+if [[ ! ${OLIMEX_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${OLIMEX_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${OLIMEX_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+# cubietruck
 if [[ ! ${CUBIETRUCK_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${CUBIETRUCK_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${CUBIETRUCK_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -206,7 +233,7 @@ umount_partitions()
 
 brand_image_etc()
 {
-    local src_branding=${ARMHF_HOME}/baalue/${BRAND}/etc_${NODE}
+    local src_branding=${ARMHF_HOME}/baalue/branding/etc_${NODE}
 
     echo "$src_branding"
 
@@ -243,16 +270,74 @@ brand_image_etc()
     fi
 }
 
-brand_image_home()
-{
-    echo "some content needed"
-}
-
 brand_image_shared()
 {
-    echo "some content needed"
+    local src_branding=${ARMHF_HOME}/baalue/branding/
+
+    if [ -d ${src_branding} ]; then
+	if [[ ! -d "${SD_SHARED}" ]]; then
+	    echo "ERROR -> ${SD_SHARED} not available!"
+	    echo "         have you added them to your fstab? (see README.md)"
+	    my_usage
+	fi
+
+	mountpoint $SD_SHARED
+	if [ $? -ne 0 ] ; then
+	    echo "${SD_SHARED} not mounted, i try it now"
+	    mount $SD_SHARED
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR -> could not mount ${SD_SHARED}"
+		my_exit
+	    fi
+	fi
+
+	echo "sudo cp ${src_branding}/hdd_branding_${NODE}.tgz ${SD_SHARED}/hdd_branding.tgz"
+	sudo cp ${src_branding}/hdd_branding_${NODE}.tgz ${SD_SHARED}/hdd_branding.tgz
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not copy ${src_branding}/hdd_branding_${NODE}.tgz" >&2
+	    my_exit
+	fi
+
+	# only a hint to do the baalue specific branding
+	echo "sudo touch ${SD_SHARED}/brand_baalue"
+	sudo touch ${SD_SHARED}/brand_baalue
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not touch ${SD_SHARED}/brand_baalue" >&2
+	    my_exit
+	fi
+    else
+	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
+    fi
 }
 
+brand_baalue()
+{
+    mountpoint $SD_HOME
+    if [ $? -ne 0 ] ; then
+	echo "${SD_HOME} not mounted, i try it now"
+	mount $SD_HOME
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not mount ${SD_HOME}"
+	    my_exit
+	fi
+    fi
+
+    if [ -d ${SD_HOME}/baalue/arm_cortex_sdk ]; then
+	echo "${SD_HOME}/baalue/arm_cortex_sdk already exists -> do a pull"
+	cd ${SD_HOME}/baalue/arm_cortex_sdk
+	git pull
+    else
+	local repo_name="https://github.com/tjohann/arm_cortex_sdk.git"
+	echo "start to clone repo $repo_name"
+	sudo git clone $repo_name ${SD_HOME}/baalue/arm_cortex_sdk
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR: could not clone ${repo_name}" >&2
+	    my_exit
+	else
+	    sudo chown -R 1000:1000 ${SD_HOME}/baalue/arm_cortex_sdk
+	fi
+    fi
+}
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
@@ -276,6 +361,16 @@ case "$BRAND" in
 	SD_HOME=$BANANAPI_SDCARD_HOME
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
+    'bananapi-pro')
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
+        ;;
+    'olimex')
+	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
+	SD_HOME=$OLIMEX_SDCARD_HOME
+	SD_SHARED=$OLIMEX_SDCARD_SHARED
+        ;;
     'cubietruck')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
@@ -290,7 +385,7 @@ brand_image_etc
 if [ "$PREP_HDD_INST" = 'true' ]; then
     brand_image_shared
 else
-    brand_image_home
+    brand_baalue
 fi
 
 umount_partitions

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.08.2016/26.08.2016
+# Date/Beginn :    23.09.2016/26.08.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (aug 2016) -> first working version
+# Milestones  :    V0.03 (sep 2016) -> whitespaces
+#                  V0.02 (aug 2016) -> first working version
 #                  V0.01 (aug 2016) -> initial skeleton
 #
 # Requires    :
@@ -40,6 +41,8 @@
 #   A simple tool to prepare a tarball for all kernel images (based on
 #   bananapi_kernel.tgz)
 #
+#   Workdir /opt/a20_sdk/images
+#
 # Some features
 #   - ...
 #
@@ -47,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -264,7 +267,7 @@ untar_base_image
 # first all device with rt-preempt kernel (bananpi/olimex)
 #
 
-# bananapi -> only hdd image (bananapi_kernel.tgz is the base image)
+# bananapi -> only hdd image needed (bananapi_kernel.tgz is the base image)
 BRAND="bananapi"
 HDD="_hdd"
 do_all_rt

@@ -2,6 +2,16 @@
 # some news ... see also TODO for hints
 #
 
+2016-09-23 -> ## sdk & target stuff
+	      add motd generated via http://patorjk.com/software/taag/
+	      rework baalue device handling (see README.md)
+
+	      ## sdk stuff
+	      finalized script install/build_kernel.sh and move them do scripts
+	      add dialog based script as a brace over the kernel scripts
+	      a big documentation update on README.md and some storyline.md(s)
+	      cleanup of pics folder
+
 2016-09-22 -> ## sdk stuff
 	      update buildroot parts of the toolchain
 

@@ -2,41 +2,69 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A common development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts and more. Additional you find all infos and binary/tools to setup one of the supported devices (see below). To make life easier you can use the scripts to clone useful external repositories like u-boot and more.
+A development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
+
+The basic user interface are make targets which then start the corresponding scripts:
+
+	+-----------------------------------------------------------+
+	|                                                           |
+	|                  Nothing to build                         |
+	|                                                           |
+	+-----------------------------------------------------------+
+	| Example:                                                  |
+	| make init_sdk           -> init all needed part           |
+	| make get_external_repos -> get git repos like u-boot      |
+	| make get_toolchain      -> install toolchain              |
+	| make get_latest_kernel  -> download latest kernel version |
+	| make get_image_tarballs -> download image tarballs        |
+	| make get_all            -> get all of the above           |
+	| make clean              -> clean all dir/subdirs          |
+	| make distclean          -> complete cleanup/delete        |
+	| make mrproper           -> do mrproper cleanup            |
+	| ...                                                       |
+	| make make_sdcard        -> small tool to make a read to   |
+	|                            use SD-Card                    |
+	| make install            -> install some scripts to        |
+	|                            /home/tjohann/bin              |
+	| make uninstall          -> remove scripts from            |
+	|                            /home/tjohann/bin              |
+	+-----------------------------------------------------------+
 
 As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
 
-WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet. If you face a bug then pls use https://github.com/tjohann/a20_sdk/issues to create an issue
+The sdk comes with documentation and some simple source code examples. You can find it in ${HOME}/src/a20_sdk/*.
+
+WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet.
+
+If you face a bug then pls use https://github.com/tjohann/a20_sdk/issues to create an issue.
 
 
 Requirement
 -----------
 
-The only yet know requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to make your sd-card -> a20_sdk_make_sdcard.sh).
+The only yet know software requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to make your sd-card -> a20_sdk_make_sdcard.sh).
 
-For the two types of images ("normal" and "base/small") you need sd-cards with 4 or 8 gig of size.
+For the two types of provided images ("normal" and "base/small") you need sd-cards with 8 or 4 gig of size. If you want to use a hdd it should be at least large then 10 gig (i use 500 gig connected to my Cubietruck and Bananapi-Pro).
 
 
-Description
------------
+Background
+----------
 
 The a20_sdk use 3 different locations:
 
-    /var/lib/a20_sdk
+    /var/lib/a20_sdk (this git repository)
     /opt/a20_sdk
     ${HOME}/src/a20_sdk
 
-The location below /var/lib/ is the runtime environment. There you find all needed basic content. It's a git repository, so it's under version control and if I change something like supported kernel version, then I change it in the repository and you can pull these changes (see ./NEWS for those info).
+The location below /var/lib/ is the "runtime" environment. There you find all base content like env file or scripts (see ./NEWS and ./UPGRADE_HINTS)
 
-Below /opt/a20_sdk you find the downloaded content (from http://sourceforge.net/projects/a20devices/) like toolchain and images. Additional you also find there all cloned external git repositories (like u-boot). Also useful could be the download of kernel and RT-PREEMPT patch to /opt/a20_sdk/kernel. The whole content will be updated or added depending on /var/lib/a20_sdk git repository. You can simply remove all if you dont need it anymore (Note: make distclean removes all downloaded/untared content in the working dir /opt/a20_sdk).
-
-The sdk comes with documentation and source code examples. You can find it in ${HOME}/src/a20_sdk/*.
+Below /opt/a20_sdk you find the downloaded content (from http://sourceforge.net/projects/a20devices/) like toolchain and device images. It also includes the standard location for cloned repositorys like u-boot or the kernel sources. Everthing could be done via make target which then calls the coresponding script (see below for more info).
 
 
 Setup
 -----
 
-Follow the steps below to setup your enviroment. If you use my sdk_builder (not finshed yet), then the tool will do this all for you.
+You can use this sdk in different ways depending on your use case, but for everthing you need some basic parts.
 
 Create the runtime locations:
 
@@ -62,7 +90,7 @@ or add it to your .bashrc
       . /var/lib/a20_sdk/armhf_env
     fi
 
-or copy armhf_env.sh to /etc/profile.d/
+or copy armhf_env.sh to /etc/profile.d/ (the way I do it on the device images)
 
     sudo cp armhf_env.sh /etc/profile.d/
 
@@ -71,13 +99,44 @@ Init the SDK:
     cd /opt/a20_sdk (or /var/lib/a20_sdk)
     make init_sdk
 
+Via
+
+	make install
+
+you install some script like make_sdcard.sh to ${HOME}/bin/a20_sdk_make_sdcard.sh
+
+Note: to use all scripts you have to add some mount points for your device to your /etc/fstab and create the mount points below /mnt/ (see your prefered device below). It could also make sense to add your device to your /etc/hosts (see below for my example network configuration).
+
+
+Additional steps to setup crossbuild environment
+------------------------------------------------
+
 Download the compiler to /opt/a20_sdk/
 
     make get_toolchain
 
+
+Download images
+---------------
+
 Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~6 GByte)
 
     make get_image_tarballs
+
+If you only need/want the cubietruck images, the you only need
+
+	cd /opt/a20_sdk/images
+	make get_cubietruck_image_tarballs
+
+Note: do a
+
+	make
+
+within /opt/a20_sdk/images to see what is additional supported.
+
+
+Clone external repositorys
+--------------------------
 
 Clone ALL external repos:
 
@@ -86,23 +145,35 @@ Clone ALL external repos:
 If you only need/want u-boot, then you only need
 
 	cd /opt/a20_sdk/external
-	make uboot
+	make get_uboot
 
-Download latest supported kernel sources (for normal use and with RT_PREEMPT support):
+Note: do a
+
+	make
+
+within /opt/a20_sdk/external to see what is additional supported.
+
+
+Get linux kernel sources
+------------------------
+
+Download latest supported kernel sources (for normal use and with **RT_PREEMPT** support):
 
     make get_latest_kernel
 
-if you only need/want the RT-PREEMPT parts, then you only need
+if you only need/want the **RT-PREEMPT** parts, then you only need
 
 	make get_latest_rt_kernel
 
-Now you should have the complete content on your disk.
+Note: do a
 
-Note: to use all scripts you have to add the mount points for your device to your /etc/fstab and create the mount points below /mnt/ (see below). It also make sense to add your device to your /etc/hosts (see below for my network configuration).
+	make
+
+within /opt/a20_sdk/kernel to see what is additional supported.
 
 
-Update
-------
+Update/Upgrade
+--------------
 
 I regulary update the images, toolchain and more. To stay up to date you can simply do the following steps.
 
@@ -127,6 +198,7 @@ In short:
 
 Sometimes it is needed to init the the whole sdk again (see ./UPGRADE_HINTS). Then simply do a
 
+	make mrproper
 	make init_sdk
 
 and then the rest (if needed)
@@ -141,13 +213,29 @@ Make a sd-card for a target device
 
 To make a ready to use sd-card (see also "Images" below) you can use the small dialog based tool avaiblable via
 
-	./script/make_sdcard.sh
-
-or
-
 	make make_sdcard
 
-It will guide you throught the process (see https://github.com/tjohann/a20_sdk/blob/master/scripts/Documentation/a20_sdk_make_sdcard.md).
+or start
+
+	a20_sdk_make_sdcard.sh
+
+This will guide you throught the process ([Help of a20_sdk_make_sdcard.sh](scripts/Documentation/a20_sdk_make_sdcard.md)).
+
+
+Prepare a HDD installation
+--------------------------
+
+To do a hdd installation you have first to setup a sd-card with the option hdd-preparation ([Help of a20_sdk_make_sdcard.sh](scripts/Documentation/a20_sdk_make_sdcard.md)). This will generate a sd-card with all needed tarballs on YOUR_FAVORITE_DEVICE_SDCARD_SHARED. The next step is to boot this sd-card and start another script wich will partition and install your connected hdd. If everthing went fine you now have a ready to use hdd but still missing a boot-only sd-card which you can setup (also) via (a20_sdk_)make_sdcard.sh.
+
+See [Help of hdd_installation.sh](scripts/Documentation/hdd_installation.md) for more info.
+
+Note: the size of the hdd-preparation sd-card should be at least 8 gig, the hdd-only sd-card could be small (it will carry only the boot partition and a small shared partition).
+
+
+Internal flash
+--------------
+
+The cubietruck and the olimex have a flashchip soldered. The support for them via this sdk is on the TODO list.
 
 
 Versioninfo
@@ -155,7 +243,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V1.0.1
+	A20_SDK_V1.99.8
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
@@ -173,7 +261,9 @@ So a simple version update of the olimex kernel will not increase the minor numb
 Storyline
 ---------
 
-You find storylines for some of my usescases/devices below ./DEVICE_NAME/Documentation/storyline.md. They should describe the setup of a device and my usecase of it. You can use it as a guideline of howto.
+You find storylines for some of my usescases/devices below ./DEVICE_NAME/Documentation/storyline.md. They should describe the setup of a device and my usecase of it. You can use them as something like guideline.
+
+Note: Actually there not complete.
 
 
 All devices
@@ -190,18 +280,23 @@ Every device directory has the same sub-directories
 
     Documentation -> info about the device, howtos for kernel, U-Boot and more
     u-boot -> all U-Boot related content (*spl.bin, *.scr ...)
-    etc -> example etc changes on the device (bananapi ... /etc/...)
-    config -> kernel config for non-RT and RT-PREEMPT
+    branding -> specific device branding like motd and dhcpd.conf
+    config -> kernel config for **PREEMPT** and/or **RT-PREEMPT**
 
-You can find documenation on howto build a kernel or howto setup a device below Documenation. In general I will use mainline kernel and mainline U-Boot.
-Every device here has a "specific usecase". So therefore you find additional description about my usecase below.
+You can find documenation on howto build a kernel or howto setup a device below Documenation. In general I will use mainline kernel and mainline U-Boot. Every device here has a "specific usecase". So therefore you find additional description about my usecase below.
 
 In short:
 
-    bananapi -> baalue (my Bananapi Cluster with 8 Nodes)
+    bananapi -> baalue (my Bananapi Cluster with 8 Nodes) and embbedded plattform
     bananapi-pro -> my home audio/video stream server and nextcloud server
-    cubietruck -> master node for baalue and test environment for jailhouse (https://github.com/siemens/jailhouse)
+    cubietruck -> my master node for baalue and test environment for jailhouse (https://github.com/siemens/jailhouse)
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
+
+My BAnAnapi cLUEster (Baalue):
+![Alt text](pics/baalue_cluster.jpg?raw=true "Baalue")
+
+My embedded environment:
+![Alt text](pics/overview_embedded.jpg?raw=true "Overview embedded")
 
 
 Images
@@ -233,21 +328,23 @@ The user baalue is available on all images, you can use it to login via ssh and 
 Kernel
 ------
 
-Base-installation:
+Due to the fact that the devices are used for different task I support a mainline kernel with **PREEMPT** (instead of server or desktop) and a **RT-PREEMPT** (https://rt.wiki.kernel.org/index.php/Main_Page) patched kernel. In general all my kernel are huge ones with nearly everthing activated (which would make sense) and all important driver are build in the kernel (not as modul).
 
-	Olimex -> RT-PREEMPT kernel
+You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/configs. To build your own custom kernel you can use them as a base.
+
+	Olimex -> RT-PREEMPT
 	Bananapi -> RT-PREEMPT
-	Baalue-Node -> PREEMPT kernel
-	Bananapi-Pro -> PREEMPT kernel
-	Cubietruck -> PREEMPT kernel
+	Baalue-Node -> PREEMPT
+	Bananapi-Pro -> PREEMPT
+	Cubietruck -> PREEMPT
 
-Note: both kernel (RT-PREEMPT and PREEMPT) are supported on every device. If you want to use the other kernel than the base version, then copy no-rt or rt of $*SDCARD_KERNEL/*rt to $*SDCARD_KERNEL.
+Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}.
 
 
 Network
 -------
 
-For testing purpose i have physical (and virtual -> QEMU based nodes) network where all devices are conneted to. The easiest way to use it is to add a usb-ethernet adapter to your main machine and add your target device to it, otherwise you have to do a lot of configuration by hand.
+For testing purpose i have a physical network where all devices are conneted to. The easiest way to use it is to add a usb-ethernet adapter to your main machine and add your target device to it, otherwise you have to change the configuration by hand.
 
 Single devices:
 
@@ -275,33 +372,31 @@ My nfs share:
 	192.168.0.42            echnaton.my.domain              echnaton
 
 
-Note: Additionally you find first content for A64 devices like Pine64 in my a64_sdk (https://github.com/tjohann/a64_sdk).
-
-
 Directory/File structure on sourceforge
 ---------------------------------------
 
-All binary/big files (toolchain or images) are on sourceforge (https://sourceforge.net/projects/a20devices/files/). The scripts to setup the environment using that location to download them.
+All binary/big files (toolchain or images) reside on sourceforge (https://sourceforge.net/projects/a20devices/files/). The scripts to setup the environment using that location to download them.
 
 In the root directory you find the toolchain tarballs and the checksum.sh256 from the git-repository. The devices are represented through the named directorys. Below them you find only the kernel images (for sdcard installation and hdd installation). Due to the unified image approach the rootfs and home are below the directory named common.
 
 Naming convention:
 
 	toochain_x86_64.tgz/host_x86_64.tgz -> cross-toolchain for x86_64 hosts
-	common/a20_sdk_*.tgz -> rootfs and home for all devices (master is bananapi) which need to be branded during make_sdcard.sh
-	common/a20_sdk_base_rootfs.tgz -> this is the base/minimal rootfs
-	bananapi/bananapi_(hdd_)kernel.tgz -> kernel image for the devices (bananapi)
-	bananapi-pro/bananapi-pro_(hdd_)kernel.tgz -> kernel image for the devices (bananapi-pro)
-	cubietruck/cubietruck_(hdd_)kernel.tgz -> kernel image for the devices (cubietruck)
-	olimex/olimex_(hdd_)kernel.tgz -> kernel image for the devices (olimex)
+	common/a20_sdk_*.tgz -> rootfs and home for all devices which need to be branded during make_sdcard.sh
+	common/a20_sdk_base_rootfs.tgz -> the base/minimal rootfs
+	bananapi/bananapi_(hdd_)kernel.tgz
+	bananapi/bananapi-pro_(hdd_)kernel.tgz
+	bananapi/baalue_(hdd_)kernel.tgz
+	cubietruck/cubietruck_(hdd_)kernel.tgz
+	olimex/olimex_(hdd_)kernel.tgz
 
 
 Cubietruck (CB3)
 ----------------
 
-One of my two cubietruck is acting as master nodes for my Bananapi Cluster (baalue_master). The cubietruck_master has a hard-disk as root device. I use it mostly as distcc server node and the 8 cluster nodes as distcc clients. It has a pcb with some additional hardware connected.
+One of my two cubietruck is acting as master nodes for my Bananapi Cluster (baalue_master). The baalue_master has a hard-disk as root device. I use it as a distcc server node and the 8 cluster nodes as distcc clients. It has a pcb with some additional hardware connected.
 
-The second cubietruck is also my test environment for the jailhouse hypervisor.
+The second cubietruck is my test environment for the jailhouse hypervisor.
 
 Additonal Hardware conneted:
 
@@ -318,6 +413,8 @@ Addtional mount points (host):
     LABEL=HOME_CUBI     /mnt/cubietruck/cubietruck_home    auto  noauto,user,rw  0 0
 
     LABEL=SHARED_CUBI   /mnt/cubietruck/cubietruck_shared  auto  noauto,user,rw  0 0
+
+The [The storyline for Cubietrurck](cubietruck/Documentation/storyline.md)
 
 
 Bananapi-Pro
@@ -337,13 +434,18 @@ Additional mount points (host):
 
     LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
+The [The storyline for Cubietruck](bananapi-pro/Documentation/storyline.md)
+
 
 Bananapi-M1
 -----------
 
-I use the bananapi for 2 different usecase, first as a classic embedded device with can, display and other goodies. The second use case is as a baalue-node -> bananapi model 1 is the working node for my Bananapi Cluster. It has tty1-8 activated (and lightdm on tty9 -> if you activate it). Also you find kernel and info rsyslogd output on tty11 and tty12.
+I use the bananapi in 2 different ways:
 
-The main difference between these 2 usecases is the kernel. For a baalue-node i use the a PREEMPT kernel and for the classic device i use a RT-PREEMPT kernel.
+	- as a embedded device with can, display and other goodies
+	- a baalue-node
+
+The main difference between these 2 usecases is the kernel. For a baalue-node i use the a **PREEMPT** kernel and for the classic device i use a **RT-PREEMPT** kernel.
 
 Additonal Hardware conneted (as classic embedded device):
 
@@ -359,17 +461,47 @@ Addtional mount points (host):
 
     LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
+The [The storyline for Bananapi](bananapi/Documentation/storyline.md)
+
+
+Baalue
+------
+
+Baalue is my bananapi cluster where I want to learn more about distributed system and the coresponding development models. The actual configuration has 8 Bananapi-M1 nodes and on master node based on a Cubietruck (CB3). I the near future there will be an update with an additional stack of 8 Bananapi-M1 and a Pine64 as master node .
+
+The script (a20_sdk_)make_sdcard.sh can generate a baalue node base image which is a specialized bananapi images. If you want to build your own cluster this could be a good starting point. What you then have to change is only the ip and the hostname (see folder baalue/branding/etc_1/ as an example).
+
+There'se also a script called brand_baalue_images.sh in ./scripts. This will brand your image based on my topologie (ip and so one). But this script wont care about *my* used device. So you can build a olimex based cluster with my topologie instead of bananapi.
+
+	+--------------------------------------------------------+
+	| Usage: brand_images.sh
+	|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |
+	|                cubietruck                              |
+	|        [-s] -> prepare images for hdd installation     |
+	|        [-v] -> print version info                      |
+	|        [-h] -> this help                               |
+	|                                                        |
+	+--------------------------------------------------------+
+
+My BAnAnapi cLUEster (Baalue):
+![Alt text](pics/bananapi_cubietruck_cluster.jpg?raw=true "Baalue")
+
+The [The storyline for Baalue](baalue/Documentation/storyline.md)
+
 
 Olimex A20-SOM/EVB
 ------------------
 
 I use this device to play and test low level hardware because nearly all PINs of the A20 are available. It is also the test environment for my research about linux and realtime in general (see also https://github.com/tjohann/time_triggert_env.git).
 
-
 Additonal Hardware conneted:
 
     CAN-Tranceiver on A20-CAN
-    tbd...
+    LCD1602 via I2C
+	GPIO-I2C via PCF8574
+	Ultrasonic sensor
+	GPS via uart
+	... a lot more
 
 Addtional mount points (host):
 
@@ -379,15 +511,27 @@ Addtional mount points (host):
 
     LABEL=SHARED_OLI    /mnt/olimex/olimex_shared          auto  noauto,user,rw  0 0
 
+[The storyline for Olimex](olimex/Documentation/storyline.md)
+
+
+Notes about /opt/a20_sdk/external
+---------------------------------
+
+This repository is something like a bracket over my differnet projects and so below ${ARMHF_BIN_HOME} is the place for them. Most parts (like libbaalue.git or time_triggert_env.git) are already installed on the images i provide. I use the devices as my test and development plattform (see also ./pics).
+
+If you're interested in realtime linux (for example) you have then a good basement for your own development.
+
 
 Development model
 -----------------
 
-I support only one version described by a tag (see checkout info above). The toolchain and images are for that version. Older tags wont be supported anymore.
+I support only one version described by a tag. The toolchain and images are for that version. Older tags wont be supported anymore.
 
 
 Outlook (next development steps)
 --------------------------------
+
+Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
 
 (until mid of september -> done)
 - add storyline for olimex and bananapi (embedded devices)
@@ -408,4 +552,5 @@ Outlook (next development steps)
 - simple baremetal lcd example
 
 (until end of december)
+- support flashchip of olimex and/or cubietruck
 - simple os for baremetal cell (see https://github.com/tjohann/miblos)
