@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.09.2016/07.09.2016
+# Date/Beginn :    26.09.2016/07.09.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (sep 2016) -> fix some bugs and add some smaller
+# Milestones  :    V0.03 (sep 2016) -> fix some bugs
+#                  V0.02 (sep 2016) -> fix some bugs and add some smaller
 #                                      improvements
 #                                   -> first working version
 #                  V0.01 (sep 2016) -> initial skeleton
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -67,7 +68,6 @@ PROGRAM_NAME=${0##*/}
 
 # number of physical cores
 NUM_CORES=$(getconf _NPROCESSORS_ONLN)
-
 
 # my usage method
 my_usage()
@@ -255,8 +255,8 @@ if [ "$BUILD_NONRT" = 'true' ]; then
     copy_dts
     build_dtb
 
-    make -j ${NUM_CORE} ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
-    #make -j 1 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+    echo "make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules"
+    make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build kernel" >&2
         my_exit
@@ -284,8 +284,8 @@ if [ "$BUILD_RT" = 'true' ]; then
     copy_dts
     build_dtb
 
-    make -j ${NUM_CORE} ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
-    #make -j 1 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+    echo "make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules"
+    make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build kernel" >&2
         my_exit
