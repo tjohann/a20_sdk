@@ -347,7 +347,7 @@ if [ "$INSTALL_RT" = 'true' ]; then
         echo "ERROR -> could not clean kernel folder" >&2
         my_exit
     fi
-    
+
     cd ${ARMHF_BIN_HOME}/kernel
     sudo rsync -avz modules_${ARMHF_RT_KERNEL_VER}/lib/modules/. ${SD_ROOT}/lib/modules/.
     if [ $? -ne 0 ] ; then

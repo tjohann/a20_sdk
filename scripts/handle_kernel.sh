@@ -36,7 +36,7 @@
 ################################################################################
 # Description
 #
-#   A simple tool build and install a kernel 
+#   A simple tool build and install a kernel
 #
 # Some features
 #   - ...

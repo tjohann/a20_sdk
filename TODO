@@ -3,24 +3,44 @@
 #
 #
 
+#
+# -------------- 2016-09-26 ----------------------------------------------------
+#
+
+## script stuff
+- add content to handle_kernel.sh (brace around kernel
+  build/install)
+
+## sdk stuff
+- release A20_SDK_V2.00.0 -> target date: 02.10.2016
+  - update images
+  - upload images
+  - version bump to 2.00 for all scripts
+  - check all todo below if include (special target stuff)
+  - check/update a20_sdk_builder.conf
+
+## target stuff
+- check if there info in /proc about the device
+  (Cubietruck, Bananapi ...)
+
 
 #
 # -------------- 2016-09-23 ----------------------------------------------------
 #
 
 ## sdk stuff
-- add u-boot tools to buildroot part of the toolchain        [2016-09-23 -> done]
+- add u-boot tools to buildroot part of the toolchain       [2016-09-23 -> done]
 - add note about the new baalue concept in README.md and storyline.md
-  (standard node is bananapi -> make_sdcard.sh)              [2016-09-23 -> done]
+  (standard node is bananapi -> make_sdcard.sh)             [2016-09-23 -> done]
 
 ## script stuff
 - make brand_baalue_image.sh independent of the device -> bananapi, olimex, ...
-  every device could be a baalue node (_x or master)         [2016-09-23 -> done]
+  every device could be a baalue node (_x or master)        [2016-09-23 -> done]
 - add baalue specific home handling hdd_installation.sh (copy of
-  hdd_installation.sh with brand_image_home function)        [2016-09-23 -> done]
+  hdd_installation.sh with brand_image_home function)       [2016-09-23 -> done]
 
 ## target stuff
-- update diskree_sdcard.txt info below bananapi/Docu...      [2016-09-23 -> done]
+- update diskree_sdcard.txt info below bananapi/Docu...     [2016-09-23 -> done]
 
 
 #
@@ -32,7 +52,7 @@
   both images                                               [2016-09-22 -> done]
 
 ## sdk stuff
-- add make build and make install target to external
+- add make build and make install target to external        [2016-09-25 -> done]
 
 #
 # -------------- 2016-09-21 ----------------------------------------------------
@@ -285,14 +305,14 @@
   parts                                                 [2016-07-05 -> canceled]
 
 ## target stuff
-- provide basic skeleton for $*_SHARED (/lib/modules ..)[2016-07-18 -> canceled]
+- provide basic skeleton for $*_SHARED (/lib/modules ..)    [2016-0X-XX -> done]
 - make void-linux kernel package for all devices and bring it
-  mainline
+  mainline                                              ]
 - make void-linux RT-PREEMPT kernel package for all devices
   and bring it mainline
 - make void-linux u-boot packages for all devices and bring
   it mainline
-- blacklist kvm driver -> use jailhouse                 [2016-07-04 -> canceled]
+- blacklist kvm driver -> use jailhouse
 - build unified kernel for PREEMPT and RT-PREEMPT           [2016-07-04 -> done]
 - provide minimal image with PREEMPT and RT-PREEMPT kernel  [2016-07-XX -> done]
 - provide minimal RT-PREEMPT kernel for minimal image   [2016-07-04 -> canceled]
@@ -346,6 +366,7 @@
 
 ## target stuff
 - fix problem with less entropy (sshd ... /dev/urandom)
+  -> this is a hardware problem of some boards          [2016-0X-XX -> canceled]
 
 
 #

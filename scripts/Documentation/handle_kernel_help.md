@@ -1,7 +1,7 @@
 Help info for handle_kernel.sh
 ============================
 
-This tool should help you to make a ready-to-use kernel and deploy it to sd-card for your 
+This tool should help you to make a ready-to-use kernel and deploy it to sd-card for your
 prefered target device supported by the a20_sdk.
 
 
@@ -10,7 +10,7 @@ Supported target devices
 
 These are the supported target devices:
 
-	Bananapi-M1 
+	Bananapi-M1
 	Bananapi-Pro
 	Cubietruck
 	Olimex-SOM-EVB

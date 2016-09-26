@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    21.08.2016/17.04.2016
+# Date/Beginn :    25.09.2016/17.04.2016
 #
-# Version     :    V1.05
+# Version     :    V1.06
 #
-# Milestones  :    V1.05 (aug 2016) -> sudo handling at beginning
+# Milestones  :    V1.06 (sep 2016) -> add can_lin_env
+#                  V1.05 (aug 2016) -> sudo handling at beginning
 #                  V1.04 (jul 2016) -> add features of make_sdcard.sh
 #                  V1.03 (jul 2016) -> add mrproper to remove $ARMHF_*_HOME
 #                                      some minor rework of the code
@@ -62,7 +63,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.05'
+VER='1.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -218,6 +219,7 @@ clean_external()
 	rm -rf libbaalue
 	rm -rf baalued
 	rm -rf time_triggert_env
+	rm -rf can_lin_env
     else
         echo "INFO: no directory ${ARMHF_BIN_HOME}/external"
     fi

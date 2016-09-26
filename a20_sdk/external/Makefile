@@ -38,6 +38,8 @@ all::
 	@echo "| make get_baalued        -> clone my admin daemon         |"
 	@echo "| make get_tt-env         -> clone time-triggert           |"
 	@echo "|                            environment playground        |"
+	@echo "| make get_can-lin-env    -> clone can/lin bus             |"
+	@echo "|                            environment playground        |"
 	@echo "| make clean              -> clean all dir/subdirs         |"
 	@echo "| make distclean          -> complete cleanup/delete       |"
 	@echo "+----------------------------------------------------------+"
@@ -64,6 +66,7 @@ get_base_repos::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalued" -p "https")
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "tt-env" -p "https")
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "lcd1602" -p "https")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-lin-env" -p "https")
 
 get_rt-tests::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "rt-tests" -p "http")
@@ -97,3 +100,15 @@ get_baalued::
 
 get_tt-env::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "tt-env" -p "https")
+
+get_can-lin-env::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-lin-env" -p "https")
+
+build_base_repos::
+	(cd can-utils && ./configure --prefix=/usr/local && make && sudo make install)
+	(cd libbaalue && ./bootstrap && do_all_in_one_step.sh && sudo make install)
+	(cd baalued && ./bootstrap && do_all_in_one_step.shn)
+	(cd mydriver && make install)
+	(cd lcd160x_driver && make install)
+	(cd time_triggert_env && make install)
+	(cd can_lin_env && make install)
