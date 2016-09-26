@@ -272,9 +272,9 @@ copy_kernel_folder()
 	echo "ERROR -> could not copy to ${SD_KERNEL}/cubietruck"
     fi
 
-    cp uImage ${SD_KERNEL}
+    cp arch/arm/boot/uImage ${SD_KERNEL}
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not copy uImage ${SD_KERNEL}"
+	echo "ERROR -> could not copy arch/arm/boot/uImage ${SD_KERNEL}"
     fi
 
     cp .config ${SD_KERNEL}
@@ -285,9 +285,9 @@ copy_kernel_folder()
 
 copy_kernel()
 {
-    cp uImage ${SD_KERNEL}/non-rt
+    cp uImagearch/arm/boot/uImage ${SD_KERNEL}/non-rt
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not copy uImage ${SD_KERNEL}"
+	echo "ERROR -> could not copy arch/arm/boot/uImage ${SD_KERNEL}"
     fi
 
     cp .config ${SD_KERNEL}/non-rt
