@@ -21,7 +21,7 @@
 
 ## target stuff
 - check if there info in /proc about the device
-  (Cubietruck, Bananapi ...)
+  (Cubietruck, Bananapi ...)                                [2016-09-26 -> done]
 
 
 #
@@ -70,7 +70,7 @@
 - remove arm926_sdk from everthing                          [2016-09-22 -> done]
 
 ## target stuff
-- add ee.sh to $HOME
+- add ee.sh to $HOME                                        [2016-09-26 -> done]
 
 
 #
