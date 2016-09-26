@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.09.2016/07.09.2016
+# Date/Beginn :    26.09.2016/07.09.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (sep 2016) -> fix some bugs and add some smaller
+# Milestones  :    V0.03 (sep 2016) -> fix a lot of bugs
+#                  V0.02 (sep 2016) -> fix some bugs and add some smaller
 #                                      improvements
 #                                   -> first working version
 #                  V0.01 (sep 2016) -> initial skeleton
@@ -45,7 +46,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -94,8 +95,8 @@ my_exit()
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
+    umount_partitions
     cleanup
-
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
@@ -193,6 +194,36 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
+mount_partitions()
+{
+    mount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
+	# do not exit -> will try to umount the others
+    fi
+
+    mount $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_ROOTFS}" >&2
+	# do not exit -> will try to umount the others
+    fi
+}
+
+umount_partitions()
+{
+    umount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
+	# do not exit -> will try to umount the others
+    fi
+
+    umount $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
+	# do not exit -> will try to umount the others
+    fi
+}
+
 copy_kernel_folder()
 {
     cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${SD_KERNEL}/baalue
@@ -252,6 +283,31 @@ copy_kernel_folder()
     fi
 }
 
+copy_kernel()
+{
+    cp uImage ${SD_KERNEL}/non-rt
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not copy uImage ${SD_KERNEL}"
+    fi
+
+    cp .config ${SD_KERNEL}/non-rt
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not copy to .config ${SD_KERNEL}"
+    fi
+}
+
+copy_kernel_rt()
+{
+    cp uImage ${SD_KERNEL}/rt
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not copy uImage ${SD_KERNEL}"
+    fi
+
+    cp .config ${SD_KERNEL}/rt
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not copy to .config ${SD_KERNEL}"
+    fi
+}
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
@@ -294,6 +350,8 @@ case "$BRAND" in
         my_usage
 esac
 
+mount_partitions
+
 if [ -d ${ARMHF_BIN_HOME}/kernel ]; then
     cd ${ARMHF_BIN_HOME}/kernel
 else
@@ -303,13 +361,14 @@ fi
 if [ "$INSTALL_NONRT" = 'true' ]; then
     echo "install non-rt kernel"
 
-    cd ${ARMHF_BIN_HOME}/kernel/kernel_${ARMHF_KERNEL_VER}
+    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not change to kernel_${ARMHF_KERNEL_VER}" >&2
+        echo "ERROR -> could not change to linux-${ARMHF_KERNEL_VER}" >&2
         my_exit
     fi
 
     copy_kernel_folder
+    copy_kernel
 
     make ARCH=arm clean
     if [ $? -ne 0 ] ; then
@@ -318,15 +377,15 @@ if [ "$INSTALL_NONRT" = 'true' ]; then
     fi
 
     cd ${ARMHF_BIN_HOME}/kernel
-    sudo rsync -avz modules_${ARMHF_KERNEL_VER}/lib/modules/. ${SD_ROOT}/lib/modules/.
+    sudo rsync -avz modules_${ARMHF_KERNEL_VER}/lib/modules/. ${SD_ROOTFS}/lib/modules/.
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not rsync -avc modules_${ARMHF_KERNEL_VER}/lib/modules/. ${SD_ROOT}/lib/modules/." >&2
+        echo "ERROR -> could not rsync -avc modules_${ARMHF_KERNEL_VER}/lib/modules/. ${SD_ROOTFS}/lib/modules/." >&2
         my_exit
     fi
 
-    sudo rsync -avz --delete linux-${ARMHF_KERNEL_VER} ${SD_ROOT}/usr/src/.
+    sudo rsync -avz --delete linux-${ARMHF_KERNEL_VER} ${SD_ROOTFS}/usr/src/.
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not  sudo rsync -av --delete linux-${ARMHF_KERNEL_VER} ${SD_ROOT}/usr/src/." >&2
+        echo "ERROR -> could not  sudo rsync -av --delete linux-${ARMHF_KERNEL_VER} ${SD_ROOTFS}/usr/src/." >&2
         my_exit
     fi
 fi
@@ -334,13 +393,14 @@ fi
 if [ "$INSTALL_RT" = 'true' ]; then
     echo "install rt kernel"
 
-    cd ${ARMHF_BIN_HOME}/kernel/kernel_${ARMHF_KERNEL_VER}_rt
+    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not change to kernel_${ARMHF_KERNEL_VER}_rt" >&2
+        echo "ERROR -> could not change to linux-${ARMHF_KERNEL_VER}_rt" >&2
         my_exit
     fi
 
     copy_kernel_folder
+    copy_kernel_rt
 
     make ARCH=arm clean
     if [ $? -ne 0 ] ; then
@@ -349,18 +409,20 @@ if [ "$INSTALL_RT" = 'true' ]; then
     fi
 
     cd ${ARMHF_BIN_HOME}/kernel
-    sudo rsync -avz modules_${ARMHF_RT_KERNEL_VER}/lib/modules/. ${SD_ROOT}/lib/modules/.
+    sudo rsync -avz modules_${ARMHF_RT_KERNEL_VER}_rt/lib/modules/. ${SD_ROOTFS}/lib/modules/.
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not rsync -avz modules_${ARMHF_RT_KERNEL_VER}/lib/modules/. ${SD_ROOT}/lib/modules/." >&2
+        echo "ERROR -> could not rsync -avz modules_${ARMHF_RT_KERNEL_VER}_rt/lib/modules/. ${SD_ROOTFS}/lib/modules/." >&2
         my_exit
     fi
 
-    sudo rsync -avz --delete linux-${ARMHF_KERNEL_VER}_rt ${SD_ROOT}/usr/src/.
+    sudo rsync -avz --delete linux-${ARMHF_KERNEL_VER}_rt ${SD_ROOTFS}/usr/src/.
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not rsync -avz --delete linux-${ARMHF_KERNEL_VER}_rt ${SD_ROOT}/usr/src/." >&2
+        echo "ERROR -> could not rsync -avz --delete linux-${ARMHF_KERNEL_VER}_rt ${SD_ROOTFS}/usr/src/." >&2
         my_exit
     fi
 fi
+
+umount_partitions
 
 cleanup
 echo " "
