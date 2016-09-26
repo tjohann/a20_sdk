@@ -285,7 +285,7 @@ copy_kernel_folder()
 
 copy_kernel()
 {
-    cp uImagearch/arm/boot/uImage ${SD_KERNEL}/non-rt
+    cp arch/arm/boot/uImage ${SD_KERNEL}/non-rt
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not copy arch/arm/boot/uImage ${SD_KERNEL}"
     fi
@@ -298,9 +298,9 @@ copy_kernel()
 
 copy_kernel_rt()
 {
-    cp uImage ${SD_KERNEL}/rt
+    cp arch/arm/boot/uImage ${SD_KERNEL}/rt
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not copy uImage ${SD_KERNEL}"
+	echo "ERROR -> could not copy arch/arm/boot/uImage ${SD_KERNEL}"
     fi
 
     cp .config ${SD_KERNEL}/rt
