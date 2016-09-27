@@ -32,6 +32,8 @@ all::
 	@echo "| make install_all_kernel -> install rt and non-rt kernel  |"
 	@echo "| make install_rt_kernel -> install rt kernel              |"
 	@echo "| make install_non-rt_kernel -> install non-rt kernel      |"
+	@echo "| ------------------ helper scripts ---------------------- |"
+	@echo "| make prepare_kernel_folder                               |"
 	@echo "+----------------------------------------------------------+"
 
 clean::
@@ -112,3 +114,6 @@ install_all_kernel::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/install_kernel.sh -b bananapi -a)
+
+prepare_kernel_folder::
+	($(ARMHF_HOME)/scripts/helpers/prepare_kernel_folder.sh)

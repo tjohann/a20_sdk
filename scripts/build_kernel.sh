@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    26.09.2016/07.09.2016
+# Date/Beginn :    27.09.2016/07.09.2016
 #
-# Version     :    V0.03
+# Version     :    V2.00
 #
-# Milestones  :    V0.03 (sep 2016) -> fix some bugs
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                                      fix PWD handling
+#                  V0.03 (sep 2016) -> fix some bugs
 #                  V0.02 (sep 2016) -> fix some bugs and add some smaller
 #                                      improvements
 #                                   -> first working version
@@ -54,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'

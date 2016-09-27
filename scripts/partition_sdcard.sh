@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.08.2016/07.07.2016
+# Date/Beginn :    27.09.2016/07.07.2016
 #
-# Version     :    V1.05
+# Version     :    V2.00
 #
-# Milestones  :    V1.05 (aug 2016) -> add partprobe to inform kernel of changes
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V1.05 (aug 2016) -> add partprobe to inform kernel of changes
 #                                      clear also partition table
 #                  V1.04 (aug 2016) -> sudo handling at beginning
 #                  V1.03 (aug 2016) -> add hdd-only-sdcard parts
@@ -61,7 +62,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.05'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'

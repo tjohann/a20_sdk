@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    07.09.2016/25.01.2016
+# Date/Beginn :    27.09.2016/25.01.2016
 #
-# Version     :    V1.07
+# Version     :    V2.00
 #
-# Milestones  :    V1.07 (sep 2016) -> add -z to all rsync calls
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V1.07 (sep 2016) -> add -z to all rsync calls
 #                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.04 (jul 2016) -> redirect errors to >&2
@@ -68,7 +69,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.07'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'

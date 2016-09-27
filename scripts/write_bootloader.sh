@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    28.08.2016/15.07.2016
+# Date/Beginn :    27.09.2016/15.07.2016
 #
-# Version     :    V1.08
+# Version     :    V2.00
 #
-# Milestones  :    V1.08 (aug 2016) -> fix hdd_boot dir creation
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V1.08 (aug 2016) -> fix hdd_boot dir creation
 #                  V1.07 (aug 2016) -> fix hdd handling
 #                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> add hdd-only-sdcard parts
@@ -59,7 +60,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.08'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'

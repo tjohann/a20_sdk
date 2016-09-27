@@ -18,7 +18,27 @@ MODULES = $(shell ls -d */ | cut -f1 -d'/')
 DOCS =
 
 all::
-	@echo Cheers
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|                  Nothing to build                        |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	@echo "| Example:                                                 |"
+	@echo "| make prepare_kernel_image_tarballs                       |"
+	@echo "| make prepare_image_tarballs                              |"
+	@echo "| make prepare_kernel_folder                               |"
+	@echo "| make clean                                               |"
+	@echo "| make distclean                                           |"
+	@echo "+----------------------------------------------------------+"
+
+prepare_kernel_image_tarballs::
+	($(ARMHF_HOME)/scripts/helpers/prepare_all_kernel_image_tarballs.sh)
+
+prepare_image_tarballs::
+	($(ARMHF_HOME)/scripts/helpers/prepare_image_tarballs.sh)
+
+prepare_kernel_folder::
+	($(ARMHF_HOME)/scripts/helpers/prepare_kernel_folder.sh)
 
 clean::
 	rm -f *~

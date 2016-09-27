@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.09.2016/23.09.2016
+# Date/Beginn :    27.09.2016/23.09.2016
 #
-# Version     :    V0.01
+# Version     :    V2.00
 #
-# Milestones  :    V0.01 (sept 2016) -> initial version
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V0.02 (sep 2016) -> first working version
+#                  V0.01 (sep 2016) -> initial version
 #
 # Requires    :    dialog, xterm
 #
@@ -45,7 +47,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='2.00'
 
 # use dialog
 DIALOG=dialog
@@ -55,6 +57,13 @@ MISSING_ENV='false'
 
 # pid of logterm ($TERM)
 PID_LOGTERM=0
+
+# which brand?
+BRAND='none'
+
+# which kernel to build?
+RT_KERNEL='false'
+NORT_KERNEL='false'
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -189,17 +198,175 @@ start_logterm()
     echo "$!" >>$_log 2>&1
 }
 
-
-# --- show content of ${ARMHF_HOME}/README.md (something like a help info)
-show_sdk_readme()
-{
-    $DIALOG --textbox ${ARMHF_HOME}/README.md 50 100
-}
-
 # --- show help info
 show_help()
 {
     $DIALOG --textbox ${ARMHF_HOME}/scripts/Documentation/handle_kernel_help.md 50 100
+}
+
+# --- select a supported target device
+select_target()
+{
+    local def_bananapi_pro="off"
+    local def_bananapi="off"
+    local def_baalue="off"
+    local def_cubietruck="off"
+    local def_olimex="off"
+
+    case "$BRAND" in
+	*bananapi-pro*)
+	    def_bananapi_pro="on" ;;
+	*bananapi*)
+	    def_bananapi="on" ;;
+	*baalue*)
+	    def_baalue="on" ;;
+	*cubietruck*)
+	    def_cubietruck="on" ;;
+	*olimex*)
+	    def_olimex="on" ;;
+    esac
+
+    dialog --radiolist "Target device to choose:" 15 60 15 \
+           01 "Bananapi-Pro" ${def_bananapi_pro} \
+           02 "Bananapi" ${def_bananapi} \
+           03 "Baalue" ${def_baalue} \
+           04 "Cubietruck" ${def_cubietruck} \
+           05 "Olimex" ${def_olimex} 2>$_temp
+    local result=`cat $_temp`
+
+    case "$result" in
+	*01*)
+	    BRAND="bananapi-pro" ;;
+	*02*)
+	    BRAND="bananapi" ;;
+	*03*)
+	    BRAND="baalue" ;;
+	*04*)
+	    BRAND="cubietruck" ;;
+	*05*)
+	    BRAND="olimex" ;;
+    esac
+
+    dialog --title " Target device selected " --msgbox "Will use \"${BRAND}\" for all following actions" 5 60
+}
+
+# --- select wich kernel to build
+select_kernel()
+{
+    if [ "$RT_KERNEL" = 'true' ]; then
+	local def_rt_kernel="on"
+    else
+	local def_rt_kernel="off"
+    fi
+
+    if [ "$NORT_KERNEL" = 'true' ]; then
+	local def_nonrt_kernel="on"
+    else
+	local def_nonrt_kernel="off"
+    fi
+
+    dialog --checklist "Select kernel:" 15 60 15 \
+           01 "RT-PREEMPT kernel?" ${def_rt_kernel}\
+           02 "PREEMPT kernel?" ${def_nonrt_kernel} 2>$_temp
+    local result=`cat $_temp`
+
+    if [[ $result == *01* ]]; then
+	RT_KERNEL='true'
+    else
+	RT_KERNEL='false'
+    fi
+
+    if [[ $result == *02* ]]; then
+	NORT_KERNEL='true'
+    else
+	NORT_KERNEL='false'
+    fi
+
+    local config="
+RT-PREEMPT kernel?: ${RT_KERNEL}\n
+PREEMPT kernel?: ${NORT_KERNEL}"
+    $DIALOG --title " Kernel version selected " --msgbox "Actual kernel\n-------------\n${config}" 10 60
+}
+
+# --- download the kernel sources
+download_kernel()
+{
+    start_logterm
+
+    $DIALOG --infobox "Download kernel sources" 6 45
+
+    if [ "$RT_KERNEL" == 'true' ] && [ "$NORT_KERNEL" == 'true' ]; then
+ 	local kernel_version="-a"
+    else
+	if [ "$NORT_KERNEL" = 'true' ]; then
+	    local kernel_version="-n"
+	fi
+	if [ "$RT_KERNEL" = 'true' ]; then
+	    local kernel_version="-r"
+	fi
+    fi
+
+    echo "${ARMHF_HOME}/scripts/get_latest_linux_kernel.sh ${kernel_version}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/get_latest_linux_kernel.sh ${kernel_version}
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not download kernel ... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished download" 6 45
+    fi
+}
+
+# --- build a kernel
+build_kernel()
+{
+    start_logterm
+
+    $DIALOG --infobox "Build kernel sources" 6 45
+
+    if [ "$RT_KERNEL" == 'true' ] && [ "$NORT_KERNEL" == 'true' ]; then
+ 	local kernel_version="-a"
+    else
+	if [ "$NORT_KERNEL" = 'true' ]; then
+	    local kernel_version="-n"
+	fi
+	if [ "$RT_KERNEL" = 'true' ]; then
+	    local kernel_version="-r"
+	fi
+    fi
+
+    echo "${ARMHF_HOME}/scripts/build_kernel.sh ${kernel_version}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/build_kernel.sh ${kernel_version}
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not build kernel ... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished build" 6 45
+    fi
+}
+
+# --- install the kernel to $BRAND
+install_kernel()
+{
+    start_logterm
+
+    $DIALOG --infobox "Install kernel sources" 6 45
+
+    if [ "$RT_KERNEL" == 'true' ] && [ "$NORT_KERNEL" == 'true' ]; then
+ 	local kernel_version="-a"
+    else
+	if [ "$NORT_KERNEL" = 'true' ]; then
+	    local kernel_version="-n"
+	fi
+	if [ "$RT_KERNEL" = 'true' ]; then
+	    local kernel_version="-r"
+	fi
+    fi
+
+    echo "${ARMHF_HOME}/scripts/install_kernel.sh  ${kernel_version} -b ${BRAND}" >>$_log 2>&1
+    ${ARMHF_HOME}/scripts/install_kernel.sh ${kernel_version} -b ${BRAND}
+    if [ $? -ne 0 ] ; then
+	$DIALOG --msgbox "ERROR: could not install kernel ... pls check logterm output" 6 45
+    else
+	$DIALOG --msgbox "Finished installation" 6 45
+    fi
 }
 
 #
@@ -209,10 +376,12 @@ menu()
 {
     $DIALOG  --title " Main menu ${PROGRAM_NAME} - version $VER " \
 	     --menu " Move using [UP] [DOWN] and [Enter] to select an entry" 20 60 20 \
-	     1 "Configuration menu" \
-	     7 "Start logging via ${TERM} console output" \
-	     8 "Show ${ARMHF_HOME}/README.md" \
-	     9 "Show help" \
+	     1 "Select target device" \
+	     2 "Select kernel versions (RT-PREEMPT/PREEMPT)" \
+	     3 "Download kernel" \
+	     4 "Build kernel" \
+	     5 "Install kernel to ${BRAND}" \
+	     6 "Show help" \
              x "Exit" 2>$_temp
 
     local result=$?
@@ -221,10 +390,12 @@ menu()
     local menuitem=`cat $_temp`
     echo "menu=$menuitem"
     case $menuitem in
-	1) menu_config ;;
-	7) start_logterm;;
-	8) show_sdk_readme;;
-	9) show_help;;
+	1) select_target ;;
+	2) select_kernel ;;
+	3) download_kernel ;;
+	4) build_kernel ;;
+	5) install_kernel ;;
+	6) show_help;;
         x) normal_exit;;
     esac
 }
@@ -241,6 +412,10 @@ echo "| Download, build and install a linux      |"
 echo "| kernel on a sdcard                       |"
 echo "+------------------------------------------+"
 echo " "
+
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 if [ -s $DISPLAY ]; then
     $DIALOG --msgbox "To see logging output use tail on another tty:

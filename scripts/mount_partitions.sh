@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.08.2016/24.07.2016
+# Date/Beginn :    27.09.2016/24.07.2016
 #
-# Version     :    V1.02
+# Version     :    V2.00
 #
-# Milestones  :    V1.02 (aug 2016) -> add hdd-only-sdcard parts
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V1.02 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.01 (aug 2016) -> some smaller fixes
 #                  V1.00 (jul 2016) -> version bump to V1.00
 #                  V0.02 (jul 2016) -> add features of make_sdcard.sh
@@ -49,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.02'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.09.2016/21.08.2016
+# Date/Beginn :    27.09.2016/21.08.2016
 #
-# Version     :    V0.03
+# Version     :    V2.00
 #
-# Milestones  :    V0.03 (sep 2016) -> add home and shared branding
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V0.03 (sep 2016) -> add home and shared branding
 #                                   -> make branding device independent
 #                  V0.02 (aug 2016) -> some minor improvements/fixes
 #                  V0.01 (jul 2016) -> initial skeleton
@@ -51,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -326,6 +327,7 @@ brand_baalue()
 	echo "${SD_HOME}/baalue/arm_cortex_sdk already exists -> do a pull"
 	cd ${SD_HOME}/baalue/arm_cortex_sdk
 	git pull
+	cd -
     else
 	local repo_name="https://github.com/tjohann/arm_cortex_sdk.git"
 	echo "start to clone repo $repo_name"
@@ -389,8 +391,8 @@ else
 fi
 
 umount_partitions
-
 cleanup
+
 echo " "
 echo "+----------------------------------------+"
 echo "|            Cheers $USER "

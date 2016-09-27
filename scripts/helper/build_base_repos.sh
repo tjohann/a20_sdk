@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    check_for_valid_env.sh
+# Title       :    build_base_repos.sh
 #
 # License:
 #
@@ -24,16 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/05.07.2016
+# Date/Beginn :    27.09.2016/26.09.2016
 #
 # Version     :    V2.00
 #
 # Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
-#                  V1.03 (aug 2016) -> add features of make_sdcard.sh
-#                  V1.02 (jul 2016) -> change exit code to 3
-#                  V1.01 (jul 2016) -> some smaller improvements
-#                  V1.00 (jul 2016) -> some smaller changes
-#                  V0.01 (jul 2016) -> first functional version
+#                  V0.01 (sep 2016) -> first working version
 #
 # Requires    :
 #
@@ -41,15 +37,15 @@
 ################################################################################
 # Description
 #
-#   A simple tool to check if arm_env.sh and $ARMHF_KERNEL* in sync
+#   A simple tool to build my base external repository (on the device)
+#
+#   Workdir /opt/a20_sdk/external
 #
 # Some features
 #   - ...
 #
-# Notes
-#   - ...
-#
 ################################################################################
+#
 
 # VERSION-NUMBER
 VER='2.00'
@@ -60,16 +56,23 @@ MISSING_ENV='false'
 # program name
 PROGRAM_NAME=${0##*/}
 
+# the current repo
+BUILD_DIR='none'
+
+# additional configure arguments
+CONFIGURE_ADDS=''
+
 # my usage method
 my_usage()
 {
     echo " "
-    echo "+------------------------------------------+"
+    echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
-    echo "|        [-v] -> print version info        |"
-    echo "|        [-h] -> this help                 |"
-    echo "|                                          |"
-    echo "+------------------------------------------+"
+    echo "|        [-e] -> prepare the base image                  |"
+    echo "|        [-v] -> print version info                      |"
+    echo "|        [-h] -> this help                               |"
+    echo "|                                                        |"
+    echo "+--------------------------------------------------------+"
     echo " "
     exit
 }
@@ -83,11 +86,15 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    echo "+------------------------------------------+"
-    echo "|          Cheers $USER                   |"
-    echo "+------------------------------------------+"
+    # if something is still mounted
+    umount_partition
+
+    echo "+-----------------------------------+"
+    echo "|          Cheers $USER            |"
+    echo "+-----------------------------------+"
     cleanup
-    exit 2
+    # http://tldp.org/LDP/abs/html/exitcodes.html
+    exit 3
 }
 
 # print version info
@@ -106,7 +113,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hv' opts 2>$_log
+while getopts 'hve' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
@@ -150,60 +157,106 @@ fi
 
 
 # ******************************************************************************
+# ***                      The functions for main_menu                       ***
+# ******************************************************************************
+
+build_autotools()
+{
+    ./configure ${CONFIGURE_ADDS} --prefix=/usr/local
+    make
+    sudo make install
+    sudo ldconfig
+}
+
+build_autogen()
+{
+    if [ -d ${BUILD_DIR} ]; then
+	cd ${BUILD_DIR}
+	./autogen.sh
+	build_autotools
+    else
+	echo "ERROR -> ${BUILD_DIR} no available!"
+    fi   
+}
+
+build_bootstrap()
+{
+    if [ -d ${BUILD_DIR} ]; then
+	cd ${BUILD_DIR}
+	./bootstrap.sh
+	build_autotools
+    else
+	echo "ERROR -> ${BUILD_DIR} no available!"
+    fi
+}
+
+build_make_install()
+{
+    if [ -d ${BUILD_DIR} ]; then
+	cd ${BUILD_DIR}
+	sudo make install
+    else
+	echo "ERROR -> ${BUILD_DIR} no available!"
+    fi
+     
+}
+
+# ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
 echo " "
-echo "+----------------------------------------+"
-echo "|  check if env variable and env script  |"
-echo "|  are in sync                           |"
-echo "+----------------------------------------+"
+echo "+------------------------------------------+"
+echo "| build my base external repositorys       |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
 echo " "
 
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-TMP_STRING=`grep ARMHF_KERNEL_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
-if [ "$TMP_STRING" != "$ARMHF_KERNEL_VER" ]; then
-    echo " "
-    echo "+---------------- ERROR -----------------+"
-    echo "| The versions of ARMHF_KERNEL_VER: ${ARMHF_KERNEL_VER}"
-    echo "| and armhf_env: ${TMP_STRING} are different!"
-    echo "+----------------------------------------+"
-    echo " "
-    cleanup
-    my_exit
-fi
+#
+# build the "./autogen && ./configure ..." repos
+#
+BUILD_DIR=${ARMHF_BIN_HOME}/external/can-utils
+CONFIGURE_ADDS=''
+build_autogen
 
-TMP_STRING=`grep ARMHF_RT_KERNEL_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
-if [ "$TMP_STRING" != "$ARMHF_RT_KERNEL_VER" ]; then
-    echo " "
-    echo "+---------------- ERROR -----------------+"
-    echo "| The versions of ARMHF_RT_KERNEL_VER: ${ARMHF_RT_KERNEL_VER}"
-    echo "| and armhf_env: ${TMP_STRING} are different!"
-    echo "+----------------------------------------+"
-    echo " "
-    cleanup
-    my_exit
-fi
 
-TMP_STRING=`grep ARMHF_RT_VER ${ARMHF_HOME}/armhf_env | awk -F '[=]' '{print $2}'`
-if [ "$TMP_STRING" != "$ARMHF_RT_VER" ]; then
-    echo " "
-    echo "+---------------- ERROR -----------------+"
-    echo "| The versions of ARMHF_RT_VER: ${ARMHF_RT_VER}"
-    echo "| and armhf_env: ${TMP_STRING} are different!"
-    echo "+----------------------------------------+"
-    echo " "
-    cleanup
-    my_exit
-fi
+#
+# build the "./bootstrap && ./configure ..." repos
+#
+BUILD_DIR=${ARMHF_BIN_HOME}/external/libbaalue
+CONFIGURE_ADDS="--enable-debug --enable-examples --enable-lcd160x"
+build_bootstrap
 
-echo " "
-echo "+----------------------------------------+"
-echo "| env variable and env script are in sync|"
-echo "+----------------------------------------+"
-echo " "
+BUILD_DIR=${ARMHF_BIN_HOME}/external/baalued
+CONFIGURE_ADDS="--enable-debug"
+build_bootstrap
+
+
+#
+# build the "make install" repos
+#
+BUILD_DIR=${ARMHF_BIN_HOME}/external/mydriver
+CONFIGURE_ADDS=''
+build_make_install
+
+BUILD_DIR=${ARMHF_BIN_HOME}/external/time_triggert_env
+CONFIGURE_ADDS=''
+build_make_install
+
+BUILD_DIR=${ARMHF_BIN_HOME}/external/mydrivercan_lin_env
+CONFIGURE_ADDS=''
+build_make_install
+
+BUILD_DIR=${ARMHF_BIN_HOME}/external/lcd160x_driver
+CONFIGURE_ADDS=''
+build_make_install
 
 cleanup
+
 echo " "
 echo "+----------------------------------------+"
 echo "|            Cheers $USER "

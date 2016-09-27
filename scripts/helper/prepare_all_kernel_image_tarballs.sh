@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.09.2016/26.08.2016
+# Date/Beginn :    27.09.2016/26.08.2016
 #
-# Version     :    V0.03
+# Version     :    V2.00
 #
-# Milestones  :    V0.03 (sep 2016) -> whitespaces
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V0.03 (sep 2016) -> whitespaces
 #                  V0.02 (aug 2016) -> first working version
 #                  V0.01 (aug 2016) -> initial skeleton
 #
@@ -50,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'

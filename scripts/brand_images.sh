@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    22.09.2016/02.07.2016
+# Date/Beginn :    27.09.2016/02.07.2016
 #
-# Version     :    V1.09
+# Version     :    V2.00
 #
-# Milestones  :    V1.09 (sep 2016) -> remove arm926_sdk parts
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V1.09 (sep 2016) -> remove arm926_sdk parts
 #                  V1.08 (sep 2016) -> add -z to all rsync calls
 #                  V1.07 (aug 2016) -> fix owner permissions in /home/baalue
 #                  V1.06 (aug 2016) -> sudo handling at beginning
@@ -72,7 +73,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.08'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -311,6 +312,7 @@ brand_baalue()
 	echo "${SD_HOME}/baalue/arm_cortex_sdk already exists -> do a pull"
 	cd ${SD_HOME}/baalue/arm_cortex_sdk
 	git pull
+	cd -
     else
 	local repo_name="https://github.com/tjohann/arm_cortex_sdk.git"
 	echo "start to clone repo $repo_name"
@@ -429,8 +431,8 @@ else
 fi
 
 umount_partitions
-
 cleanup
+
 echo " "
 echo "+----------------------------------------+"
 echo "|            Cheers $USER "

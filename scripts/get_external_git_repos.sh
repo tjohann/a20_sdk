@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    25.09.2016/15.08.2015
+# Date/Beginn :    27.09.2016/15.08.2015
 #
-# Version     :    V1.04
+# Version     :    V2.00
 #
-# Milestones  :    V1.04 (sep 2016) -> add can_lin_env
+# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                  V1.04 (sep 2016) -> add can_lin_env
 #                  V1.03 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.02 (jul 2016) -> redirect errors to >&2
 #                  V1.01 (jul 2016) -> change exit code to 3
@@ -87,7 +88,7 @@
 #
 
 # VERSION-NUMBER
-VER='1.04'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'

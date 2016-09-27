@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    prepare_kernel_folder.sh
+# Title       :    prepare_image_tarballs.sh
 #
 # License:
 #
@@ -24,12 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/07.09.2016
+# Date/Beginn :    27.09.2016/27.09.2016
 #
 # Version     :    V2.00
 #
 # Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
-#                  V0.01 (sep 2016) -> initial skeleton
+#                  V0.01 (sep 2016) -> first working version
 #
 # Requires    :
 #
@@ -37,7 +37,13 @@
 ################################################################################
 # Description
 #
-#   A simple tool to prepare a kernel folder as base for install to sdcard.sh
+#   A simple tool to prepare the tarball for upload (as always bananapi is the
+#   master device)
+#
+#   Workdir /opt/a20_sdk/images
+#
+# Some features
+#   - ...
 #
 ################################################################################
 #
@@ -48,9 +54,16 @@ VER='2.00'
 # if env is sourced
 MISSING_ENV='false'
 
-# what to build
-PREPARE_RT='false'
-PREPARE_NONRT='false'
+# mountpoints
+SD_KERNEL='none'
+SD_ROOTFS='none'
+SD_HOME='none'
+
+# use only base image
+BASE_IMAGE='false'
+
+# ...
+BRAND="bananapi"
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -61,8 +74,7 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
-    echo "|        [-r] -> prepare rt kernel folder                |"
-    echo "|        [-n] -> prepare non-rt kernel folder            |"
+    echo "|        [-e] -> prepare the base image                  |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -80,11 +92,13 @@ cleanup() {
 # my exit method
 my_exit()
 {
+    # if something is still mounted
+    umount_partition
+
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
     echo "+-----------------------------------+"
     cleanup
-
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
@@ -105,11 +119,9 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvrn' opts 2>$_log
+while getopts 'hve' opts 2>$_log
 do
     case $opts in
-	r) PREPARE_RT='true' ;;
-	n) PREPARE_NONRT='true' ;;
         h) my_usage ;;
         v) print_version ;;
         ?) my_usage ;;
@@ -129,7 +141,15 @@ if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [[ ! ${ARMHF_SRC_HOME} ]]; then
+if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${BANANAPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${BANANAPI_SDCARD_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -154,87 +174,106 @@ fi
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
+mount_partitions()
+{
+    mount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
+	my_exit
+    fi
+
+    mount $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_ROOTFS}" >&2
+	my_exit
+    fi
+
+    mount $SD_HOME
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not mount ${SD_HOME}" >&2
+	my_exit
+    fi
+}
+
+umount_partitions()
+{
+    umount $SD_KERNEL
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
+	# do not exit -> will try to umount the others
+    fi
+
+    umount $SD_ROOTFS
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_ROOTFS}" >&2
+	# do not exit -> will try to umount the others
+    fi
+
+    umount $SD_HOME
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not umount ${SD_HOME}" >&2
+	# do not exit -> will try to umount the others
+    fi
+}
+
 
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
+# sudo handling up-front
 echo " "
-echo "+----------------------------------------+"
-echo "|       prepare share kernel folder      |"
-echo "+----------------------------------------+"
+echo "+------------------------------------------+"
+echo "| prepare image tarballs for upload to sf  |"
+echo "| --> need sudo for some parts             |"
+echo "+------------------------------------------+"
 echo " "
 
-if [ -d ${ARMHF_BIN_HOME}/kernel ]; then
-    cd ${ARMHF_BIN_HOME}/kernel
+sudo -v
+# keep-alive
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+SD_HOME=$BANANAPI_SDCARD_HOME
+
+mount_partition
+
+cd $SD_KERNEL
+tar czvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz
+if [ $? -ne 0 ] ; then
+    echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" >&2
+    my_exit
+fi
+
+sync
+
+cd $SD_HOME
+sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz
+if [ $? -ne 0 ] ; then
+    echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" >&2
+    my_exit
+fi
+
+sync
+
+cd $SD_ROOTFS
+if [ "$BASE_IMAGE" = 'true' ]; then
+    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz
 else
-    echo "ERROR -> ${ARMHF_BIN_HOME}/kernel not exists"
+    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz
+fi
+if [ $? -ne 0 ] ; then
+    echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/a20_sdk*rootfs.tgz" >&2
+    my_exit
 fi
 
-if [ "$PREPARE_NONRT" = 'true' ]; then
-    echo "prepare non-rt kernel folder"
+sync
 
-    if [ -d ${ARMHF_BIN_HOME}/kernel/kernel_${ARMHF_KERNEL_VER} ]; then
-	echo "folder kernel_${ARMHF_KERNEL_VER} exists -> remove it"
-	rm -rf kernel_${ARMHF_KERNEL_VER}
-    fi
-
-    mkdir kernel_${ARMHF_KERNEL_VER}
-    if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}" >&2
-        my_exit
-    fi
-
-    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-    if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}" >&2
-        my_exit
-    fi
-
-    cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-    cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-    cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-    cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-
-    cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-    cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
-
-    make ARCH=arm clean
-fi
-
-if [ "$PREPARE_RT" = 'true' ]; then
-    echo "prepare rt kernel folder"
-
-    if [ -d ${ARMHF_BIN_HOME}/kernel/kernel_${ARMHF_KERNEL_VER}_rt ]; then
-	echo "folder kernel_${ARMHF_KERNEL_VER} exists -> remove it"
-	rm -rf kernel_${ARMHF_KERNEL_VER}_rt
-    fi
-
-    mkdir kernel_${ARMHF_KERNEL_VER}_rt
-    if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}_rt" >&2
-        my_exit
-    fi
-
-    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_RT_KERNEL_VER}_rt
-    if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not mkdir kernel_${ARMHF_KERNEL_VER}_rt" >&2
-        my_exit
-    fi
-
-    cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
-    cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
-    cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
-    cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
-
-    cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
-    cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
-
-    make ARCH=arm clean
-fi
-
+umount_partition
 cleanup
+
 echo " "
 echo "+----------------------------------------+"
 echo "|            Cheers $USER "

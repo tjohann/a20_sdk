@@ -105,11 +105,5 @@ get_can-lin-env::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-lin-env" -p "https")
 
 build_base_repos::
-	(cd can-utils && ./autogen.sh && ./configure --prefix=/usr/local && make && sudo make install)
-	(cd libbaalue && ./bootstrap.sh && do_all_in_one_step.sh && sudo make install)
-	(cd baalued && ./bootstrap.sh && do_all_in_one_step.sh)
-	(sudo ldconfig)
-	(cd mydriver && make install)
-	(cd lcd160x_driver && make install)
-	(cd time_triggert_env && make install)
-	(cd can_lin_env && make install)
+	($(ARMHF_HOME)/scripts/helper/build_base_repos.sh)
+

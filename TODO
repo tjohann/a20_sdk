@@ -4,23 +4,49 @@
 #
 
 #
+# -------------- 2016-09-27 ----------------------------------------------------
+#
+
+## target stuff
+- check openssh configuration
+- add export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH}
+  to profile
+- update u-boot for all devices
+  - bananapi
+  - bananapi-pro
+  - cubietruck
+  - olimex
+
+## sdk & target stuff
+- prepare a second bananapi stack (+8 baalue-nodes)
+
+## script stuff
+- check helper script prepare_kernel_folder.sh
+- add helper script to create the upload tarballs           [2016-09-27 -> done]
+- fix build_base Makefile targe in external -> write a
+  simple script for it                                      [2016-09-27 -> done]
+- check all scripts which use "cd ..." and go back to the starting
+  working dir                                               [2016-09-27 -> done]
+
+
+#
 # -------------- 2016-09-26 ----------------------------------------------------
 #
 
 ## script stuff
 - add content to handle_kernel.sh (brace around kernel
-  build/install)
+  build/install)                                            [2016-09-26 -> done]
 
 ## sdk stuff
 - release A20_SDK_V2.00.0 -> target date: 02.10.2016
   - update images
   - upload images
-  - version bump to 2.00 for all scripts
+  - version bump to 2.00 for all scripts                    [2016-09-27 -> done]
   - check all todo below if include (special target stuff)
-  - check/update a20_sdk_builder.conf
+  - check/update a20_sdk_builder.conf                       [2016-09-26 -> done]
 
 ## target stuff
-- check if there info in /proc about the device
+- check if there is info in /proc about the device
   (Cubietruck, Bananapi ...)                                [2016-09-26 -> done]
 
 

@@ -2,6 +2,13 @@
 # some news ... see also TODO for hints
 #
 
+2016-09-27 -> ## sdk & script stuff
+	      add a simple helper script to create the image tarballs
+	      (prepare_image_tarballs.sh)
+	      add a simple script which builds and installs the base repos in
+	      external (mainly used on the target)
+	      add X capable ssh(d)_config for host and target
+
 2016-09-25 -> ## sdk & script stuff
 	      add my can_lin_env repo to external
 	      add make build_base_repos target to external

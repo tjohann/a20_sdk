@@ -147,7 +147,6 @@ get_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
 
-
 #
 # create ready to use sdcards
 #
