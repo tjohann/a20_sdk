@@ -2,6 +2,9 @@
 # some news ... see also TODO for hints
 #
 
+2016-09-28 -> ## sdk & target stuff
+	      add another stack for baalue
+
 2016-09-27 -> ## sdk & script stuff
 	      add a simple helper script to create the image tarballs
 	      (prepare_image_tarballs.sh)

@@ -19,26 +19,22 @@
 
 #
 # my cluster nodes (old style)
-192.168.0.80            bananapi-80.my.domain                   bananapi-80
-192.168.0.81            bananapi-81.my.domain                   bananapi-81
-192.168.0.82            bananapi-82.my.domain                   bananapi-82
-192.168.0.83            bananapi-83.my.domain                   bananapi-83
-192.168.0.84            bananapi-84.my.domain                   bananapi-84
-192.168.0.85            bananapi-85.my.domain                   bananapi-85
-192.168.0.86            bananapi-86.my.domain                   bananapi-86
-192.168.0.87            bananapi-87.my.domain                   bananapi-87
-192.168.0.90            cubietruck_master.my.domain             cubietruck_master
-
-#
-# my cluster nodes (new style)
-192.168.0.80            baalue-80.my.domain			baalue-00
-192.168.0.81            baalue-81.my.domain                   	baalue-01
-192.168.0.82            baalue-82.my.domain                   	baalue-02
-192.168.0.83            baalue-83.my.domain                   	baalue-03
-192.168.0.84            baalue-84.my.domain                   	baalue-04
-192.168.0.85            baalue-85.my.domain                   	baalue-05
-192.168.0.86            baalue-86.my.domain                   	baalue-06
-192.168.0.87            baalue-87.my.domain                   	baalue-07
-192.168.0.90            baalue_master.my.domain                	baalue_master
+192.168.0.80            baalue-80.my.domain                   baalue-80
+192.168.0.81            baalue-81.my.domain                   baalue-81
+192.168.0.82            baalue-82.my.domain                   baalue-82
+192.168.0.83            baalue-83.my.domain                   baalue-83
+192.168.0.84            baalue-84.my.domain                   baalue-84
+192.168.0.85            baalue-85.my.domain                   baalue-85
+192.168.0.86            baalue-86.my.domain                   baalue-86
+192.168.0.87            baalue-87.my.domain                   baalue-87
+192.168.0.88            baalue-88.my.domain                   baalue-88
+192.168.0.89            baalue-89.my.domain                   baalue-89
+192.168.0.90            baalue-90.my.domain                   baalue-90
+192.168.0.91            baalue-91.my.domain                   baalue-91
+192.168.0.92            baalue-92.my.domain                   baalue-92
+192.168.0.93            baalue-93.my.domain                   baalue-93
+192.168.0.94            baalue-94.my.domain                   baalue-94
+192.168.0.95            baalue-95.my.domain                   baalue-95
+192.168.0.70            baalue_master.my.domain               baalue_master
 
 # End of file

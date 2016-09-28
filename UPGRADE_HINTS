@@ -4,28 +4,32 @@
 
 
 ## 2016-09-27
-- i have changed a lot of the scripts -> do a make distclean and make init_sdk
+- I have changed a lot of the scripts -> do a make distclean and make init_sdk
+
+## 2016-09-28
+- I have changed the ip address of baalue-master and removed the old
+  naming scheme
 
 
 # --------------------------------- deprecated --------------------------------
 
 
 ## 2016-09-23
-- i have changed a lot of the scripts -> do a make distclean and make init_sdk
+- I have changed a lot of the scripts -> do a make distclean and make init_sdk
 
 ## 2016-07-14 --> 2016-08-27 (A20_SDK_V1.99.8)
-- i have changed a lot of the scripts -> do a make distclean and make init_sdk
+- I have changed a lot of the scripts -> do a make distclean and make init_sdk
 
 ## 2016-04-19 --> 2016-07-14 (RELEASE V1.1.1)
-- i have changed a lot of the scripts -> do a make distclean and make init_sdk
-- i removed the swap partition on the target device (not needed)
+- I have changed a lot of the scripts -> do a make distclean and make init_sdk
+- I removed the swap partition on the target device (not needed)
 - new host naming scheme (see ./bananapi/configs/hosts_a20_devices.txt)
 
 ## 2016-04-09 --> 2016-04-19 (RELEASE V0.1.0)
-- i have changed a lot of the scripts -> do a make distclean and make init_sdk
+- I have changed a lot of the scripts -> do a make distclean and make init_sdk
 
 ## 2015-01-29 --> 2016-04-09
-- i changed the init_sdk target in the main Makefile -> it now removes also
+- I changed the init_sdk target in the main Makefile -> it now removes also
 /opt/a20_sdk/{externel,images,kernel} before it rsync the new content
 
 ## 2015-08-24 --> 2015-01-29

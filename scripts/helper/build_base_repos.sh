@@ -176,7 +176,7 @@ build_autogen()
 	build_autotools
     else
 	echo "ERROR -> ${BUILD_DIR} no available!"
-    fi   
+    fi
 }
 
 build_bootstrap()
@@ -198,7 +198,7 @@ build_make_install()
     else
 	echo "ERROR -> ${BUILD_DIR} no available!"
     fi
-     
+
 }
 
 # ******************************************************************************

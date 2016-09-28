@@ -19,7 +19,7 @@
 
 # Host *
 #   ForwardAgent yes
-#   ForwardX11 yes 
+#   ForwardX11 yes
 #   ForwardX11Trusted yes
 #   RhostsRSAAuthentication no
 #   RSAAuthentication yes
@@ -52,5 +52,5 @@
 
 # target configuration
 Host *
-  ForwardX11 yes 
+  ForwardX11 yes
   ForwardX11Trusted yes

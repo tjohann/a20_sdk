@@ -98,9 +98,9 @@ UsePAM yes
 #AllowAgentForwarding yes
 #AllowTcpForwarding yes
 #GatewayPorts no
-#X11Forwarding yes 
+#X11Forwarding yes
 #X11DisplayOffset 10
-#X11UseLocalhost no 
+#X11UseLocalhost no
 #PermitTTY yes
 #PrintMotd no
 #PrintLastLog yes
@@ -134,8 +134,8 @@ Subsystem	sftp	/usr/libexec/sftp-server
 # host configuration
 Match User baalue
       AllowTcpForwarding yes
-      X11Forwarding yes 
+      X11Forwarding yes
       X11DisplayOffset 10
-      X11UseLocalhost no 
+      X11UseLocalhost no
       PrintMotd no
       TCPKeepAlive yes

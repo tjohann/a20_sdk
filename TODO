@@ -18,7 +18,7 @@
   - olimex
 
 ## sdk & target stuff
-- prepare a second bananapi stack (+8 baalue-nodes)
+- prepare a second bananapi stack (+8 baalue-nodes)         [2016-09-28 -> done]
 
 ## script stuff
 - check helper script prepare_kernel_folder.sh
