@@ -3,6 +3,15 @@
 #
 #
 
+
+#
+# -------------- 2016-09-30 ----------------------------------------------------
+#
+
+## sdk stuff
+- update screenshot of partition scheme below ./pics
+
+
 #
 # -------------- 2016-09-27 ----------------------------------------------------
 #
@@ -38,11 +47,9 @@
   build/install)                                            [2016-09-26 -> done]
 
 ## sdk stuff
-- release A20_SDK_V2.00.0 -> target date: 02.10.2016
-  - update images
-  - upload images
+- release A20_SDK_V2.00.0 -> target date: 03.10.2016
   - version bump to 2.00 for all scripts                    [2016-09-27 -> done]
-  - check all todo below if include (special target stuff)
+  - check all todo below if include (special target stuff)  [2016-09-30 -> done]
   - check/update a20_sdk_builder.conf                       [2016-09-26 -> done]
 
 ## target stuff
@@ -204,7 +211,7 @@
 #
 
 ## sdk stuff
-- provide a useful .Xresources config -> for xterm      [2016-07-05 -> canceled]
+- provide a useful .Xresources config -> for xterm          [2016-09-30 -> done]
 
 ## script stuff
 - use zenity and parallel for make_sdcard script        [2016-07-30 -> canceled]

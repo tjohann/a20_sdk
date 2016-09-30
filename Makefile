@@ -34,6 +34,7 @@ all::
 	@echo "| make clean              -> clean all dir/subdirs          |"
 	@echo "| make distclean          -> complete cleanup/delete        |"
 	@echo "| make mrproper           -> do mrproper cleanup            |"
+	@echo "| make man                -> show a20_sdk manpage           |"
 	@echo "| ...                                                       |"
 	@echo "| make make_sdcard        -> small tool to make a read to   |"
 	@echo "|                            use SD-Card                    |"
@@ -146,6 +147,9 @@ get_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
+
+man::
+	(cd man && $(MAKE) $@)
 
 #
 # create ready to use sdcards

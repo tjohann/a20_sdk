@@ -357,15 +357,23 @@ Single devices:
 
 My cluster:
 
-	192.168.0.80            baalue-80.my.domain             baalue-00
-	192.168.0.81            baalue-81.my.domain             baalue-01
-	192.168.0.82            baalue-82.my.domain             baalue-02
-	192.168.0.83            baalue-83.my.domain             baalue-03
-	192.168.0.84            baalue-84.my.domain             baalue-04
-	192.168.0.85            baalue-85.my.domain             baalue-05
-	192.168.0.86            baalue-86.my.domain             baalue-06
-	192.168.0.87            baalue-87.my.domain             baalue-07
-	192.168.0.90            baalue_master.my.domain         baalue_master
+	192.168.0.80            baalue-80.my.domain             baalue-80
+	192.168.0.81            baalue-81.my.domain             baalue-81
+	192.168.0.82            baalue-82.my.domain             baalue-82
+	192.168.0.83            baalue-83.my.domain             baalue-83
+	192.168.0.84            baalue-84.my.domain             baalue-84
+	192.168.0.85            baalue-85.my.domain             baalue-85
+	192.168.0.86            baalue-86.my.domain             baalue-86
+	192.168.0.87            baalue-87.my.domain             baalue-87
+	192.168.0.88            baalue-88.my.domain             baalue-88
+	192.168.0.89            baalue-89.my.domain             baalue-89
+	192.168.0.90            baalue-90.my.domain             baalue-90
+	192.168.0.91            baalue-91.my.domain             baalue-91
+	192.168.0.92            baalue-92.my.domain             baalue-92
+	192.168.0.93            baalue-93.my.domain             baalue-93
+	192.168.0.94            baalue-94.my.domain             baalue-94
+	192.168.0.95            baalue-95.my.domain             baalue-95
+	192.168.0.70            baalue_master.my.domain         baalue_master
 
 My nfs share:
 
@@ -527,6 +535,8 @@ Development model
 
 I support only one version described by a tag. The toolchain and images are for that version. Older tags wont be supported anymore.
 
+For every delivery i have something like a integration/delivery checklist ([Integration/Delivery checklist](bananapi/Documentation/integration_checklist.md)).
+
 
 Outlook (next development steps)
 --------------------------------
@@ -537,16 +547,16 @@ Note: This repository is something like a bracket over my differnet projects. So
 - add storyline for olimex and bananapi (embedded devices)
 
 (until end of september)
-- add storyline for bananapi-pro (home cloud server)
 - release of A20_SDK_V2.0.0
 
 (until end of october)
+- add storyline for bananapi-pro (home cloud server)
 - add storyline for baalue (distcc)
 - make use of lcd1602 module of cubietruck (baalue_master)
 - working jailhouse configuration for bananapi and olimex
-- simple example for using bare-metal cell within bananapi/olimex
 
 (until end of november)
+- simple example for using bare-metal cell within bananapi/olimex
 - working can parts for a20-can and mcp2515 (bananapi/olimex)
 - working can baremetal can example
 - simple baremetal lcd example

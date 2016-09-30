@@ -14,14 +14,15 @@ ifeq "${ARMHF_SRC_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-MODULES = $(shell ls -d */ | cut -f1 -d'/')
-DOCS =
-
 all::
 	@echo Cheers
 
 clean::
 	rm -f *~
-	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
+	rm *.ps
+
+man::
+	groff -man ./a20_sdk.7 > ./a20_sdk.ps
+	groff -man -Tascii ./a20_sdk.7 | less
 
 distclean: clean

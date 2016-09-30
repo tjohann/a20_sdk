@@ -1,0 +1,29 @@
+xterm*saveLines: 2000
+xterm*title: "a20_sdk terminal"
+xterm*background: black
+xterm*foreground: grey
+xterm*geometry: 110x32
+xterm*internalBorder: 5
+xterm*selectToClipboard: true
+xterm*utf8: 1
+xterm*metaSendsEscape: true
+xterm*alwaysHighlight: yes
+xterm*faceName: terminus:pixelsize=14
+xterm*color0:  rgb:2e2e/3434/3636
+xterm*color1:  rgb:cccc/0000/0000
+xterm*color2:  rgb:4e4e/9a9a/0606
+xterm*color3:  rgb:c4c4/a0a0/0000
+xterm*color4:  rgb:3434/6565/a4a4
+xterm*color5:  rgb:7575/5050/7b7b
+xterm*color6:  rgb:0606/9820/9a9a
+xterm*color7:  rgb:d3d3/d7d7/cfcf
+xterm*color8:  rgb:5555/5757/5353
+xterm*color9:  rgb:efef/2929/2929
+xterm*color10: rgb:8a8a/e2e2/3434
+xterm*color11: rgb:fcfc/e9e9/4f4f
+xterm*color12: rgb:7272/9f9f/cfcf
+xterm*color13: rgb:adad/7f7f/a8a8
+xterm*color14: rgb:3434/e2e2/e2e2
+xterm*color15: rgb:eeee/eeee/ecec
+ 
+

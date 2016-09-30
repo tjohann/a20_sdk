@@ -2,6 +2,11 @@
 # some news ... see also TODO for hints
 #
 
+2016-09-30 -> ## sdk stuff
+	      add link of manpage folder to a20_sdk_src (init_sdk.sh)
+	      add man page (based on READM.md)
+	      add additional Makefile tag -> make man
+
 2016-09-28 -> ## sdk & target stuff
 	      add another stack for baalue
 

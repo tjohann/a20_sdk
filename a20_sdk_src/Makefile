@@ -34,6 +34,7 @@ all::
 	@echo "| make clean_user_home    -> clean ${ARMHF_SRC_HOME}         "
 	@echo "| make clean              -> clean all dir/subdirs          |"
 	@echo "| make distclean          -> complete cleanup/delete        |"
+	@echo "| make man                -> show a20_sdk manpage           |"
 	@echo "| ...                                                       |"
 	@echo "| make install            -> install some scripts to $(HOME)|"
 	@echo "| make uninstall          -> remove scripts from $(HOME)    |"
@@ -69,6 +70,9 @@ install::
 uninstall::
 	(rm -rf $(HOME)/bin/a20_sdk_make_sdcard.sh)
 	(rm -rf $(HOME)/bin/a20_sdk_handle_kernel.sh)
+
+man::
+	(cd man && $(MAKE) $@)
 
 init_sdk: distclean
 	@echo "+----------------------------------------------------------+"

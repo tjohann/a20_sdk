@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/25.01.2016
+# Date/Beginn :    30.09.2016/25.01.2016
 #
 # Version     :    V2.00
 #
 # Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                                      add link to man page dir to user init
 #                  V1.07 (sep 2016) -> add -z to all rsync calls
 #                  V1.06 (aug 2016) -> sudo handling at beginning
 #                  V1.05 (aug 2016) -> add features of make_sdcard.sh
@@ -390,6 +391,7 @@ if [ "$INIT_USER_HOME" = 'true' ]; then
 	ln -s $ARMHF_BIN_HOME/kernel $ARMHF_SRC_HOME/kernel
 	ln -s $ARMHF_BIN_HOME/images $ARMHF_SRC_HOME/images
 	ln -s $ARMHF_BIN_HOME/external $ARMHF_SRC_HOME/external
+	ln -s $ARMHF_HOME/man $ARMHF_SRC_HOME/man
     fi
 
     add_documentations_links_home

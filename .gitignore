@@ -51,3 +51,4 @@ host
 *.img
 linux-*
 modules_*
+a20_sdk.ps
