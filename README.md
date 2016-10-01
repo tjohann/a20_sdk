@@ -422,7 +422,7 @@ Addtional mount points (host):
 
     LABEL=SHARED_CUBI   /mnt/cubietruck/cubietruck_shared  auto  noauto,user,rw  0 0
 
-The [The storyline for Cubietrurck](cubietruck/Documentation/storyline.md)
+[The storyline for Cubietrurck](cubietruck/Documentation/storyline.md)
 
 
 Bananapi-Pro
@@ -442,7 +442,7 @@ Additional mount points (host):
 
     LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
-The [The storyline for Cubietruck](bananapi-pro/Documentation/storyline.md)
+[The storyline for Cubietruck](bananapi-pro/Documentation/storyline.md)
 
 
 Bananapi-M1
@@ -469,7 +469,7 @@ Addtional mount points (host):
 
     LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
-The [The storyline for Bananapi](bananapi/Documentation/storyline.md)
+[The storyline for Bananapi](bananapi/Documentation/storyline.md)
 
 
 Baalue
@@ -494,7 +494,7 @@ There'se also a script called brand_baalue_images.sh in ./scripts. This will bra
 My BAnAnapi cLUEster (Baalue):
 ![Alt text](pics/bananapi_cubietruck_cluster.jpg?raw=true "Baalue")
 
-The [The storyline for Baalue](baalue/Documentation/storyline.md)
+[The storyline for Baalue](baalue/Documentation/storyline.md)
 
 
 Olimex A20-SOM/EVB
