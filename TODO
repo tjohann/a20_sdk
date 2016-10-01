@@ -9,7 +9,7 @@
 #
 
 ## sdk stuff
-- update screenshot of partition scheme below ./pics
+- update screenshots of partition scheme below ./pics
 
 
 #
@@ -17,9 +17,9 @@
 #
 
 ## target stuff
-- check openssh configuration
+- check openssh configuration                               [2016-10-01 -> done]
 - add export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH}
-  to profile
+  to profile                                                [2016-10-01 -> done]
 - update u-boot for all devices
   - bananapi
   - bananapi-pro
@@ -30,7 +30,7 @@
 - prepare a second bananapi stack (+8 baalue-nodes)         [2016-09-28 -> done]
 
 ## script stuff
-- check helper script prepare_kernel_folder.sh
+- check helper script prepare_kernel_folder.sh              [2016-10-01 -> done]
 - add helper script to create the upload tarballs           [2016-09-27 -> done]
 - fix build_base Makefile targe in external -> write a
   simple script for it                                      [2016-09-27 -> done]

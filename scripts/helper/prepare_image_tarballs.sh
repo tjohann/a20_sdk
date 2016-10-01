@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/27.09.2016
+# Date/Beginn :    01.10.2016/27.09.2016
 #
 # Version     :    V2.00
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.00 (okt 2016) -> update version info fo A20_SDK_V2.0.0
+#                                      some fixes
 #                  V0.01 (sep 2016) -> first working version
 #
 # Requires    :
@@ -93,7 +94,7 @@ cleanup() {
 my_exit()
 {
     # if something is still mounted
-    umount_partition
+    umount_partitions
 
     echo "+-----------------------------------+"
     echo "|          Cheers $USER            |"
@@ -122,6 +123,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 while getopts 'hve' opts 2>$_log
 do
     case $opts in
+	e) BASE_IMAGE='true' ;;
         h) my_usage ;;
         v) print_version ;;
         ?) my_usage ;;
@@ -238,31 +240,13 @@ SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 SD_HOME=$BANANAPI_SDCARD_HOME
 
-mount_partition
-
-cd $SD_KERNEL
-tar czvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz
-if [ $? -ne 0 ] ; then
-    echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" >&2
-    my_exit
-fi
-
-sync
-
-cd $SD_HOME
-sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz
-if [ $? -ne 0 ] ; then
-    echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" >&2
-    my_exit
-fi
-
-sync
+mount_partitions
 
 cd $SD_ROOTFS
 if [ "$BASE_IMAGE" = 'true' ]; then
-    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz
+    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
 else
-    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz
+    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
 fi
 if [ $? -ne 0 ] ; then
     echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/a20_sdk*rootfs.tgz" >&2
@@ -271,7 +255,26 @@ fi
 
 sync
 
-umount_partition
+cd $SD_KERNEL
+tar czvf ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
+if [ $? -ne 0 ] ; then
+    echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz" >&2
+    my_exit
+fi
+
+sync
+
+cd $SD_HOME
+sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz .
+if [ $? -ne 0 ] ; then
+    echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" >&2
+    my_exit
+fi
+
+sync
+
+cd ${ARMHF_HOME}
+umount_partitions
 cleanup
 
 echo " "

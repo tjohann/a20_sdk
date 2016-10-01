@@ -35,6 +35,7 @@ all::
 	@echo "| ....                                                     |"
 	@echo "| make prepare_kernel_image_tarballs                       |"
 	@echo "| make prepare_image_tarballs                              |"
+	@echo "| make prepare_base_image_tarballs                         |"
 	@echo "| ....                                                     |"
 	@echo "| make clean -> clean all dir/subdirs                      |"
 	@echo "| make distclean -> rm also downloaded/build parts         |"
@@ -103,10 +104,13 @@ get_olimex_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
 
 prepare_kernel_image_tarballs::
-	($(ARMHF_HOME)/scripts/helpers/prepare_all_kernel_image_tarballs.sh)
+	($(ARMHF_HOME)/scripts/helper/prepare_all_kernel_image_tarballs.sh)
 
 prepare_image_tarballs::
-	($(ARMHF_HOME)/scripts/helpers/prepare_image_tarballs.sh)
+	($(ARMHF_HOME)/scripts/helper/prepare_image_tarballs.sh)
+
+prepare_base_image_tarballs::
+	($(ARMHF_HOME)/scripts/helper/prepare_image_tarballs.sh -e)
 
 #
 # create ready to use sdcards
