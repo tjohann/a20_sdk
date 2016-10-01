@@ -200,7 +200,7 @@ build_make_install()
 {
     if [ -d ${BUILD_DIR} ]; then
 	cd ${BUILD_DIR}
-	sudo make install
+	make install
     else
 	echo "ERROR -> ${BUILD_DIR} no available!"
     fi

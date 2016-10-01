@@ -47,37 +47,37 @@ sdk checks:
 A20_SDK_V2.0.0 (xx.10.2016)
 ---------------------------
 
-Common checks                                             [2016-XX-XX -> partly]
+	Common checks                                          [2016-XX-XX -> partly]
 
-Config updates (on the target):
-- ssh(d)_config
-- hosts (another stack)
-- add pkgconfig.sh to /etc/profile.d
-- add .Xresouces
+	Config updates (on the target):
+		- ssh(d)_config
+		- hosts (another stack)
+		- add pkgconfig.sh to /etc/profile.d
+		- add .Xresouces
 
-Build updates:
-- ...
+	Build updates:
+		- ...
 
-SDK updates:
-- ...
+	SDK updates:
+		- ...
 
-Others:
-- ...
+	Others:
+	- ...
 
 
 A20_SDK_V2.1.0 (xx.xx.2016)
 ---------------------------
 
-Common checks                                               [2016-XX-XX -> xxxx]
+	Common checks                                            [2016-XX-XX -> xxxx]
 
-Config updates (on the target):
-- add emacs realted (ee.sh/...) config/scripts
+	Config updates (on the target):
+		- add emacs realted (ee.sh/...) config/scripts
 
-Build updates:
-- u-boot
+	Build updates:
+		- u-boot
 
-SDK updates:
-- diskfree_sdcard.txt
+	SDK updates:
+		- diskfree_sdcard.txt
 
-Others:
-- add dts support for mcp2515 (CAN)
+	Others:
+		- add dts support for mcp2515 (CAN)
