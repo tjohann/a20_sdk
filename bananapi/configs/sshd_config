@@ -131,11 +131,10 @@ Subsystem	sftp	/usr/libexec/sftp-server
 #	PermitTTY no
 #	ForceCommand cvs server
 
-# host configuration
-Match User baalue
-      AllowTcpForwarding yes
-      X11Forwarding yes
-      X11DisplayOffset 10
-      X11UseLocalhost no
-      PrintMotd no
-      TCPKeepAlive yes
+# a20_sdk configuration
+AllowTcpForwarding yes
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost no
+PrintMotd no
+TCPKeepAlive yes
