@@ -107,3 +107,6 @@ get_can-lin-env::
 build_base_repos::
 	($(ARMHF_HOME)/scripts/helper/build_base_repos.sh)
 
+uninstall_base_repos::
+	($(ARMHF_HOME)/scripts/helper/build_base_repos.sh -u)
+

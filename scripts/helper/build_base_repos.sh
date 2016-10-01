@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/26.09.2016
+# Date/Beginn :    01.10.2016/26.09.2016
 #
 # Version     :    V2.00
 #
 # Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+#                                      add make uninstall target
+#                                      fix some smaller bugs/problems
 #                  V0.01 (sep 2016) -> first working version
 #
 # Requires    :
@@ -62,13 +64,16 @@ BUILD_DIR='none'
 # additional configure arguments
 CONFIGURE_ADDS=''
 
+# do a un/deinstall?
+UNINSTALL='none'
+
 # my usage method
 my_usage()
 {
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
-    echo "|        [-e] -> prepare the base image                  |"
+    echo "|        [-u] -> uninstall base_repo                     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -113,10 +118,11 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hve' opts 2>$_log
+while getopts 'hvu' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
+	u) UNINSTALL='true' ;;
         v) print_version ;;
         ?) my_usage ;;
     esac
@@ -198,8 +204,78 @@ build_make_install()
     else
 	echo "ERROR -> ${BUILD_DIR} no available!"
     fi
-
 }
+
+install_all()
+{
+    #
+    # build the "./autogen && ./configure ..." repos
+    #
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/can-utils
+    CONFIGURE_ADDS=''
+    build_autogen
+
+    #
+    # build the "./bootstrap && ./configure ..." repos
+    #
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/libbaalue
+    CONFIGURE_ADDS="--enable-debug --enable-examples --enable-lcd160x"
+    build_bootstrap
+
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/baalued
+    CONFIGURE_ADDS="--enable-debug"
+    build_bootstrap
+
+    #
+    # build the "make install" repos
+    #
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/mydriver
+    CONFIGURE_ADDS=''
+    build_make_install
+
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/time_triggert_env
+    CONFIGURE_ADDS=''
+    build_make_install
+
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/mydrivercan_lin_env
+    CONFIGURE_ADDS=''
+    build_make_install
+
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/lcd160x_driver
+    CONFIGURE_ADDS=''
+    build_make_install
+}
+
+uninstall_all()
+{
+    #
+    # uninstall the autotools repos
+    #
+    cd ${ARMHF_BIN_HOME}/external/can-utils
+    sudo make uninstall
+
+    cd ${ARMHF_BIN_HOME}/external/libbaalue
+    sudo make uninstall
+
+    cd ${ARMHF_BIN_HOME}/external/baalued
+    sudo make uninstall
+
+    #
+    # build the "make install" repos
+    #
+    cd ${ARMHF_BIN_HOME}/external/mydriver
+    sudo make uninstall
+
+    cd ${ARMHF_BIN_HOME}/external/time_triggert_env
+    sudo make uninstall
+
+    cd ${ARMHF_BIN_HOME}/external/mydrivercan_lin_env
+    sudo make uninstall
+
+    cd ${ARMHF_BIN_HOME}/external/lcd160x_driver
+    sudo make uninstall
+}
+
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
@@ -216,44 +292,11 @@ sudo -v
 # keep-alive
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-#
-# build the "./autogen && ./configure ..." repos
-#
-BUILD_DIR=${ARMHF_BIN_HOME}/external/can-utils
-CONFIGURE_ADDS=''
-build_autogen
-
-
-#
-# build the "./bootstrap && ./configure ..." repos
-#
-BUILD_DIR=${ARMHF_BIN_HOME}/external/libbaalue
-CONFIGURE_ADDS="--enable-debug --enable-examples --enable-lcd160x"
-build_bootstrap
-
-BUILD_DIR=${ARMHF_BIN_HOME}/external/baalued
-CONFIGURE_ADDS="--enable-debug"
-build_bootstrap
-
-
-#
-# build the "make install" repos
-#
-BUILD_DIR=${ARMHF_BIN_HOME}/external/mydriver
-CONFIGURE_ADDS=''
-build_make_install
-
-BUILD_DIR=${ARMHF_BIN_HOME}/external/time_triggert_env
-CONFIGURE_ADDS=''
-build_make_install
-
-BUILD_DIR=${ARMHF_BIN_HOME}/external/mydrivercan_lin_env
-CONFIGURE_ADDS=''
-build_make_install
-
-BUILD_DIR=${ARMHF_BIN_HOME}/external/lcd160x_driver
-CONFIGURE_ADDS=''
-build_make_install
+if [ "$UNINSTALL" = 'true' ]; then
+    uninstall_all
+else
+    install_all
+fi
 
 cleanup
 

@@ -1,7 +1,7 @@
 Integration - checklist for bananapi image (which is the master image)
 ======================================================================
 
-This is a simple integration checklist for my a20_sdk. The purpose is to provied a repreducable delivery for the main versions (A20_SDK.X.X.0). 
+This is a simple integration checklist for my a20_sdk. The purpose is to provied a repreducable delivery for the main versions (A20_SDK.X.X.0).
 
 Below you find the common checks and the special tasks for A20_SDK.x.x.x.
 
@@ -31,15 +31,15 @@ build/config updates on device (for base/normal image):
 tool checks on device:
 
 	- is jailhouse working
-	  - olimex 
+	  - olimex
 	  - bananapi
-	- i2c_gpio_driver_simple 
+	- i2c_gpio_driver_simple
 	  modprobe i2c_gpio_driver_simple
 	  usage_i2c_gpio_driver_simple ...
 
 sdk checks:
 
-	- update checksum.sha256 
+	- update checksum.sha256
 	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/)
 
 
@@ -59,7 +59,7 @@ Build updates:
 - u-boot
 
 SDK updates:
-- diskfree_sdcard.txt 
+- diskfree_sdcard.txt
 
 Others:
 - add dts support for mcp2515 (CAN)
