@@ -53,7 +53,6 @@ Config updates (on the target):
 - ssh(d)_config
 - hosts (another stack)
 - add pkgconfig.sh to /etc/profile.d
-- add emacs realted (ee.sh/...) config/scripts
 - add .Xresouces
 
 Build updates:
@@ -72,7 +71,7 @@ A20_SDK_V2.1.0 (xx.xx.2016)
 Common checks                                               [2016-XX-XX -> xxxx]
 
 Config updates (on the target):
-- t.b.d.
+- add emacs realted (ee.sh/...) config/scripts
 
 Build updates:
 - u-boot
