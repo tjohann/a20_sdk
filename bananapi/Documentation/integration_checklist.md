@@ -21,6 +21,7 @@ build/config updates on device (for base/normal image):
 	- xbps-install -Su
 	- reboot
 	- xbps-remove -Oo
+	- date > UPDATE_ROOTFS_DATE
 	- cd a20_sdk && git pull
 	- cp armhf_env.sh to /etc/profile.d
 	- make mrproper
@@ -46,7 +47,7 @@ sdk checks:
 A20_SDK_V2.0.0 (xx.10.2016)
 ---------------------------
 
-Common checks                                               [2016-XX-XX -> xxxx]
+Common checks                                             [2016-XX-XX -> partly]
 
 Config updates (on the target):
 - ssh(d)_config
@@ -56,13 +57,13 @@ Config updates (on the target):
 - add .Xresouces
 
 Build updates:
-- u-boot
+- ...
 
 SDK updates:
-- diskfree_sdcard.txt
+- ...
 
 Others:
-- add dts support for mcp2515 (CAN)
+- ...
 
 
 A20_SDK_V2.1.0 (xx.xx.2016)
@@ -74,10 +75,10 @@ Config updates (on the target):
 - t.b.d.
 
 Build updates:
-- t.b.d.
+- u-boot
 
 SDK updates:
-- t.b.d.
+- diskfree_sdcard.txt
 
 Others:
-- t.b.d.
+- add dts support for mcp2515 (CAN)
