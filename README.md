@@ -546,7 +546,7 @@ Note: This repository is something like a bracket over my differnet projects. So
 (until mid of september -> done)
 - add storyline for olimex and bananapi (embedded devices)
 
-(until end of september)
+(until end of september -> done)
 - release of A20_SDK_V2.0.0
 
 (until end of october)

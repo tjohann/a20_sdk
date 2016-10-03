@@ -47,7 +47,7 @@
   build/install)                                            [2016-09-26 -> done]
 
 ## sdk stuff
-- release A20_SDK_V2.00.0 -> target date: 03.10.2016
+- release A20_SDK_V2.00.0 -> target date: 03.10.2016        [2016-10-03 -> done]
   - version bump to 2.00 for all scripts                    [2016-09-27 -> done]
   - check all todo below if include (special target stuff)  [2016-09-30 -> done]
   - check/update a20_sdk_builder.conf                       [2016-09-26 -> done]
