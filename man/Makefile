@@ -19,7 +19,7 @@ all::
 
 clean::
 	rm -f *~
-	rm *.ps
+	rm -f *.ps
 
 man::
 	groff -man ./a20_sdk.7 > ./a20_sdk.ps
