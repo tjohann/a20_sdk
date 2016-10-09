@@ -3,6 +3,9 @@
 #
 
 
+2016-10-09 -> ## target stuff
+	      update kernel to 4.8.1 and 4.8-rt1
+
 2016-10-05 -> ## target stuff
 	      update kernel to 4.6.7-rt14
 
