@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/21.08.2016
+# Date/Beginn :    10.10.2016/21.08.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (okt 2016) -> some minor fixes
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.03 (sep 2016) -> add home and shared branding
 #                                   -> make branding device independent
 #                  V0.02 (aug 2016) -> some minor improvements/fixes
@@ -52,7 +53,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -267,7 +268,7 @@ brand_image_etc()
 	    my_exit
 	fi
     else
-	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
+	echo "INFO: no dir ${src_branding}"
     fi
 }
 
@@ -307,7 +308,7 @@ brand_image_shared()
 	    my_exit
 	fi
     else
-	echo "INFO: no dir ${src_branding}, so no branding for ${BRAND}"
+	echo "INFO: no dir ${src_branding}"
     fi
 }
 
