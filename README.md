@@ -479,19 +479,20 @@ Baalue is my bananapi cluster where I want to learn more about distributed syste
 
 The script (a20_sdk_)make_sdcard.sh can generate a baalue node base image which is a specialized bananapi images. If you want to build your own cluster this could be a good starting point. What you then have to change is only the ip and the hostname (see folder baalue/branding/etc_1/ as an example).
 
-There'se also a script called brand_baalue_images.sh in ./scripts. This will brand your image based on my topologie (ip and so one). But this script wont care about *my* used device. So you can build a olimex based cluster with my topologie instead of bananapi.
+There'se also a script called brand_baalue_images.sh in ./scripts. This will brand your image based on my topologie (ip and so one). But this script wont care about *my* used device. So you can build a olimex based cluster with my topologie instead of bananapi. (Note: the script wont change the kernel, so if you use olimex you will have a *RT-PREEMPT* kernel).
 
 	+--------------------------------------------------------+
 	| Usage: brand_images.sh
 	|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |
 	|                cubietruck                              |
+	|        [-n] -> node (0...9, master)                    |
 	|        [-s] -> prepare images for hdd installation     |
 	|        [-v] -> print version info                      |
 	|        [-h] -> this help                               |
 	|                                                        |
 	+--------------------------------------------------------+
 
-A possible project where I want to use the cluster and distrubuted calculation is with my robot-cluster env (see baalue/Documentation/robot_cluster_env.pdf for more info about it).
+A possible project where I want to use the cluster and distributed calculation is with my robot-cluster env (see baalue/Documentation/robot_cluster_env.pdf for more info about it).
 
 My BAnAnapi cLUEster (Baalue):
 ![Alt text](pics/bananapi_cubietruck_cluster.jpg?raw=true "Baalue")
