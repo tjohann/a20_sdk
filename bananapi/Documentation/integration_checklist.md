@@ -47,7 +47,7 @@ sdk checks:
 A20_SDK_V2.0.0 (xx.10.2016)
 ---------------------------
 
-	Common checks                                          [2016-10-01 -> mostly]
+	Common checks                                            [2016-10-12 -> done]
 
 	Config updates (on the target):
 		- ssh(d)_config                                      [2016-10-01 -> done]
