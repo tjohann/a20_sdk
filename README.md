@@ -243,7 +243,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V2.0.0
+	A20_SDK_V2.0.1
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
@@ -545,12 +545,6 @@ Outlook (next development steps)
 --------------------------------
 
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
-
-(until mid of september -> done)
-- add storyline for olimex and bananapi (embedded devices)
-
-(until end of september -> done)
-- release of A20_SDK_V2.0.0
 
 (until end of october)
 - add storyline for bananapi-pro (home cloud server)

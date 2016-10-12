@@ -2,6 +2,8 @@
 # some news ... see also TODO for hints
 #
 
+2016-10-12 -> ## sdk stuff
+	      fix wrong ip for baalue-master sdcard installation
 
 2016-10-09 -> ## target stuff
 	      update kernel to 4.8.1 and 4.8-rt1

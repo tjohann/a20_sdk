@@ -2,9 +2,12 @@
 # known issues
 #
 
+A20_SDK_V2.0.0:
 
-A20_SDK_V1.99.X: all versions with kernel 4.6.X-rtX
+- baalue-master:
+The baalue-master installation for sd-card uses still the old ip (*.90 instead of *.70)
 
+- all versions with kernel 4.6.X-rtX:
 There's a bug within the RT-PREEMPT parts (but has no impact ... as far as i have tested):
 
 root@bananapi:/etc# [  326.403415] BUG: sleeping function called from invalid context at kernel/locking/rtmutex.c:931
@@ -35,10 +38,3 @@ root@bananapi:/etc# [  326.403415] BUG: sleeping function called from invalid co
 [  329.470749] EXT4-fs (mmcblk0p2): re-mounted. Opts: (null)
 [  329.590458] EXT4-fs (mmcblk0p2): re-mounted. Opts: data=ordered
 [  329.667191] reboot: System halted
-
-
-A20_SDK_V1.0.0: all versions below
-- wrong export of cubietruck images mount points (BUG)
-
-A20_SDK_V0.99.0: all target images
-- due to less entropy it could take up to 1-2 minutes to have sshd working
