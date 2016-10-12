@@ -7,6 +7,9 @@ A20_SDK_V2.0.0:
 - baalue-master:
 The baalue-master installation for sd-card uses still the old ip (*.90 instead of *.70)
 
+- baalue hdd node:
+The hdd_branding content for an baalue hdd node wont be copied
+
 - all versions with kernel 4.6.X-rtX:
 There's a bug within the RT-PREEMPT parts (but has no impact ... as far as i have tested):
 
