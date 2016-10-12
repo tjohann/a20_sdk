@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/15.07.2016
+# Date/Beginn :    12.10.2016/15.07.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (oct 2016) -> some smaller improvements
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.08 (aug 2016) -> fix hdd_boot dir creation
 #                  V1.07 (aug 2016) -> fix hdd handling
 #                  V1.06 (aug 2016) -> sudo handling at beginning
@@ -60,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -228,8 +229,6 @@ check_devnode()
 
 copy_bootloader()
 {
-    cd ${ARMHF_HOME}/${BRAND}/u-boot/
-
     # not really needed
     cp u-boot-sunxi-with-spl.bin ${SD_KERNEL}/${BRAND}/
 
@@ -389,6 +388,8 @@ if [[ ! -d "${ARMHF_HOME}/${BRAND}/u-boot" ]]; then
     echo "         have you added them to your fstab? (see README.md)" >&2
     my_exit
 fi
+
+cd ${ARMHF_HOME}/${BRAND}/u-boot/
 
 copy_bootloader
 write_bootloader

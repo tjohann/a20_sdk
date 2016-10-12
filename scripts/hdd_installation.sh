@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/15.08.2016
+# Date/Beginn :    12.10.2016/15.08.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (oct 2016) -> fix wrong cp cmd for baalue nodes
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.06 (sep 2016) -> add baalue specfic branding
 #                  V0.05 (aug 2016) -> some smaller fixes
 #                  V0.04 (aug 2016) -> first working version
@@ -68,7 +69,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -337,8 +338,8 @@ untar_image
 cd $SD_SHARED
 TARBALL="${SD_SHARED}/hdd_branding.tgz"
 untar_image
-echo "cp -f ${SD_SHARED}/hdd_branding/* ${HDD_TMP}/etc/"
-sudo cp -f ${SD_SHARED}/hdd_branding/* ${HDD_TMP}/etc/
+echo "cp -f ${SD_SHARED}/hdd_branding*/* ${HDD_TMP}/etc/"
+sudo cp -f ${SD_SHARED}/hdd_branding*/* ${HDD_TMP}/etc/
 if [ $? -ne 0 ] ; then
     echo "ERROR -> could not copy hdd_branding parts" >&2
     my_exit
