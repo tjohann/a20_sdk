@@ -2,6 +2,27 @@
 # some news ... see also TODO for hints
 #
 
+
+################## 2016-10-12 -> A20_SDK_V2.0.2 #############################
+
+2016-10-13 -> ## target && sdk stuff
+	      add rc.local to branding with explicit network config as
+	      template
+
+	      ## sdk stuff
+	      add hint about correct ip network config in integration
+	      checklist
+	      update kernel build howtos and add correct kernel configs
+
+	      ## target stuff
+	      update u-boot for bananapi
+
+	      ## script stuff
+	      remove unused handle_kernel.sh script
+
+
+################## 2016-10-12 -> A20_SDK_V2.0.1 #############################
+
 2016-10-12 -> ## sdk stuff
 	      fix wrong ip for baalue-master sdcard installation
 

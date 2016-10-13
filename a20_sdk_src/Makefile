@@ -65,11 +65,9 @@ clean_opt: clean_toolchain clean_external clean_kernel clean_images
 
 install::
 	(install $(ARMHF_HOME)/scripts/make_sdcard.sh $(HOME)/bin/a20_sdk_make_sdcard.sh)
-	(install $(ARMHF_HOME)/scripts/handle_kernel.sh $(HOME)/bin/a20_sdk_handle_kernel.sh)
 
 uninstall::
 	(rm -rf $(HOME)/bin/a20_sdk_make_sdcard.sh)
-	(rm -rf $(HOME)/bin/a20_sdk_handle_kernel.sh)
 
 man::
 	(cd man && $(MAKE) $@)

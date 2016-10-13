@@ -31,6 +31,7 @@ build/config updates on device (for base/normal image):
 
 tool checks on device:
 
+	- is network (ip) config correct
 	- is jailhouse working
 	  - olimex
 	  - bananapi

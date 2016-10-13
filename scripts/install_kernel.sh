@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/07.09.2016
+# Date/Beginn :    13.10.2016/07.09.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (oct 2016) -> fix RT-PREEMPT part
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.03 (sep 2016) -> fix a lot of bugs
 #                  V0.02 (sep 2016) -> fix some bugs and add some smaller
 #                                      improvements
@@ -47,7 +48,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -394,9 +395,9 @@ fi
 if [ "$INSTALL_RT" = 'true' ]; then
     echo "install rt kernel"
 
-    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+    cd ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_RT_KERNEL_VER}_rt
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not change to linux-${ARMHF_KERNEL_VER}_rt" >&2
+        echo "ERROR -> could not change to linux-${ARMHF_RT_KERNEL_VER}_rt" >&2
         my_exit
     fi
 
@@ -416,9 +417,9 @@ if [ "$INSTALL_RT" = 'true' ]; then
         my_exit
     fi
 
-    sudo rsync -avz --delete linux-${ARMHF_KERNEL_VER}_rt ${SD_ROOTFS}/usr/src/.
+    sudo rsync -avz --delete linux-${ARMHF_RT_KERNEL_VER}_rt ${SD_ROOTFS}/usr/src/.
     if [ $? -ne 0 ] ; then
-        echo "ERROR -> could not rsync -avz --delete linux-${ARMHF_KERNEL_VER}_rt ${SD_ROOTFS}/usr/src/." >&2
+        echo "ERROR -> could not rsync -avz --delete linux-${ARMHF_RT_KERNEL_VER}_rt ${SD_ROOTFS}/usr/src/." >&2
         my_exit
     fi
 fi

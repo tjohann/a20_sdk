@@ -72,11 +72,9 @@ mrproper: clean
 
 install::
 	(install $(ARMHF_HOME)/scripts/make_sdcard.sh $(HOME)/bin/a20_sdk_make_sdcard.sh)
-	(install $(ARMHF_HOME)/scripts/handle_kernel.sh $(HOME)/bin/a20_sdk_handle_kernel.sh)
 
 uninstall::
 	(rm -rf $(HOME)/bin/a20_sdk_make_sdcard.sh)
-	(rm -rf $(HOME)/bin/a20_sdk_handle_kernel.sh)
 
 init_sdk: distclean
 	@echo "+----------------------------------------------------------+"

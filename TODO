@@ -5,6 +5,18 @@
 
 
 #
+# -------------- 2016-10-13 ----------------------------------------------------
+#
+
+## script stuff
+- check handle_kernel.sh script -> wont use logging
+  terminal                                              [2016-10-13 -> canceled]
+  and
+- rethink handle_kernel.sh script -> does it really make
+  sense? Or delete it?                                      [2016-10-13 -> done]
+
+
+#
 # -------------- 2016-09-30 ----------------------------------------------------
 #
 
@@ -21,7 +33,7 @@
 - add export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH}
   to profile                                                [2016-10-01 -> done]
 - update u-boot for all devices
-  - bananapi
+  - bananapi                                                [2016-10-13 -> done]
   - bananapi-pro
   - cubietruck
   - olimex
@@ -340,12 +352,12 @@
 ## target stuff
 - provide basic skeleton for $*_SHARED (/lib/modules ..)    [2016-0X-XX -> done]
 - make void-linux kernel package for all devices and bring it
-  mainline                                              ]
+  mainline                                              [2016-10-13 -> canceled]
 - make void-linux RT-PREEMPT kernel package for all devices
-  and bring it mainline
+  and bring it mainline                                 [2016-10-13 -> canceled]
 - make void-linux u-boot packages for all devices and bring
-  it mainline
-- blacklist kvm driver -> use jailhouse
+  it mainline                                           [2016-10-13 -> canceled]
+- blacklist kvm driver -> use jailhouse                 [2016-10-13 -> canceled]
 - build unified kernel for PREEMPT and RT-PREEMPT           [2016-07-04 -> done]
 - provide minimal image with PREEMPT and RT-PREEMPT kernel  [2016-07-XX -> done]
 - provide minimal RT-PREEMPT kernel for minimal image   [2016-07-04 -> canceled]
