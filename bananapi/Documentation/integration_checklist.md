@@ -45,16 +45,49 @@ sdk checks:
 	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/)
 
 
-A20_SDK_V2.0.0 (xx.10.2016)
+A20_SDK_V2.1.0 (xx.xx.2016)
 ---------------------------
 
-	Common checks                                            [2016-10-12 -> done]
+	Common checks                                           [2016-XX-XX -> xxxx]
 
 	Config updates (on the target):
-		- ssh(d)_config                                      [2016-10-01 -> done]
-		- hosts (another stack)                              [2016-10-01 -> done]
-		- add pkgconfig.sh to /etc/profile.d                 [2016-10-01 -> done]
-		- add .Xresouces                                     [2016-10-01 -> done]
+		- add emacs realted (ee.sh/...) config/scripts
+
+	Build updates:
+		- u-boot
+
+	SDK updates:
+		- diskfree_sdcard.txt
+
+	Others:
+		- add dts support for mcp2515 (CAN)
+
+
+A20_SDK_V2.0.3 (17.10.2016)
+---------------------------
+
+	Common checks                                     [2016-10-17 -> not needed]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
+A20_SDK_V2.0.2 (13.10.2016)
+---------------------------
+
+	Common checks                                     [2016-10-13 -> not needed]
+
+	Config updates (on the target):
+		- ...
 
 	Build updates:
 		- ...
@@ -69,7 +102,7 @@ A20_SDK_V2.0.0 (xx.10.2016)
 A20_SDK_V2.0.1 (12.10.2016)
 ---------------------------
 
-	Common checks                                      [2016-10-12 -> not needed]
+	Common checks                                     [2016-10-12 -> not needed]
 
 	Config updates (on the target):
 		- ...
@@ -84,19 +117,22 @@ A20_SDK_V2.0.1 (12.10.2016)
 		- ...
 
 
-A20_SDK_V2.1.0 (xx.xx.2016)
+A20_SDK_V2.0.0 (01.10.2016)
 ---------------------------
 
-	Common checks                                            [2016-XX-XX -> xxxx]
+	Common checks                                           [2016-10-12 -> done]
 
 	Config updates (on the target):
-		- add emacs realted (ee.sh/...) config/scripts
+		- ssh(d)_config                                     [2016-10-01 -> done]
+		- hosts (another stack)                             [2016-10-01 -> done]
+		- add pkgconfig.sh to /etc/profile.d                [2016-10-01 -> done]
+		- add .Xresouces                                    [2016-10-01 -> done]
 
 	Build updates:
-		- u-boot
+		- ...
 
 	SDK updates:
-		- diskfree_sdcard.txt
+		- ...
 
 	Others:
-		- add dts support for mcp2515 (CAN)
+		- ...
