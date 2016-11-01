@@ -546,18 +546,16 @@ Outlook (next development steps)
 
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
 
-(until end of october)
+(until end of november)
 - add storyline for bananapi-pro (home cloud server)
 - add storyline for baalue (distcc)
 - make use of lcd1602 module of cubietruck (baalue_master)
 - working jailhouse configuration for bananapi and olimex
-
-(until end of november)
 - simple example for using bare-metal cell within bananapi/olimex
+
+(until end of december)
 - working can parts for a20-can and mcp2515 (bananapi/olimex)
 - working can baremetal can example
 - simple baremetal lcd example
-
-(until end of december)
 - support flashchip of olimex and/or cubietruck
 - simple os for baremetal cell (see https://github.com/tjohann/miblos)
