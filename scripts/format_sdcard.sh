@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/12.07.2016
+# Date/Beginn :    01.11.2016/12.07.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add support for nanopi neo
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.03 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.02 (aug 2016) -> sudo handling at beginning
 #                  V1.01 (jul 2016) -> add features of make_sdcard.sh
@@ -55,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -90,7 +91,7 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck                              |"
+    echo "|                cubietruck/nanopi                       |"
     echo "|        [-s] -> prepare sd-card for hdd installation    |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                -e set also -s                          |"
@@ -213,6 +214,23 @@ if [[ ! ${CUBIETRUCK_SDCARD_HOME} ]]; then
 fi
 
 if [[ ! ${CUBIETRUCK_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+# nanopi
+if [[ ! ${NANOPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -454,6 +472,13 @@ case "$BRAND" in
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
 	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
 	SD_PART_NAME_POST_LABEL="CUBI"
+        ;;
+    'nanopi')
+	SD_KERNEL=$NANOPI_SDCARD_KERNEL
+	SD_ROOTFS=$NANOPI_SDCARD_ROOTFS
+	SD_HOME=$NANOPI_SDCARD_HOME
+	SD_SHARED=$NANOPI_SDCARD_SHARED
+	SD_PART_NAME_POST_LABEL="NANO"
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

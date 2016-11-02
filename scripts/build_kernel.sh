@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/07.09.2016
+# Date/Beginn :    02.11.2016/07.09.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add support for nanopi neo
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                                      fix PWD handling
 #                  V0.03 (sep 2016) -> fix some bugs
 #                  V0.02 (sep 2016) -> fix some bugs and add some smaller
@@ -204,6 +205,7 @@ copy_dts()
     cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
     cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
     cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
+    cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/sun8i-h3-nanopi-neo.dts
 }
 
 build_dtb()
@@ -214,6 +216,7 @@ build_dtb()
     make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
     make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
     make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
+    make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
 }
 
 

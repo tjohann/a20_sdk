@@ -14,6 +14,7 @@ These are the supported target devices:
 	Bananapi-Pro
 	Cubietruck (Cubieboard 3)
 	Olimex-SOM-EVB
+	NanoPi-Neo
 
 
 Preparation

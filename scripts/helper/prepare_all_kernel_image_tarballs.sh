@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/26.08.2016
+# Date/Beginn :    02.11.2016/26.08.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add support for nanopi-neo
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.03 (sep 2016) -> whitespaces
 #                  V0.02 (aug 2016) -> first working version
 #                  V0.01 (aug 2016) -> initial skeleton
@@ -51,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -236,6 +237,7 @@ tar_image()
 do_all_rt()
 {
     rm -f sun7i-a20-*.dt?
+    rm -f sun8i-h3-nanopi-neo.dt?
     copy_rt
     copy_hdd
     tar_image
@@ -244,6 +246,7 @@ do_all_rt()
 do_all_nonrt()
 {
     rm -f sun7i-a20-*.dt?
+    rm -f sun8i-h3-nanopi-neo.dt?
     copy_nonrt
     copy_hdd
     tar_image
@@ -296,6 +299,13 @@ do_all_nonrt
 
 # olimex
 BRAND="olimex"
+HDD=""
+do_all_rt
+HDD="_hdd"
+do_all_rt
+
+# nanopi
+BRAND="nanopi"
 HDD=""
 do_all_rt
 HDD="_hdd"

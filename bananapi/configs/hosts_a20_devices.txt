@@ -6,16 +6,17 @@
 127.0.0.1               localhost.localdomain   localhost
 ::1                     localhost.localdomain   localhost ip6-localhost
 
-192.168.0.100           arietta.my.domain                       arietta
-192.168.0.101           cubietruck.my.domain                    cubietruck
-192.168.0.102           olimex.my.domain                        olimex
-192.168.0.103           bananapi.my.domain                      bananapi
-192.168.0.105           imx233.my.domain                        imx233
-192.168.0.109           bananapi-pro.my.domain                  bananapi-pro
+192.168.0.100           arietta.my.domain                     arietta
+192.168.0.101           cubietruck.my.domain                  cubietruck
+192.168.0.102           olimex.my.domain                      olimex
+192.168.0.103           bananapi.my.domain                    bananapi
+192.168.0.105           imx233.my.domain                      imx233
+192.168.0.109           bananapi-pro.my.domain                bananapi-pro
+192.168.0.111           nanopi.my.domain                      nanopi
 
 #
 # nfs share
-192.168.0.42            echnaton.my.domain      echnaton
+192.168.0.42            echnaton.my.domain                    echnaton
 
 #
 # my cluster nodes

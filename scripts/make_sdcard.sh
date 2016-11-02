@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/10.07.2016
+# Date/Beginn :    02.11.2016/10.07.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add support for nanopi-neo
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.02 (aug 2016) -> a lot of fixes around hdd-boot-sdcard
 #                  V1.01 (aug 2016) -> add menuentry to create hdd-boot-sdcard
 #                  V1.00 (aug 2016) -> version bump
@@ -70,7 +71,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -525,6 +526,7 @@ select_target()
     local def_baalue="off"
     local def_cubietruck="off"
     local def_olimex="off"
+    local def_nanopi="off"
 
     case "$BRAND" in
 	*bananapi-pro*)
@@ -537,6 +539,8 @@ select_target()
 	    def_cubietruck="on" ;;
 	*olimex*)
 	    def_olimex="on" ;;
+	*nanopi*)
+	    def_nanopi="on" ;;
     esac
 
     dialog --radiolist "Target device to choose:" 15 60 15 \
@@ -544,7 +548,8 @@ select_target()
            02 "Bananapi" ${def_bananapi} \
            03 "Baalue" ${def_baalue} \
            04 "Cubietruck" ${def_cubietruck} \
-           05 "Olimex" ${def_olimex} 2>$_temp
+	   05 "Nanopi" ${def_nanopi} \
+           06 "Olimex" ${def_olimex} 2>$_temp
     local result=`cat $_temp`
 
     case "$result" in
@@ -557,6 +562,8 @@ select_target()
 	*04*)
 	    BRAND="cubietruck" ;;
 	*05*)
+	    BRAND="nanopi" ;;
+	*06*)
 	    BRAND="olimex" ;;
     esac
 

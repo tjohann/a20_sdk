@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    13.10.2016/07.09.2016
+# Date/Beginn :    02.11.2016/07.09.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (oct 2016) -> fix RT-PREEMPT part
+# Milestones  :    V2.02 (nov 2016) -> add support for nanopi-neo
+#                  V2.01 (oct 2016) -> fix RT-PREEMPT part
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.03 (sep 2016) -> fix a lot of bugs
 #                  V0.02 (sep 2016) -> fix some bugs and add some smaller
@@ -48,7 +49,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -74,7 +75,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck                              |"
+    echo "|                cubietruck/nanopi                       |"
     echo "|        [-r] -> install rt kernel parts                 |"
     echo "|        [-n] -> install non-rt kernel parts             |"
     echo "|        [-v] -> print version info                      |"
@@ -175,6 +176,15 @@ if [[ ! ${CUBIETRUCK_SDCARD_ROOTFS} ]]; then
     MISSING_ENV='true'
 fi
 
+# nanopi
+if [[ ! ${NANOPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
 # show a usage screen and exit
 if [ "$MISSING_ENV" = 'true' ]; then
     cleanup
@@ -252,6 +262,11 @@ copy_kernel_folder()
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not copy to ${SD_KERNEL}/cubietruck"
     fi
+    
+    cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${SD_KERNEL}/nanopi
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not copy to ${SD_KERNEL}/nanopi"
+    fi
 
     case "$BRAND" in
 	'bananapi')
@@ -269,9 +284,12 @@ copy_kernel_folder()
 	'cubietruck')
 	    cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${SD_KERNEL}
             ;;
+	'nanopi')
+	    cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${SD_KERNEL}
+            ;;
     esac
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not copy to ${SD_KERNEL}/cubietruck"
+	echo "ERROR -> could not copy to ${SD_KERNEL}/${BRAND}"
     fi
 
     cp arch/arm/boot/uImage ${SD_KERNEL}
@@ -346,6 +364,10 @@ case "$BRAND" in
     'cubietruck')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+        ;;
+     'nanopi')
+	SD_KERNEL=$NANOPI_SDCARD_KERNEL
+	SD_ROOTFS=$NANOPI_SDCARD_ROOTFS
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

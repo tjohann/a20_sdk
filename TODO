@@ -5,6 +5,17 @@
 
 
 #
+# -------------- 2016-11-02 ----------------------------------------------------
+#
+
+## target stuff
+- prepare image for nanaopi
+  - kernel (4.9-rc3)
+  - u-boot
+- adapt hosts (add nanapi) on all devices
+
+
+#
 # -------------- 2016-10-18 ----------------------------------------------------
 #
 
@@ -443,7 +454,7 @@
 - add link of howto_kernel* to /opt/a20_sdk/Documentation   [2016-04-24 -> done]
 - add support to download only only kernel (RT or NON-RT)   [2016-04-24 -> done]
 - add something like a storyline to documentation           [2016-09-XX -> done]
-- add man pages for all scripts
+- add man pages for all script(s)                           [2016-09-XX -> done]
 
 
 #

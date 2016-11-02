@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.10.2016/15.07.2016
+# Date/Beginn :    01.11.2016/15.07.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (oct 2016) -> some smaller improvements
+# Milestones  :    V2.02 (nov 2016) -> add support for nanopi-neo
+#                  V2.01 (oct 2016) -> some smaller improvements
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.08 (aug 2016) -> fix hdd_boot dir creation
 #                  V1.07 (aug 2016) -> fix hdd handling
@@ -61,7 +62,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -94,7 +95,7 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck                              |"
+    echo "|                cubietruck/nanopi                       |"
     echo "|        [-s] -> prepare sdcard as base for hdd instal.  |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                -e AND -s wont make sense -> -e rules   |"
@@ -181,6 +182,10 @@ if [[ ! ${OLIMEX_SDCARD_KERNEL} ]]; then
 fi
 
 if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -365,6 +370,10 @@ case "$BRAND" in
     'cubietruck')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
+        ;;
+     'nanopi')
+	SD_KERNEL=$NANOPI_SDCARD_KERNEL
+	SD_SHARED=$NANOPI_SDCARD_SHARED
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

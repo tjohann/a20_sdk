@@ -6,9 +6,9 @@
 export MY_HOST_ARCH=$(uname -m)
 
 # set supported kernel version
-export ARMHF_KERNEL_VER=4.8.2
-export ARMHF_RT_KERNEL_VER=4.8.2
-export ARMHF_RT_VER=rt2
+export ARMHF_KERNEL_VER=4.8.6
+export ARMHF_RT_KERNEL_VER=4.8.6
+export ARMHF_RT_VER=rt5
 
 # home of the git repo
 export ARMHF_HOME=/var/lib/a20_sdk
@@ -37,6 +37,12 @@ export CUBIETRUCK_SDCARD_KERNEL=/mnt/cubietruck/cubietruck_kernel
 export CUBIETRUCK_SDCARD_ROOTFS=/mnt/cubietruck/cubietruck_rootfs
 export CUBIETRUCK_SDCARD_HOME=/mnt/cubietruck/cubietruck_home
 export CUBIETRUCK_SDCARD_SHARED=/mnt/cubietruck/cubietruck_shared
+
+# set mount points for the sdcard -> nanopi
+export NANOPI_SDCARD_KERNEL=/mnt/nanopi/nanopi_kernel
+export NANOPI_SDCARD_ROOTFS=/mnt/nanopi/nanopi_rootfs
+export NANOPI_SDCARD_HOME=/mnt/nanopi/nanopi_home
+export NANOPI_SDCARD_SHARED=/mnt/nanopi/nanopi_shared
 
 echo "Setup env for host \"${MY_HOST_ARCH}\" with root dir \"${ARMHF_HOME}\" and bin root dir \"${ARMHF_BIN_HOME}\""
 

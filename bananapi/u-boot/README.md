@@ -1,9 +1,13 @@
-# Howto deploy u-boot
+Howto deploy u-boot
+===================
 
-## deploy to sdcard
+deploy to sdcard
+----------------
 
-`sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/sdd bs=1024 seek=8`
+	sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/sdd bs=1024 seek=8
 
-## copy all to /mnt/bananapi/bananapi_kernel
 
-`sudo cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/bananapi/bananapi_kernel/`
+copy all to /mnt/bananapi/bananapi_kernel
+-----------------------------------------
+
+	sudo cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/bananapi/bananapi_kernel/

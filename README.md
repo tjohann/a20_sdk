@@ -2,7 +2,7 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A development environment for ARMv7 boards based on Allwinners A20 processor. It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
+A development environment for ARMv7 boards based on Allwinners A20 processor (and related like H3). It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
 
 The basic user interface are make targets which then start the corresponding scripts:
 
@@ -269,12 +269,13 @@ Note: Actually there not complete.
 All devices
 -----------
 
-Within /var/lib/a20_sdk/ you find the 4 supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
+Within /var/lib/a20_sdk/ you find the 4 (+1) supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
     bananapi -> BananaPi-M1
     bananapi-pro -> BananaPi-Pro
     cubietruck -> Cubietruck (Cubieboard 3)
     olimex -> Olimex A20-SOM/EVB
+	nanopi -> NanoPi Neo (only base support)
 
 Every device directory has the same sub-directories
 
@@ -291,6 +292,7 @@ In short:
     bananapi-pro -> my home audio/video stream server and nextcloud server
     cubietruck -> my master node for baalue and test environment for jailhouse (https://github.com/siemens/jailhouse)
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
+	nanopi -> base board for my mobile robots
 
 My BAnAnapi cLUEster (Baalue):
 ![Alt text](pics/baalue_cluster.jpg?raw=true "Baalue")
@@ -337,6 +339,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 	Baalue-Node -> PREEMPT
 	Bananapi-Pro -> PREEMPT
 	Cubietruck -> PREEMPT
+	NanoPi -> PREEMPT/RT-PREEMPT (base support) and friendlyarm kernel (3.4.x)
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}.
 
@@ -354,6 +357,7 @@ Single devices:
 	192.168.0.103	        bananapi.my.domain              bananapi
 	192.168.0.109	        bananapi-pro.my.domain          bananapi-pro
 	192.168.0.105           imx233.my.domain                imx233
+	192.168.0.111           nanopi.my.domain                nanopi
 
 My cluster:
 
@@ -397,6 +401,7 @@ Naming convention:
 	bananapi/baalue_(hdd_)kernel.tgz
 	cubietruck/cubietruck_(hdd_)kernel.tgz
 	olimex/olimex_(hdd_)kernel.tgz
+	nanopi/nanopi_kernel.tgz
 
 
 Cubietruck (CB3)
@@ -412,7 +417,6 @@ Additonal Hardware conneted:
     LCD1602 and PCF8574 via I2C
     EEPROM vi SPI
     500 GByte Harddisk
-
 
 Addtional mount points (host):
 
@@ -525,6 +529,29 @@ Addtional mount points (host):
 [The storyline for Olimex](olimex/Documentation/storyline.md)
 
 
+NanoPi Neo
+----------
+
+I use this device as my base board for mobile robotics because of the size and cpu power (4 core)
+
+Addtional Hardware connected:
+
+    DC motor controller
+	Ultrasonic sensor
+	USB camera
+	... (sensor/actors for robotic)
+
+Additional mount points (host):
+
+    LABEL=KERNEL_NANO   /mnt/nanopi/nanopi_kernel      auto  noauto,user,rw  0 0
+    LABEL=ROOTFS_NANO   /mnt/nanopi/nanopi_rootfs      auto  noauto,user,rw  0 0
+    LABEL=HOME_NANO     /mnt/nanopi/nanopi_home        auto  noauto,user,rw  0 0
+
+    LABEL=SHARED_NANO   /mnt/nanopi/nanopi_shared      auto  noauto,user,rw  0 0
+
+[The storyline for Nanopi](nanopi/Documentation/storyline.md)
+
+
 Notes about /opt/a20_sdk/external
 ---------------------------------
 
@@ -545,6 +572,9 @@ Outlook (next development steps)
 --------------------------------
 
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
+
+(until mid of november)
+- initial setup for nanopi-neo
 
 (until end of november)
 - add storyline for bananapi-pro (home cloud server)

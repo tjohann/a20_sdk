@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/24.08.2015
+# Date/Beginn :    02.11.2016/24.08.2015
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add support for nanopi neo
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (aug 2016) -> add hdd-only-sdcard parts
 #                                      some smaller fixes
 #                  V1.03 (aug 2016) -> add features of make_sdcard.sh
@@ -89,7 +90,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -121,7 +122,7 @@ my_usage()
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck                              |"
+    echo "|                cubietruck/nanopi                       |"
     echo "|        [-m] -> download the minimal images             |"
     echo "|        [-s] -> download images for hdd installation    |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
@@ -294,6 +295,13 @@ case "$BRAND" in
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_hdd_kernel.tgz"
 	else
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
+	fi
+	get_tarball
+    'nanopi')
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/nanopi/nanopi_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/nanopi/nanopi_kernel.tgz"
 	fi
 	get_tarball
         ;;

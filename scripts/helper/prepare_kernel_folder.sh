@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/07.09.2016
+# Date/Beginn :    02.11.2016/07.09.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add support for nanopi-neo
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.01 (sep 2016) -> initial skeleton
 #
 # Requires    :
@@ -43,7 +44,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -196,6 +197,7 @@ if [ "$PREPARE_NONRT" = 'true' ]; then
     cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
     cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
     cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
+    cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
 
     cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
     cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}
@@ -227,6 +229,7 @@ if [ "$PREPARE_RT" = 'true' ]; then
     cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
     cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
     cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
+    cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
 
     cp arch/arm/boot/uImage ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt
     cp .config ${ARMHF_BIN_HOME}/kernel/linux-${ARMHF_KERNEL_VER}_rt

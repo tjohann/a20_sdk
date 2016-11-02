@@ -1,0 +1,6 @@
+#
+# some hint about gpio calculation for Nanopi-Neo
+#
+
+Hint: see http://linux-sunxi.org/GPIO
+

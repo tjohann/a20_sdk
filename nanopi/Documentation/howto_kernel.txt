@@ -1,0 +1,213 @@
+
+               =========================================
+               simple howto for building a custom kernel
+               =========================================
+
+Author: Thorsten Johannvorderbrueggen
+Email:  thorsten.johannvorderbrueggen@t-online.de
+Date:   01.11.2016/01.11.2016
+
+Content:
+
+- Preparation
+  -- Device
+  -- Kernel version
+  -- Downloads
+  -- Mountpoints
+  -- Fstab for mountpoints
+  -- Notes
+
+- Download kernel
+
+- Patch kernel
+  -- RT-PREEMPT
+
+- Configure/build kernel
+  -- Configure kernel
+  -- Build dtb
+  -- Build kernel/modules
+  -- Install modules
+
+- Deploy SD-Card
+  -- Copy dtb
+  -- Copy kernel/config
+  -- Copy modules
+  -- Copy cleaned source to sd card
+
+- Finalize
+  -- Finish -> after login (non-rt)
+  -- Prepare linux tree to build your modules against the new kernel (non-rt)
+  -- Prepare modules to link (non-rt)
+
+
+
+Preparation
+===========
+
+Device
+-------
+
+- NanoPi Neo-Allwinner <-- for this device is the howto
+- Bananapi-M1(pro) -> see $(ARMHF_HOME)/bananapi(-pro)
+- Cubietruck (cb3) -> see $(ARMHF_HOME)/cubietruck
+- Olimex A20-SOM   -> see $(ARMHF_HOME)/olimex
+
+
+Kernel version
+--------------
+
+- linux-4.8.6
+- linux-4.8.6-rt5 (latest RT-PREEMPT)
+
+
+Downloads (use make get_latest_kernel)
+--------------------------------------
+
+- https://www.kernel.org/pub/linux/kernel/v4.x/
+- https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/
+
+
+Mountpoints
+-----------
+
+nanopi:
+ - kernel -> /mnt/nanopi/nanopi_kernel
+ - rootfs -> /mnt/nanopi/nanopi_rootfs
+ - home   -> /mnt/nanopi/nanopi_home
+
+
+Fstab entrys for mountpoints
+----------------------------
+
+nanopi:
+ LABEL=KERNEL_NANO  /mnt/nanopi/nanopi_kernel  auto  noauto,user,rw    0   0
+ LABEL=ROOTFS_NANO  /mnt/nanopi/nanopi_rootfs  auto  noauto,user,rw    0   0
+ LABEL=HOME_NANO    /mnt/nanopi/nanopi_home    auto  noauto,user,rw    0   0
+
+Notes
+-----
+
+In $ARMHF_BIN_HOME/external you'll find some links to some useful repos,
+one of them being the linus kernel tree. So you can use that folder or
+alternatively download the tar file to $ARMHF_BIN_HOME/kernel.
+Pls check that the $DIR values below point to the the correct directory!
+
+
+Download kernel
+===============
+
+DIR: $$ARMHF_BIN_HOME
+KDO: make get_latest_kernel
+
+
+Patch kernel
+============
+
+RT-PREEMPT
+----------
+
+DIR: $ARMHF_BIN/HOME/kernel/linux-4.8.6_rt
+KDO: zcat ../patch-4.8.6-rt5.patch.gz | patch -p1
+
+
+Configure/build kernel
+======================
+
+Configure kernel
+----------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp $ARMHF_HOME/nanopi/configs/kernel_config_4.8.x .config
+KDO(rt): cp $ARMHF_HOME/nanopi/configs/kernel_config_4.8.x_rt .config
+KDO: make ARCH=arm menuconfig
+
+
+Build dtb
+---------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/sun8i-h3-nanopi-neo.dts
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
+
+
+Build kernel/modules
+--------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make -j10 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+
+
+Install modules
+---------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.8.6 modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.8.6_rt modules_install
+
+
+
+Deploy SD-Card
+==============
+
+Copy dtb
+--------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] /mnt/nanopi/nanopi_kernel/
+
+
+Copy kernel/config
+------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/uImage /mnt/nanopi/nanopi_kernel/
+KDO: cp .config /mnt/nanopi/nanopi_kernel/
+
+
+Copy modules
+------------
+
+# Note: maybe your need to remove the old one
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: sudo rsync -avz ../modules_4.8.6/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avz ../modules_4.8.6_rt/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
+
+
+Copy cleaned source to sd card
+------------------------------
+
+# Note: dont forget to make ARCH=arm clean
+DIR: $ARMHF_BIN_HOME/kernel
+KDO: sudo rsync -avz --delete linux-4.8.6 /mnt/nanopi/nanopi_rootfs/usr/src/.
+KDO(rt): sudo rsync -avz --delete linux-4.8.6_rt /mnt/nanopi/nanopi_rootfs/usr/src/.
+
+
+
+Finalize
+========
+
+Finish -> after login (non-rt)
+------------------------------
+
+DIR: /usr/src
+KDO: depmod -a
+KDO: ln -s linux-4.8.6 linux
+MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
+
+
+Prepare linux tree to build your modules against the new kernel (non-rt)
+------------------------------------------------------------------------
+
+DIR: /usr/src/linux-4.8.6
+KDO: make clean
+KDO: make scripts
+
+
+Prepare modules to link (non-rt)
+--------------------------------
+
+DIR: /lib/modules/4.8.6
+KDO: rm build
+KDO: rm source
+KDO: ln -s /usr/src/linux-4.8.6 source
+KDO: ln -s /usr/src/linux-4.8.6 build
