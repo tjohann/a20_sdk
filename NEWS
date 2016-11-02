@@ -7,6 +7,7 @@
 	      http://www.nanopi.org/NanoPi-NEO_Feature.html)
 	      Note: actually only base support due to missing mainline
 	            support
+              update u-boot for all devices		    
 
 2016-11-01 -> ## target && sdk stuff
 	      update kernel to 4.8.6 and 4.8.6-rt5

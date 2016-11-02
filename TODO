@@ -11,8 +11,8 @@
 ## target stuff
 - prepare image for nanaopi
   - kernel (4.9-rc3)
-  - u-boot
-- adapt hosts (add nanapi) on all devices
+  - u-boot                                                  [2016-11-02 -> done]
+- adapt hosts (add nanopi) on all devices
 
 
 #
@@ -53,9 +53,9 @@
   to profile                                                [2016-10-01 -> done]
 - update u-boot for all devices
   - bananapi                                                [2016-10-13 -> done]
-  - bananapi-pro
-  - cubietruck
-  - olimex
+  - bananapi-pro                                            [2016-11-02 -> done]
+  - cubietruck                                              [2016-11-02 -> done]
+  - olimex                                                  [2016-11-02 -> done]
 
 ## sdk & target stuff
 - prepare a second bananapi stack (+8 baalue-nodes)         [2016-09-28 -> done]
