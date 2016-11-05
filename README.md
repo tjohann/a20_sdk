@@ -578,12 +578,14 @@ Note: This repository is something like a bracket over my differnet projects. So
 
 (until end of november)
 - add storyline for bananapi-pro (home cloud server)
-- add storyline for baalue (distcc)
+- add storyline for baalue (distcc -> build emacs-gtk)
+- add storyline for nanopi as part of a mobile robot
 - make use of lcd1602 module of cubietruck (baalue_master)
-- working jailhouse configuration for bananapi and olimex
-- simple example for using bare-metal cell within bananapi/olimex
 
 (until end of december)
+- add dtc config for mcp2515 (bananapi and cubietruck)
+- working jailhouse configuration for bananapi and olimex
+- simple example for using bare-metal cell within bananapi/olimex
 - working can parts for a20-can and mcp2515 (bananapi/olimex)
 - working can baremetal can example
 - simple baremetal lcd example

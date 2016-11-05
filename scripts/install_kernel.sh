@@ -262,7 +262,7 @@ copy_kernel_folder()
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not copy to ${SD_KERNEL}/cubietruck"
     fi
-    
+
     cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${SD_KERNEL}/nanopi
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not copy to ${SD_KERNEL}/nanopi"

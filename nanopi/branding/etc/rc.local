@@ -4,6 +4,6 @@
 # (see /etc/runit/2).
 
 # Static IP configuration via iproute
-#ip link set dev eth0 up 
-#ip addr add 192.168.0.111/255.255.255.0 broadcast 192.168.0.255 dev eth0 
-#ip route add default via 192.168.0.1 
+#ip link set dev eth0 up
+#ip addr add 192.168.0.111/255.255.255.0 broadcast 192.168.0.255 dev eth0
+#ip route add default via 192.168.0.1

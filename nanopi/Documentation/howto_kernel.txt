@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   01.11.2016/01.11.2016
+Date:   04.11.2016/01.11.2016
 
 Content:
 
@@ -56,15 +56,16 @@ Device
 Kernel version
 --------------
 
-- linux-4.8.6
-- linux-4.8.6-rt5 (latest RT-PREEMPT)
+- linux-4.9-rc3
+# not yet:
+# - linux-4.9.X-rtX (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
 --------------------------------------
 
 - https://www.kernel.org/pub/linux/kernel/v4.x/
-- https://www.kernel.org/pub/linux/kernel/projects/rt/4.6/
+- https://www.kernel.org/pub/linux/kernel/projects/rt/4.8/
 
 
 Mountpoints
@@ -103,11 +104,11 @@ KDO: make get_latest_kernel
 Patch kernel
 ============
 
-RT-PREEMPT
+RT-PREEMPT (not yet!)
 ----------
 
-DIR: $ARMHF_BIN/HOME/kernel/linux-4.8.6_rt
-KDO: zcat ../patch-4.8.6-rt5.patch.gz | patch -p1
+# DIR: $ARMHF_BIN/HOME/kernel/linux-4.8.6_rt
+# KDO: zcat ../patch-4.8.6-rt5.patch.gz | patch -p1
 
 
 Configure/build kernel
@@ -117,8 +118,9 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/nanopi/configs/kernel_config_4.8.x .config
-KDO(rt): cp $ARMHF_HOME/nanopi/configs/kernel_config_4.8.x_rt .config
+# change to bananapi if full mainline support
+KDO: cp $ARMHF_HOME/nanapi/configs/kernel_config_4.9.x .config
+# KDO(rt): cp $ARMHF_HOME/bananapi/configs/kernel_config_4.9.x_rt .config
 KDO: make ARCH=arm menuconfig
 
 
@@ -141,8 +143,8 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.8.6 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.8.6_rt modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.0 modules_install
+# KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.0_rt modules_install
 
 
 
@@ -169,8 +171,8 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_4.8.6/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avz ../modules_4.8.6_rt/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_4.9.0/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
+# KDO(rt): sudo rsync -avz ../modules_4.9.0_rt/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -178,8 +180,8 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.8.6 /mnt/nanopi/nanopi_rootfs/usr/src/.
-KDO(rt): sudo rsync -avz --delete linux-4.8.6_rt /mnt/nanopi/nanopi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-4.9.0 /mnt/nanopi/nanopi_rootfs/usr/src/.
+# KDO(rt): sudo rsync -avz --delete linux-4.9.0_rt /mnt/nanopi/nanopi_rootfs/usr/src/.
 
 
 
@@ -191,14 +193,14 @@ Finish -> after login (non-rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.8.6 linux
+KDO: ln -s linux-4.9.0 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (non-rt)
 ------------------------------------------------------------------------
 
-DIR: /usr/src/linux-4.8.6
+DIR: /usr/src/linux-4.9.0
 KDO: make clean
 KDO: make scripts
 
@@ -206,8 +208,8 @@ KDO: make scripts
 Prepare modules to link (non-rt)
 --------------------------------
 
-DIR: /lib/modules/4.8.6
+DIR: /lib/modules/4.9.0
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.8.6 source
-KDO: ln -s /usr/src/linux-4.8.6 build
+KDO: ln -s /usr/src/linux-4.9.0 source
+KDO: ln -s /usr/src/linux-4.9.0 build

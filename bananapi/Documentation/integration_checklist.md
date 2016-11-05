@@ -35,9 +35,11 @@ tool checks on device:
 	- is jailhouse working
 	  - olimex
 	  - bananapi
-	- i2c_gpio_driver_simple
+	- i2c_gpio_driver_simple (bananapi)
 	  modprobe i2c_gpio_driver_simple
 	  usage_i2c_gpio_driver_simple ...
+	- lcd1602 (cubietruck -> baalue-master)
+	  modeprobe ...
 
 sdk checks:
 
@@ -45,22 +47,25 @@ sdk checks:
 	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/)
 
 
-A20_SDK_V2.1.0 (xx.xx.2016)
+A20_SDK_V2.1.0 (xx.11.2016)
 ---------------------------
 
-	Common checks                                           [2016-XX-XX -> xxxx]
+	Common checks                                         [2016-11-XX -> partly]
 
 	Config updates (on the target):
 		- add emacs realted (ee.sh/...) config/scripts
 
 	Build updates:
-		- u-boot
+		- u-boot                                            [2016-11-02 -> done]
+		- build emacs-gtk2 for full image
+		- build emacs-... for base image
 
 	SDK updates:
 		- diskfree_sdcard.txt
+		- add base support for nanopi
 
 	Others:
-		- add dts support for mcp2515 (CAN)
+		- add dts support for mcp2515 (bananapi)
 
 
 A20_SDK_V2.0.3 (17.10.2016)
@@ -120,7 +125,7 @@ A20_SDK_V2.0.1 (12.10.2016)
 A20_SDK_V2.0.0 (01.10.2016)
 ---------------------------
 
-	Common checks                                           [2016-10-12 -> done]
+	Common checks                                         [2016-10-12 -> partly]
 
 	Config updates (on the target):
 		- ssh(d)_config                                     [2016-10-01 -> done]
