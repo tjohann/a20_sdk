@@ -3,6 +3,33 @@
 #
 #
 
+#
+# -------------- 2016-11-06 ----------------------------------------------------
+#
+
+## target stuff
+- remove lightdm
+- install lxdm
+- install distcc
+- build emacs for full image
+  - gtk+2-devel
+  - libxpm-devel
+  - ...
+
+## target stuff (cubietruck specific)
+- add bluetooth stuff (see https://github.com/phelum/CT_Bluetooth)
+- add firmware (see
+  https://www.robert-sperling.de/de/cubitruck-kernel-aktualisiert/)
+
+## sdk & script stuff
+- add simple script (a20_desktop.sh ?) to do some addtional configs for
+  more "desktop" systems lika baalue_master
+  - link more terminals to /var/service
+  - link lxdm to /var/service
+
+## script stuff
+- add void-package to external
+
 
 #
 # -------------- 2016-11-02 ----------------------------------------------------
@@ -10,7 +37,7 @@
 
 ## target stuff
 - prepare image for nanaopi
-  - kernel (4.9-rc3)
+  - kernel (4.9-rc3)                                        [2016-11-05 -> done]
   - u-boot                                                  [2016-11-02 -> done]
 - adapt hosts (add nanopi) on all devices
 
