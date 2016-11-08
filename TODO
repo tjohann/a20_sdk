@@ -10,7 +10,7 @@
 ## target stuff
 - add distcc config for baalue
 - fix wrong motd for baalue                                 [2016-11-08 -> done]
-- change hosts/ip for baalue to new scheme
+- change hosts/ip for baalue to new scheme                  [2016-11-08 -> done]
 
 ## sdk stuff
 - change/fix baalue naming scheme and motd                  [2016-11-08 -> done]
@@ -21,9 +21,9 @@
 #
 
 ## target stuff
-- remove lightdm
-- install lxdm
-- install distcc
+- remove lightdm                                            [2016-11-08 -> done]
+- install lxdm                                              [2016-11-08 -> done]
+- install distcc                                            [2016-11-08 -> done]
 - build emacs for full image
   - gtk+2-devel
   - libxpm-devel
@@ -31,7 +31,7 @@
 
 ## target stuff (cubietruck specific)
 - add bluetooth stuff (see https://github.com/phelum/CT_Bluetooth)
-- add firmware (see
+- add firmware (see                                         [2016-11-08 -> done]
   https://www.robert-sperling.de/de/cubitruck-kernel-aktualisiert/)
 
 ## sdk & script stuff
@@ -52,7 +52,7 @@
 - prepare image for nanaopi
   - kernel (4.9-rc3)                                        [2016-11-05 -> done]
   - u-boot                                                  [2016-11-02 -> done]
-- adapt hosts (add nanopi) on all devices
+- adapt hosts (add nanopi) on all devices                   [2016-11-08 -> done]
 
 
 #
@@ -60,7 +60,7 @@
 #
 
 ## target stuff
-- add fstab entry for / with noatime
+- add fstab entry for / with noatime                    [2016-11-08 -> canceled]
 
 
 #

@@ -2,12 +2,20 @@
 # some news ... see also TODO for hints
 #
 
-2016-11-09 -> ## script stuff
+2016-11-098 -> ## script stuff
 	      add void-packages repo to get_external_repos.sh
 
 	      ## sdk stuff
 	      add new hosts scheme for baalue nodes
 	      fix wrong baalue hostnames
+
+	      ## target stuff
+	      add new hosts scheme
+	      add nanopi as device
+	      add distcc
+	      add distcc-gtk (full image)
+	      add lxdm and remove lightdm (full image)
+	      add ap6210 firmware to $HOME/src
 
 2016-11-04 -> ## target stuff
 	      adapt nanopi kernel build to 4.9-rc3
