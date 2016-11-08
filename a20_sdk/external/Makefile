@@ -40,6 +40,7 @@ all::
 	@echo "|                            environment playground        |"
 	@echo "| make get_can-lin-env    -> clone can/lin bus             |"
 	@echo "|                            environment playground        |"
+	@echo "| make get_void-packages  -> clone void-packages           |"
 	@echo "| make clean              -> clean all dir/subdirs         |"
 	@echo "| make distclean          -> complete cleanup/delete       |"
 	@echo "+----------------------------------------------------------+"
@@ -103,6 +104,9 @@ get_tt-env::
 
 get_can-lin-env::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-lin-env" -p "https")
+
+get_void-packages::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "void-packages" -p "https")
 
 build_base_repos::
 	($(ARMHF_HOME)/scripts/helper/build_base_repos.sh)

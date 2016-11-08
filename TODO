@@ -4,6 +4,19 @@
 #
 
 #
+# -------------- 2016-11-08 ----------------------------------------------------
+#
+
+## target stuff
+- add distcc config for baalue
+- fix wrong motd for baalue                                 [2016-11-08 -> done]
+- change hosts/ip for baalue to new scheme
+
+## sdk stuff
+- change/fix baalue naming scheme and motd                  [2016-11-08 -> done]
+
+
+#
 # -------------- 2016-11-06 ----------------------------------------------------
 #
 
@@ -28,7 +41,7 @@
   - link lxdm to /var/service
 
 ## script stuff
-- add void-package to external
+- add void-package to external                              [2016-11-08 -> done]
 
 
 #

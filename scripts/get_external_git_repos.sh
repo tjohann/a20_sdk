@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/15.08.2015
+# Date/Beginn :    08.11.2016/15.08.2015
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add void-packages
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (sep 2016) -> add can_lin_env
 #                  V1.03 (aug 2016) -> add features of make_sdcard.sh
 #                  V1.02 (jul 2016) -> redirect errors to >&2
@@ -88,7 +89,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -106,6 +107,7 @@ MISSING_ENV='false'
 # libbaalue -> http://github.com/tjohann/libbaalue.git
 # tt-env -> http://github.com/tjohann/time_triggert_env.git
 # can-lin-env -> https://github.com/tjohann/can_lin_env.git
+# void-packages -> https://github.com/voidlinux/void-packages
 
 REPO='none'
 
@@ -149,6 +151,7 @@ my_usage()
     echo "| REPO: baalued -> control daemon of a baalue node       |"
     echo "| REPO: tt-env -> my realtime playground                 |"
     echo "| REPO: can-lin-env -> my can/lin playground             |"
+    echo "| REPO: void-packages -> void-packages                   |"
     echo "|                                                        |"
     echo "| Valid network protocols:                               |"
     echo "| PROTOCOL: none or empty -> use the simple git          |"
@@ -257,6 +260,7 @@ set_repo_names()
     libbaalue="://github.com/tjohann/libbaalue.git"
     tt_env="://github.com/tjohann/time_triggert_env.git"
     can_lin_env="://github.com/tjohann/can_lin_env.git"
+    void_packages="://github.com/voidlinux/void-packages"
 
     # array with all available repos
     repo_names_array[0]=${rt_tests}
@@ -271,6 +275,7 @@ set_repo_names()
     repo_names_array[9]=${libbaalue}
     repo_names_array[10]=${tt_env}
     repo_names_array[11]=${can_lin_env}
+    repo_names_array[12]=${void_packages}
 }
 
 # --- get repo name
@@ -312,6 +317,9 @@ get_repo_name()
 	    ;;
 	'can-lin-env')
 	    REPO_NAME="${PROTOCOL}${can_lin_env}"
+	    ;;
+	'void-packages')
+	    REPO_NAME="${PROTOCOL}${void_packages}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check" >&2

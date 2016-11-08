@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    10.10.2016/21.08.2016
+# Date/Beginn :    08.11.2016/21.08.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (okt 2016) -> some minor fixes
+# Milestones  :    V2.02 (nov 2016) -> add new hosts schema
+#                                      add nanopi as possible device
+#                  V2.01 (okt 2016) -> some minor fixes
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.03 (sep 2016) -> add home and shared branding
 #                                   -> make branding device independent
@@ -82,7 +84,8 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/cubietruck |"
-    echo "|        [-n] -> node (0...9, master)                    |"
+    echo "|                nanopi                                  |"
+    echo "|        [-n] -> node (1...16, master)                   |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -378,6 +381,11 @@ case "$BRAND" in
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
 	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
+        ;;
+    'nanopi')
+	SD_ROOTFS=$NANOPI_SDCARD_ROOTFS
+	SD_HOME=$NANOPI_SDCARD_HOME
+	SD_SHARED=$NANOPI_SDCARD_SHARED
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

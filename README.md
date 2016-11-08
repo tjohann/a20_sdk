@@ -361,7 +361,7 @@ Single devices:
 
 My cluster:
 
-	192.168.0.80            baalue-80.my.domain             baalue-80
+	192.168.0.80            baalue-80.my.domain             baalue_master
 	192.168.0.81            baalue-81.my.domain             baalue-81
 	192.168.0.82            baalue-82.my.domain             baalue-82
 	192.168.0.83            baalue-83.my.domain             baalue-83
@@ -377,7 +377,8 @@ My cluster:
 	192.168.0.93            baalue-93.my.domain             baalue-93
 	192.168.0.94            baalue-94.my.domain             baalue-94
 	192.168.0.95            baalue-95.my.domain             baalue-95
-	192.168.0.70            baalue_master.my.domain         baalue_master
+	192.168.0.96            baalue-96.my.domain             baalue-96
+
 
 My nfs share:
 

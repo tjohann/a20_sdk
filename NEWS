@@ -2,6 +2,13 @@
 # some news ... see also TODO for hints
 #
 
+2016-11-09 -> ## script stuff
+	      add void-packages repo to get_external_repos.sh
+
+	      ## sdk stuff
+	      add new hosts scheme for baalue nodes
+	      fix wrong baalue hostnames
+
 2016-11-04 -> ## target stuff
 	      adapt nanopi kernel build to 4.9-rc3
 

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/17.04.2016
+# Date/Beginn :    08.11.2016/17.04.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2016) -> add void-packages
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.06 (sep 2016) -> add can_lin_env
 #                  V1.05 (aug 2016) -> sudo handling at beginning
 #                  V1.04 (jul 2016) -> add features of make_sdcard.sh
@@ -64,7 +65,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -221,6 +222,7 @@ clean_external()
 	rm -rf baalued
 	rm -rf time_triggert_env
 	rm -rf can_lin_env
+	rm -rf void-packages
     else
         echo "INFO: no directory ${ARMHF_BIN_HOME}/external"
     fi
