@@ -2,7 +2,13 @@
 # some news ... see also TODO for hints
 #
 
-2016-11-098 -> ## script stuff
+
+################## 2016-11-11 -> A20_SDK_V2.0.4 #############################
+
+2016-11-11 -> ## target && sdk stuff
+	      update kernel to 4.8.7 and 4.9-rc4 for nanopi
+
+2016-11-08 -> ## script stuff
 	      add void-packages repo to get_external_repos.sh
 
 	      ## sdk stuff
