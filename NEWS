@@ -3,6 +3,10 @@
 #
 
 
+2016-11-17 -> ## target && sdk stuff
+	      update kernel to 4.8.8 and 4.9-rc5 for nanopi
+
+
 ################## 2016-11-11 -> A20_SDK_V2.0.4 #############################
 
 2016-11-11 -> ## target && sdk stuff

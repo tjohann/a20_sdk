@@ -30,8 +30,6 @@ The basic user interface are make targets which then start the corresponding scr
 	|                            /home/tjohann/bin              |
 	+-----------------------------------------------------------+
 
-As an extention you can install my sdk_builder (https://github.com/tjohann/sdk_builder) which should give you a gtk based tool at your hand. With that you can do all steps in a more simpler way by using a gui.
-
 The sdk comes with documentation and some simple source code examples. You can find it in ${HOME}/src/a20_sdk/*.
 
 WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet.
@@ -243,7 +241,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V2.0.3
+	A20_SDK_V2.0.4
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
@@ -580,10 +578,9 @@ Note: This repository is something like a bracket over my differnet projects. So
 (until end of november)
 - add storyline for bananapi-pro (home cloud server)
 - add storyline for baalue (distcc -> build emacs-gtk)
-- add storyline for nanopi as part of a mobile robot
 - make use of lcd1602 module of cubietruck (baalue_master)
 
-(until end of december)
+(future steps)
 - add dtc config for mcp2515 (bananapi and cubietruck)
 - working jailhouse configuration for bananapi and olimex
 - simple example for using bare-metal cell within bananapi/olimex
@@ -592,3 +589,4 @@ Note: This repository is something like a bracket over my differnet projects. So
 - simple baremetal lcd example
 - support flashchip of olimex and/or cubietruck
 - simple os for baremetal cell (see https://github.com/tjohann/miblos)
+- add storyline for nanopi as part of a mobile robot
