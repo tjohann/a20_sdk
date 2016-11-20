@@ -3,6 +3,9 @@
 #
 
 
+2016-11-20 -> ## target && sdk stuff
+	      update kernel to 4.8.9
+
 2016-11-17 -> ## target && sdk stuff
 	      update kernel to 4.8.8 and 4.9-rc5 for nanopi
 
