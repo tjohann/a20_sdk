@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.11.2016/02.07.2016
+# Date/Beginn :    23.11.2016/02.07.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add support for nanopi neo
+# Milestones  :    V2.02 (nov 2016) -> bug fixing
+#                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.09 (sep 2016) -> remove arm926_sdk parts
 #                  V1.08 (sep 2016) -> add -z to all rsync calls
@@ -74,7 +75,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -417,6 +418,7 @@ case "$BRAND" in
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
 	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
+	;;
     'nanopi')
 	SD_ROOTFS=$NANOPI_SDCARD_ROOTFS
 	SD_HOME=$NANOPI_SDCARD_HOME
