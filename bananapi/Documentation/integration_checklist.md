@@ -56,7 +56,7 @@ A20_SDK_V2.1.0 (xx.11.2016)
 		- add emacs realted (ee.sh/...) config/scripts
 
 	Build updates:
-		- u-boot                                            [2016-11-02 -> done]
+		- u-boot                                        [2016-11-02 -> done]
 		- build emacs-gtk2 for full image
 		- build emacs-... for base image
 
@@ -66,6 +66,42 @@ A20_SDK_V2.1.0 (xx.11.2016)
 
 	Others:
 		- add dts support for mcp2515 (bananapi)
+
+
+A20_SDK_V2.0.5 (27.11.2016)
+---------------------------
+
+	Common checks                                     [2016-11-27 -> not needed]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
+A20_SDK_V2.0.4 (11.11.2016)
+---------------------------
+
+	Common checks                                     [2016-11-11 -> not needed]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
 
 
 A20_SDK_V2.0.3 (17.10.2016)
