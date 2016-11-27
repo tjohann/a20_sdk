@@ -2,6 +2,9 @@
 # some news ... see also TODO for hints
 #
 
+2016-11-27 -> ## target & sdk stuff
+	      update kernel to 4.8.11 and 4.9-rc6 for nanopi
+
 2016-11-23 -> ## sdk stuff
 	      some fixes for scripts around nanopi content
 
