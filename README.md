@@ -573,9 +573,9 @@ Outlook (next development steps)
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
 
 (until mid of november)
-- initial setup for nanopi-neo
+- initial setup for nanopi-neo (wait for linux-4.9)
 
-(until end of november)
+(until end of december)
 - add storyline for bananapi-pro (home cloud server)
 - add storyline for baalue (distcc -> build emacs-gtk)
 - make use of lcd1602 module of cubietruck (baalue_master)
