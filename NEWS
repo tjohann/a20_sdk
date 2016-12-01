@@ -2,12 +2,15 @@
 # some news ... see also TODO for hints
 #
 
+2016-12-01 -> ## target stuff
+	      update kernel to 4.8.11-rt7
+
 2016-11-30 -> ## toolchain stuff
 	      update configs after gcc update of void linux
 
 	      ## target stuff
 	      update kernel for nanopi to 4.9-rc7
-	      
+
 
 ################## 2016-11-27 -> A20_SDK_V2.0.5 #############################
 
