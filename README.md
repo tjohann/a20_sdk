@@ -246,13 +246,13 @@ I use a standard version scheme via git tags based on 3 numbers:
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
 	- new scripts
-	- kernel/updates of all 4 devices
+	- kernel/updates of all 4 devices (-> including new device images)
 
 So a simple version update of the olimex kernel will not increase the minor number, instead it will increase the third number (age number):
 
 	- bugfixes
-	- update kernel versions only on one device
-	- updates of on device images
+	- update kernel versions only on one device (without new device images)
+	- updates of only one device images
 	- all smaller changes
 
 
@@ -273,7 +273,7 @@ Within /var/lib/a20_sdk/ you find the 4 (+1) supported devices below the directo
     bananapi-pro -> BananaPi-Pro
     cubietruck -> Cubietruck (Cubieboard 3)
     olimex -> Olimex A20-SOM/EVB
-	nanopi -> NanoPi Neo (only base support)
+	nanopi -> NanoPi Neo (only basic support yet)
 
 Every device directory has the same sub-directories
 
@@ -337,7 +337,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 	Baalue-Node -> PREEMPT
 	Bananapi-Pro -> PREEMPT
 	Cubietruck -> PREEMPT
-	NanoPi -> PREEMPT/RT-PREEMPT (base support) and friendlyarm kernel (3.4.x)
+	NanoPi -> PREEMPT (base support vi 4.9-rcX)
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}.
 
@@ -406,7 +406,7 @@ Naming convention:
 Cubietruck (CB3)
 ----------------
 
-One of my two cubietruck is acting as master nodes for my Bananapi Cluster (baalue_master). The baalue_master has a hard-disk as root device. I use it as a distcc server node and the 8 cluster nodes as distcc clients. It has a pcb with some additional hardware connected.
+One of my two cubietruck is acting as master nodes for my Bananapi Cluster (baalue_master). The baalue_master has a hard-disk as boot device. I use it as a distcc server node and the 8 cluster nodes as distcc clients. It has a pcb with some additional hardware connected.
 
 The second cubietruck is my test environment for the jailhouse hypervisor.
 
@@ -485,10 +485,10 @@ The script (a20_sdk_)make_sdcard.sh can generate a baalue node base image which 
 There'se also a script called brand_baalue_images.sh in ./scripts. This will brand your image based on my topologie (ip and so one). But this script wont care about *my* used device. So you can build a olimex based cluster with my topologie instead of bananapi. (Note: the script wont change the kernel, so if you use olimex you will have a *RT-PREEMPT* kernel).
 
 	+--------------------------------------------------------+
-	| Usage: brand_images.sh
+	| Usage: brand_baalue_images.sh                          |
 	|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |
-	|                cubietruck                              |
-	|        [-n] -> node (0...9, master)                    |
+	|                cubietruck/nanopi                       |
+	|        [-n] -> node (1...16, master)                    |
 	|        [-s] -> prepare images for hdd installation     |
 	|        [-v] -> print version info                      |
 	|        [-h] -> this help                               |
@@ -556,7 +556,7 @@ Notes about /opt/a20_sdk/external
 
 This repository is something like a bracket over my differnet projects and so below ${ARMHF_BIN_HOME} is the place for them. Most parts (like libbaalue.git or time_triggert_env.git) are already installed on the images i provide. I use the devices as my test and development plattform (see also ./pics).
 
-If you're interested in realtime linux (for example) you have then a good basement for your own development.
+If you're interested in realtime linux (for example) you should have then a good basement for your own development.
 
 
 Development model
@@ -572,13 +572,14 @@ Outlook (next development steps)
 
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
 
-(until mid of november)
-- initial setup for nanopi-neo (wait for linux-4.9)
+(until mid of december)
+- initial setup for nanopi-neo (wait for release of linux-4.9)
 
 (until end of december)
 - add storyline for bananapi-pro (home cloud server)
 - add storyline for baalue (distcc -> build emacs-gtk)
 - make use of lcd1602 module of cubietruck (baalue_master)
+- make all scripts "self hosting" so that all scripts would also run on the target device (lile build_kernel.sh running on baalue_master)
 
 (future steps)
 - add dtc config for mcp2515 (bananapi and cubietruck)

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    prepare_all_kernel_image_tarballs.sh
+# Title       :    build_uboot.sh
 #
 # License:
 #
@@ -24,16 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.12.2016/26.08.2016
+# Date/Beginn :    02.12.2016/02.12.2016
 #
-# Version     :    V2.02
+# Version     :    V0.01
 #
-# Milestones  :    V2.02 (dec 2016) -> minor changes
-#                  V2.01 (nov 2016) -> add support for nanopi-neo
-#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
-#                  V0.03 (sep 2016) -> whitespaces
-#                  V0.02 (aug 2016) -> first working version
-#                  V0.01 (aug 2016) -> initial skeleton
+# Milestones  :    V0.01 (dec 2016) -> initial version
 #
 # Requires    :
 #
@@ -41,29 +36,25 @@
 ################################################################################
 # Description
 #
-#   A simple tool to prepare a tarball for all kernel images (based on
-#   bananapi_kernel.tgz)
+#   A simple tool to build u-boot (see howto_uboot.txt)
 #
-#   Workdir /opt/a20_sdk/images
-#
-# Some features
-#   - ...
+# Notes
+#   ...
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
 
-# mountpoints
-SD_KERNEL='none'
+# which brand?
+BRAND='none'
 
-# ...
-BRAND="bananapi"
-HDD=''
+# which uboot config
+UBOOT_CONFIG='none'
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -74,6 +65,8 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
+    echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
+    echo "|                cubietruck/nanopi                       |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -91,12 +84,13 @@ cleanup() {
 # my exit method
 my_exit()
 {
-    umount_partition
-
-    echo "+-----------------------------------+"
-    echo "|          Cheers $USER            |"
-    echo "+-----------------------------------+"
+    echo " "
+    echo "+----------------------------------------+"
+    echo "|          Cheers $USER            "
+    echo "+----------------------------------------+"
+    echo " "
     cleanup
+
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
 }
@@ -117,9 +111,10 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hv' opts 2>$_log
+while getopts 'hvb:' opts 2>$_log
 do
     case $opts in
+	b) BRAND=$OPTARG ;;
         h) my_usage ;;
         v) print_version ;;
         ?) my_usage ;;
@@ -139,7 +134,7 @@ if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -159,161 +154,131 @@ if [ "$MISSING_ENV" = 'true' ]; then
     exit
 fi
 
+USED_CMD="arm-none-linux-gnueabihf-gcc"
+for cmd in ${USED_CMD} ; do
+    if ! [ -x "$(command -v ${cmd})" ]; then
+#	cleanup
+	echo " "
+	echo "+------------------------------------------------+"
+	echo "|                                                |"
+	echo "| ERROR: $cmd is missing |"
+	echo "|                                                |"
+	echo "+------------------------------------------------+"
+	echo " "
+	exit
+    else
+	echo "Note: $cmd is available"
+    fi
+done
+
 
 # ******************************************************************************
 # ***                      The functions for main_menu                       ***
 # ******************************************************************************
 
-check_directory()
+check_uboot_repo()
 {
-    if [[ ! -d "${SD_KERNEL}" ]]; then
-	echo "ERROR -> ${SD_KERNEL} not available!" >&2
-	echo "         have you added them to your fstab? (see README.md)" >&2
-	my_exit
+    local repo_name="http://git.denx.de/u-boot.git"
+    
+    if [[ ! -d "${REPO_PATH}/u-boot" ]]; then
+	echo "${repo_name}/u-boot not available -> clone it" >&2
+	
+	cd ${REPO_PATH}
+	 if [ $? -ne 0 ] ; then
+	     echo "ERROR -> could not cd to $repo_name" >&2
+	     my_exit
+	 fi
+
+	 echo "start to clone repo $repo_name"
+	 git clone $repo_name
+	 if [ $? -ne 0 ] ; then
+	     echo "ERROR -> could not clone ${repo_name}" >&2
+	     my_exit
+	 fi
+    else
+	cd ${REPO_PATH}/u-boot
+	echo "${REPO_PATH}/u-boot available -> pull updates" >&2
+	git pull
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not pull updates ${repo_name}" >&2
+	    my_exit
+	fi
     fi
 }
 
-mount_partition()
+config_uboot()
 {
-    mount $SD_KERNEL
+    echo "configure uboot with $UBOOT_CONFIG to build for $BRAND"
+    
+    cd ${REPO_PATH}/u-boot
+    
+    make clean
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
-	my_exit
+        echo "ERROR -> could not clean ${REPO_PATH}/u-boot" >&2
+        my_exit
     fi
-}
-
-umount_partition()
-{
-    umount $SD_KERNEL
+    
+    make $UBOOT_CONFIG
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
-	# do not exit
+        echo "ERROR -> could not configure uboot for $UBOOT_CONFIG" >&2
+        my_exit
     fi
 }
 
-untar_base_image()
+build_uboot()
 {
-    cd $SD_KERNEL
-    tar xzvf ${ARMHF_BIN_HOME}/images/bananapi_kernel.tgz
+    echo "build uboot with $UBOOT_CONFIG to build for $BRAND"
+    cd ${REPO_PATH}/u-boot
+    
+    make CROSS_COMPILE=arm-none-linux-gnueabihf-
     if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/bananapi_kernel.tgz" >&2
-	my_exit
+        echo "ERROR -> could not build uboot" >&2
+        my_exit
     fi
-
-    cd -
 }
 
-copy_rt()
-{
-    cp ${SD_KERNEL}/rt/* $SD_KERNEL
-    cp ${SD_KERNEL}/rt/.config $SD_KERNEL
-    cp ${SD_KERNEL}/${BRAND}/* $SD_KERNEL
-}
-
-copy_hdd()
-{
-    cp ${SD_KERNEL}/${BRAND}/hdd_boot/* $SD_KERNEL
-}
-
-copy_nonrt()
-{
-    cp ${SD_KERNEL}/non-rt/* $SD_KERNEL
-    cp ${SD_KERNEL}/non-rt/.config $SD_KERNEL
-    cp ${SD_KERNEL}/${BRAND}/* $SD_KERNEL
-}
-
-tar_image()
-{
-    cd $SD_KERNEL
-    tar czvf ${ARMHF_BIN_HOME}/images/${BRAND}${HDD}_kernel.tgz .
-
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/${BRAND}${HDD}_kernel.tgz" >&2
-	my_exit
-    fi
-
-    cd -
-}
-
-do_all_rt()
-{
-    rm -f sun7i-a20-*.dt?
-    rm -f sun8i-h3-nanopi-neo.dt?
-    copy_rt
-    copy_hdd
-    tar_image
-}
-
-do_all_nonrt()
-{
-    rm -f sun7i-a20-*.dt?
-    rm -f sun8i-h3-nanopi-neo.dt?
-    copy_nonrt
-    copy_hdd
-    tar_image
-}
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
-echo " "
-echo "+----------------------------------------+"
-echo "|    create all kernel image tarballs    |"
-echo "+----------------------------------------+"
-echo " "
+if [ $BRAND = 'none' ]; then
+    echo "no target device selected -> $BRAND"
+    my_exit
+else
+    echo " "
+    echo "+----------------------------------------+"
+    echo "| build bootloader for $BRAND "
+    echo "+----------------------------------------+"
+    echo " "
+fi
 
-SD_KERNEL=$BANANAPI_SDCARD_KERNEL
-check_directory
-mount_partition
-untar_base_image
+case "$BRAND" in
+    'bananapi')
+	UBOOT_CONFIG="Bananapi_defconfig"
+        ;;
+    'bananapi-pro')
+	UBOOT_CONFIG="Bananapro_defconfig"
+        ;;
+    'olimex')
+	UBOOT_CONFIG="A20-Olimex-SOM-EVB_defconfig"
+        ;;
+    'cubietruck')
+	UBOOT_CONFIG="Cubietruck_defconfig"
+        ;;
+    'nanopi')
+	UBOOT_CONFIG="nanopi_neo_defconfig"
+        ;;
+    *)
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
+        my_exit
+esac
 
-#
-# first all device with rt-preempt kernel (bananpi/olimex)
-#
+REPO_PATH="${ARMHF_BIN_HOME}/external/"
+check_uboot_repo
 
-# bananapi -> only hdd image needed (bananapi_kernel.tgz is the base image)
-BRAND="bananapi"
-HDD="_hdd"
-do_all_rt
-
-# olimex
-BRAND="olimex"
-HDD=""
-do_all_rt
-HDD="_hdd"
-do_all_rt
-
-# bananapi-pro
-BRAND="bananapi-pro"
-HDD=""
-do_all_nonrt
-HDD="_hdd"
-do_all_nonrt
-
-# baalue
-BRAND="baalue"
-HDD=""
-do_all_nonrt
-HDD="_hdd"
-do_all_nonrt
-
-# cubietruck
-BRAND="cubietruck"
-HDD=""
-do_all_nonrt
-HDD="_hdd"
-do_all_nonrt
-
-# nanopi
-BRAND="nanopi"
-HDD=""
-do_all_nonrt
-# no reald hdd support for nanopi (only over usb)
-HDD="_hdd"
-do_all_nonrt
-
-umount_partition
+config_uboot
+build_uboot
 
 cleanup
 echo " "

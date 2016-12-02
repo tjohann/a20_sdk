@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.11.2016/07.09.2016
+# Date/Beginn :    02.12.2016/07.09.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add support for nanopi neo
+# Milestones  :    V2.02 (dec 2016) -> fix kdo handling
+#                                      add check for cross-compiler
+#                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                                      fix PWD handling
 #                  V0.03 (sep 2016) -> fix some bugs
@@ -57,7 +59,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -170,6 +172,23 @@ if [ "$MISSING_ENV" = 'true' ]; then
     exit
 fi
 
+USED_CMD="arm-none-linux-gnueabihf-gcc"
+for cmd in ${USED_CMD} ; do
+    if ! [ -x "$(command -v ${cmd})" ]; then
+#	cleanup
+	echo " "
+	echo "+------------------------------------------------+"
+	echo "|                                                |"
+	echo "| ERROR: $cmd is missing |"
+	echo "|                                                |"
+	echo "+------------------------------------------------+"
+	echo " "
+	exit
+    else
+	echo "Note: $cmd is available"
+    fi
+done
+
 
 # ******************************************************************************
 # ***                      The functions for main_menu                       ***
@@ -223,6 +242,13 @@ build_dtb()
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
+
+if [ ! "$BUILD_NONRT" = 'true' ] &&  [ ! "$BUILD_RT" = 'true' ]; then
+    echo "+--------------------------------------+"
+    echo "| no kdo to build a kernel -> leave    |"
+    echo "+--------------------------------------+"
+    my_exit
+fi
 
 ${ARMHF_HOME}/scripts/check_for_valid_env.sh
 if [ $? -ne 0 ]; then

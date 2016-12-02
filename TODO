@@ -3,11 +3,24 @@
 #
 #
 
+
+#
+# -------------- 2016-12-02 ----------------------------------------------------
+#
+
+## script stuff
+- add script similiar to build_kernel.sh for bootloader
+  builds (build_uboot.sh and install_uboot.sh)
+
+## toolchain stuff
+- add mkimage from buildroot?
+
+
 # -------------- 2016-11-23 ----------------------------------------------------
 #
 
 ## script stuff
-- add check for cross-compile in build_kernel.sh script
+- add check for cross-compile in build_kernel.sh script     [2016-12-02 -> done]
 
 
 #

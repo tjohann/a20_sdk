@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# Title       :    prepare_all_kernel_image_tarballs.sh
+# Title       :    install_uboot.sh
 #
 # License:
 #
@@ -24,16 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.12.2016/26.08.2016
+# Date/Beginn :    02.12.2016/02.12.2016
 #
-# Version     :    V2.02
+# Version     :    V0.01
 #
-# Milestones  :    V2.02 (dec 2016) -> minor changes
-#                  V2.01 (nov 2016) -> add support for nanopi-neo
-#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
-#                  V0.03 (sep 2016) -> whitespaces
-#                  V0.02 (aug 2016) -> first working version
-#                  V0.01 (aug 2016) -> initial skeleton
+# Milestones  :    V0.01 (dec 2016) -> initial version
 #
 # Requires    :
 #
@@ -41,29 +36,26 @@
 ################################################################################
 # Description
 #
-#   A simple tool to prepare a tarball for all kernel images (based on
-#   bananapi_kernel.tgz)
+#   A simple tool to install u-boot (see howto_uboot.txt)
 #
-#   Workdir /opt/a20_sdk/images
-#
-# Some features
-#   - ...
+# Notes
+#   ...
 #
 ################################################################################
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='0.01'
 
 # if env is sourced
 MISSING_ENV='false'
 
-# mountpoints
-SD_KERNEL='none'
+# which brand?
+BRAND='none'
 
-# ...
-BRAND="bananapi"
-HDD=''
+# copy uboot also to repo? -> for maintainer
+COPY_UBOOT_TO_REPO='false'
+
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -74,6 +66,9 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
+    echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
+    echo "|                cubietruck/nanopi                       |"
+    echo "|        [-r] -> copy bin file to repo (for maintainer)  |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -91,11 +86,12 @@ cleanup() {
 # my exit method
 my_exit()
 {
+    echo " "
+    echo "+----------------------------------------+"
+    echo "|          Cheers $USER            "
+    echo "+----------------------------------------+"
+    echo " "
     umount_partition
-
-    echo "+-----------------------------------+"
-    echo "|          Cheers $USER            |"
-    echo "+-----------------------------------+"
     cleanup
     # http://tldp.org/LDP/abs/html/exitcodes.html
     exit 3
@@ -117,9 +113,11 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hv' opts 2>$_log
+while getopts 'hvb:' opts 2>$_log
 do
     case $opts in
+	b) BRAND=$OPTARG ;;
+	r) COPY_UBOOT_TO_REPO='true' ;;
         h) my_usage ;;
         v) print_version ;;
         ?) my_usage ;;
@@ -139,7 +137,23 @@ if [[ ! ${ARMHF_BIN_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
+if [[ ! ${ARMHF_SRC_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
 if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${OLIMEX_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -173,12 +187,25 @@ check_directory()
     fi
 }
 
+check_uboot_repo()
+{
+    if [[ ! -d "${REPO_PATH}" ]]; then
+	echo "ERROR -> ${repo_name} not available" >&2
+	my_exit
+    fi
+
+    if [[ ! -f "${REPO_PATH}/u-boot-sunxi-with-spl.bin" ]]; then
+	echo "ERROR -> ${REPO_PATH}/u-boot-sunxi-with-spl.bin not available" >&2
+	my_exit
+    fi
+}
+
 mount_partition()
 {
     mount $SD_KERNEL
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not mount ${SD_KERNEL}" >&2
-	my_exit
+	# do not exit -> will try to umount the others
     fi
 }
 
@@ -187,131 +214,83 @@ umount_partition()
     umount $SD_KERNEL
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not umount ${SD_KERNEL}" >&2
-	# do not exit
+	# ignore error
     fi
 }
 
-untar_base_image()
+copy_uboot_to_sdcard()
 {
-    cd $SD_KERNEL
-    tar xzvf ${ARMHF_BIN_HOME}/images/bananapi_kernel.tgz
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/bananapi_kernel.tgz" >&2
+    echo "copy_uboot_to_sdcard"
+
+    # not really needed
+    cp ${REPO_PATH}/u-boot-sunxi-with-spl.bin ${SD_KERNEL}/${BRAND}
+
+    cp ${REPO_PATH}/u-boot-sunxi-with-spl.bin ${SD_KERNEL}/
+    if [ $? -ne 0 ]; then
+	echo "ERROR: could not copy uboot to ${SD_KERNEL}" >&2
 	my_exit
     fi
-
-    cd -
 }
 
-copy_rt()
+copy_uboot_to_repo()
 {
-    cp ${SD_KERNEL}/rt/* $SD_KERNEL
-    cp ${SD_KERNEL}/rt/.config $SD_KERNEL
-    cp ${SD_KERNEL}/${BRAND}/* $SD_KERNEL
-}
+    echo "copy_uboot_to_repo"
 
-copy_hdd()
-{
-    cp ${SD_KERNEL}/${BRAND}/hdd_boot/* $SD_KERNEL
-}
-
-copy_nonrt()
-{
-    cp ${SD_KERNEL}/non-rt/* $SD_KERNEL
-    cp ${SD_KERNEL}/non-rt/.config $SD_KERNEL
-    cp ${SD_KERNEL}/${BRAND}/* $SD_KERNEL
-}
-
-tar_image()
-{
-    cd $SD_KERNEL
-    tar czvf ${ARMHF_BIN_HOME}/images/${BRAND}${HDD}_kernel.tgz .
-
-    if [ $? -ne 0 ] ; then
-	echo "ERROR -> could not tar ${ARMHF_BIN_HOME}/images/${BRAND}${HDD}_kernel.tgz" >&2
+    cp ${REPO_PATH}/u-boot-sunxi-with-spl.bin ${ARMHF_HOME}/${BRAND}/u-boot
+    if [ $? -ne 0 ]; then
+	echo "ERROR: could not copy uboot to ${ARMHF_HOME}/${BRAND}/u-boot" >&2
 	my_exit
     fi
-
-    cd -
 }
 
-do_all_rt()
-{
-    rm -f sun7i-a20-*.dt?
-    rm -f sun8i-h3-nanopi-neo.dt?
-    copy_rt
-    copy_hdd
-    tar_image
-}
-
-do_all_nonrt()
-{
-    rm -f sun7i-a20-*.dt?
-    rm -f sun8i-h3-nanopi-neo.dt?
-    copy_nonrt
-    copy_hdd
-    tar_image
-}
 
 # ******************************************************************************
 # ***                         Main Loop                                      ***
 # ******************************************************************************
 
-echo " "
-echo "+----------------------------------------+"
-echo "|    create all kernel image tarballs    |"
-echo "+----------------------------------------+"
-echo " "
+if [ $BRAND = 'none' ]; then
+    echo "no target device selected -> $BRAND"
+    my_exit
+else
+    echo " "
+    echo "+----------------------------------------+"
+    echo "| build bootloader for $BRAND "
+    echo "+----------------------------------------+"
+    echo " "
+fi
 
-SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+case "$BRAND" in
+    'bananapi')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+        ;;
+    'bananapi-pro')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+        ;;
+    'olimex')
+	SD_KERNEL=$OLIMEX_SDCARD_KERNEL
+        ;;
+    'cubietruck')
+	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
+        ;;
+    'nanopi')
+	SD_KERNEL=$NANOPI_SDCARD_KERNEL
+        ;;
+    *)
+        echo "ERROR -> ${BRAND} is not supported ... pls check" >&2
+        my_exit
+esac
+
+REPO_PATH="${ARMHF_BIN_HOME}/external/u-boot"
+check_uboot_repo
 check_directory
+
 mount_partition
-untar_base_image
+copy_uboot_to_sdcard
 
-#
-# first all device with rt-preempt kernel (bananpi/olimex)
-#
-
-# bananapi -> only hdd image needed (bananapi_kernel.tgz is the base image)
-BRAND="bananapi"
-HDD="_hdd"
-do_all_rt
-
-# olimex
-BRAND="olimex"
-HDD=""
-do_all_rt
-HDD="_hdd"
-do_all_rt
-
-# bananapi-pro
-BRAND="bananapi-pro"
-HDD=""
-do_all_nonrt
-HDD="_hdd"
-do_all_nonrt
-
-# baalue
-BRAND="baalue"
-HDD=""
-do_all_nonrt
-HDD="_hdd"
-do_all_nonrt
-
-# cubietruck
-BRAND="cubietruck"
-HDD=""
-do_all_nonrt
-HDD="_hdd"
-do_all_nonrt
-
-# nanopi
-BRAND="nanopi"
-HDD=""
-do_all_nonrt
-# no reald hdd support for nanopi (only over usb)
-HDD="_hdd"
-do_all_nonrt
+if [ $COPY_UBOOT_TO_REPO = 'true' ]; then
+    echo "copy uboot also to repo"
+    copy_uboot_to_repo
+fi
 
 umount_partition
 

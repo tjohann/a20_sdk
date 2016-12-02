@@ -2,6 +2,14 @@
 # some news ... see also TODO for hints
 #
 
+
+2016-12-02 -> ## script stuff
+	      add check for cross-compiler in build_kernel.sh script
+	      remove unused script prepare_kernel_folder.sh
+
+	      ## sdk stuff
+	      add some make targets to build/install bootloader to external
+
 2016-12-01 -> ## target stuff
 	      update kernel to 4.8.11-rt7
 

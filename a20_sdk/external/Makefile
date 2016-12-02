@@ -114,3 +114,34 @@ build_base_repos::
 uninstall_base_repos::
 	($(ARMHF_HOME)/scripts/helper/build_base_repos.sh -u)
 
+build_uboot_bananapi::
+	($(ARMHF_HOME)/scripts/build_uboot.sh -b bananapi)
+
+build_uboot_bananapi-pro::
+	($(ARMHF_HOME)/scripts/build_uboot.sh -b bananapi-pro)
+
+build_uboot_cubietruck::
+	($(ARMHF_HOME)/scripts/build_uboot.sh -b cubietruck)
+
+build_uboot_olimex::
+	($(ARMHF_HOME)/scripts/build_uboot.sh -b olimex)
+
+build_uboot_nanopi::
+	($(ARMHF_HOME)/scripts/build_uboot.sh -b nanopi)
+
+install_uboot_bananapi::
+	($(ARMHF_HOME)/scripts/install_uboot.sh -b bananapi -r)
+
+install_uboot_bananapi-pro::
+	($(ARMHF_HOME)/scripts/install_uboot.sh -b bananapi-pro -r)
+
+install_uboot_cubietruck::
+	($(ARMHF_HOME)/scripts/install_uboot.sh -b cubietruck -r)
+
+install_uboot_olimex::
+	($(ARMHF_HOME)/scripts/install_uboot.sh -b olimex -r)
+
+install_uboot_nanopi::
+	($(ARMHF_HOME)/scripts/install_uboot.sh -b nanopi -r)
+
+
