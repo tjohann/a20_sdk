@@ -47,25 +47,23 @@ sdk checks:
 	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/)
 
 
-A20_SDK_V2.1.0 (xx.11.2016)
+A20_SDK_V2.1.0 (xx.12.2016)
 ---------------------------
 
-	Common checks                                         [2016-11-XX -> partly]
+	Common checks                                         [2016-12-XX -> partly]
 
 	Config updates (on the target):
 		- add emacs realted (ee.sh/...) config/scripts
 
 	Build updates:
-		- u-boot                                        [2016-11-02 -> done]
-		- build emacs-gtk2 for full image
-		- build emacs-... for base image
+		- u-boot                                            [2016-11-02 -> done]
 
 	SDK updates:
 		- diskfree_sdcard.txt
 		- add base support for nanopi
 
 	Others:
-		- add dts support for mcp2515 (bananapi)
+		- ...
 
 
 A20_SDK_V2.0.5 (27.11.2016)
