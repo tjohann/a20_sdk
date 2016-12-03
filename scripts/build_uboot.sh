@@ -179,10 +179,10 @@ done
 check_uboot_repo()
 {
     local repo_name="http://git.denx.de/u-boot.git"
-    
+
     if [[ ! -d "${REPO_PATH}/u-boot" ]]; then
 	echo "${repo_name}/u-boot not available -> clone it" >&2
-	
+
 	cd ${REPO_PATH}
 	 if [ $? -ne 0 ] ; then
 	     echo "ERROR -> could not cd to $repo_name" >&2
@@ -209,15 +209,15 @@ check_uboot_repo()
 config_uboot()
 {
     echo "configure uboot with $UBOOT_CONFIG to build for $BRAND"
-    
+
     cd ${REPO_PATH}/u-boot
-    
+
     make clean
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not clean ${REPO_PATH}/u-boot" >&2
         my_exit
     fi
-    
+
     make $UBOOT_CONFIG
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not configure uboot for $UBOOT_CONFIG" >&2
@@ -229,7 +229,7 @@ build_uboot()
 {
     echo "build uboot with $UBOOT_CONFIG to build for $BRAND"
     cd ${REPO_PATH}/u-boot
-    
+
     make CROSS_COMPILE=arm-none-linux-gnueabihf-
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build uboot" >&2
