@@ -2,6 +2,10 @@
 # some news ... see also TODO for hints
 #
 
+
+2016-12-13 -> ## target & sdk stuff
+	      update kernel to 4.8.14, 4.8.14-rt9 and 4.9 (nanopi)
+
 2016-12-03 -> ## target & sdk stuff
 	      update kernel to 4.8.12
 

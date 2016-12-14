@@ -6,9 +6,9 @@
 export MY_HOST_ARCH=$(uname -m)
 
 # set supported kernel version
-export ARMHF_KERNEL_VER=4.8.12
-export ARMHF_RT_KERNEL_VER=4.8.11
-export ARMHF_RT_VER=rt7
+export ARMHF_KERNEL_VER=4.8.14
+export ARMHF_RT_KERNEL_VER=4.8.14
+export ARMHF_RT_VER=rt9
 
 # home of the git repo
 export ARMHF_HOME=/var/lib/a20_sdk

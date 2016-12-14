@@ -17,10 +17,10 @@
 # list of available options, their meanings and defaults, please see the
 # ssh_config(5) man page.
 
-# Host *
+Host *
 #   ForwardAgent yes
-#   ForwardX11 yes
-#   ForwardX11Trusted yes
+ ForwardX11 yes
+ ForwardX11Trusted yes
 #   RhostsRSAAuthentication no
 #   RSAAuthentication yes
 #   PasswordAuthentication yes
@@ -49,8 +49,3 @@
 #   VisualHostKey no
 #   ProxyCommand ssh -q -W %h:%p gateway.example.com
 #   RekeyLimit 1G 1h
-
-# target configuration
-Host *
-  ForwardX11 yes
-  ForwardX11Trusted yes

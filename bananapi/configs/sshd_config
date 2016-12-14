@@ -96,15 +96,15 @@ ChallengeResponseAuthentication no
 UsePAM yes
 
 #AllowAgentForwarding yes
-#AllowTcpForwarding yes
+AllowTcpForwarding yes
 #GatewayPorts no
-#X11Forwarding yes
-#X11DisplayOffset 10
-#X11UseLocalhost no
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost no
 #PermitTTY yes
-#PrintMotd no
+PrintMotd no
 #PrintLastLog yes
-#TCPKeepAlive yes
+TCPKeepAlive yes
 #UseLogin no
 #UsePrivilegeSeparation sandbox
 #PermitUserEnvironment no
