@@ -120,6 +120,7 @@ wget
 i2c-tools
 cowsay
 trace-cmd
+... (not all shown here)
 
 
 #

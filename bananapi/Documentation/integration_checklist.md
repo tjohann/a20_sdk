@@ -50,17 +50,18 @@ sdk checks:
 A20_SDK_V2.1.0 (xx.12.2016)
 ---------------------------
 
-	Common checks                                         [2016-12-XX -> partly]
+	Common checks                                         [2016-12-16 -> partly]
 
 	Config updates (on the target):
 		- add emacs realted (ee.sh/...) config/scripts
 
 	Build updates:
 		- u-boot                                            [2016-11-02 -> done]
+		- build emacs by hand (only full image)             [2016-12-16 -> done]
 
 	SDK updates:
 		- diskfree_sdcard.txt
-		- add base support for nanopi
+		- add base support for nanopi                      [2016-12-16 -> done]
 
 	Others:
 		- ...

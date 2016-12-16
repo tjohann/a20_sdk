@@ -10,7 +10,7 @@
 
 ## script stuff
 - add script similiar to build_kernel.sh for bootloader
-  builds (build_uboot.sh and install_uboot.sh)
+  builds (build_uboot.sh and install_uboot.sh)              [2016-xx-xx -> done]
 
 ## toolchain stuff
 - add mkimage from buildroot?
@@ -28,7 +28,7 @@
 #
 
 ## target stuff
-- add distcc config for baalue
+- add distcc config for baalue                              [2016-12-16 -> done]
 - fix wrong motd for baalue                                 [2016-11-08 -> done]
 - change hosts/ip for baalue to new scheme                  [2016-11-08 -> done]
 
