@@ -2,6 +2,8 @@
 # some news ... see also TODO for hints
 #
 
+2016-12-16 -> ## target & sdk stuff
+	      update non-rt kernel to 4.9 for all devices
 
 2016-12-13 -> ## target & sdk stuff
 	      update kernel to 4.8.14, 4.8.14-rt9 and 4.9 (nanopi)
