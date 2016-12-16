@@ -1,15 +1,17 @@
 # ---- full image
-root@bananapi:~# df
-Dateisystem    Größe Benutzt Verf. Verw% Eingeh�ängt auf
-/dev/root       9,8G    4,7G  4,6G   51% /
-devtmpfs        464M    4,0K  464M    1% /dev
-run             465M    276K  464M    1% /run
-shm             465M       0  465M    0% /dev/shm
-cgroup          465M       0  465M    0% /sys/fs/cgroup
-tmpfs           465M       0  465M    0% /tmp
-/dev/mmcblk0p1   33M     20M   14M   60% /boot
-/dev/mmcblk0p3  4,2G     17M  3,9G    1% /home
-none            465M       0  465M    0% /run/user/0
+baalue@bananapi:~$ df -h
+Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
+/dev/root       6,0G    5,0G  635M   89% /
+devtmpfs        465M    4,0K  465M    1% /dev
+run             466M    256K  465M    1% /run
+shm             466M       0  466M    0% /dev/shm
+cgroup          466M       0  466M    0% /sys/fs/cgroup
+tmpfs           466M       0  466M    0% /tmp
+/dev/mmcblk0p1   32M     20M   12M   63% /boot
+/dev/mmcblk0p3  8,7G    254M  8,0G    4% /home
+none            466M       0  466M    0% /run/user/0
+none            466M    4,0K  466M    1% /run/user/1000
+
 
 # ---- base image
 root@bananapi:~# df
