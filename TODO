@@ -59,6 +59,8 @@
   more "desktop" systems lika baalue_master
   - link more terminals to /var/service
   - link lxdm to /var/service
+  - link gpm
+  - edit lxdm config to use tty9 instead of tty7
 
 ## script stuff
 - add void-package to external                              [2016-11-08 -> done]
