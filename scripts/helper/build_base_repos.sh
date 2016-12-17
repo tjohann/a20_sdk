@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.10.2016/26.09.2016
+# Date/Beginn :    17.12.2016/26.09.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (dec 2016) -> fix wrong location
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                                      add make uninstall target
 #                                      fix some smaller bugs/problems
 #                  V0.01 (sep 2016) -> first working version
@@ -50,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -237,7 +238,7 @@ install_all()
     CONFIGURE_ADDS=''
     build_make_install
 
-    BUILD_DIR=${ARMHF_BIN_HOME}/external/mydrivercan_lin_env
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/can_lin_env
     CONFIGURE_ADDS=''
     build_make_install
 
