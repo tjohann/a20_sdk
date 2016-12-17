@@ -4,7 +4,10 @@
 
 ################## 2016-12-XX -> A20_SDK_V2.1.0 #############################
 
-2016-12-16 -> ## target & sdk stuff
+2016-12-17 -> ## target && sdk stuff
+	      go back to 4.8 kernel for non-rt due to dtb problems
+
+2016-12-16 -> ## target && sdk stuff
 	      update non-rt kernel to 4.9 for all devices
 
 	      ## target
@@ -12,10 +15,10 @@
 	      add gtk*-devel packages (only full image)
 	      build emacs-gtk2 by hand (only full image)
 
-2016-12-13 -> ## target & sdk stuff
+2016-12-13 -> ## target && sdk stuff
 	      update kernel to 4.8.14, 4.8.14-rt9 and 4.9 (nanopi)
 
-2016-12-03 -> ## target & sdk stuff
+2016-12-03 -> ## target && sdk stuff
 	      update kernel to 4.8.12
 
 2016-12-02 -> ## script stuff
@@ -37,7 +40,7 @@
 
 ################## 2016-11-27 -> A20_SDK_V2.0.5 #############################
 
-2016-11-27 -> ## target & sdk stuff
+2016-11-27 -> ## target && sdk stuff
 	      update kernel to 4.8.11 and 4.9-rc6 for nanopi
 
 2016-11-23 -> ## sdk stuff
@@ -136,21 +139,21 @@
 	      add man page (based on READM.md)
 	      add additional Makefile tag -> make man
 
-2016-09-28 -> ## sdk & target stuff
+2016-09-28 -> ## sdk && target stuff
 	      add another stack for baalue
 
-2016-09-27 -> ## sdk & script stuff
+2016-09-27 -> ## sdk && script stuff
 	      add a simple helper script to create the image tarballs
 	      (prepare_image_tarballs.sh)
 	      add a simple script which builds and installs the base repos in
 	      external (mainly used on the target)
 	      add X capable ssh(d)_config for host and target
 
-2016-09-25 -> ## sdk & script stuff
+2016-09-25 -> ## sdk && script stuff
 	      add my can_lin_env repo to external
 	      add make build_base_repos target to external
 
-2016-09-23 -> ## sdk & target stuff
+2016-09-23 -> ## sdk && target stuff
 	      add motd generated via http://patorjk.com/software/taag/
 	      rework baalue device handling (see README.md)
 
@@ -164,7 +167,7 @@
 2016-09-22 -> ## sdk stuff
 	      update buildroot parts of the toolchain
 
-	      ## script & target stuff
+	      ## script && target stuff
 	      remove arm926_sdk parts
 
 2016-09-21 -> ## sdk stuff
@@ -178,13 +181,13 @@
 2016-09-11 -> ## target stuff
 	      update kernel to 4.6.7-rt12
 
-2016-09-07 -> ## sdk & script stuff
+2016-09-07 -> ## sdk && script stuff
 	      add new script to build a kernel
 
 
 ################## 2016-08-27 -> A20_SDK_V1.99.8 ############################
 
-2016-08-27 -> ## sdk & script stuff
+2016-08-27 -> ## sdk && script stuff
 	      add content to prepare_all_kernel* helper script
 
 	      ## target stuff
@@ -267,7 +270,7 @@
 
 ################## 2016-07-30 -> A20_SDK_V1.1.99 ###########################
 
-2016-07-30 -> ## script & sdk stuff
+2016-07-30 -> ## script && sdk stuff
 	      a lot of fixes/adaptions to a unified image
 	      alpha version for the unified images
 
@@ -306,7 +309,7 @@
 	      remove usage of swap -> not neeeded
 	      update kernel to 4.6.4 and 4.6.4-rt6
 
-	      ## sdk & target stuff
+	      ## sdk && target stuff
 	      change device naming of all cluster nodes (see
 	      ./bananapi/configs/host*)
 
@@ -318,7 +321,7 @@
 	      add skeleton of make_sdcard.sh
 	      a lot of minor updates/cleanups
 
-	      ## sdk & target stuff
+	      ## sdk && target stuff
 	      add baalue as independent target
 
 2016-07-10 -> ## script stuff
