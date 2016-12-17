@@ -14,14 +14,15 @@ none            466M    4,0K  466M    1% /run/user/1000
 
 
 # ---- base image
-root@bananapi:~# df
+baalue@bananapi:/opt/a20_sdk/external/mydriver$ df -h
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/root       3.0G  2.6G  293M  90% /
-devtmpfs        464M  4.0K  464M   1% /dev
-run             465M  240K  464M   1% /run
+/dev/root       3.0G  2.8G   80M  98% /
+devtmpfs        464M  4.0K  463M   1% /dev
+run             465M  248K  464M   1% /run
 shm             465M     0  465M   0% /dev/shm
 cgroup          465M     0  465M   0% /sys/fs/cgroup
 tmpfs           465M     0  465M   0% /tmp
-/dev/mmcblk0p1   32M   20M   13M  62% /boot
-/dev/mmcblk0p3   12G   43M   11G   1% /home
+/dev/mmcblk0p1   32M   26M  6.2M  81% /boot
+/dev/mmcblk0p3   12G  258M   11G   3% /home
+
 
