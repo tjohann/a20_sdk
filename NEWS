@@ -4,6 +4,9 @@
 
 ################## 2016-12-XX -> A20_SDK_V2.1.0 #############################
 
+2016-12-18 -> ## sdk stuff
+	      fix wrong ip of baalue_master branding tarball
+
 2016-12-17 -> ## target && sdk stuff
 	      go back to 4.8 kernel for non-rt due to dtb problems
 
