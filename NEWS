@@ -2,7 +2,14 @@
 # some news ... see also TODO for hints
 #
 
-################## 2016-12-XX -> A20_SDK_V2.1.0 #############################
+
+################## 2017-01-XX -> A20_SDK_V2.1.0 #############################
+
+2016-12-28 -> ## target && sdk stuff
+	      update kernel to 4.8.15-rt10
+
+
+################## 2016-12-28 -> A20_SDK_V2.0.6 #############################
 
 2016-12-18 -> ## sdk stuff
 	      fix wrong ip of baalue_master branding tarball
