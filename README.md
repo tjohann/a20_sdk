@@ -337,7 +337,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 	Baalue-Node -> PREEMPT
 	Bananapi-Pro -> PREEMPT
 	Cubietruck -> PREEMPT
-	NanoPi -> PREEMPT (base support vi 4.9-rcX)
+	NanoPi -> PREEMPT (base support via 4.9.2)
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}.
 
@@ -572,10 +572,8 @@ Outlook (next development steps)
 
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
 
-(until mid of december)
-- initial setup for nanopi-neo (wait for release of linux-4.9)
 
-(until end of december)
+(until end of january)
 - add storyline for bananapi-pro (home cloud server)
 - add storyline for baalue (distcc -> build emacs-gtk)
 - make use of lcd1602 module of cubietruck (baalue_master)

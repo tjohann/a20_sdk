@@ -44,7 +44,7 @@
 - remove lightdm                                            [2016-11-08 -> done]
 - install lxdm                                              [2016-11-08 -> done]
 - install distcc                                            [2016-11-08 -> done]
-- build emacs for full image
+- build emacs for full image                                [2016-12-XX -> done]
   - gtk+2-devel
   - libxpm-devel
   - ...
