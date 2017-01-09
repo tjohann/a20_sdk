@@ -3,11 +3,14 @@
 #
 
 
-## 2016-12-02
-- I have changed the external download scripts -> do a make init_sdk
+## 2017-01-09
+- I have changed some of the scripts and updated other stuff -> do a make distclean and make init_sdk
 
 
 # --------------------------------- deprecated --------------------------------
+
+## 2016-12-02
+- I have changed the external download scripts -> do a make init_sdk
 
 ## 2016-11-08
 - I have changed the external download scripts -> do a make init_sdk
