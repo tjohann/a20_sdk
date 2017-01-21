@@ -3,6 +3,11 @@
 #
 
 
+2017-01-21 -> ## target && sdk stuff
+	      update kernel to 4.9.5 and 4.9.4-rt2
+	      nanopi is now in line with the rest devices
+
+
 ################## 2017-01-XX -> A20_SDK_V2.1.1 #############################
 
 2017-01-09 -> ## target && sdk stuff
