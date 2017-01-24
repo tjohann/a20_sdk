@@ -241,7 +241,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V2.1.0
+	A20_SDK_V2.1.1
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
@@ -573,11 +573,11 @@ Outlook (next development steps)
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
 
 
-(until end of january)
+(until end of february)
 - add storyline for bananapi-pro (home cloud server)
 - add storyline for baalue (distcc -> build emacs-gtk)
 - make use of lcd1602 module of cubietruck (baalue_master)
-- make all scripts "self hosting" so that all scripts would also run on the target device (lile build_kernel.sh running on baalue_master)
+- make all scripts "self hosting" so that all scripts would also run on the target device (like build_kernel.sh running on baalue_master)
 
 (future steps)
 - add dtc config for mcp2515 (bananapi and cubietruck)
