@@ -5,6 +5,14 @@
 
 
 #
+# -------------- 2017-01-26 ----------------------------------------------------
+#
+## target stuff (base-image)
+- install kernel header instead of complete linux source
+  tree (will reduce the sice drastically)
+
+
+#
 # -------------- 2016-12-02 ----------------------------------------------------
 #
 
@@ -13,7 +21,7 @@
   builds (build_uboot.sh and install_uboot.sh)              [2016-xx-xx -> done]
 
 ## toolchain stuff
-- add mkimage from buildroot?
+- add mkimage from buildroot?                               [2017-01-25 -> done]
 
 
 # -------------- 2016-11-23 ----------------------------------------------------
