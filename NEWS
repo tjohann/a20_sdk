@@ -3,6 +3,15 @@
 #
 
 
+2017-01-24 -> ## toolchain stuff
+	      update toolchain to latest void-linux versions
+
+	      ## target && sdk stuff
+	      update kernel to 4.9.6
+
+	      ## target stuff
+	      regular image updates
+
 2017-01-24 -> ## sdk stuff
 	      some smaller updates/improvements
 
