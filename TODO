@@ -11,6 +11,10 @@
 - install kernel header instead of complete linux source
   tree (will reduce the sice drastically)
 
+## script stuff
+- remove the dt{s,b} from kernel image copied by prepare_all_kernel_images
+  script (add something like a cleanup)
+
 
 #
 # -------------- 2016-12-02 ----------------------------------------------------
