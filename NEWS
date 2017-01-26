@@ -12,6 +12,9 @@
 	      ## target stuff
 	      regular image updates
 
+	      ## scripts stuff
+	      fix debug build arguments of *baalue* in build_base_repo script
+
 2017-01-24 -> ## sdk stuff
 	      some smaller updates/improvements
 
