@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.12.2016/02.12.2016
+# Date/Beginn :    27.01.2017/02.12.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
-# Milestones  :    V0.01 (dec 2016) -> initial version
+# Milestones  :    V0.02 (jan 2017) -> fix kdo argument handling
+#                  V0.01 (dec 2016) -> initial version
 #
 # Requires    :
 #
@@ -113,7 +114,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvb:' opts 2>$_log
+while getopts 'hvrb:' opts 2>$_log
 do
     case $opts in
 	b) BRAND=$OPTARG ;;

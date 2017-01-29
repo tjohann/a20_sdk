@@ -3,6 +3,12 @@
 #
 
 
+2017-01-27 -> ## target stuff
+	      update uboot for nanopi
+
+	      ## script stuff
+	      fix wrong kdo handling in script install_uboot.sh
+
 2017-01-24 -> ## toolchain stuff
 	      update toolchain to latest void-linux versions
 
@@ -12,10 +18,10 @@
 	      ## target stuff
 	      regular image updates
 
-	      ## scripts stuff
+	      ## script stuff
 	      fix debug build arguments of *baalue* in build_base_repo script
 
-2017-01-24 -> ## sdk stuff
+2017-01-23 -> ## sdk stuff
 	      some smaller updates/improvements
 
 
