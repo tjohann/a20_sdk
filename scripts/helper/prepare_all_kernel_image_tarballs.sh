@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.12.2016/26.08.2016
+# Date/Beginn :    31.01.2016/26.08.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (dec 2016) -> minor changes
+# Milestones  :    V2.03 (jan 2017) -> fix remove of old dts/dtb
+#                  V2.02 (dec 2016) -> minor changes
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.03 (sep 2016) -> whitespaces
@@ -53,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -235,10 +236,15 @@ tar_image()
     cd -
 }
 
+rm_old_dts()
+{
+    rm -f ${SD_KERNEL}/sun7i-a20-*.dt?
+    rm -f ${SD_KERNEL}/sun8i-h3-nanopi-neo.dt?
+}
+
 do_all_rt()
 {
-    rm -f sun7i-a20-*.dt?
-    rm -f sun8i-h3-nanopi-neo.dt?
+    rm_old_dts
     copy_rt
     copy_hdd
     tar_image
@@ -246,8 +252,7 @@ do_all_rt()
 
 do_all_nonrt()
 {
-    rm -f sun7i-a20-*.dt?
-    rm -f sun8i-h3-nanopi-neo.dt?
+    rm_old_dts
     copy_nonrt
     copy_hdd
     tar_image

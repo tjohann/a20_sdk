@@ -2,6 +2,15 @@
 # some news ... see also TODO for hints
 #
 
+2017-02-01 -> ## target && sdk stuff
+	      update kernel to 4.9.6-rt4
+
+2017-01-31 -> ## script stuff
+	      fix remove of old dts/dtb files in helper script
+	      prepare_all_kernel_image_tarballs.sh
+
+
+################## 2017-01-28 -> A20_SDK_V2.2.0 #############################
 
 2017-01-27 -> ## target stuff
 	      update uboot for nanopi
