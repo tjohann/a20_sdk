@@ -24,9 +24,9 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.12.2016/02.12.2016
+# Date/Beginn :    06.02.2017/02.12.2016
 #
-# Version     :    V0.01
+# Version     :    V0.02
 #
 # Milestones  :    V0.01 (dec 2016) -> initial version
 #
@@ -45,7 +45,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -274,7 +274,7 @@ case "$BRAND" in
         my_exit
 esac
 
-REPO_PATH="${ARMHF_BIN_HOME}/external/"
+REPO_PATH="${ARMHF_BIN_HOME}/external"
 check_uboot_repo
 
 config_uboot
