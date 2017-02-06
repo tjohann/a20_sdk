@@ -5,6 +5,7 @@
 2017-02-06 -> ## target stuff
 	      update uboot for nanopi
 	      add a lot of new driver to non-rt kernel
+	      nanopi-neo is working with non-rt kernel
 
 2017-02-05 -> ## target && sdk stuff
 	      update kernel to 4.9.8
