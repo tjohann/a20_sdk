@@ -4,6 +4,18 @@
 #
 
 #
+# -------------- 2017-02-11 ----------------------------------------------------
+#
+## target stuff
+- check all *baalue* installed parts and remove old stuff
+  - base image
+  - full image
+- check /etc/profile.d for old armhf* stuff
+  - base image
+  - full image
+
+
+#
 # -------------- 2017-02-01 ----------------------------------------------------
 #
 ## target stuff

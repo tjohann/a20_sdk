@@ -29,6 +29,7 @@ build/config updates on device (for base/normal image):
 	- /opt/a20_sdk/external (make get_base_repos && make build_base_repos)
 	- /usr/src/jailhouse (git pull && make clean && make && sudo make install)
 	- copy /home/baalue/src/ap6210/* to /lib/firmware/ap6210
+	- updatedb
 
 tool checks on device:
 
