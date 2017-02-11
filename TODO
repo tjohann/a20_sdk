@@ -13,6 +13,7 @@
 - check /etc/profile.d for old armhf* stuff
   - base image
   - full image
+- activate baalued
 
 ## script stuff
 - make a20_sdk scripts work (native) on baalue_master
