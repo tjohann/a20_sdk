@@ -63,8 +63,27 @@ A20_SDK_V2.3.0 (XX.02.2017)
 
 	SDK updates:
 		- ...
+
 	Others:
 		- ...
+
+
+A20_SDK_V2.2.2 (11.02.2017)
+---------------------------
+
+	Common checks                                     [2017-02-11 -> not needed]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- Activate baalued on both images
 
 
 A20_SDK_V2.2.1 (11.02.2017)
@@ -80,6 +99,7 @@ A20_SDK_V2.2.1 (11.02.2017)
 
 	SDK updates:
 		- ...
+
 	Others:
 		- ...
 
@@ -97,6 +117,7 @@ A20_SDK_V2.2.1 (XX.0X.2017)
 
 	SDK updates:
 		- ...
+
 	Others:
 		- ...
 
@@ -114,6 +135,7 @@ A20_SDK_V2.2.0 (28.01.2017)
 
 	SDK updates:
 		- ...
+
 	Others:
 		- ...
 
@@ -131,6 +153,7 @@ A20_SDK_V2.1.1 (21.01.2017)
 
 	SDK updates:
 		- ...
+
 	Others:
 		- ...
 
