@@ -205,7 +205,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.9. /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-4.9.9 /mnt/bananapi/bananapi_rootfs/usr/src/.
 KDO(rt): sudo rsync -avz --delete linux-4.9.6_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
