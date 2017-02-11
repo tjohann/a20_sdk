@@ -8,11 +8,11 @@
 #
 ## target stuff
 - check all *baalue* installed parts and remove old stuff
-  - base image
-  - full image
+  - base image                                              [2017-02-11 -> done]
+  - full image                                              [2017-02-11 -> done]
 - check /etc/profile.d for old armhf* stuff
-  - base image
-  - full image
+  - base image                                              [2017-02-11 -> done]
+  - full image                                              [2017-02-11 -> done]
 - activate baalued
 
 ## script stuff
@@ -20,7 +20,12 @@
   - build_kernel
   - build_uboot
   - ...
-- handle toolchain correctly for usage on baalue_master
+- handle (cross-)toolchain correctly for usage on
+  baalue_master
+
+## target & sdk stuff
+- create profile script which checks for updates of a20_sdk and pulls them
+  automatically (incl armhf_env.sh updates)
 
 
 #

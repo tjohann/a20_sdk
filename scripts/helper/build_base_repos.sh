@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    26.01.2017/26.09.2016
+# Date/Beginn :    11.02.2017/26.09.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (jan 2017) -> fix wrong debug argument for *baalue*
+# Milestones  :    V2.03 (feb 2017) -> fix uninstall function
+#                                      change build order -> kernel driver needed
+#                                      for libbaalue (lcd160x part)
+#                  V2.02 (jan 2017) -> fix wrong debug argument for *baalue*
 #                  V2.01 (dec 2016) -> fix wrong location
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                                      add make uninstall target
@@ -52,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -218,17 +221,6 @@ install_all()
     build_autogen
 
     #
-    # build the "./bootstrap && ./configure ..." repos
-    #
-    BUILD_DIR=${ARMHF_BIN_HOME}/external/libbaalue
-    CONFIGURE_ADDS="--enable-debug-info --enable-examples --enable-lcd160x"
-    build_bootstrap
-
-    BUILD_DIR=${ARMHF_BIN_HOME}/external/baalued
-    CONFIGURE_ADDS="--enable-debug-info"
-    build_bootstrap
-
-    #
     # build the "make install" repos
     #
     BUILD_DIR=${ARMHF_BIN_HOME}/external/mydriver
@@ -246,6 +238,17 @@ install_all()
     BUILD_DIR=${ARMHF_BIN_HOME}/external/lcd160x_driver
     CONFIGURE_ADDS=''
     build_make_install
+
+    #
+    # build the "./bootstrap && ./configure ..." repos
+    #
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/libbaalue
+    CONFIGURE_ADDS="--enable-debug-info --enable-examples --enable-lcd160x"
+    build_bootstrap
+
+    BUILD_DIR=${ARMHF_BIN_HOME}/external/baalued
+    CONFIGURE_ADDS="--enable-debug-info"
+    build_bootstrap
 }
 
 uninstall_all()
@@ -271,7 +274,10 @@ uninstall_all()
     cd ${ARMHF_BIN_HOME}/external/time_triggert_env
     sudo make uninstall
 
-    cd ${ARMHF_BIN_HOME}/external/mydrivercan_lin_env
+    cd ${ARMHF_BIN_HOME}/external/can_lin_env
+    sudo make uninstall
+
+    cd ${ARMHF_BIN_HOME}/external/mydriver
     sudo make uninstall
 
     cd ${ARMHF_BIN_HOME}/external/lcd160x_driver
