@@ -8,6 +8,10 @@
 	      ## target && script stuff
 	      increase size of the root partition to 4/7 Gig
 
+	      ## target
+	      fix wrong shared mount point of hdd installations
+	      (see KNOWN_ISSUES for more info)
+
 2017-02-06 -> ## target stuff
 	      update uboot for nanopi
 	      add a lot of new driver to non-rt kernel

@@ -2,6 +2,9 @@
 # known issues
 #
 
+- all version which use hdd installation:
+The device to mount /mnt/bananapi/bananapi_shared is mmcblp0p2 instead of mmcblp0p3.
+This lead to wrong mount if you want on a hdd installation mount the shared partition.
 
 - all versions with kernel 4.X.X-rtX:
 There's a bug within the RT-PREEMPT parts (but has no impact ... as far as i have tested):
