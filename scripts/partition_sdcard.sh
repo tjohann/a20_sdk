@@ -28,7 +28,7 @@
 #
 # Version     :    V2.02
 #
-# Milestones  :    V2.02 (feb 2017) -> increase size of root partitions to 4/7Gig
+# Milestones  :    V2.02 (feb 2017) -> increase size of root partitions to 4/8Gig
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.05 (aug 2016) -> add partprobe to inform kernel of changes
@@ -64,7 +64,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -375,7 +375,7 @@ EOT
 	sudo blockdev --rereadpt ${DEVNODE}
 	cat <<EOT | sudo sfdisk ${DEVNODE}
 1M,32M,c
-,7G,L
+,8G,L
 ,,L
 EOT
     fi
