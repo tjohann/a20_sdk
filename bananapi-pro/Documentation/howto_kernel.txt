@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   05.02.2017/17.01.2016
+Date:   11.02.2017/17.01.2016
 
 Content:
 
@@ -44,6 +44,7 @@ Preparation
 Device
 -------
 
+- NanoPi Neo-Allwinner -> see $(ARMHF_HOME)/nanopi
 - Bananapi-M1(pro) <-- for this device is the howto
 - Cubietruck (cb3) -> see $(ARMHF_HOME)/cubietruck
 - Olimex A20-SOM   -> see $(ARMHF_HOME)/olimex
@@ -52,7 +53,7 @@ Device
 Kernel version
 --------------
 
-- linux-4.9.8
+- linux-4.9.9
 
 
 Downloads (use make get_latest_kernel)
@@ -124,7 +125,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.8 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.9 modules_install
 
 
 Deploy SD-Card
@@ -150,7 +151,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_4.9.8/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_4.9.9/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -158,7 +159,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.9.8 /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-4.9.9 /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
 Finalize
@@ -169,14 +170,14 @@ Finish -> after login
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.9.8 linux
+KDO: ln -s linux-4.9.9 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel
 ---------------------------------------------------------------
 
-DIR: /usr/src/linux-4.9.8
+DIR: /usr/src/linux-4.9.9
 KDO: make clean
 KDO: make scripts
 
@@ -184,8 +185,8 @@ KDO: make scripts
 Prepare modules to link
 -----------------------
 
-DIR: /lib/modules/4.9.8
+DIR: /lib/modules/4.9.9
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.9.8 source
-KDO: ln -s /usr/src/linux-4.9.8 build
+KDO: ln -s /usr/src/linux-4.9.9 source
+KDO: ln -s /usr/src/linux-4.9.9 build

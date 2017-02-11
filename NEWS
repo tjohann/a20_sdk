@@ -2,6 +2,9 @@
 # some news ... see also TODO for hints
 #
 
+2017-02-11 -> ## target && sdk stuff
+	      update kernel to 4.9.9
+
 2017-02-06 -> ## target stuff
 	      update uboot for nanopi
 	      add a lot of new driver to non-rt kernel
