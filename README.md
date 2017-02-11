@@ -42,7 +42,7 @@ Requirement
 
 The only yet know software requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to make your sd-card -> a20_sdk_make_sdcard.sh).
 
-For the two types of provided images ("normal" and "base/small") you need sd-cards with 8 or 4 gig of size. If you want to use a hdd it should be at least large then 10 gig (i use 500 gig connected to my Cubietruck and Bananapi-Pro).
+For the two types of provided images ("normal" and "base/small") you need sd-cards with 10 or 6 gig of size. If you want to use a hdd it should be at least large then 16 gig (i use 500 gig connected to my Cubietruck and Bananapi-Pro).
 
 
 Background
@@ -307,12 +307,12 @@ Two different version of the images are supported:
 	"normal" -> it's a large image with all important parts installed
 	"base/small" -> it's a image where only base components are installed
 
-You can think of the base/small image as a starting point for your individual device config. The images size also reflects the partition size, so you need at least 4 or 8 gig sd-cards.
+You can think of the base/small image as a starting point for your individual device config. The images size also reflects the partition size, so you need at least 6 or 10 gig sd-cards.
 
 A sd-card (for sd-card installation) needs 3 different partitions which are reflected by the images tarballs itself:
 
 	1). kernel (fat32/32 meg) -> bananapi_(hdd_)kernel.tgz/cubietruck_(hdd_)kernel.tgz/...
-	2). rootfs (ext4/4 or 8 gig) -> a20_sdk_rootfs.tgz/a20_sdk_base_image.tgz
+	2). rootfs (ext4/6 or 10 gig) -> a20_sdk_rootfs.tgz/a20_sdk_base_image.tgz
 	3). home (ext4/ the rest) -> a20_sdk_home.tgz
 
 

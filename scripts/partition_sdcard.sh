@@ -24,18 +24,19 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.11.2016/07.07.2016
+# Date/Beginn :    11.02.2017/07.07.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add support for nanopi-neo
+# Milestones  :    V2.02 (feb 2017) -> increase size of root partitions to 4/7Gig
+#                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.05 (aug 2016) -> add partprobe to inform kernel of changes
 #                                      clear also partition table
 #                  V1.04 (aug 2016) -> sudo handling at beginning
 #                  V1.03 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.02 (aug 2016) -> add features of make_sdcard.sh
-#                  V1.01 (jul 2016) -> increase size of small rootfs to 3G
+#                  V1.01 (jul 2016) -> increase size of small rootfs to 3Gig
 #                  V1.00 (jul 2016) -> version bump
 #                  V0.05 (jul 2016) -> some smaller cleanups
 #                  V0.04 (jul 2016) -> add check for device-nodes
@@ -367,14 +368,14 @@ partition_sdcard()
 	sudo blockdev --rereadpt ${DEVNODE}
 	cat <<EOT | sudo sfdisk ${DEVNODE}
 1M,32M,c
-,3G,L
+,4G,L
 ,,L
 EOT
     else
 	sudo blockdev --rereadpt ${DEVNODE}
 	cat <<EOT | sudo sfdisk ${DEVNODE}
 1M,32M,c
-,6G,L
+,7G,L
 ,,L
 EOT
     fi
