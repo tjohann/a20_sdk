@@ -13,7 +13,7 @@
 - check /etc/profile.d for old armhf* stuff
   - base image                                              [2017-02-11 -> done]
   - full image                                              [2017-02-11 -> done]
-- activate baalued
+- activate baalued                                          [2017-02-11 -> done]
 
 ## script stuff
 - make a20_sdk scripts work (native) on baalue_master
@@ -39,7 +39,7 @@
 # -------------- 2017-01-31 ----------------------------------------------------
 #
 ## target stuff
-- check again nanopi kernel config -> wont boot with 4.9.6
+- check again nanopi kernel config -> wont boot with 4.9.6  [2017-02-06 -> done]
 
 
 #
@@ -100,7 +100,8 @@
   - ...
 
 ## target stuff (cubietruck specific)
-- add bluetooth stuff (see https://github.com/phelum/CT_Bluetooth)
+- add bluetooth stuff
+  (see https://github.com/phelum/CT_Bluetooth)
 - add firmware (see                                         [2016-11-08 -> done]
   https://www.robert-sperling.de/de/cubitruck-kernel-aktualisiert/)
 

@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.11.2016/15.07.2016
+# Date/Beginn :    15.02.2017/15.07.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add support for nanopi-neo
+# Milestones  :    V2.02 (feb 2017) -> add check for untar to $SD_HOME
+#                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.07 (aug 2016) -> remove dot from untar kdo (not needed)
 #                  V1.06 (aug 2016) -> whitespaces
@@ -432,6 +433,10 @@ untar_images()
 	else
 	    cd $SD_HOME
 	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz
+	    if [ $? -ne 0 ] ; then
+		echo "ERROR -> could not untar ${ARMHF_BIN_HOME}/images/a20_sdk_home.tgz" >&2
+		my_exit
+	    fi
 	fi
     fi
 

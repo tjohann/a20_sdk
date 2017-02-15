@@ -3,6 +3,13 @@
 #
 
 
+2017-02-15 -> ## sdk stuff
+	      some smaller improvements in untar_images script
+
+2017-02-14 -> ## target && sdk stuff
+	      update kernel to 4.9.9-rt6
+
+
 ################## 2017-02-11 -> A20_SDK_V2.2.2 #############################
 
 2017-02-11 -> ## target stuff

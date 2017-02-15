@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   11.02.2017/12.01.2016
+Date:   14.02.2017/12.01.2016
 
 Content:
 
@@ -58,7 +58,7 @@ Kernel version
 --------------
 
 - linux-4.9.9
-- linux-4.9.6-rt4 (latest RT-PREEMPT)
+- linux-4.9.9-rt (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
@@ -107,8 +107,8 @@ Patch kernel
 RT-PREEMPT
 ----------
 
-DIR: $ARMHF_BIN/HOME/kernel/linux-4.9.6_rt
-KDO: zcat ../patch-4.9.6-rt4.patch.gz | patch -p1
+DIR: $ARMHF_BIN/HOME/kernel/linux-4.9.9_rt
+KDO: zcat ../patch-4.9.9-rt6.patch.gz | patch -p1
 
 
 Configure/build kernel
@@ -158,7 +158,7 @@ Install modules
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.9 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.6_rt modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.9_rt modules_install
 
 
 
@@ -197,7 +197,7 @@ Copy modules
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: sudo rsync -avz ../modules_4.9.9/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avz ../modules_4.9.6_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avz ../modules_4.9.9_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -206,7 +206,7 @@ Copy cleaned source to sd card
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
 KDO: sudo rsync -avz --delete linux-4.9.9 /mnt/bananapi/bananapi_rootfs/usr/src/.
-KDO(rt): sudo rsync -avz --delete linux-4.9.6_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO(rt): sudo rsync -avz --delete linux-4.9.9_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
 

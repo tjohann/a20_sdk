@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    08.11.2016/15.08.2015
+# Date/Beginn :    14.02.2017/15.08.2015
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add void-packages
+# Milestones  :    V2.02 (feb 2017) -> whitespaces
+#                  V2.01 (nov 2016) -> add void-packages
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (sep 2016) -> add can_lin_env
 #                  V1.03 (aug 2016) -> add features of make_sdcard.sh
@@ -89,7 +90,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -98,8 +99,8 @@ MISSING_ENV='false'
 # rt-tests -> http://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git
 # uboot -> git://git.denx.de/u-boot.git
 # can-utils -> https://github.com/linux-can/can-utils.git
+# jailhouse -> https://github.com/siemens/jailhouse.git
 # sdk_builder -> http://github.com/tjohann/sdk_builder.git
-# a20_sdk -> http://github.com/tjohann/a20_sdk.git
 # allwinner -> http://github.com/allwinner-zh/documents.git
 # lcd1602 -> http://github.com/tjohann/lcd160x_driver.git
 # mydriver -> http://github.com/tjohann/mydriver.git
@@ -136,7 +137,7 @@ my_usage()
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
     echo "| Example:                                               |"
-    echo "| get_external_git_repos.sh -r xenomai -p http           |"
+    echo "| get_external_git_repos.sh -r uboot -p http             |"
     echo "|                                                        |"
     echo "| Valid repo names:                                      |"
     echo "| REPO: rt-tests -> rt-test tools                        |"
