@@ -2,6 +2,17 @@
 # some news ... see also TODO for hints
 #
 
+2017-02-24 -> ## target & sdk stuff
+	      update kernel for nanopi to 4.10
+
+	      ## target stuff
+	      update u-boot for nanopi
+
+	      ## sdk stuff
+	      update pics
+
+2017-02-23 -> ## sdk stuff
+	      update toolchain to reflect the target installation
 
 2017-02-19 -> ## target && sdk stuff
 	      update kernel to 4.9.11-rt9 and 4.9.112017-02-14 -> ## target && sdk stuff

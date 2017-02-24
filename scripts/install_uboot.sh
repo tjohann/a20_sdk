@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.01.2017/02.12.2016
+# Date/Beginn :    24.02.2017/02.12.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.02 (jan 2017) -> fix kdo argument handling
+# Milestones  :    V0.03 (feb 2017) -> some smaller changes
+#                  V0.02 (jan 2017) -> fix kdo argument handling
 #                  V0.01 (dec 2016) -> initial version
 #
 # Requires    :
@@ -46,7 +47,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.01'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -73,6 +74,8 @@ my_usage()
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
+    echo "| Note: to WRITE the bootloader to sd-card, pls use the  |"
+    echo "|       script write_bootloader.sh!                      |"
     echo "+--------------------------------------------------------+"
     echo " "
     exit
