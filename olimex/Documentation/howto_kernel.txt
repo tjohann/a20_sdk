@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   19.02.2017/12.01.2016
+Date:   26.02.2017/12.01.2016
 
 Content:
 
@@ -55,7 +55,7 @@ Device
 Kernel version
 --------------
 
-- linux-4.9.11
+- linux-4.9.12
 - linux-4.9.11-rt6 (latest RT-PREEMPT)
 
 
@@ -140,7 +140,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.11 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.12 modules_install
 KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.11_rt modules_install
 
 
@@ -168,7 +168,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_4.9.11/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_4.9.12/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 KDO(rt): sudo rsync -avz ../modules_4.9.11_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 
@@ -177,7 +177,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.9.11 /mnt/olimex/olimex_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-4.9.12 /mnt/olimex/olimex_rootfs/usr/src/.
 KDO(rt): sudo rsync -avz --delete linux-4.9.11_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
@@ -190,14 +190,14 @@ Finish -> after login (non-rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.9.11 linux
+KDO: ln -s linux-4.9.12 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (non-rt)
 ------------------------------------------------------------------------
 
-DIR: /usr/src/linux-4.9.11
+DIR: /usr/src/linux-4.9.12
 KDO: make clean
 KDO: make scripts
 
@@ -205,8 +205,8 @@ KDO: make scripts
 Prepare modules to link (non-rt)
 --------------------------------
 
-DIR: /lib/modules/4.9.11
+DIR: /lib/modules/4.9.12
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.9.11 source
-KDO: ln -s /usr/src/linux-4.9.11 build
+KDO: ln -s /usr/src/linux-4.9.12 source
+KDO: ln -s /usr/src/linux-4.9.12 build
