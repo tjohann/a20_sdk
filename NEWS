@@ -2,6 +2,10 @@
 # some news ... see also TODO for hints
 #
 
+
+2017-03-02 -> ## target & sdk stuff
+	      update kernel to 4.9.13-rt11
+
 2017-02-26 -> ## target & sdk stuff
 	      update kernel to 4.9.12
 	      update kernel to 4.9.13
