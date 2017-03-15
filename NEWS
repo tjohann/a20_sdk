@@ -3,6 +3,8 @@
 #
 
 
+################## 2017-03-15 -> A20_SDK_V2.2.4 #############################
+
 2017-03-15 -> ## target & sdk stuff
 	      update kernel to 4.9.15
 	      update kernel to 4.9.13-rt12
@@ -13,6 +15,9 @@
 
 2017-03-02 -> ## target & sdk stuff
 	      update kernel to 4.9.13-rt11
+
+
+################## 2017-02-26 -> A20_SDK_V2.2.3 #############################
 
 2017-02-26 -> ## target & sdk stuff
 	      update kernel to 4.9.12
