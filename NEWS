@@ -2,10 +2,14 @@
 # some news ... see also TODO for hints
 #
 
+
 2017-03-15 -> ## target & sdk stuff
 	      update kernel to 4.9.15
 	      update kernel to 4.9.13-rt12
 	      update kernel for nanopi to 4.10.3
+
+	      ## sdk stuff
+	      update toolchain to reflect the target installation
 
 2017-03-02 -> ## target & sdk stuff
 	      update kernel to 4.9.13-rt11
