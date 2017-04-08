@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   02.04.2017/12.01.2016
+Date:   08.04.2017/12.01.2016
 
 Content:
 
@@ -56,7 +56,7 @@ Kernel version
 --------------
 
 - linux-4.9.20
-- linux-4.9.18-rt14 (latest RT-PREEMPT)
+- linux-4.9.20-rt16 (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
@@ -105,8 +105,8 @@ Patch kernel
 RT-PREEMPT
 ----------
 
-DIR: $ARMHF_BIN/HOME/kernel/linux-4.9.18_rt
-KDO: zcat ../patch-4.9.18-rt14.patch.gz | patch -p1
+DIR: $ARMHF_BIN/HOME/kernel/linux-4.9.20_rt
+KDO: zcat ../patch-4.9.20-rt16.patch.gz | patch -p1
 
 
 Configure/build kernel
@@ -141,7 +141,7 @@ Install modules
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.20 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.18_rt modules_install
+KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.9.20_rt modules_install
 
 
 
@@ -169,7 +169,7 @@ Copy modules
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: sudo rsync -avz ../modules_4.9.20/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avz ../modules_4.9.18_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO(rt): sudo rsync -avz ../modules_4.9.20_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -178,7 +178,7 @@ Copy cleaned source to sd card
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
 KDO: sudo rsync -avz --delete linux-4.9.20 /mnt/olimex/olimex_rootfs/usr/src/.
-KDO(rt): sudo rsync -avz --delete linux-4.9.18_rt /mnt/olimex/olimex_rootfs/usr/src/.
+KDO(rt): sudo rsync -avz --delete linux-4.9.20_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
 
