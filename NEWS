@@ -2,6 +2,19 @@
 # some news ... see also TODO for hints
 #
 
+2017-04-18 -> ## target & sdk stuff
+	      update kernel to 4.9.23
+	      update kernel for nanopi to 4.10.11
+
+	      ## sdk stuff
+	      some smaller documentation updates
+
+2017-04-17 -> ## script stuff
+	      start to make the scripts aware of MY_HOST_ARCH
+	      - get_toolchain.sh
+	      - build_kernel.sh
+	      - build_uboot.sh
+
 2017-04-14 -> ## target & sdk stuff
 	      update kernel to 4.9.22
 	      update kernel for nanopi to 4.10.10

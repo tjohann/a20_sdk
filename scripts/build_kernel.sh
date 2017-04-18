@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.12.2016/07.09.2016
+# Date/Beginn :    17.04.2017/07.09.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (dec 2016) -> fix kdo handling
+# Milestones  :    V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
+#                                      some smaller improvements
+#                  V2.02 (dec 2016) -> fix kdo handling
 #                                      add check for cross-compiler
 #                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -59,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -172,7 +174,17 @@ if [ "$MISSING_ENV" = 'true' ]; then
     exit
 fi
 
-USED_CMD="arm-none-linux-gnueabihf-gcc"
+
+# ******************************************************************************
+# ***                     Check for correct architecture                     ***
+# ******************************************************************************
+
+if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+    USED_CMD="arm-none-linux-gnueabihf-gcc"
+else
+    USED_CMD="gcc"
+fi
+
 for cmd in ${USED_CMD} ; do
     if ! [ -x "$(command -v ${cmd})" ]; then
 #	cleanup
@@ -231,11 +243,19 @@ build_dtb()
 {
     echo "build devicetree blob"
 
-    make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapi.dtb
-    make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
-    make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
-    make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
-    make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapi.dtb
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
+    else
+	make sun7i-a20-bananapi.dtb
+	make sun7i-a20-olimex-som-evb.dtb
+	make sun7i-a20-bananapro.dtb
+	make sun7i-a20-cubietruck.dtb
+	make sun8i-h3-nanopi-neo.dtb
+    fi
 }
 
 
@@ -286,14 +306,23 @@ if [ "$BUILD_NONRT" = 'true' ]; then
     copy_dts
     build_dtb
 
-    echo "make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules"
-    make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	echo "make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules"
+	make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+    else
+	echo "make -j $NUM_CORES LOADADDR=0x40008000 uImage modules"
+	make -j $NUM_CORES LOADADDR=0x40008000 uImage modules
+    fi
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build kernel" >&2
         my_exit
     fi
 
-    make ARCH=arm INSTALL_MOD_PATH=../modules_${ARMHF_KERNEL_VER} modules_install
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	make ARCH=arm INSTALL_MOD_PATH=../modules_${ARMHF_KERNEL_VER} modules_install
+    else
+	make INSTALL_MOD_PATH=../modules_${ARMHF_KERNEL_VER} modules_install
+    fi
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not install kernel modules" >&2
         my_exit
@@ -309,20 +338,33 @@ if [ "$BUILD_RT" = 'true' ]; then
     fi
 
     zcat ../patch-${ARMHF_RT_KERNEL_VER}-${ARMHF_RT_VER}.patch.gz | patch -p1
+    if [ $? -ne 0 ] ; then
+        echo "ERROR -> could not patch kernel with rt-preempt" >&2
+        my_exit
+    fi
     sync
     cp $ARMHF_HOME/bananapi/configs/kernel_config_rt .config
 
     copy_dts
     build_dtb
 
-    echo "make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules"
-    make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	echo "make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules"
+	make -j $NUM_CORES ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+    else
+	echo "make -j $NUM_CORES LOADADDR=0x40008000 uImage modules"
+	make -j $NUM_CORES LOADADDR=0x40008000 uImage modules
+    fi
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build kernel" >&2
         my_exit
     fi
 
-    make ARCH=arm INSTALL_MOD_PATH=../modules_${ARMHF_RT_KERNEL_VER}_rt modules_install
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	make ARCH=arm INSTALL_MOD_PATH=../modules_${ARMHF_RT_KERNEL_VER}_rt modules_install
+    else
+	make INSTALL_MOD_PATH=../modules_${ARMHF_RT_KERNEL_VER}_rt modules_install
+    fi
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not install kernel modules" >&2
         my_exit

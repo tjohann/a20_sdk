@@ -3,6 +3,17 @@
 #
 #
 
+
+#
+# -------------- 2017-04-18 ----------------------------------------------------
+#
+## target stuff
+- check distcc config on nodes and master
+  - void-packages build
+  - kernel build
+  - uboot build (check if possible)
+
+
 #
 # -------------- 2017-02-11 ----------------------------------------------------
 #

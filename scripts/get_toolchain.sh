@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    27.09.2016/15.08.2015
+# Date/Beginn :    17.04.2017/15.08.2015
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (apr 2017) -> be aware of MY_HOST_ARCH
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (jul 2016) -> add features of make_sdcard.sh
 #                  V1.03 (jul 2016) -> redirect errors to >&2
 #                  V1.02 (jul 2016) -> change exit code to 3
@@ -74,7 +75,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -182,6 +183,27 @@ if [ "$MISSING_ENV" = 'true' ]; then
     echo "|                                      |"
     echo "|          Cheers $USER               |"
     echo "|                                      |"
+    echo "+--------------------------------------+"
+    echo " "
+    exit
+fi
+
+
+# ******************************************************************************
+# ***                     Check for correct architecture                     ***
+# ******************************************************************************
+
+if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+    echo " "
+    echo "+--------------------------------------+"
+    echo "|  Download the cross-toolchain        |"
+    echo "+--------------------------------------+"
+    echo " "
+else
+    cleanup
+    echo " "
+    echo "+--------------------------------------+"
+    echo "|  No cross-toolchain needed -> exit   |"
     echo "+--------------------------------------+"
     echo " "
     exit

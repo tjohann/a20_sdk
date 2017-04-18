@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.11.2016/07.09.2016
+# Date/Beginn :    18.04.2017/07.09.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (nov 2016) -> add support for nanopi-neo
+# Milestones  :    V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
+#                  V2.02 (nov 2016) -> add support for nanopi-neo
 #                  V2.01 (oct 2016) -> fix RT-PREEMPT part
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.03 (sep 2016) -> fix a lot of bugs
@@ -49,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -200,6 +201,33 @@ if [ "$MISSING_ENV" = 'true' ]; then
     echo " "
     exit
 fi
+
+
+# ******************************************************************************
+# ***                     Check for correct architecture                     ***
+# ******************************************************************************
+
+if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+    USED_CMD="arm-none-linux-gnueabihf-gcc"
+else
+    USED_CMD="gcc"
+fi
+
+for cmd in ${USED_CMD} ; do
+    if ! [ -x "$(command -v ${cmd})" ]; then
+#	cleanup
+	echo " "
+	echo "+------------------------------------------------+"
+	echo "|                                                |"
+	echo "| ERROR: $cmd is missing |"
+	echo "|                                                |"
+	echo "+------------------------------------------------+"
+	echo " "
+	exit
+    else
+	echo "Note: $cmd is available"
+    fi
+done
 
 
 # ******************************************************************************
@@ -394,7 +422,11 @@ if [ "$INSTALL_NONRT" = 'true' ]; then
     copy_kernel_folder
     copy_kernel
 
-    make ARCH=arm clean
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	make ARCH=arm clean
+    else
+	make clean
+    fi
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not clean kernel folder" >&2
         my_exit
@@ -426,7 +458,11 @@ if [ "$INSTALL_RT" = 'true' ]; then
     copy_kernel_folder
     copy_kernel_rt
 
-    make ARCH=arm clean
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	make ARCH=arm clean
+    else
+	make clean
+    fi
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not clean kernel folder" >&2
         my_exit

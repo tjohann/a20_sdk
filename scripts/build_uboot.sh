@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    06.02.2017/02.12.2016
+# Date/Beginn :    17.04.2017/02.12.2016
 #
-# Version     :    V0.02
+# Version     :    V0.03
 #
-# Milestones  :    V0.01 (dec 2016) -> initial version
+# Milestones  :    V0.03 (apr 2017) -> be aware of MY_HOST_ARCH
+#                  V0.02 (feb 2017) -> fix some problems
+#                  V0.01 (dec 2016) -> initial version
 #
 # Requires    :
 #
@@ -45,7 +47,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.02'
+VER='0.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -154,7 +156,16 @@ if [ "$MISSING_ENV" = 'true' ]; then
     exit
 fi
 
-USED_CMD="arm-none-linux-gnueabihf-gcc"
+# ******************************************************************************
+# ***                     Check for correct architecture                     ***
+# ******************************************************************************
+
+if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+    USED_CMD="arm-none-linux-gnueabihf-gcc"
+else
+    USED_CMD="gcc"
+fi
+
 for cmd in ${USED_CMD} ; do
     if ! [ -x "$(command -v ${cmd})" ]; then
 #	cleanup
@@ -230,7 +241,11 @@ build_uboot()
     echo "build uboot with $UBOOT_CONFIG to build for $BRAND"
     cd ${REPO_PATH}/u-boot
 
-    make CROSS_COMPILE=arm-none-linux-gnueabihf-
+    if [ "$MY_HOST_ARCH" = 'x86_64' ]; then
+	make CROSS_COMPILE=arm-none-linux-gnueabihf-
+    else
+	make
+    fi
     if [ $? -ne 0 ] ; then
         echo "ERROR -> could not build uboot" >&2
         my_exit

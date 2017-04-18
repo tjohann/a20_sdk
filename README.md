@@ -2,37 +2,38 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A development environment for ARMv7 boards based on Allwinners A20 processor (and related like H3). It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
+A simple development environment for ARMv7 boards based on Allwinners A20 processor (and related like H3). It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
 
-The basic user interface are make targets which then start the corresponding scripts:
+The basic user interface are make targets, which then start the corresponding scripts:
 
 	+-----------------------------------------------------------+
-	|                                                           |
-	|                  Nothing to build                         |
-	|                                                           |
-	+-----------------------------------------------------------+
-	| Example:                                                  |
-	| make init_sdk           -> init all needed part           |
-	| make get_external_repos -> get git repos like u-boot      |
-	| make get_toolchain      -> install toolchain              |
-	| make get_latest_kernel  -> download latest kernel version |
-	| make get_image_tarballs -> download image tarballs        |
-	| make get_all            -> get all of the above           |
-	| make clean              -> clean all dir/subdirs          |
-	| make distclean          -> complete cleanup/delete        |
-	| make mrproper           -> do mrproper cleanup            |
-	| ...                                                       |
-	| make make_sdcard        -> small tool to make a read to   |
-	|                            use SD-Card                    |
-	| make install            -> install some scripts to        |
-	|                            /home/tjohann/bin              |
-	| make uninstall          -> remove scripts from            |
-	|                            /home/tjohann/bin              |
-	+-----------------------------------------------------------+
+    |                                                           |
+    |                  Nothing to build                         |
+    |                                                           |
+    +-----------------------------------------------------------+
+    | Example:                                                  |
+    | make init_sdk           -> init all needed part           |
+    | make get_external_repos -> get git repos like u-boot      |
+    | make get_toolchain      -> install toolchain              |
+    | make get_latest_kernel  -> download latest kernel version |
+    | make get_image_tarballs -> download image tarballs        |
+    | make get_all            -> get all of the above           |
+    | make clean              -> clean all dir/subdirs          |
+    | make distclean          -> complete cleanup/delete        |
+    | make mrproper           -> do mrproper cleanup            |
+    | make man                -> show a20_sdk manpage           |
+    | ...                                                       |
+    | make make_sdcard        -> small tool to make a read to   |
+    |                            use SD-Card                    |
+    | make install            -> install some scripts to        |
+    |                            $(HOME)/bin                    |
+    | make uninstall          -> remove scripts from            |
+    |                            $(HOME)/bin                    |
+    +-----------------------------------------------------------+
 
 The sdk comes with documentation and some simple source code examples. You can find it in ${HOME}/src/a20_sdk/*.
 
-WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet.
+WARNING: This is work in progress! So it's possible that something is not working as expected.
 
 If you face a bug then pls use https://github.com/tjohann/a20_sdk/issues to create an issue.
 
@@ -42,7 +43,7 @@ Requirement
 
 The only yet know software requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to make your sd-card -> a20_sdk_make_sdcard.sh).
 
-For the two types of provided images ("normal" and "base/small") you need sd-cards with 10 or 6 gig of size. If you want to use a hdd it should be at least large then 16 gig (i use 500 gig connected to my Cubietruck and Bananapi-Pro).
+For the two types of provided images ("normal" and "base/small") you need sd-cards with 10 or 6 gig of size. If you want to use a hdd it should be at least larger then 16 gig (i use 500 gig connected to my Cubietruck and Bananapi-Pro).
 
 
 Background
@@ -56,13 +57,13 @@ The a20_sdk use 3 different locations:
 
 The location below /var/lib/ is the "runtime" environment. There you find all base content like env file or scripts (see ./NEWS and ./UPGRADE_HINTS)
 
-Below /opt/a20_sdk you find the downloaded content (from http://sourceforge.net/projects/a20devices/) like toolchain and device images. It also includes the standard location for cloned repositorys like u-boot or the kernel sources. Everthing could be done via make target which then calls the coresponding script (see below for more info).
+Below /opt/a20_sdk you find the downloaded content (from http://sourceforge.net/projects/a20devices/) like toolchain and device images. It also includes the standard location for cloned repositorys like u-boot or the kernel sources. Everthing could be done via a make target which then calls the coresponding script (see below for more info).
 
 
 Setup
 -----
 
-You can use this sdk in different ways depending on your use case, but for everthing you need some basic parts.
+You can use this sdk in different ways, depending on your use case, but you need some basic parts.
 
 Create the runtime locations:
 
@@ -103,7 +104,7 @@ Via
 
 you install some script like make_sdcard.sh to ${HOME}/bin/a20_sdk_make_sdcard.sh
 
-Note: to use all scripts you have to add some mount points for your device to your /etc/fstab and create the mount points below /mnt/ (see your prefered device below). It could also make sense to add your device to your /etc/hosts (see below for my example network configuration).
+Note: to use all scripts, you have to add some mount points for your used device to your /etc/fstab and create the mount points below /mnt/ (see your prefered device below). It could also make sense to add your device to your /etc/hosts (see below for my example network configuration).
 
 
 Additional steps to setup crossbuild environment
@@ -117,7 +118,7 @@ Download the compiler to /opt/a20_sdk/
 Download images
 ---------------
 
-Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~6 GByte)
+Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~8 GByte)
 
     make get_image_tarballs
 

@@ -50,18 +50,20 @@ sdk checks:
 
 
 
-A20_SDK_V2.3.0 (16.04.2017)
+A20_SDK_V2.3.0 (xx.05.2017)
 ---------------------------
 
-	Common checks                                         [2017-03-XX -> partly]
+	Common checks                                         [2017-05-XX -> partly]
 
 	Config updates (on the target):
 		- ...
 
 	Build updates:
+		- uboot for all devices
 		- ...
 
 	SDK updates:
+		- make scripts aware of MY_HOST_ARCH
 		- ...
 
 	Others:
@@ -207,8 +209,8 @@ A20_SDK_V2.0.6/A20_SDK_V2.1.0 (28.12.2016)
 		- build emacs by hand (only full image)             [2016-12-16 -> done]
 
 	SDK updates:
-		- diskfree_sdcard.txt
-		- add base support for nanopi                      [2016-12-16 -> done]
+		- diskfree_sdcard.txt                               [2016-xx-xx -> done]
+		- add base support for nanopi                       [2016-12-16 -> done]
 
 	Others:
 		- ...
