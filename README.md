@@ -426,7 +426,7 @@ Addtional mount points (host):
 
     LABEL=SHARED_CUBI   /mnt/cubietruck/cubietruck_shared  auto  noauto,user,rw  0 0
 
-[The storyline for Cubietrurck](cubietruck/Documentation/storyline.md)
+[The storyline for Cubietruck](cubietruck/Documentation/storyline.md)
 
 
 Bananapi-Pro
