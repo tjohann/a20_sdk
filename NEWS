@@ -3,6 +3,15 @@
 #
 
 
+2017-05-04 -> ## target & sdk stuff
+	      update kernel to 4.9.26
+	      update kernel for nanopi to 4.10.14
+
+2017-05-03 -> ## target & sdk stuff
+	      update kernel to 4.9.25
+	      update kernel for nanopi to 4.10.13
+
+
 ################## 2017-04-23 -> A20_SDK_V2.2.5 #############################
 
 2017-04-23 -> ## target & sdk stuff
