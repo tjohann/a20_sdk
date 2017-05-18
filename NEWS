@@ -3,6 +3,10 @@
 #
 
 
+2017-05-18 -> ## target & sdk stuff
+	      update kernel to 4.9.28 and 4.9.27-rt18
+	      update kernel for nanopi to 4.10.16
+
 2017-05-04 -> ## target & sdk stuff
 	      update kernel to 4.9.26
 	      update kernel for nanopi to 4.10.14
