@@ -5,6 +5,25 @@
 
 
 #
+# -------------- 2017-06-30 ----------------------------------------------------
+#
+## sdk stuff
+- check KNOWN_ISSUES
+- prepare new images and create a new release
+  -> A20_SDK_V2.3.0
+- setup armhf qemu installation for testing purpose
+  (distcc into baalue, build environment for void-packages, emacs build, ...)
+
+## sdk && target stuff
+- update u-boot
+- update toolchain
+- update rootfs
+
+## target stuff
+- check functionallity of build-in eth of nanopi
+
+
+#
 # -------------- 2017-04-18 ----------------------------------------------------
 #
 ## target stuff
@@ -592,6 +611,7 @@
 
 ## target stuff
 - develop a simple daemon to shutdown all devices my kdo
+  (see baalued and baalue)                                  [2016-06-xx -> done]
 
 
 #

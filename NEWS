@@ -2,6 +2,13 @@
 # some news ... see also TODO for hints
 #
 
+
+2017-06-30 -> ## target && sdk stuff
+	      update kernel to 4.11.8
+
+2017-06-28 -> ## target && sdk stuff
+	      update kernel to 4.11.7 and 4.11.7-rt3
+
 2017-06-08 -> ## target && sdk stuff
 	      update kernel to 4.9.31 and 4.9.30-rt21
 
