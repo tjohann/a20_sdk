@@ -16,7 +16,7 @@
 
 ## sdk && target stuff
 - update u-boot
-- update toolchain
+- update toolchain                                          [2017-07-01 -> done]
 - update rootfs
 
 ## target stuff
