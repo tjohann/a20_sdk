@@ -46,7 +46,7 @@ BR2_ENDIAN="LITTLE"
 BR2_GCC_TARGET_ABI="aapcs-linux"
 BR2_GCC_TARGET_CPU="cortex-a7"
 BR2_GCC_TARGET_FPU="vfpv4"
-BR2_GCC_TARGET_FLOAT_ABI="hard"
+BR2_GCC_TARGET_FLOAT_ABI="softfp"
 BR2_GCC_TARGET_MODE="arm"
 BR2_BINFMT_SUPPORTS_SHARED=y
 BR2_READELF_ARCH_NAME="ARM"
@@ -83,8 +83,8 @@ BR2_cortex_a7=y
 # BR2_strongarm is not set
 # BR2_xscale is not set
 # BR2_iwmmxt is not set
-# BR2_ARM_EABI is not set
-BR2_ARM_EABIHF=y
+BR2_ARM_EABI=y
+# BR2_ARM_EABIHF is not set
 # BR2_ARM_SOFT_FLOAT is not set
 # BR2_ARM_FPU_VFPV2 is not set
 # BR2_ARM_FPU_VFPV3 is not set
@@ -170,12 +170,11 @@ BR2_TOOLCHAIN_EXTERNAL=y
 #
 # Toolchain External Options
 #
-# BR2_TOOLCHAIN_EXTERNAL_LINARO_ARM is not set
-# BR2_TOOLCHAIN_EXTERNAL_CODESOURCERY_ARM is not set
 
 #
-# Sourcery CodeBench toolchains available for the EABI ABI
+# Linaro toolchains available for Cortex-A + EABIhf
 #
+# BR2_TOOLCHAIN_EXTERNAL_CODESOURCERY_ARM is not set
 BR2_TOOLCHAIN_EXTERNAL_CUSTOM=y
 # BR2_TOOLCHAIN_EXTERNAL_DOWNLOAD is not set
 BR2_TOOLCHAIN_EXTERNAL_PREINSTALLED=y
@@ -799,7 +798,10 @@ BR2_PACKAGE_QT5_JSCORE_AVAILABLE=y
 # BR2_PACKAGE_LSSCSI is not set
 # BR2_PACKAGE_LSUIO is not set
 # BR2_PACKAGE_LVM2 is not set
-# BR2_PACKAGE_MALI_T76X is not set
+
+#
+# mali-t76x needs a glibc toolchain with armhf enabled
+#
 # BR2_PACKAGE_MDADM is not set
 # BR2_PACKAGE_MEMTESTER is not set
 # BR2_PACKAGE_MEMTOOL is not set
@@ -807,7 +809,6 @@ BR2_PACKAGE_QT5_JSCORE_AVAILABLE=y
 # BR2_PACKAGE_NANOCOM is not set
 # BR2_PACKAGE_NEARD is not set
 # BR2_PACKAGE_NVME is not set
-# BR2_PACKAGE_ODROID_MALI is not set
 # BR2_PACKAGE_ODROID_SCRIPTS is not set
 # BR2_PACKAGE_OFONO is not set
 # BR2_PACKAGE_OPEN2300 is not set
@@ -859,7 +860,10 @@ BR2_PACKAGE_QT5_JSCORE_AVAILABLE=y
 # BR2_PACKAGE_STATSERIAL is not set
 # BR2_PACKAGE_STM32FLASH is not set
 # BR2_PACKAGE_SUNXI_CEDARX is not set
-# BR2_PACKAGE_SUNXI_MALI is not set
+
+#
+# sunxi-mali needs an EABIhf glibc toolchain
+#
 # BR2_PACKAGE_SYSSTAT is not set
 
 #
@@ -1603,9 +1607,6 @@ BR2_PACKAGE_LINUX_PAM=y
 # BR2_PACKAGE_MPIR is not set
 # BR2_PACKAGE_MSGPACK is not set
 # BR2_PACKAGE_MTDEV2TUIO is not set
-BR2_PACKAGE_OPENBLAS_DEFAULT_TARGET="ARMV7"
-BR2_PACKAGE_OPENBLAS_ARCH_SUPPORTS=y
-# BR2_PACKAGE_OPENBLAS is not set
 # BR2_PACKAGE_ORC is not set
 # BR2_PACKAGE_P11_KIT is not set
 # BR2_PACKAGE_POCO is not set
@@ -1940,35 +1941,35 @@ BR2_PACKAGE_MONGREL2_LIBC_SUPPORTS=y
 #
 
 #
-# Please note:                                           
+# Please note:
 #
 
 #
-# - Buildroot does *not* generate binary packages,       
+# - Buildroot does *not* generate binary packages,
 #
 
 #
-# - Buildroot does *not* install any package database.   
+# - Buildroot does *not* install any package database.
 #
 
 #
-# *                                                      
+# *
 #
 
 #
-# It is up to you to provide those by yourself if you    
+# It is up to you to provide those by yourself if you
 #
 
 #
-# want to use any of those package managers.             
+# want to use any of those package managers.
 #
 
 #
-# *                                                      
+# *
 #
 
 #
-# See the manual:                                        
+# See the manual:
 #
 
 #
