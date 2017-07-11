@@ -3,6 +3,9 @@
 #
 
 
+2017-07-11 -> ## target && sdk stuff
+	      update kernel config and more for 4.11.9 kernel
+
 2017-07-10 -> ## sdk stuff
 	      update toolchain
 
