@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    24.02.2017/02.12.2016
+# Date/Beginn :    11.07.2017/02.12.2016
 #
-# Version     :    V0.03
+# Version     :    V0.04
 #
-# Milestones  :    V0.03 (feb 2017) -> some smaller changes
+# Milestones  :    V0.04 (jul 2017) -> add baalue as device
+#                  V0.03 (feb 2017) -> some smaller changes
 #                  V0.02 (jan 2017) -> fix kdo argument handling
 #                  V0.01 (dec 2016) -> initial version
 #
@@ -47,7 +48,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='0.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -264,6 +265,9 @@ else
 fi
 
 case "$BRAND" in
+    'baalue')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+        ;;
     'bananapi')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
         ;;
