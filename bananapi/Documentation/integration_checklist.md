@@ -70,6 +70,24 @@ A20_SDK_V2.3.0 (xx.07.2017)
 		- ...
 
 
+A20_SDK_V2.2.7 (11.07.2017)
+---------------------------
+
+	Common checks                                     [2017-07-12 -> not needed]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
 A20_SDK_V2.2.6 (11.07.2017)
 ---------------------------
 

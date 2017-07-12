@@ -3,8 +3,11 @@
 #
 
 
+################## 2017-07-12 -> A20_SDK_V2.2.7 #############################
+
 2017-07-12 -> ## target && sdk stuff
 	      update u-boot for olimex, cubietruck and bananapi-pro
+	      update u-boot for nanopi
 
 
 ################## 2017-07-11 -> A20_SDK_V2.2.6 #############################
