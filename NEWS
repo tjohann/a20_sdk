@@ -3,6 +3,10 @@
 #
 
 
+2017-07-15 -> ## target && sdk stuff
+	      revert u-boot update for bananapi due to eth problems
+
+
 ################## 2017-07-12 -> A20_SDK_V2.2.8 #############################
 
 2017-07-12 -> ## sdk stuff
