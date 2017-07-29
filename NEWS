@@ -4,6 +4,10 @@
 
 
 
+2017-07-29 -> ## sdk stuff
+	      update toolchain to latest crosstool-ng and buildroot version
+
+
 ################## 2017-07-15 -> A20_SDK_V2.3.0 #############################
 
 2017-07-15 -> ## target && sdk stuff

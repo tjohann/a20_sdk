@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2017.08-git-01079-g9d06e91df8 Configuration
+# Buildroot 2017.08-git-01346-gea11de78a4 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOST_GCC_AT_LEAST_4_5=y
@@ -72,10 +72,14 @@ BR2_cortex_a7=y
 # BR2_cortex_a9 is not set
 # BR2_cortex_a12 is not set
 # BR2_cortex_a15 is not set
+# BR2_cortex_a15_a7 is not set
 # BR2_cortex_a17 is not set
+# BR2_cortex_a17_a7 is not set
 # BR2_cortex_a53 is not set
 # BR2_cortex_a57 is not set
+# BR2_cortex_a57_a53 is not set
 # BR2_cortex_a72 is not set
+# BR2_cortex_a72_a53 is not set
 # BR2_cortex_m3 is not set
 # BR2_cortex_m4 is not set
 # BR2_fa526 is not set
@@ -305,6 +309,8 @@ BR2_TOOLCHAIN_GCC_AT_LEAST_4_9=y
 BR2_TOOLCHAIN_GCC_AT_LEAST_5=y
 BR2_TOOLCHAIN_GCC_AT_LEAST_6=y
 BR2_TOOLCHAIN_GCC_AT_LEAST="6"
+BR2_TOOLCHAIN_HAS_MNAN_OPTION=y
+BR2_TOOLCHAIN_HAS_MFPXX_OPTION=y
 BR2_TOOLCHAIN_HAS_SYNC_1=y
 BR2_TOOLCHAIN_HAS_SYNC_2=y
 BR2_TOOLCHAIN_HAS_SYNC_4=y
@@ -466,6 +472,7 @@ BR2_PACKAGE_BZIP2=y
 # BR2_PACKAGE_UNRAR is not set
 # BR2_PACKAGE_XZ is not set
 # BR2_PACKAGE_ZIP is not set
+# BR2_PACKAGE_ZSTD is not set
 
 #
 # Debugging, profiling and benchmark
@@ -491,6 +498,7 @@ BR2_PACKAGE_GOOGLE_BREAKPAD_ARCH_SUPPORTS=y
 #
 # ktap needs a Linux kernel to be built
 #
+BR2_PACKAGE_KVM_UNIT_TESTS_ARCH_SUPPORTS=y
 # BR2_PACKAGE_KVM_UNIT_TESTS is not set
 # BR2_PACKAGE_LATENCYTOP is not set
 # BR2_PACKAGE_LMBENCH is not set
@@ -1941,35 +1949,35 @@ BR2_PACKAGE_MONGREL2_LIBC_SUPPORTS=y
 #
 
 #
-# Please note:
+# Please note:                                           
 #
 
 #
-# - Buildroot does *not* generate binary packages,
+# - Buildroot does *not* generate binary packages,       
 #
 
 #
-# - Buildroot does *not* install any package database.
+# - Buildroot does *not* install any package database.   
 #
 
 #
-# *
+# *                                                      
 #
 
 #
-# It is up to you to provide those by yourself if you
+# It is up to you to provide those by yourself if you    
 #
 
 #
-# want to use any of those package managers.
+# want to use any of those package managers.             
 #
 
 #
-# *
+# *                                                      
 #
 
 #
-# See the manual:
+# See the manual:                                        
 #
 
 #
@@ -1991,6 +1999,7 @@ BR2_PACKAGE_XENOMAI_ARCH_SUPPORTS=y
 # Security
 #
 # BR2_PACKAGE_CHECKPOLICY is not set
+# BR2_PACKAGE_PAXTEST is not set
 # BR2_PACKAGE_POLICYCOREUTILS is not set
 # BR2_PACKAGE_REFPOLICY is not set
 # BR2_PACKAGE_SEPOLGEN is not set
@@ -2235,7 +2244,7 @@ BR2_PACKAGE_HOST_GO_CGO_LINKING_SUPPORTS=y
 # BR2_PACKAGE_HOST_OPENOCD is not set
 # BR2_PACKAGE_HOST_OPKG_UTILS is not set
 # BR2_PACKAGE_HOST_PARTED is not set
-# BR2_PACKAGE_HOST_PATCHELF is not set
+BR2_PACKAGE_HOST_PATCHELF=y
 # BR2_PACKAGE_HOST_PRU_SOFTWARE_SUPPORT is not set
 # BR2_PACKAGE_HOST_PWGEN is not set
 # BR2_PACKAGE_HOST_PYTHON_LXML is not set
