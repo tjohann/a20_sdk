@@ -50,6 +50,26 @@ sdk checks:
 
 
 
+A20_SDK_V2.3.1 (29.07.2017)
+---------------------------
+
+	Common checks                                         [2017-07-29 -> partly]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- uboot for all devices
+		- ...
+
+	SDK updates:
+		- make scripts aware of MY_HOST_ARCH
+		- ...
+
+	Others:
+		- ...
+
+
 A20_SDK_V2.3.0 (15.07.2017)
 ---------------------------
 

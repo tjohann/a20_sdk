@@ -3,8 +3,17 @@
 #
 
 
+################## 2017-07-29 -> A20_SDK_V2.3.1 #############################
 
-2017-07-29 -> ## sdk stuff
+2017-07-29 -> ## target && sdk stuff
+	      revert u-boot update for bananapi/bananapi-pro and cubietruck
+	      to stable version 2016.11 (problems with eth0 and timing)
+
+	      ## target
+	      add all (01-08) baalue nodes to /etc/distcc/hosts
+	      regular updates of void-linux
+
+	      ## sdk stuff
 	      update toolchain to latest crosstool-ng and buildroot version
 
 
