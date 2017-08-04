@@ -3,4 +3,4 @@
 # "man distcc" for the format of this file.
 #
 # By default, just test that it works in loopback mode.
-127.0.0.1 baalue-01 baalue-02 baalue-03 baalue-04 baalue-05 baalue-06 baalue-07 baalue-08
+baalue-01/4 baalue-02/4 baalue-03/4 baalue-04/4 baalue-05/4 baalue-06/4 baalue-07/4 baalue-08/4
