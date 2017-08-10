@@ -4,6 +4,10 @@
 
 
 
+2017-08-09 -> ## target && sdk stuff
+              change distcc/hosts config
+	      add nfs support for baalue_master
+
 2017-08-04 -> ## target && sdk stuff
 	      change distcc/hosts config
 
