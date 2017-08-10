@@ -3,6 +3,13 @@
 #
 
 
+2017-08-10 -> ## target stuff
+	      add nfs-utils to full and base images
+	      add nfs mount to fstab (baalue_master shares void-packages
+	      bin repository)
+
+	      ## target && sdk stuff
+	      add nfs server to non-rt kernel
 
 2017-08-09 -> ## target && sdk stuff
               change distcc/hosts config

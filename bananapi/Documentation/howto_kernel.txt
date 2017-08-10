@@ -120,7 +120,7 @@ Configure kernel
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.11.x .config
 KDO(rt): cp $ARMHF_HOME/bananapi/configs/kernel_config_4.11.x_rt .config
-KDO: make ARCH=arm menuconfig
+KDO: make CROSS_COMPILE=arm-none-linux-gnueabihf- ARCH=arm menuconfig
 
 
 Build dtb
