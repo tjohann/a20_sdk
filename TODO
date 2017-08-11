@@ -5,22 +5,52 @@
 
 
 #
+# -------------- 2017-08-11 ----------------------------------------------------
+#
+## target && sdk stuff
+- add/setup void-packages for all devices with mainline kernel
+
+## script stuff
+- check if scripts run native on devices (use cubietruck_master)
+  - brand_baalue_images.sh
+  - brand_images.sh
+  - build_kernel.sh
+  - build_uboot.sh
+  - format_sdcard.sh
+  - get_toolchain.sh
+  - install_kernel.sh
+  - install_uboot.sh
+  - make_sdcard.sh
+  - mount_partitions.sh
+  - partition_sdcard.sh
+  - untar_images_to_sdcard.sh
+  - write_bootloader.sh
+
+## target stuff
+- mount points (bananapi*/cubietruck_* ...) to
+  baalue_master
+
+
+#
 # -------------- 2017-06-30 ----------------------------------------------------
 #
 ## sdk stuff
 - check KNOWN_ISSUES
+  -> Result: RT-PREEMPT issue still occures                 [2017-07-xx -> done]
 - prepare new images and create a new release
-  -> A20_SDK_V2.3.0
+  -> A20_SDK_V2.3.0                                         [2017-07-15 -> done]
 - setup armhf qemu installation for testing purpose
-  (distcc into baalue, build environment for void-packages, emacs build, ...)
+  (distcc into baalue, build environment for void-packages,
+  emacs build, ...)                                     [2017-08-11 -> canceled]
 
 ## sdk && target stuff
-- update u-boot
+- update u-boot                                             [2017-07-29 -> done]
 - update toolchain                                          [2017-07-01 -> done]
-- update rootfs
+- update rootfs                                             [2017-07-29 -> done]
 
 ## target stuff
 - check functionallity of build-in eth of nanopi
+  -> Result: still not working                              [2017-07-xx -> done]
 
 
 #
@@ -29,7 +59,7 @@
 ## target stuff
 - check distcc config on nodes and master
   - void-packages build
-  - kernel build
+  - kernel build                                            [2017-08-09 -> done]
   - uboot build (check if possible)
 
 
@@ -77,7 +107,7 @@
 #
 ## target stuff (base-image)
 - install kernel header instead of complete linux source
-  tree (will reduce the sice drastically)
+  tree (will reduce the sice drastically)               [2017-08-11 -> canceled]
 
 ## script stuff
 - remove the dt{s,b} from kernel image copied by prepare_all_kernel_images

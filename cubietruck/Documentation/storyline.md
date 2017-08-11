@@ -1,4 +1,11 @@
 Storyline Cubietruck
 ====================
 
-The cubietruck is used a master node for my bananapi (can) cluster and as a small desktop system.
+The cubietruck is used a master node for my cluster (baalue) with xfce (www.xfce.org) as desktop environment.
+
+Baalue is my common embedded development environment. It is a cluster with 8 worker nodes and 1 master nodes (a cubietruck). I use it for 2 different usecases:
+
+	- distributed build via distcc (see https://github.com/tjohann/baalue_distcc.git)
+	- plattform for parallel programming within distributed address space
+
+![Alt text](../../pics/baalue_cluster_03.jpg?raw=true "Baalue nodes")

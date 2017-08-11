@@ -338,7 +338,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 	Baalue-Node -> PREEMPT
 	Bananapi-Pro -> PREEMPT
 	Cubietruck -> PREEMPT
-	NanoPi -> PREEMPT (base support via 4.9.2)
+	NanoPi -> PREEMPT
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}.
 
@@ -574,13 +574,10 @@ Outlook (next development steps)
 Note: This repository is something like a bracket over my differnet projects. So not every point below will end in changes within this repository.
 
 
-(until end of february)
+(future steps)
 - add storyline for bananapi-pro (home cloud server)
-- add storyline for baalue (distcc -> build emacs-gtk)
 - make use of lcd1602 module of cubietruck (baalue_master)
 - make all scripts "self hosting" so that all scripts would also run on the target device (like build_kernel.sh running on baalue_master)
-
-(future steps)
 - add dtc config for mcp2515 (bananapi and cubietruck)
 - working jailhouse configuration for bananapi and olimex
 - simple example for using bare-metal cell within bananapi/olimex
