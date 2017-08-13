@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 4.11.9 Kernel Configuration
+# Linux/arm 4.11.12 Kernel Configuration
 #
 CONFIG_ARM=y
 CONFIG_ARM_HAS_SG_CHAIN=y
@@ -4128,7 +4128,6 @@ CONFIG_SND_VMASTER=y
 # CONFIG_SND_OPL4_LIB_SEQ is not set
 # CONFIG_SND_SBAWE_SEQ is not set
 # CONFIG_SND_EMU10K1_SEQ is not set
-CONFIG_SND_MPU401_UART=m
 CONFIG_SND_AC97_CODEC=m
 CONFIG_SND_DRIVERS=y
 # CONFIG_SND_DUMMY is not set
