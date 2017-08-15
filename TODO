@@ -11,6 +11,8 @@
 - add pics with cubietruck and cubietruck-plus
   (find the difference)                                     [2017-08-15 -> done]
 
+## target stuff
+- add syslog server to baalue_master (see https://kerneltalks.com/services/build-syslog-server-linux-centralized-log-management/)
 
 #
 # -------------- 2017-08-14 ----------------------------------------------------
@@ -48,7 +50,7 @@
 
 ## target stuff
 - mount points (bananapi*/cubietruck_* ...) to
-  baalue_master                                             [2017-08-15 -> done]
+  baalue_master
 
 
 #
