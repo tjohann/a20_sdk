@@ -336,7 +336,7 @@ Due to the fact that the devices are used for different task I support a mainlin
 You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/configs. To build your own custom kernel you can use them as a base.
 
 	Olimex -> RT-PREEMPT
-	Bananapi -> RT-PREEMPT
+	Bananapi -> PREEMPT
 	Baalue-Node -> PREEMPT
 	Bananapi-Pro -> PREEMPT
 	Cubietruck -> PREEMPT
@@ -479,7 +479,7 @@ I use the bananapi in 2 different ways:
 	- as a embedded device with can, display and other goodies
 	- a baalue-node
 
-The main difference between these 2 usecases is the kernel. For a baalue-node i use the a **PREEMPT** kernel and for the classic device i use a **RT-PREEMPT** kernel.
+The main difference between these 2 usecases is the kernel. For a baalue-node i use the a **PREEMPT** kernel and for the classic device i also use a **RT-PREEMPT** kernel.
 
 Additonal Hardware conneted (as classic embedded device):
 

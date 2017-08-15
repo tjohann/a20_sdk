@@ -15,6 +15,9 @@
 
 	      ## target stuff
 	      regular image update
+	      RT-PREEMPT kernel is the main kernel only for olimex (bananapi
+	      uses also PREEMPT)
+	      remove RT-PREEMPT support in base image (costs a lot of flash)
 
 
 ################## 2017-08-15 -> A20_SDK_V2.3.2 #############################

@@ -29,6 +29,7 @@
 # Version     :    V2.04
 #
 # Milestones  :    V2.04 (aug 2017) -> add support for cubietruck-plus
+#                                      RT-PREEMPT support is optional
 #                  V2.03 (jan 2017) -> fix remove of old dts/dtb
 #                  V2.02 (dec 2016) -> minor changes
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
@@ -279,9 +280,10 @@ untar_base_image
 #
 
 # bananapi -> only hdd image needed (bananapi_kernel.tgz is the base image)
-BRAND="bananapi"
-HDD="_hdd"
-do_all_rt
+# NOTE: not needed for non-rt only
+#BRAND="bananapi"
+#HDD="_hdd"
+#do_all_rt
 
 # olimex
 BRAND="olimex"
