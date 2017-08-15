@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.11.2016/02.07.2016
+# Date/Beginn :    15.08.2017/02.07.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (nov 2016) -> bug fixing
+# Milestones  :    V2.03 (aug 2017) -> add support for cubietruck-plus
+#                  V2.02 (nov 2016) -> bug fixing
 #                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.09 (sep 2016) -> remove arm926_sdk parts
@@ -75,7 +76,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -104,7 +105,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/nanopi                       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi       |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -415,6 +416,11 @@ case "$BRAND" in
 	SD_SHARED=$OLIMEX_SDCARD_SHARED
         ;;
     'cubietruck')
+	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+	SD_HOME=$CUBIETRUCK_SDCARD_HOME
+	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
+	;;
+    'cubietruck-plus')
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME
 	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED

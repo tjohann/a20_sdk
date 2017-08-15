@@ -14,7 +14,7 @@ ifeq "${ARMHF_SRC_HOME}" ""
     $(error error: please source armhf_env first!)
 endif
 
-MODULES = bananapi bananapi-pro baalue olimex cubietruck nanopi
+MODULES = bananapi bananapi-pro baalue olimex cubietruck cubietruck-plus nanopi
 MODULES += include man pics configs scripts
 MODULES += a20_sdk a20_sdk_src
 
@@ -144,6 +144,7 @@ get_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b baalue)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck-plus)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
 
 man::

@@ -150,6 +150,7 @@ get_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b baalue)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck-plus)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
 
 get_bananapi_image_tarballs::
@@ -183,6 +184,14 @@ get_cubietruck_image_tarballs::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
+
+get_cubietruck-plus_image_tarballs::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|      Download latest cubietruck-plus image tarballs      |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck-plus)
 
 get_olimex_image_tarballs::
 	@echo "+----------------------------------------------------------+"

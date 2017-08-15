@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.11.2016/12.07.2016
+# Date/Beginn :    15.08.2017/12.07.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add support for nanopi neo
+# Milestones  :    V2.02 (aug 2017) -> add support for cubietruck-plus
+#                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.03 (aug 2016) -> add hdd-only-sdcard parts
 #                  V1.02 (aug 2016) -> sudo handling at beginning
@@ -56,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -91,7 +92,7 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/nanopi                       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi       |"
     echo "|        [-s] -> prepare sd-card for hdd installation    |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                -e set also -s                          |"
@@ -467,6 +468,13 @@ case "$BRAND" in
 	SD_PART_NAME_POST_LABEL="OLI"
         ;;
     'cubietruck')
+	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
+	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+	SD_HOME=$CUBIETRUCK_SDCARD_HOME
+	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
+	SD_PART_NAME_POST_LABEL="CUBI"
+        ;;
+    'cubietruck-plus')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME

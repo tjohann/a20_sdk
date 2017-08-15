@@ -50,10 +50,10 @@ sdk checks:
 
 
 
-A20_SDK_V2.3.2 (13.08.2017)
+A20_SDK_V2.3.2 (15.08.2017)
 ---------------------------
 
-	Common checks                                         [2017-08-xx -> partly]
+	Common checks                                     [2017-08-15 -> not needed]
 
 	Config updates (on the target):
 		- ...

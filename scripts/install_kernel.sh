@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    18.04.2017/07.09.2016
+# Date/Beginn :    15.08.2017/07.09.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
+# Milestones  :    V2.04 (aug 2017) -> add support for cubietruck-plus
+#                  V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                  V2.02 (nov 2016) -> add support for nanopi-neo
 #                  V2.01 (oct 2016) -> fix RT-PREEMPT part
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -50,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -76,7 +77,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/nanopi                       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi       |"
     echo "|        [-r] -> install rt kernel parts                 |"
     echo "|        [-n] -> install non-rt kernel parts             |"
     echo "|        [-v] -> print version info                      |"
@@ -291,6 +292,11 @@ copy_kernel_folder()
 	echo "ERROR -> could not copy to ${SD_KERNEL}/cubietruck"
     fi
 
+    cp arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dt[b,s] ${SD_KERNEL}/cubietruck
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not copy to ${SD_KERNEL}/cubietruck"
+    fi
+
     cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${SD_KERNEL}/nanopi
     if [ $? -ne 0 ] ; then
 	echo "ERROR -> could not copy to ${SD_KERNEL}/nanopi"
@@ -311,6 +317,9 @@ copy_kernel_folder()
             ;;
 	'cubietruck')
 	    cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] ${SD_KERNEL}
+            ;;
+	'cubietruck-plus')
+	    cp arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dt[b,s] ${SD_KERNEL}
             ;;
 	'nanopi')
 	    cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${SD_KERNEL}
@@ -390,6 +399,10 @@ case "$BRAND" in
 	SD_ROOTFS=$OLIMEX_SDCARD_ROOTFS
         ;;
     'cubietruck')
+	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
+	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+        ;;
+    'cubietruck-plus')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
         ;;

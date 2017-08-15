@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.02.2017/15.07.2016
+# Date/Beginn :    15.08.2017/15.07.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (feb 2017) -> add check for untar to $SD_HOME
+# Milestones  :    V2.03 (aug 2017) -> add support for cubietruck-plus
+#                  V2.02 (feb 2017) -> add check for untar to $SD_HOME
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.07 (aug 2016) -> remove dot from untar kdo (not needed)
@@ -60,7 +61,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -94,7 +95,7 @@ my_usage()
     echo "|                                                        |"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/nanopi                       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi       |"
     echo "|        [-m] -> use the minimal images                  |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
@@ -491,6 +492,12 @@ case "$BRAND" in
 	SD_SHARED=$OLIMEX_SDCARD_SHARED
         ;;
     'cubietruck')
+	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
+	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
+	SD_HOME=$CUBIETRUCK_SDCARD_HOME
+	SD_SHARED=$CUBIETRUCK_SDCARD_SHARED
+        ;;
+    'cubietruck-plus')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
 	SD_ROOTFS=$CUBIETRUCK_SDCARD_ROOTFS
 	SD_HOME=$CUBIETRUCK_SDCARD_HOME

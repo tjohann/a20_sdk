@@ -3,6 +3,24 @@
 #
 #
 
+#
+# -------------- 2017-08-15 ----------------------------------------------------
+#
+## sdk stuff
+- add support for external/baalue
+
+
+#
+# -------------- 2017-08-14 ----------------------------------------------------
+#
+## target && sdk stuff
+- add base support for cubietruck-plus
+  - add new pics for cubietruck stack (2 + 1)
+  - add pic for cubietruck-plus
+
+## script stuff
+- add support for cubietruck-plus                           [2017-08-15 -> done]
+
 
 #
 # -------------- 2017-08-11 ----------------------------------------------------
@@ -28,7 +46,7 @@
 
 ## target stuff
 - mount points (bananapi*/cubietruck_* ...) to
-  baalue_master
+  baalue_master                                             [2017-08-15 -> done]
 
 
 #
@@ -41,7 +59,7 @@
   -> A20_SDK_V2.3.0                                         [2017-07-15 -> done]
 - setup armhf qemu installation for testing purpose
   (distcc into baalue, build environment for void-packages,
-  emacs build, ...)                                     [2017-08-11 -> canceled]
+  emacs build, ...)
 
 ## sdk && target stuff
 - update u-boot                                             [2017-07-29 -> done]

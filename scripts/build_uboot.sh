@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.04.2017/02.12.2016
+# Date/Beginn :    15.08.2017/02.12.2016
 #
-# Version     :    V0.03
+# Version     :    V2.00
 #
-# Milestones  :    V0.03 (apr 2017) -> be aware of MY_HOST_ARCH
+# Milestones  :    V2.00 (aug 2017) -> add support for cubietruck-plus
+#                                      version bump to V2.00
+#                  V0.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                  V0.02 (feb 2017) -> fix some problems
 #                  V0.01 (dec 2016) -> initial version
 #
@@ -47,7 +49,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.03'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -68,7 +70,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/nanopi                       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi       |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -280,6 +282,9 @@ case "$BRAND" in
         ;;
     'cubietruck')
 	UBOOT_CONFIG="Cubietruck_defconfig"
+        ;;
+    'cubietruck-plus')
+	UBOOT_CONFIG="Cubietruck_plus_defconfig"
         ;;
     'nanopi')
 	UBOOT_CONFIG="nanopi_neo_defconfig"

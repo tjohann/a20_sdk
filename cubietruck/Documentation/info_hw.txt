@@ -2,6 +2,14 @@
 # Some hw related info (dts ... jailhouse ...) for cubietruck
 #
 
+common links
+============
+
+http://linux-sunxi.org/Cubietech_Cubietruck
+http://docs.cubieboard.org/products/start#cubietruck_cubieboard3
+http://www.cubietech.com/product-detail/cubieboard3/
+
+
 "Special" pins
 ==============
 

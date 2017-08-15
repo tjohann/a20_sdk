@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.11.2016/24.08.2015
+# Date/Beginn :    15.08.2017/24.08.2015
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add support for nanopi neo
+# Milestones  :    V2.01 (aug 2017) -> add support for cubietruck-plus
+#                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (aug 2016) -> add hdd-only-sdcard parts
 #                                      some smaller fixes
@@ -90,7 +91,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -122,7 +123,7 @@ my_usage()
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/nanopi                       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi       |"
     echo "|        [-m] -> download the minimal images             |"
     echo "|        [-s] -> download images for hdd installation    |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
@@ -297,6 +298,15 @@ case "$BRAND" in
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck_kernel.tgz"
 	fi
 	get_tarball
+	;;
+    'cubietruck-plus')
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck-plus_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/cubietruck/cubietruck-plus_kernel.tgz"
+	fi
+	get_tarball
+	;;
     'nanopi')
 	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/nanopi/nanopi_hdd_kernel.tgz"

@@ -2,7 +2,7 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A simple development environment for ARMv7 boards based on Allwinners A20 processor (and related like H3). It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
+A simple development environment for ARMv7 boards based on Allwinners A20/H3/A83T/... processor. It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
 
 The basic user interface are make targets, which then start the corresponding scripts:
 
@@ -242,7 +242,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V2.3.1
+	A20_SDK_V2.3.2
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
@@ -273,6 +273,7 @@ Within /var/lib/a20_sdk/ you find the 4 (+1) supported devices below the directo
     bananapi -> BananaPi-M1
     bananapi-pro -> BananaPi-Pro
     cubietruck -> Cubietruck (Cubieboard 3)
+	cubietruck-plus -> Cubietruck-Plus (Cubieboard 5)
     olimex -> Olimex A20-SOM/EVB
 	nanopi -> NanoPi Neo (only basic support yet)
 
@@ -289,7 +290,8 @@ In short:
 
     bananapi -> baalue (my Bananapi Cluster with 8 Nodes) and embbedded plattform
     bananapi-pro -> my home audio/video stream server and nextcloud server
-    cubietruck -> my master node for baalue and test environment for jailhouse (https://github.com/siemens/jailhouse)
+    cubietruck -> another possible baalue node node and test environment for jailhouse (https://github.com/siemens/jailhouse)
+	cubietruck-plus -> my master node for baalue
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
 	nanopi -> base board for my mobile robots
 
@@ -338,6 +340,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 	Baalue-Node -> PREEMPT
 	Bananapi-Pro -> PREEMPT
 	Cubietruck -> PREEMPT
+	Cubietruck-Plus -> PREEMPT
 	NanoPi -> PREEMPT
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}.
@@ -352,6 +355,7 @@ Single devices:
 
 	192.168.0.100           arietta.my.domain               arietta
 	192.168.0.101           cubietruck.my.domain            cubietruck
+	192.168.0.112           cubietruck-plus.my.domain       cubietruck-plus
 	192.168.0.102           olimex.my.domain                olimex
 	192.168.0.103	        bananapi.my.domain              bananapi
 	192.168.0.109	        bananapi-pro.my.domain          bananapi-pro
@@ -361,22 +365,22 @@ Single devices:
 My cluster:
 
 	192.168.0.80            baalue-80.my.domain             baalue_master
-	192.168.0.81            baalue-81.my.domain             baalue-81
-	192.168.0.82            baalue-82.my.domain             baalue-82
-	192.168.0.83            baalue-83.my.domain             baalue-83
-	192.168.0.84            baalue-84.my.domain             baalue-84
-	192.168.0.85            baalue-85.my.domain             baalue-85
-	192.168.0.86            baalue-86.my.domain             baalue-86
-	192.168.0.87            baalue-87.my.domain             baalue-87
-	192.168.0.88            baalue-88.my.domain             baalue-88
-	192.168.0.89            baalue-89.my.domain             baalue-89
-	192.168.0.90            baalue-90.my.domain             baalue-90
-	192.168.0.91            baalue-91.my.domain             baalue-91
-	192.168.0.92            baalue-92.my.domain             baalue-92
-	192.168.0.93            baalue-93.my.domain             baalue-93
-	192.168.0.94            baalue-94.my.domain             baalue-94
-	192.168.0.95            baalue-95.my.domain             baalue-95
-	192.168.0.96            baalue-96.my.domain             baalue-96
+	192.168.0.81            baalue-81.my.domain             baalue-01
+	192.168.0.82            baalue-82.my.domain             baalue-02
+	192.168.0.83            baalue-83.my.domain             baalue-03
+	192.168.0.84            baalue-84.my.domain             baalue-04
+	192.168.0.85            baalue-85.my.domain             baalue-05
+	192.168.0.86            baalue-86.my.domain             baalue-06
+	192.168.0.87            baalue-87.my.domain             baalue-07
+	192.168.0.88            baalue-88.my.domain             baalue-08
+	192.168.0.89            baalue-89.my.domain             baalue-09
+	192.168.0.90            baalue-90.my.domain             baalue-10
+	192.168.0.91            baalue-91.my.domain             baalue-11
+	192.168.0.92            baalue-92.my.domain             baalue-12
+	192.168.0.93            baalue-93.my.domain             baalue-13
+	192.168.0.94            baalue-94.my.domain             baalue-14
+	192.168.0.95            baalue-95.my.domain             baalue-15
+	192.168.0.96            baalue-96.my.domain             baalue-16
 
 
 My nfs share:
@@ -400,16 +404,17 @@ Naming convention:
 	bananapi/bananapi-pro_(hdd_)kernel.tgz
 	bananapi/baalue_(hdd_)kernel.tgz
 	cubietruck/cubietruck_(hdd_)kernel.tgz
+	cubietruck/cubietruck-plus_(hdd_)kernel.tgz
 	olimex/olimex_(hdd_)kernel.tgz
 	nanopi/nanopi_kernel.tgz
 
 
-Cubietruck (CB3)
-----------------
+Cubietruck (CB3) and Cubietruck-Plus (CB5)
+------------------------------------------
 
-One of my two cubietruck is acting as master nodes for my Bananapi Cluster (baalue_master). The baalue_master has a hard-disk as boot device. I use it as a distcc server node and the 8 cluster nodes as distcc clients. It has a pcb with some additional hardware connected.
+One of my two cubietruck (the cubietruck-plus) is acting as master nodes for my Bananapi Cluster (baalue_master). The baalue_master has a hard-disk as boot device. I use it as a distcc server node and the 8 cluster nodes as distcc clients. It has a pcb with some additional hardware connected.
 
-The second cubietruck is my test environment for the jailhouse hypervisor.
+The cubietruck's are my test environment for the jailhouse hypervisor.
 
 Additonal Hardware conneted:
 
@@ -427,6 +432,8 @@ Addtional mount points (host):
     LABEL=SHARED_CUBI   /mnt/cubietruck/cubietruck_shared  auto  noauto,user,rw  0 0
 
 [The storyline for Cubietruck](cubietruck/Documentation/storyline.md)
+
+[The storyline for Cubietruck-Plus](cubietruck-plus/Documentation/storyline.md)
 
 
 Bananapi-Pro
@@ -488,8 +495,8 @@ There'se also a script called brand_baalue_images.sh in ./scripts. This will bra
 	+--------------------------------------------------------+
 	| Usage: brand_baalue_images.sh                          |
 	|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |
-	|                cubietruck/nanopi                       |
-	|        [-n] -> node (1...16, master)                    |
+	|                cubietruck/cubietruck-plus/nanopi       |
+	|        [-n] -> node (1...16, master)                   |
 	|        [-s] -> prepare images for hdd installation     |
 	|        [-v] -> print version info                      |
 	|        [-h] -> this help                               |

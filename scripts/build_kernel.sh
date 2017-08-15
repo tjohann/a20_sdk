@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.04.2017/07.09.2016
+# Date/Beginn :    15.08.2017/07.09.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
+# Milestones  :    V2.04 (aug 2017) -> add support for cubietruck-plus
+#                  V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                                      some smaller improvements
 #                  V2.02 (dec 2016) -> fix kdo handling
 #                                      add check for cross-compiler
@@ -61,7 +62,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -235,6 +236,7 @@ copy_dts()
     cp $ARMHF_HOME/bananapi/configs/sun7i-a20-bananapi.dts arch/arm/boot/dts/sun7i-a20-bananapi.dts
     cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
     cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
+    cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
     cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
     cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/sun8i-h3-nanopi-neo.dts
 }
@@ -248,12 +250,14 @@ build_dtb()
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-cubietruck-plus.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
     else
 	make sun7i-a20-bananapi.dtb
 	make sun7i-a20-olimex-som-evb.dtb
 	make sun7i-a20-bananapro.dtb
 	make sun7i-a20-cubietruck.dtb
+	make sun8i-a83t-cubietruck-plus.dtb
 	make sun8i-h3-nanopi-neo.dtb
     fi
 }

@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,14 @@
 #
 ################################################################################
 #
-# Date/Beginn :    30.09.2016/25.01.2016
+# Date/Beginn :    15.08.2017/25.01.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (aug 2017) -> add support for cubietruck-plus and
+#                                      nanopi
+#                                      some smaller fixes
+#                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                                      add link to man page dir to user init
 #                  V1.07 (sep 2016) -> add -z to all rsync calls
 #                  V1.06 (aug 2016) -> sudo handling at beginning
@@ -70,7 +73,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -234,6 +237,18 @@ add_documentations_links_opt()
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/cubietruck" >&2
     fi
 
+    # cubietruck-plus related docs
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/cubietruck-plus ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/cubietruck-plus
+	rsync -avz --delete ${ARMHF_HOME}/cubietruck-plus/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/cubietruck-plus/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/cubietruck-plus" >&2
+    fi
+
     # olimex related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/olimex ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/olimex
@@ -244,6 +259,18 @@ add_documentations_links_opt()
 	fi
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/olimex" >&2
+    fi
+
+     # nanopi related docs
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/nanopi ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/nanopi
+	rsync -avz --delete ${ARMHF_HOME}/nanopi/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/nanopi/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/nanopi" >&2
     fi
 }
 
@@ -297,16 +324,40 @@ add_documentations_links_home()
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/cubietruck" >&2
     fi
 
+    # cubietruck-plus related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/cubietruck-plus ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/cubietruck-plus
+	rsync -avz --delete ${ARMHF_HOME}/cubietruck-plus/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/cubietruck-plus/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/cubietruck-plus" >&2
+    fi
+
     # olimex related docs
     if [ -d ${ARMHF_SRC_HOME}/Documentation/olimex ]; then
 	cd ${ARMHF_SRC_HOME}/Documentation/olimex
 	rsync -avz --delete ${ARMHF_HOME}/olimex/Documentation/. .
 	if [ $? -ne 0 ] ; then
-	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi/Documentation/." >&2
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/olimex/Documentation/." >&2
 	    my_exit
 	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/olimex" >&2
+    fi
+
+    # nanopi related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/nanopi ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/nanopi
+	rsync -avz --delete ${ARMHF_HOME}/nanopi/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/nanopi/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/nanopi" >&2
     fi
 }
 

@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    31.01.2016/26.08.2016
+# Date/Beginn :    15.08.2017/26.08.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (jan 2017) -> fix remove of old dts/dtb
+# Milestones  :    V2.04 (aug 2017) -> add support for cubietruck-plus
+#                  V2.03 (jan 2017) -> fix remove of old dts/dtb
 #                  V2.02 (dec 2016) -> minor changes
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -305,6 +306,13 @@ do_all_nonrt
 
 # cubietruck
 BRAND="cubietruck"
+HDD=""
+do_all_nonrt
+HDD="_hdd"
+do_all_nonrt
+
+# cubietruck-plus
+BRAND="cubietruck-plus"
 HDD=""
 do_all_nonrt
 HDD="_hdd"

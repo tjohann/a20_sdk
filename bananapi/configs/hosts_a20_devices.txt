@@ -13,6 +13,7 @@
 192.168.0.105           imx233.my.domain                      imx233
 192.168.0.109           bananapi-pro.my.domain                bananapi-pro
 192.168.0.111           nanopi.my.domain                      nanopi
+192.168.0.112           cubietruck-plus.my.domain             cubietruck-plus
 
 #
 # nfs share

@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.07.2017/02.12.2016
+# Date/Beginn :    15.08.2017/02.12.2016
 #
-# Version     :    V0.04
+# Version     :    V2.00
 #
-# Milestones  :    V0.04 (jul 2017) -> add baalue as device
+# Milestones  :    V2.00 (aug 2017) -> add support for cubietruck-plus
+#                                      version bump to V2.00
+#                  V0.04 (jul 2017) -> add baalue as device
 #                  V0.03 (feb 2017) -> some smaller changes
 #                  V0.02 (jan 2017) -> fix kdo argument handling
 #                  V0.01 (dec 2016) -> initial version
@@ -48,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='0.04'
+VER='2.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -70,7 +72,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/nanopi                       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi       |"
     echo "|        [-r] -> copy bin file to repo (for maintainer)  |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -278,6 +280,9 @@ case "$BRAND" in
 	SD_KERNEL=$OLIMEX_SDCARD_KERNEL
         ;;
     'cubietruck')
+	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
+        ;;
+    'cubietruck-plus')
 	SD_KERNEL=$CUBIETRUCK_SDCARD_KERNEL
         ;;
     'nanopi')

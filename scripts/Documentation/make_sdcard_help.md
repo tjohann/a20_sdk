@@ -13,6 +13,7 @@ These are the supported target devices:
 	Bananapi-M1 (normal and Baalue-Cluster-Node)
 	Bananapi-Pro
 	Cubietruck (Cubieboard 3)
+	Cubietruck-Plus (Cubieboard 5)
 	Olimex-SOM-EVB
 	NanoPi-Neo
 

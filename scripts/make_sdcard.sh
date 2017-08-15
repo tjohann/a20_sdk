@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.11.2016/10.07.2016
+# Date/Beginn :    15.08.2017/10.07.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add support for nanopi-neo
+# Milestones  :    V2.02 (aug 2017) -> add support for cubietruck-plus
+#                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.02 (aug 2016) -> a lot of fixes around hdd-boot-sdcard
 #                  V1.01 (aug 2016) -> add menuentry to create hdd-boot-sdcard
@@ -71,7 +72,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -525,6 +526,7 @@ select_target()
     local def_bananapi="off"
     local def_baalue="off"
     local def_cubietruck="off"
+    local def_cubietruck_plus="off"
     local def_olimex="off"
     local def_nanopi="off"
 
@@ -537,6 +539,8 @@ select_target()
 	    def_baalue="on" ;;
 	*cubietruck*)
 	    def_cubietruck="on" ;;
+	*cubietruck-plus*)
+	    def_cubietruck_plus="on" ;;
 	*olimex*)
 	    def_olimex="on" ;;
 	*nanopi*)
@@ -548,8 +552,9 @@ select_target()
            02 "Bananapi" ${def_bananapi} \
            03 "Baalue" ${def_baalue} \
            04 "Cubietruck" ${def_cubietruck} \
-	   05 "Nanopi" ${def_nanopi} \
-           06 "Olimex" ${def_olimex} 2>$_temp
+	   05 "Cubietruck-Plus" ${def_cubietruck_plus} \
+	   06 "Nanopi" ${def_nanopi} \
+           07 "Olimex" ${def_olimex} 2>$_temp
     local result=`cat $_temp`
 
     case "$result" in
@@ -562,8 +567,10 @@ select_target()
 	*04*)
 	    BRAND="cubietruck" ;;
 	*05*)
-	    BRAND="nanopi" ;;
+	    BRAND="cubietruck-plus" ;;
 	*06*)
+	    BRAND="nanopi" ;;
+	*07*)
 	    BRAND="olimex" ;;
     esac
 

@@ -1,0 +1,21 @@
+#
+# Some hw related info (dts ...) for cubietruck
+#
+
+common links
+============
+
+http://linux-sunxi.org/Cubietech_Cubietruck_Plus
+http://www.cubietech.com/product-detail/cubieboard5/
+
+
+"Special" pins
+==============
+
+
+Schematic & pins
+================
+
+
+GPU
+===
