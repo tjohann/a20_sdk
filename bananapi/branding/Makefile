@@ -22,4 +22,7 @@ clean:
 	rm -f etc/*~
 	rm -f hdd_branding/*~
 
+make_tarballs: clean
+	tar czvf hdd_branding.tgz hdd_branding
+
 distclean: clean

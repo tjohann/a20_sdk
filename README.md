@@ -268,7 +268,7 @@ Note: Actually there not complete.
 All devices
 -----------
 
-Within /var/lib/a20_sdk/ you find the 4 (+1) supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
+Within /var/lib/a20_sdk/ you find the 5 (+1) supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
     bananapi -> BananaPi-M1
     bananapi-pro -> BananaPi-Pro
@@ -382,10 +382,22 @@ My cluster:
 	192.168.0.95            baalue-95.my.domain             baalue-15
 	192.168.0.96            baalue-96.my.domain             baalue-16
 
-
 My nfs share:
 
 	192.168.0.42            echnaton.my.domain              echnaton
+
+
+NFS share
+---------
+
+From my virtual device *echnaton* i share, via nfs some files. Also *baalue_master* can share the generated packages (see Distcc below) to the network. To active the *baalue_master* nfs share you can follow the void-linux instructions (https://wiki.voidlinux.eu/Network_filesystem). The base configuration is included in both images (base and full).
+
+
+Distcc
+------
+
+To setup a build cluster based on this sdk you can addtional check https://github.com/tjohann/baalue_distcc . Here you should find all informations needed. Every base configuration is already included in both images (base and full).
+
 
 
 Directory/File structure on sourceforge
@@ -414,7 +426,10 @@ Cubietruck (CB3) and Cubietruck-Plus (CB5)
 
 One of my two cubietruck (the cubietruck-plus) is acting as master nodes for my Bananapi Cluster (baalue_master). The baalue_master has a hard-disk as boot device. I use it as a distcc server node and the 8 cluster nodes as distcc clients. It has a pcb with some additional hardware connected.
 
-The cubietruck's are my test environment for the jailhouse hypervisor.
+The cubietruck's are also my test environment for the jailhouse hypervisor.
+
+Cubietruck 3 vs Cubietruck 5:
+![Alt text](pics/cubietruck_3_vs_5.jpg?raw=true "Find the difference")
 
 Additonal Hardware conneted:
 

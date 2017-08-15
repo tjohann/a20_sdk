@@ -8,15 +8,17 @@
 #
 ## sdk stuff
 - add support for external/baalue
+- add pics with cubietruck and cubietruck-plus
+  (find the difference)                                     [2017-08-15 -> done]
 
 
 #
 # -------------- 2017-08-14 ----------------------------------------------------
 #
 ## target && sdk stuff
-- add base support for cubietruck-plus
+- add base support for cubietruck-plus                      [2017-08-15 -> done]
   - add new pics for cubietruck stack (2 + 1)
-  - add pic for cubietruck-plus
+  - add pic for cubietruck-plus                             [2017-08-15 -> done]
 
 ## script stuff
 - add support for cubietruck-plus                           [2017-08-15 -> done]
@@ -76,7 +78,7 @@
 #
 ## target stuff
 - check distcc config on nodes and master
-  - void-packages build
+  - void-packages build                                     [2017-08-15 -> done]
   - kernel build                                            [2017-08-09 -> done]
   - uboot build (check if possible)
 

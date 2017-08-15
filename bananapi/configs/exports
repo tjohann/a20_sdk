@@ -6,4 +6,4 @@
 # /export	192.168.1.10(rw,no_root_squash)
 
 # my normal share for all
-/home/baalue/src/void-packages/hostdir/binpkgs baalue-01(rw,no_subtree_check,sync) baalue-02(rw,no_subtree_check,sync) baalue-03(rw,no_subtree_check,sync) baalue-04(rw,no_subtree_check,sync) baalue-05(rw,no_subtree_check,sync) baalue-06(rw,no_subtree_check,sync) baalue-07(rw,no_subtree_check,sync) baalue-08(rw,no_subtree_check,sync)
+/mnt/shared/binpkgs baalue-01(rw,no_subtree_check,sync) baalue-02(rw,no_subtree_check,sync) baalue-03(rw,no_subtree_check,sync) baalue-04(rw,no_subtree_check,sync) baalue-05(rw,no_subtree_check,sync) baalue-06(rw,no_subtree_check,sync) baalue-07(rw,no_subtree_check,sync) baalue-08(rw,no_subtree_check,sync)

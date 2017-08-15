@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 4.11.9 Kernel Configuration
+# Linux/arm 4.11.12 Kernel Configuration
 #
 CONFIG_ARM=y
 CONFIG_ARM_HAS_SG_CHAIN=y
@@ -322,6 +322,11 @@ CONFIG_PADATA=y
 CONFIG_ASN1=m
 CONFIG_UNINLINE_SPIN_UNLOCK=y
 CONFIG_ARCH_SUPPORTS_ATOMIC_RMW=y
+
+#
+# RT Locking
+#
+# CONFIG_RWLOCK_RT_READER_BIASED is not set
 CONFIG_FREEZER=y
 
 #

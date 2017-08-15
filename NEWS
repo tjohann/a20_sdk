@@ -4,6 +4,22 @@
 
 
 2017-08-15 -> ## target && sdk stuff
+	      finalize nfs support -> add fstab entries and add all to base/full
+	      image
+	      update distcc configs
+
+	      ## sdk stuff
+	      add Makefile target to create hdd_branding*.tgz
+	      add some hints/docu about nfs usage
+      	      add some hints/docu about distcc
+
+	      ## target stuff
+	      regular image update
+
+
+################## 2017-08-15 -> A20_SDK_V2.3.2 #############################
+
+2017-08-15 -> ## target && sdk stuff
 	      add first support for cubietruck-plus as baalue_master node
 
 	      ## script stuff

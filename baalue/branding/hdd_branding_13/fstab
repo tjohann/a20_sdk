@@ -11,4 +11,5 @@ tmpfs           /tmp    	tmpfs   defaults,nosuid,nodev   0       0
 /dev/mmcblk0p3  /mnt/bananapi/bananapi_shared  ext4  defaults,noauto 0  1
 
 # my home network share
-echnaton:/mnt/shared		/mnt/echnaton_nfs  nfs defaults,noauto,user,sync,nfsvers=3   0  0
+echnaton:/mnt/shared              /mnt/echnaton_nfs  nfs defaults,noauto,user,sync,nfsvers=3  0  0
+baalue_master:/mnt/shared/binpkgs /mnt/binpkgs_nfs   nfs defaults,noauto,user,sync,nfsvers=3  0  0

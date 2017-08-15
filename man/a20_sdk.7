@@ -225,11 +225,12 @@ You find storylines for some of my usescases/devices below ./DEVICE_NAME/Documen
 Note: Actually there not complete.
 .PP
 .SH All devices
-Within /var/lib/a20_sdk/ you find the 4 (+1) supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
+Within /var/lib/a20_sdk/ you find the 5 (+1) supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
     bananapi -> BananaPi-M1
     bananapi-pro -> BananaPi-Pro
     cubietruck -> Cubietruck (Cubieboard 3)
+    cubietruck-plus -> Cubietruck-Plus (Cubieboard 5)
     olimex -> Olimex A20-SOM/EVB
     nanopi -> NanoPi Neo (only base support)
 
@@ -323,6 +324,12 @@ My cluster:
 My nfs share:
 
     192.168.0.42            echnaton.my.domain              echnaton
+.PP
+.SH NFS share
+From my virtual device *echnaton* i share, via nfs some files. Also *baalue_master* can share the generated packages (see Distcc below) to the network. To active the *baalue_master* nfs share you can follow the void-linux instructions (https://wiki.voidlinux.eu/Network_filesystem). The base configuration is included in both images (base and full).
+.PP
+.SH Distcc
+To setup a build cluster based on this sdk you can addtional check https://github.com/tjohann/baalue_distcc . Here you should find all informations needed. Every base configuration is already included in both images (base and full).
 .PP
 .SH Directory/File structure on sourceforge
 All binary/big files (toolchain or images) reside on sourceforge (https://sourceforge.net/projects/a20devices/files/). The scripts to setup the environment using that location to download them.
