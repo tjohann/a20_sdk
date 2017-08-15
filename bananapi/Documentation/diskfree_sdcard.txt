@@ -1,28 +1,28 @@
 # ---- full image
 baalue@bananapi:~$ df -h
 Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
-/dev/root       7,9G    5,0G  2,6G   67% /
-devtmpfs        463M    4,0K  463M    1% /dev
-run             464M    272K  463M    1% /run
-shm             464M       0  464M    0% /dev/shm
-cgroup          464M       0  464M    0% /sys/fs/cgroup
-tmpfs           464M       0  464M    0% /tmp
-/dev/mmcblk0p1   32M     21M   11M   66% /boot
-/dev/mmcblk0p3  6,7G    248M  6,2G    4% /home
-none            464M       0  464M    0% /run/user/0
-
+/dev/root       7,9G    4,9G  2,6G   66% /
+devtmpfs        464M    4,0K  464M    1% /dev
+run             465M    336K  464M    1% /run
+shm             465M       0  465M    0% /dev/shm
+cgroup          465M       0  465M    0% /sys/fs/cgroup
+tmpfs           465M       0  465M    0% /tmp
+/dev/mmcblk0p1   32M     23M  8,9M   72% /boot
+/dev/mmcblk0p3  6,7G    254M  6,1G    4% /home
+none            465M       0  465M    0% /run/user/0
 
 
 # ---- base image
-baalue@bananapi:/opt/a20_sdk/external/mydriver$ df -h
+root@bananapi:~# df -h
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/root       3.0G  2.8G   80M  98% /
-devtmpfs        464M  4.0K  463M   1% /dev
-run             465M  248K  464M   1% /run
+/dev/root       3.0G  2.2G  676M  77% /
+devtmpfs        464M  4.0K  464M   1% /dev
+run             465M  320K  464M   1% /run
 shm             465M     0  465M   0% /dev/shm
 cgroup          465M     0  465M   0% /sys/fs/cgroup
 tmpfs           465M     0  465M   0% /tmp
-/dev/mmcblk0p1   32M   26M  6.2M  81% /boot
+/dev/mmcblk0p1   32M   23M  8.9M  72% /boot
 /dev/mmcblk0p3   12G  258M   11G   3% /home
+
 
 

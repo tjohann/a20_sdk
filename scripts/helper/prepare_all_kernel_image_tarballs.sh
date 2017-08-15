@@ -242,6 +242,7 @@ rm_old_dts()
 {
     rm -f ${SD_KERNEL}/sun7i-a20-*.dt?
     rm -f ${SD_KERNEL}/sun8i-h3-nanopi-neo.dt?
+    rm -f ${SD_KERNEL}/sun8i-a83t-cubietruck-plus.dt?
 }
 
 do_all_rt()
@@ -282,8 +283,8 @@ untar_base_image
 # bananapi -> only hdd image needed (bananapi_kernel.tgz is the base image)
 # NOTE: not needed for non-rt only
 #BRAND="bananapi"
-#HDD="_hdd"
-#do_all_rt
+HDD="_hdd"
+do_all_nonrt
 
 # olimex
 BRAND="olimex"

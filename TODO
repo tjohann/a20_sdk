@@ -13,6 +13,8 @@
 
 ## target stuff
 - add syslog server to baalue_master (see https://kerneltalks.com/services/build-syslog-server-linux-centralized-log-management/)
+- check language on base image
+
 
 #
 # -------------- 2017-08-14 ----------------------------------------------------
