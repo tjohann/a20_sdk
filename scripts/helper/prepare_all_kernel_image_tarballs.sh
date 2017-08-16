@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/26.08.2016
+# Date/Beginn :    16.08.2017/26.08.2016
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.05 (aug 2017) -> also olimex first kernel is PREEMPT
+#                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                                      RT-PREEMPT support is optional
 #                  V2.03 (jan 2017) -> fix remove of old dts/dtb
 #                  V2.02 (dec 2016) -> minor changes
@@ -56,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -289,9 +290,11 @@ do_all_nonrt
 # olimex
 BRAND="olimex"
 HDD=""
-do_all_rt
+#do_all_rt
+do_all_nonrt
 HDD="_hdd"
-do_all_rt
+#do_all_rt
+do_all_nonrt
 
 # bananapi-pro
 BRAND="bananapi-pro"
@@ -325,7 +328,7 @@ do_all_nonrt
 BRAND="nanopi"
 HDD=""
 do_all_nonrt
-# no reald hdd support for nanopi (only over usb)
+# no real hdd support for nanopi (only over usb)
 HDD="_hdd"
 do_all_nonrt
 
