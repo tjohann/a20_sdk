@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   14.08.2017/14.08.2017
+Date:   16.08.2017/14.08.2017
 
 Content:
 
@@ -45,14 +45,14 @@ Device
 -------
 
 - Bananapi-M1(pro) -> see $(ARMHF_HOME)/bananapi
-- Cubietruck (cb3) <-- for this device is the howto
+- Cubietruck-Plus (cb5) <-- for this device is the howto
 - Olimex A20-SOM   -> see $(ARMHF_HOME)/olimex
 
 
 Kernel version
 --------------
 
-- linux-4.11.12
+- linux-4.12.7
 
 
 Downloads (use make get_latest_kernel)
@@ -102,8 +102,8 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.11.x .config
-KDO: make ARCH=arm menuconfig
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.12.x .config
+KDO: make CROSS_COMPILE=arm-none-linux-gnueabihf- ARCH=arm menuconfig
 
 
 Build dtb
@@ -159,7 +159,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.11.12/mnt/cubietruck/cubietruck_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-4.12.7/mnt/cubietruck/cubietruck_rootfs/usr/src/.
 
 
 Finalize
@@ -170,14 +170,14 @@ Finish -> after login
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.11.12 linux
+KDO: ln -s linux-4.12.7 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel
 ---------------------------------------------------------------
 
-DIR: /usr/src/linux-4.11.12
+DIR: /usr/src/linux-4.12.7
 KDO: make clean
 KDO: make scripts
 
@@ -185,8 +185,8 @@ KDO: make scripts
 Prepare modules to link
 -----------------------
 
-DIR: /lib/modules/4.11.12
+DIR: /lib/modules/4.12.7
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.11.12 source
-KDO: ln -s /usr/src/linux-4.11.12 build
+KDO: ln -s /usr/src/linux-4.12.7 source
+KDO: ln -s /usr/src/linux-4.12.7 build

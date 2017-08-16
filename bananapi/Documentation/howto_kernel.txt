@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   15.08.2017/12.01.2016
+Date:   16.08.2017/12.01.2016
 
 Content:
 
@@ -18,9 +18,6 @@ Content:
   -- Notes
 
 - Download kernel
-
-- Patch kernel
-  -- RT-PREEMPT
 
 - Configure/build kernel
   -- Configure kernel
@@ -37,9 +34,9 @@ Content:
   -- Copy cleaned source to sd card
 
 - Finalize
-  -- Finish -> after login (non-rt)
-  -- Prepare linux tree to build your modules against the new kernel (non-rt)
-  -- Prepare modules to link (non-rt)
+  -- Finish -> after login
+  -- Prepare linux tree to build your modules against the new kernel
+  -- Prepare modules to link
 
 
 
@@ -49,6 +46,7 @@ Preparation
 Device
 -------
 
+- NanoPi Neo-Allwinner -> see $(ARMHF_HOME)/nanopi
 - Bananapi-M1(pro) <-- for this device is the howto
 - Cubietruck (cb3) -> see $(ARMHF_HOME)/cubietruck
 - Olimex A20-SOM   -> see $(ARMHF_HOME)/olimex
@@ -57,15 +55,13 @@ Device
 Kernel version
 --------------
 
-- linux-4.11.12
-- linux-4.11.12-rt9 (latest RT-PREEMPT)
+- linux-4.12.7
 
 
 Downloads (use make get_latest_kernel)
 --------------------------------------
 
 - https://www.kernel.org/pub/linux/kernel/v4.x/
-- https://www.kernel.org/pub/linux/kernel/projects/rt/4.11/
 
 
 Mountpoints
@@ -101,16 +97,6 @@ DIR: $$ARMHF_BIN_HOME
 KDO: make get_latest_kernel
 
 
-Patch kernel
-============
-
-RT-PREEMPT
-----------
-
-DIR: $ARMHF_BIN/HOME/kernel/linux-4.11.12_rt
-KDO: zcat ../patch-4.11.12-rt9.patch.gz | patch -p1
-
-
 Configure/build kernel
 ======================
 
@@ -118,8 +104,7 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.11.x .config
-KDO(rt): cp $ARMHF_HOME/bananapi/configs/kernel_config_4.11.x_rt .config
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.12.x .config
 KDO: make CROSS_COMPILE=arm-none-linux-gnueabihf- ARCH=arm menuconfig
 
 
@@ -159,9 +144,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.11.12 modules_install
-KDO(rt): make ARCH=arm INSTALL_MOD_PATH=../modules_4.11.12_rt modules_install
-
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.12.7 modules_install
 
 
 Deploy SD-Card
@@ -193,19 +176,16 @@ Copy kernel/config
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/
 KDO: cp .config /mnt/bananapi/bananapi_kernel/
-
 KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/non-rt
 KDO: cp .config /mnt/bananapi/bananapi_kernel/non-rt
-KDO(rt): cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/rt
-KDO(rt): cp .config /mnt/bananapi/bananapi_kernel/rt
+
 
 Copy modules
 ------------
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_4.11.12/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
-KDO(rt): sudo rsync -avz ../modules_4.11.12_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_4.12.7/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -213,36 +193,34 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.11.12 /mnt/bananapi/bananapi_rootfs/usr/src/.
-KDO(rt): sudo rsync -avz --delete linux-4.11.12_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
-
+KDO: sudo rsync -avz --delete linux-4.12.7 /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
 Finalize
 ========
 
-Finish -> after login (non-rt)
-------------------------------
+Finish -> after login
+---------------------
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.11.12 linux
+KDO: ln -s linux-4.12.7 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
-Prepare linux tree to build your modules against the new kernel (non-rt)
-------------------------------------------------------------------------
+Prepare linux tree to build your modules against the new kernel
+---------------------------------------------------------------
 
-DIR: /usr/src/linux-4.11.12
+DIR: /usr/src/linux-4.12.7
 KDO: make clean
 KDO: make scripts
 
 
-Prepare modules to link (non-rt)
---------------------------------
+Prepare modules to link
+-----------------------
 
-DIR: /lib/modules/4.11.12
+DIR: /lib/modules/4.12.7
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.11.12 source
-KDO: ln -s /usr/src/linux-4.11.12 build
+KDO: ln -s /usr/src/linux-4.12.7 source
+KDO: ln -s /usr/src/linux-4.12.7 build
