@@ -1,0 +1,338 @@
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 4.13.0-rc5 (tjohann@echnaton) (gcc version 6.4.0 (crosstool-NG crosstool-ng-1.23.0-146-gbcaec4d8)) #1 SMP PREEMPT Fri Aug 18 15:21:12 CEST 2017
+[    0.000000] CPU: ARMv7 Processor [410fc075] revision 5 (ARMv7), cr=30c5387d
+[    0.000000] CPU: div instructions available: patching division code
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] OF: fdt: Machine model: FriendlyARM NanoPi NEO
+[    0.000000] Memory policy: Data cache writealloc
+[    0.000000] On node 0 totalpages: 245760
+[    0.000000] free_area_init_node: node 0, pgdat c12cccc0, node_mem_map def8a000
+[    0.000000]   Normal zone: 1134 pages used for memmap
+[    0.000000]   Normal zone: 0 pages reserved
+[    0.000000]   Normal zone: 129024 pages, LIFO batch:31
+[    0.000000]   HighMem zone: 116736 pages, LIFO batch:31
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: Using PSCI v0.1 Function IDs from DT
+[    0.000000] percpu: Embedded 17 pages/cpu @def37000 s40680 r8192 d20760 u69632
+[    0.000000] pcpu-alloc: s40680 r8192 d20760 u69632 alloc=17*4096
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 244626
+[    0.000000] Kernel command line: console=ttyS0,115200 console=tty0 loglevel=9 <earlyprintk> mem=960M vmalloc=512M root=/dev/mmcblk0p2 rootwait panic=10
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Memory: 948228K/983040K available (10240K kernel code, 884K rwdata, 3112K rodata, 2048K init, 8080K bss, 34812K reserved, 0K cma-reserved, 466932K highmem)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xffc00000 - 0xfff00000   (3072 kB)
+[    0.000000]     vmalloc : 0xe0000000 - 0xff800000   ( 504 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xdf800000   ( 504 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc0c00000   (12256 kB)
+[    0.000000]       .init : 0xc1000000 - 0xc1200000   (2048 kB)
+[    0.000000]       .data : 0xc1200000 - 0xc12dd0d8   ( 885 kB)
+[    0.000000]        .bss : 0xc12e58dc - 0xc1ac994c   (8081 kB)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] ftrace: allocating 31198 entries in 92 pages
+[    0.000000] 
+[    0.000000] **********************************************************
+[    0.000000] **   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
+[    0.000000] **                                                      **
+[    0.000000] ** trace_printk() being used. Allocating extra memory.  **
+[    0.000000] **                                                      **
+[    0.000000] ** This means that this is a DEBUG kernel and it is     **
+[    0.000000] ** unsafe for production use.                           **
+[    0.000000] **                                                      **
+[    0.000000] ** If you see this message and you are not debugging    **
+[    0.000000] ** the kernel, report this immediately to your vendor!  **
+[    0.000000] **                                                      **
+[    0.000000] **   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
+[    0.000000] **********************************************************
+[    0.000000] Running RCU self tests
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000]  RCU lockdep checking is enabled.
+[    0.000000]  Tasks RCU enabled.
+[    0.000000] NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+[    0.000000] arch_timer: cp15 timer(s) running at 24.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+[    0.000008] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+[    0.000029] Switching to timer-based delay loop, resolution 41ns
+[    0.000591] Console: colour dummy device 80x30
+[    0.005241] console [tty0] enabled
+[    0.005364] Lock dependency validator: Copyright (c) 2006 Red Hat, Inc., Ingo Molnar
+[    0.005475] ... MAX_LOCKDEP_SUBCLASSES:  8
+[    0.005541] ... MAX_LOCK_DEPTH:          48
+[    0.005607] ... MAX_LOCKDEP_KEYS:        8191
+[    0.005675] ... CLASSHASH_SIZE:          4096
+[    0.005743] ... MAX_LOCKDEP_ENTRIES:     32768
+[    0.005811] ... MAX_LOCKDEP_CHAINS:      65536
+[    0.005879] ... CHAINHASH_SIZE:          32768
+[    0.005949]  memory used by lock dependency info: 5167 kB
+[    0.006026]  per task-struct memory footprint: 1536 bytes
+[    0.006104] ------------------------
+[    0.006164] | Locking API testsuite:
+[    0.006224] ----------------------------------------------------------------------------
+[    0.006336]                                  | spin |wlock |rlock |mutex | wsem | rsem |
+[    0.006448]   --------------------------------------------------------------------------
+[    0.006584]                      A-A deadlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.018838]                  A-B-B-A deadlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.031156]              A-B-B-C-C-A deadlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.043810]              A-B-C-A-B-C deadlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.056465]          A-B-B-C-C-D-D-A deadlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.069541]          A-B-C-D-B-D-D-A deadlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.082621]          A-B-C-D-B-C-D-A deadlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.095746]                     double unlock:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.107695]                   initialize held:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.119551]   --------------------------------------------------------------------------
+[    0.119664]               recursive read-lock:             |  ok  |             |  ok  |
+[    0.123179]            recursive read-lock #2:             |  ok  |             |  ok  |
+[    0.126685]             mixed read-write-lock:             |  ok  |             |  ok  |
+[    0.130265]             mixed write-read-lock:             |  ok  |             |  ok  |
+[    0.133802]   --------------------------------------------------------------------------
+[    0.133914]      hard-irqs-on + irq-safe-A/12:  ok  |  ok  |  ok  |
+[    0.139096]      soft-irqs-on + irq-safe-A/12:  ok  |  ok  |  ok  |
+[    0.144272]      hard-irqs-on + irq-safe-A/21:  ok  |  ok  |  ok  |
+[    0.149467]      soft-irqs-on + irq-safe-A/21:  ok  |  ok  |  ok  |
+[    0.154634]        sirq-safe-A => hirqs-on/12:  ok  |  ok  |  ok  |
+[    0.159838]        sirq-safe-A => hirqs-on/21:  ok  |  ok  |  ok  |
+[    0.165004]          hard-safe-A + irqs-on/12:  ok  |  ok  |  ok  |
+[    0.170185]          soft-safe-A + irqs-on/12:  ok  |  ok  |  ok  |
+[    0.175361]          hard-safe-A + irqs-on/21:  ok  |  ok  |  ok  |
+[    0.180560]          soft-safe-A + irqs-on/21:  ok  |  ok  |  ok  |
+[    0.185733]     hard-safe-A + unsafe-B #1/123:  ok  |  ok  |  ok  |
+[    0.191088]     soft-safe-A + unsafe-B #1/123:  ok  |  ok  |  ok  |
+[    0.196408]     hard-safe-A + unsafe-B #1/132:  ok  |  ok  |  ok  |
+[    0.201758]     soft-safe-A + unsafe-B #1/132:  ok  |  ok  |  ok  |
+[    0.207075]     hard-safe-A + unsafe-B #1/213:  ok  |  ok  |  ok  |
+[    0.212430]     soft-safe-A + unsafe-B #1/213:  ok  |  ok  |  ok  |
+[    0.217752]     hard-safe-A + unsafe-B #1/231:  ok  |  ok  |  ok  |
+[    0.223064]     soft-safe-A + unsafe-B #1/231:  ok  |  ok  |  ok  |
+[    0.228366]     hard-safe-A + unsafe-B #1/312:  ok  |  ok  |  ok  |
+[    0.233594]     soft-safe-A + unsafe-B #1/312:  ok  |  ok  |  ok  |
+[    0.238812]     hard-safe-A + unsafe-B #1/321:  ok  |  ok  |  ok  |
+[    0.244124]     soft-safe-A + unsafe-B #1/321:  ok  |  ok  |  ok  |
+[    0.249430]     hard-safe-A + unsafe-B #2/123:  ok  |  ok  |  ok  |
+[    0.254731]     soft-safe-A + unsafe-B #2/123:  ok  |  ok  |  ok  |
+[    0.260036]     hard-safe-A + unsafe-B #2/132:  ok  |  ok  |  ok  |
+[    0.265313]     soft-safe-A + unsafe-B #2/132:  ok  |  ok  |  ok  |
+[    0.270612]     hard-safe-A + unsafe-B #2/213:  ok  |  ok  |  ok  |
+[    0.275909]     soft-safe-A + unsafe-B #2/213:  ok  |  ok  |  ok  |
+[    0.281210]     hard-safe-A + unsafe-B #2/231:  ok  |  ok  |  ok  |
+[    0.286490]     soft-safe-A + unsafe-B #2/231:  ok  |  ok  |  ok  |
+[    0.291777]     hard-safe-A + unsafe-B #2/312:  ok  |  ok  |  ok  |
+[    0.297064]     soft-safe-A + unsafe-B #2/312:  ok  |  ok  |  ok  |
+[    0.302364]     hard-safe-A + unsafe-B #2/321:  ok  |  ok  |  ok  |
+[    0.307648]     soft-safe-A + unsafe-B #2/321:  ok  |  ok  |  ok  |
+[    0.312930]       hard-irq lock-inversion/123:  ok  |  ok  |  ok  |
+[    0.318239]       soft-irq lock-inversion/123:  ok  |  ok  |  ok  |
+[    0.323543]       hard-irq lock-inversion/132:  ok  |  ok  |  ok  |
+[    0.328829]       soft-irq lock-inversion/132:  ok  |  ok  |  ok  |
+[    0.334132]       hard-irq lock-inversion/213:  ok  |  ok  |  ok  |
+[    0.339438]       soft-irq lock-inversion/213:  ok  |  ok  |  ok  |
+[    0.344744]       hard-irq lock-inversion/231:  ok  |  ok  |  ok  |
+[    0.350034]       soft-irq lock-inversion/231:  ok  |  ok  |  ok  |
+[    0.355322]       hard-irq lock-inversion/312:  ok  |  ok  |  ok  |
+[    0.360612]       soft-irq lock-inversion/312:  ok  |  ok  |  ok  |
+[    0.365926]       hard-irq lock-inversion/321:  ok  |  ok  |  ok  |
+[    0.371214]       soft-irq lock-inversion/321:  ok  |  ok  |  ok  |
+[    0.376510]       hard-irq read-recursion/123:  ok  |
+[    0.378330]       soft-irq read-recursion/123:  ok  |
+[    0.380163]       hard-irq read-recursion/132:  ok  |
+[    0.382022]       soft-irq read-recursion/132:  ok  |
+[    0.383856]       hard-irq read-recursion/213:  ok  |
+[    0.385676]       soft-irq read-recursion/213:  ok  |
+[    0.387507]       hard-irq read-recursion/231:  ok  |
+[    0.389326]       soft-irq read-recursion/231:  ok  |
+[    0.391158]       hard-irq read-recursion/312:  ok  |
+[    0.393016]       soft-irq read-recursion/312:  ok  |
+[    0.394849]       hard-irq read-recursion/321:  ok  |
+[    0.396669]       soft-irq read-recursion/321:  ok  |
+[    0.398501]   --------------------------------------------------------------------------
+[    0.398613]   | Wound/wait tests |
+[    0.398671]   ---------------------
+[    0.398730]                   ww api failures:  ok  |  ok  |  ok  |
+[    0.404208]                ww contexts mixing:  ok  |  ok  |
+[    0.407712]              finishing ww context:  ok  |  ok  |  ok  |  ok  |
+[    0.414666]                locking mismatches:  ok  |  ok  |  ok  |
+[    0.419908]                  EDEADLK handling:  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |  ok  |
+[    0.437832]            spinlock nest unlocked:  ok  |
+[    0.439602]   -----------------------------------------------------
+[    0.439688]                                  |block | try  |context|
+[    0.439774]   -----------------------------------------------------
+[    0.439859]                           context:  ok  |  ok  |  ok  |
+[    0.445248]                               try:  ok  |  ok  |  ok  |
+[    0.450493]                             block:  ok  |  ok  |  ok  |
+[    0.455734]                          spinlock:  ok  |  ok  |  ok  |
+[    0.461175] -------------------------------------------------------
+[    0.461262] Good, all 256 testcases passed! |
+[    0.461329] ---------------------------------
+[    0.461477] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=240000)
+[    0.461629] pid_max: default: 32768 minimum: 301
+[    0.462317] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.462420] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.466320] CPU: Testing write buffer coherency: ok
+[    0.468566] /cpus/cpu@0 missing clock-frequency property
+[    0.468702] /cpus/cpu@1 missing clock-frequency property
+[    0.468828] /cpus/cpu@2 missing clock-frequency property
+[    0.468956] /cpus/cpu@3 missing clock-frequency property
+[    0.469059] CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+[    0.508105] Setting up static identity map for 0x40200000 - 0x40200060
+[    0.528047] Hierarchical SRCU implementation.
+[    0.568249] smp: Bringing up secondary CPUs ...
+[    0.650977] CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+[    0.733082] CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+[    0.815220] CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+[    0.815604] smp: Brought up 1 node, 4 CPUs
+[    0.815974] SMP: Total of 4 processors activated (192.00 BogoMIPS).
+[    0.816083] CPU: All CPU(s) started in HYP mode.
+[    0.816169] CPU: Virtualization extensions available.
+[    0.820461] devtmpfs: initialized
+[    0.835575] VFP support v0.3: implementor 41 architecture 2 part 30 variant 7 rev 5
+[    0.839229] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+[    0.839459] futex hash table entries: 1024 (order: 4, 65536 bytes)
+[    0.840838] pinctrl core: initialized pinctrl subsystem
+[    0.845330] random: get_random_u32 called from bucket_table_alloc+0xf0/0x268 with crng_init=0
+[    0.846298] NET: Registered protocol family 16
+[    0.847374] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.850889] No ATAGs?
+[    0.851488] hw-breakpoint: found 5 (+1 reserved) breakpoint and 4 watchpoint registers.
+[    0.851715] hw-breakpoint: maximum watchpoint size is 8 bytes.
+[    0.906196] SCSI subsystem initialized
+[    0.907090] libata version 3.00 loaded.
+[    0.908041] usbcore: registered new interface driver usbfs
+[    0.908353] usbcore: registered new interface driver hub
+[    0.908752] usbcore: registered new device driver usb
+[    0.909073] media: Linux media interface: v0.10
+[    0.909264] Linux video capture interface: v2.00
+[    0.909706] pps_core: LinuxPPS API ver. 1 registered
+[    0.909801] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.910000] PTP clock support registered
+[    0.910757] Advanced Linux Sound Architecture Driver Initialized.
+[    0.913868] NET: Registered protocol family 23
+[    0.915658] clocksource: Switched to clocksource arch_sys_counter
+[    1.369311] NET: Registered protocol family 2
+[    1.372007] TCP established hash table entries: 4096 (order: 2, 16384 bytes)
+[    1.372247] TCP bind hash table entries: 4096 (order: 5, 147456 bytes)
+[    1.373686] TCP: Hash tables configured (established 4096 bind 4096)
+[    1.374408] UDP hash table entries: 256 (order: 2, 20480 bytes)
+[    1.374737] UDP-Lite hash table entries: 256 (order: 2, 20480 bytes)
+[    1.376103] NET: Registered protocol family 1
+[    1.378347] RPC: Registered named UNIX socket transport module.
+[    1.378496] RPC: Registered udp transport module.
+[    1.378586] RPC: Registered tcp transport module.
+[    1.378676] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.383433] audit: initializing netlink subsys (disabled)
+[    1.384279] audit: type=2000 audit(1.338:1): state=initialized audit_enabled=0 res=1
+[    1.386131] workingset: timestamp_bits=14 max_order=18 bucket_order=4
+[    1.419444] NFS: Registering the id_resolver key type
+[    1.419973] Key type id_resolver registered
+[    1.420091] Key type id_legacy registered
+[    1.420324] fuse init (API version 7.26)
+[    1.422433] SGI XFS with security attributes, no debug enabled
+[    1.433779] random: fast init done
+[    1.440424] bounce: pool size: 64 pages
+[    1.440714] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+[    1.440982] io scheduler noop registered
+[    1.441068] io scheduler deadline registered
+[    1.442273] io scheduler cfq registered (default)
+[    1.442373] io scheduler mq-deadline registered
+[    1.442462] io scheduler kyber registered
+[    1.456637] sun8i-h3-pinctrl 1c20800.pinctrl: initialized sunXi PIO driver
+[    1.462688] sun8i-h3-r-pinctrl 1f02c00.pinctrl: initialized sunXi PIO driver
+[    1.463609] ipmi message handler version 39.2
+[    1.755508] Serial: 8250/16550 driver, 8 ports, IRQ sharing enabled
+[    1.771117] console [ttyS0] disabled
+[    1.792671] 1c28000.serial: ttyS0 at MMIO 0x1c28000 (irq = 31, base_baud = 1500000) is a U6_16550A
+[    3.296802] console [ttyS0] enabled
+[    3.309478] libphy: Fixed MDIO Bus: probed
+[    3.313693] CAN device driver interface
+[    3.318513] dwmac-sun8i 1c30000.ethernet: PTP uses main clock
+[    3.324458] dwmac-sun8i 1c30000.ethernet: No regulator found
+[    3.330535] dwmac-sun8i 1c30000.ethernet: Will use internal PHY
+[    3.336824] dwmac-sun8i 1c30000.ethernet: Current syscon value is not the default 148000 (expect 58000)
+[    3.346641] dwmac-sun8i 1c30000.ethernet: Chain mode enabled
+[    3.352397] dwmac-sun8i 1c30000.ethernet: No HW DMA feature register supported
+[    3.359813] dwmac-sun8i 1c30000.ethernet: Normal descriptors
+[    3.365623] dwmac-sun8i 1c30000.ethernet: RX Checksum Offload Engine supported
+[    3.372964] dwmac-sun8i 1c30000.ethernet: COE Type 2
+[    3.378068] dwmac-sun8i 1c30000.ethernet: TX Checksum insertion supported
+[    3.385384] libphy: stmmac: probed
+[    3.394150] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.400894] ehci-platform: EHCI generic platform driver
+[    3.407143] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    3.413638] ohci-platform: OHCI generic platform driver
+[    3.420892] i2c /dev entries driver
+[    3.427258] sunxi-wdt 1c20ca0.watchdog: Watchdog enabled (timeout=16 sec, nowayout=0)
+[    3.438901] sunxi-mmc 1c0f000.mmc: Got CD GPIO
+[    3.495692] sunxi-mmc 1c0f000.mmc: base:0xe005e000 irq:23
+[    3.508023] ledtrig-cpu: registered to indicate activity on CPUs
+[    3.514704] usbcore: registered new interface driver usbhid
+[    3.520523] usbhid: USB HID core driver
+[    3.531106] NET: Registered protocol family 17
+[    3.535790] can: controller area network core (rev 20170425 abi 9)
+[    3.542261] NET: Registered protocol family 29
+[    3.546868] can: raw protocol (rev 20170425)
+[    3.551312] can: broadcast manager protocol (rev 20170425 t)
+[    3.557288] can: netlink gateway (rev 20170425) max_hops=1
+[    3.564045] Key type dns_resolver registered
+[    3.568862] Registering SWP/SWPB emulation handler
+[    3.576262] registered taskstats version 1
+[    3.583723] Key type encrypted registered
+[    3.588351] mmc0: host does not support reading read-only switch, assuming write-enable
+[    3.597363] mmc0: new high speed SDHC card at address aaaa
+[    3.600765] mmcblk0: mmc0:aaaa SL16G 14.8 GiB 
+[    3.616115]  mmcblk0: p1 p2 p3
+[    3.647363] hctosys: unable to open rtc device (rtc0)
+[    3.656899] OF: Duplicate name in testcase-data, renamed to "duplicate-name#1"
+[    3.675274] ### dt-test ### start of unittest - you will see error messages
+[    3.684099] OF: /testcase-data/phandle-tests/consumer-a: could not get #phandle-cells-missing for /testcase-data/phandle-tests/provider1
+[    3.696755] OF: /testcase-data/phandle-tests/consumer-a: could not get #phandle-cells-missing for /testcase-data/phandle-tests/provider1
+[    3.709269] OF: /testcase-data/phandle-tests/consumer-a: could not find phandle
+[    3.716849] OF: /testcase-data/phandle-tests/consumer-a: could not find phandle
+[    3.724295] OF: /testcase-data/phandle-tests/consumer-a: arguments longer than property
+[    3.732500] OF: /testcase-data/phandle-tests/consumer-a: arguments longer than property
+[    3.749493] ### dt-test ### end of unittest - 168 passed, 0 failed
+[    3.756319] vcc3v0: disabling
+[    3.759428] vcc5v0: disabling
+[    3.762460] ALSA device list:
+[    3.765553]   No soundcards found.
+[    3.777843] EXT4-fs (mmcblk0p2): couldn't mount as ext3 due to feature incompatibilities
+[    3.801017] EXT4-fs (mmcblk0p2): mounted filesystem without journal. Opts: (null)
+[    3.809024] VFS: Mounted root (ext4 filesystem) readonly on device 179:2.
+[    3.823251] devtmpfs: mounted
+[    3.832326] Freeing unused kernel memory: 2048K
+[    5.654363] udevd[166]: starting version 3.2.2
+[    5.804333] udevd[167]: starting eudev-3.2.2
+[    6.349915] input: r_gpio_keys as /devices/platform/r_gpio_keys/input/input0
+[    6.398854] cpu cpu0: failed to get clock: -2
+[    6.403423] cpufreq-dt: probe of cpufreq-dt failed with error -2
+[    6.495185] ehci-platform 1c1d000.usb: EHCI Host Controller
+[    6.502080] ehci-platform 1c1d000.usb: new USB bus registered, assigned bus number 1
+[    6.521099] ehci-platform 1c1d000.usb: irq 24, io mem 0x01c1d000
+[    6.565759] ehci-platform 1c1d000.usb: USB 2.0 started, EHCI 1.00
+[    6.590367] hub 1-0:1.0: USB hub found
+[    6.597203] hub 1-0:1.0: 1 port detected
+[    6.608584] ohci-platform 1c1d400.usb: Generic Platform OHCI controller
+[    6.618044] ohci-platform 1c1d400.usb: new USB bus registered, assigned bus number 2
+[    6.627410] ohci-platform 1c1d400.usb: irq 25, io mem 0x01c1d400
+[    6.716703] hub 2-0:1.0: USB hub found
+[    6.720855] hub 2-0:1.0: 1 port detected
+[    7.995216] EXT4-fs (mmcblk0p2): re-mounted. Opts: block_validity,delalloc,barrier,user_xattr,acl
+[    8.569386] EXT4-fs (mmcblk0p2): re-mounted. Opts: block_validity,delalloc,barrier,user_xattr,acl
+[    8.622788] EXT4-fs (mmcblk0p3): mounted filesystem without journal. Opts: (null)
+[   11.247360] udevd[275]: starting version 3.2.2
+[   11.309659] udevd[275]: starting eudev-3.2.2
+[   12.455297] dwmac-sun8i 1c30000.ethernet eth0: device MAC address ae:fe:43:44:7d:ed
+[   12.458492] Generic PHY stmmac-0:01: attached PHY driver [Generic PHY] (mii_bus:phy_addr=stmmac-0:01, irq=-1)
+[   12.462025] dwmac-sun8i 1c30000.ethernet eth0: No MAC Management Counters available
+[   12.462042] dwmac-sun8i 1c30000.ethernet eth0: PTP not supported by HW
+
+Void 4.13.0-rc5 (nanopi.my.domain) (ttyS0)
+
+nanopi login: [   15.566832] dwmac-sun8i 1c30000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+[   76.361068] random: crng init done

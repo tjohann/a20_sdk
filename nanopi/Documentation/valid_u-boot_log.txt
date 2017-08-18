@@ -1,0 +1,48 @@
+U-Boot SPL 2017.09-rc2-00066-g336aee50cf (Aug 18 2017 - 16:25:12)
+DRAM: 512 MiB
+Trying to boot from MMC1
+
+
+U-Boot 2017.09-rc2-00066-g336aee50cf (Aug 18 2017 - 16:25:12 +0200) Allwinner Technology
+
+CPU:   Allwinner H3 (SUN8I 1680)
+Model: FriendlyARM NanoPi NEO
+DRAM:  512 MiB
+MMC:   SUNXI SD/MMC: 0
+*** Warning - bad CRC, using default environment
+
+In:    serial
+Out:   serial
+Err:   serial
+Net:   phy interface0
+eth0: ethernet@1c30000
+starting USB...
+USB0:   USB EHCI 1.00
+USB1:   USB OHCI 1.0
+scanning bus 0 for devices... 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot:  0 
+switch to partitions #0, OK
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot.scr
+reading /boot.scr
+318 bytes read in 23 ms (12.7 KiB/s)
+## Executing script at 43100000
+reading uImage
+6720800 bytes read in 404 ms (15.9 MiB/s)
+reading sun8i-h3-nanopi-neo.dtb
+14503 bytes read in 34 ms (416 KiB/s)
+## Booting kernel from Legacy Image at 46000000 ...
+   Image Name:   Linux-4.13.0-rc5
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    6720736 Bytes = 6.4 MiB
+   Load Address: 40008000
+   Entry Point:  40008000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 49000000
+   Booting using the fdt blob at 0x49000000
+   Loading Kernel Image ... OK
+   Loading Device Tree to 49ff9000, end 49fff8a6 ... OK
+
+Starting kernel ...
