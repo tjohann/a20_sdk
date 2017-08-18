@@ -23,7 +23,7 @@ USB2:   No host cable detected: Port not available.
 scanning bus 0 for devices... 1 USB Device(s) found
 scanning bus 1 for devices... 2 USB Device(s) found
        scanning usb for storage devices... 0 Storage Device(s) found
-Hit any key to stop autoboot:  0 
+Hit any key to stop autoboot:  0
 switch to partitions #0, OK
 mmc0 is current device
 Scanning mmc 0:1...
