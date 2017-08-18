@@ -1,0 +1,50 @@
+U-Boot SPL 2017.09-rc2-00066-g336aee50cf (Aug 18 2017 - 12:59:49)
+DRAM: 2048 MiB
+Trying to boot from MMC1
+
+
+U-Boot 2017.09-rc2-00066-g336aee50cf (Aug 18 2017 - 12:59:49 +0200) Allwinner Technology
+
+CPU:   Allwinner A83T (SUN8I 1673)
+Model: Cubietech Cubietruck Plus
+I2C:   ready
+DRAM:  2 GiB
+MMC:   SUNXI SD/MMC: 0
+*** Warning - bad CRC, using default environment
+
+In:    serial
+Out:   serial
+Err:   serial
+Net:   No ethernet found.
+starting USB...
+USB0:   USB EHCI 1.00
+USB1:   USB EHCI 1.00
+USB2:   No host cable detected: Port not available.
+scanning bus 0 for devices... 1 USB Device(s) found
+scanning bus 1 for devices... 2 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
+Hit any key to stop autoboot:  0 
+switch to partitions #0, OK
+mmc0 is current device
+Scanning mmc 0:1...
+Found U-Boot script /boot.scr
+reading /boot.scr
+326 bytes read in 34 ms (8.8 KiB/s)
+## Executing script at 43100000
+reading uImage
+6641080 bytes read in 747 ms (8.5 MiB/s)
+reading sun8i-a83t-cubietruck-plus.dtb
+3187 bytes read in 35 ms (88.9 KiB/s)
+## Booting kernel from Legacy Image at 46000000 ...
+   Image Name:   Linux-4.12.7
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    6641016 Bytes = 6.3 MiB
+   Load Address: 40008000
+   Entry Point:  40008000
+   Verifying Checksum ... OK
+## Flattened Device Tree blob at 49000000
+   Booting using the fdt blob at 0x49000000
+   Loading Kernel Image ... OK
+   Loading Device Tree to 49ffc000, end 49fffc72 ... OK
+
+Starting kernel ...

@@ -19,7 +19,7 @@ Out:   vga
 Err:   vga
 SCSI:  SATA link 0 timeout.
 AHCI 0001.0100 32 slots 1 ports 3 Gbps 0x1 impl SATA mode
-flags: ncq stag pm led clo only pmp pio slum part ccc apst 
+flags: ncq stag pm led clo only pmp pio slum part ccc apst
 Net:   eth0: ethernet@01c50000
 starting USB...
 USB0:   USB EHCI 1.00
@@ -28,7 +28,7 @@ USB2:   USB EHCI 1.00
 USB3:   USB OHCI 1.0
 scanning bus 0 for devices... 1 USB Device(s) found
 scanning bus 2 for devices... 1 USB Device(s) found
-Hit any key to stop autoboot:  0 
+Hit any key to stop autoboot:  0
 switch to partitions #0, OK
 mmc0 is current device
 Scanning mmc 0:1...

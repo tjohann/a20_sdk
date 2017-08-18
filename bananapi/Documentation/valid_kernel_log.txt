@@ -17,7 +17,7 @@ Starting kernel ...
 [    0.000000] psci: Using PSCI v0.1 Function IDs from DT
 [    0.000000] percpu: Embedded 17 pages/cpu @def49000 s40872 r8192 d20568 u69632
 [    0.000000] pcpu-alloc: s40872 r8192 d20568 u69632 alloc=17*4096
-[    0.000000] pcpu-alloc: [0] 0 [0] 1 
+[    0.000000] pcpu-alloc: [0] 0 [0] 1
 [    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 244626
 [    0.000000] Kernel command line: console=ttyS0,115200 console=tty0 loglevel=9 <earlyprintk> mem=960M vmalloc=512M root=/dev/mmcblk0p2 rootwait panic=10
 [    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
@@ -37,7 +37,7 @@ Starting kernel ...
 [    0.000000]        .bss : 0xc12e18f4 - 0xc1ac7e08   (8090 kB)
 [    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
 [    0.000000] ftrace: allocating 30855 entries in 91 pages
-[    0.000000] 
+[    0.000000]
 [    0.000000] **********************************************************
 [    0.000000] **   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
 [    0.000000] **                                                      **
@@ -259,7 +259,7 @@ Starting kernel ...
 [    3.701311] ahci-sunxi 1c18000.sata: controller can't do PMP, turning off CAP_PMP
 [    3.716490] ahci-sunxi 1c18000.sata: SSS flag set, parallel bus scan disabled
 [    3.727555] ahci-sunxi 1c18000.sata: AHCI 0001.0100 32 slots 1 ports 3 Gbps 0x1 impl platform mode
-[    3.743868] ahci-sunxi 1c18000.sata: flags: ncq sntf stag pm led clo only pio slum part ccc 
+[    3.743868] ahci-sunxi 1c18000.sata: flags: ncq sntf stag pm led clo only pio slum part ccc
 [    3.774445] scsi host0: ahci-sunxi
 [    3.783717] ata1: SATA max UDMA/133 mmio [mem 0x01c18000-0x01c18fff] port 0x100 irq 33
 [    3.807689] libphy: Fixed MDIO Bus: probed
@@ -304,7 +304,7 @@ Starting kernel ...
 [    4.318969] mmc0: host does not support reading read-only switch, assuming write-enable
 [    4.335152] mmc0: new high speed SDHC card at address e624
 [    4.349787] registered taskstats version 1
-[    4.350841] mmcblk0: mmc0:e624 SL16G 14.8 GiB 
+[    4.350841] mmcblk0: mmc0:e624 SL16G 14.8 GiB
 [    4.363517]  mmcblk0: p1 p2 p3
 [    4.377580] Key type encrypted registered
 [    4.441424] sunxi-rtc 1c20d00.rtc: setting system clock to 1970-01-01 00:00:12 UTC (12)
