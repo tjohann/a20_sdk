@@ -21,7 +21,7 @@ USB0:   USB EHCI 1.00
 USB1:   USB OHCI 1.0
 scanning bus 0 for devices... 1 USB Device(s) found
        scanning usb for storage devices... 0 Storage Device(s) found
-Hit any key to stop autoboot:  0 
+Hit any key to stop autoboot:  0
 switch to partitions #0, OK
 mmc0 is current device
 Scanning mmc 0:1...

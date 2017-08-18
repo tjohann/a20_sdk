@@ -3,11 +3,16 @@
 #
 
 
+
+################## 2017-08-18 -> A20_SDK_V2.4.1 #############################
+
 2017-08-18 -> ## target && sdk stuff
 	      update u-boot for cubietruck-plus to latest snapshot
 	      update kernel to 4.12.8
 	      update kernel for cubietruck-plus to 4.13-rc5
 	      add kernel config for 4.13.x
+	      update kernel for nanopi to 4.13-rc5
+	      update u-boot for nanopi
 
 	      ## sdk stuff
 	      add some doc for debugging purpose

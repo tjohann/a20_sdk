@@ -17,7 +17,7 @@ Starting kernel ...
 [    0.000000] psci: Using PSCI v0.1 Function IDs from DT
 [    0.000000] percpu: Embedded 17 pages/cpu @def37000 s40680 r8192 d20760 u69632
 [    0.000000] pcpu-alloc: s40680 r8192 d20760 u69632 alloc=17*4096
-[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3
 [    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 244626
 [    0.000000] Kernel command line: console=ttyS0,115200 console=tty0 loglevel=9 <earlyprintk> mem=960M vmalloc=512M root=/dev/mmcblk0p2 rootwait panic=10
 [    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
@@ -37,7 +37,7 @@ Starting kernel ...
 [    0.000000]        .bss : 0xc12e58dc - 0xc1ac994c   (8081 kB)
 [    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
 [    0.000000] ftrace: allocating 31198 entries in 92 pages
-[    0.000000] 
+[    0.000000]
 [    0.000000] **********************************************************
 [    0.000000] **   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **
 [    0.000000] **                                                      **
@@ -285,7 +285,7 @@ Starting kernel ...
 [    3.583723] Key type encrypted registered
 [    3.588351] mmc0: host does not support reading read-only switch, assuming write-enable
 [    3.597363] mmc0: new high speed SDHC card at address aaaa
-[    3.600765] mmcblk0: mmc0:aaaa SL16G 14.8 GiB 
+[    3.600765] mmcblk0: mmc0:aaaa SL16G 14.8 GiB
 [    3.616115]  mmcblk0: p1 p2 p3
 [    3.647363] hctosys: unable to open rtc device (rtc0)
 [    3.656899] OF: Duplicate name in testcase-data, renamed to "duplicate-name#1"
