@@ -296,10 +296,10 @@ In short:
 	nanopi -> base board for my mobile robots
 
 My BAnAnapi cLUEster (Baalue):
-![Alt text](pics/baalue_cluster.jpg?raw=true "Baalue")
+![Alt text](pics/baalue_cluster_01.jpg?raw=true "Baalue")
 
 My embedded environment:
-![Alt text](pics/overview_embedded.jpg?raw=true "Overview embedded")
+![Alt text](pics/overview_embedded_02.jpg?raw=true "Overview embedded")
 
 
 Images
@@ -345,7 +345,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}. Pls note that you can run into trouble if the dtb are not the same, if so then also copy the needed dtb from the ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/${YOUR_FAVORITE_DEVICE}.dtb to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}
 
-Due to the fact that not every kernel support the RT-PREEMPT patch (4.7.x/9.x/11.x/...), i will reduce the effort to support hart realtime kernel. For all the newer devices like nanopi and cubietruck-plus, i need the latest kernel. This lead to different kernel versions and therefore problems regarding devicetree. Netherless, i will support the latest RT-PREEMPT for Olimex. This is my main embedded device, so it makes sense to have RT-PREEMPT added. But be aware that you have to build your own kernel or at least dtb (see ./olimex/Documentation/howto_kernel.txt).
+Due to the fact that not every kernel support the **RT-PREEMPT** patch (4.7.x/9.x/11.x/...), i will reduce the effort to support hart realtime kernel. For all the newer devices like nanopi and cubietruck-plus, i need the latest kernel. This lead to different kernel versions and therefore problems regarding devicetree. Netherless, i will support the latest RT-PREEMPT for Olimex. This is my main embedded device, so it makes sense to have RT-PREEMPT added. But be aware that you have to build your own kernel or at least dtb (see ./olimex/Documentation/howto_kernel.txt).
 
 
 Network
@@ -470,7 +470,7 @@ Additional mount points (host):
 
     LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
-[The storyline for Cubietruck](bananapi-pro/Documentation/storyline.md)
+[The storyline for Bananapi-Pro](bananapi-pro/Documentation/storyline.md)
 
 
 Bananapi-M1
