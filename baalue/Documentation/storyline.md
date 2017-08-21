@@ -10,7 +10,20 @@ Baalue is my common embedded development environment. It is a cluster with 8 wor
 Hardware
 ========
 
-A bananapi is used as worker cluster node and a cubietruck is the master node of it.
+A bananapi is used as worker cluster node and a cubietruck(-plus) is the master node of it.
+
+
+Baalue as build server for void-packages
+========================================
+
+see https://github.com/tjohann/baalue_distcc.git
+
+To share the build packages you can use the baalue_master node as nfs server. Both images provide everthing you need to setup the server and also for the clients (see also https://wiki.voidlinux.eu/Network_filesystem).
+
+Setup nfs clients:
+
+
+
 
 
 Baalue as embedded development environment
