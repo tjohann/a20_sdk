@@ -18,12 +18,30 @@ Baalue as build server for void-packages
 
 see https://github.com/tjohann/baalue_distcc.git
 
-To share the build packages you can use the baalue_master node as nfs server. Both images provide everthing you need to setup the server and also for the clients (see also https://wiki.voidlinux.eu/Network_filesystem).
+To share the build packages you can use the baalue_master node as nfs server. Both images provide everthing you need to setup the server and also for the clients (see https://wiki.voidlinux.eu/Network_filesystem ).
 
 Setup nfs clients:
 
+	ln -s /etc/sv/rpcbind /var/service
+	ln -s /etc/sv/statd /var/service   (i use nfs3)
 
+The default fstab entry (see /etc/fstab):
 
+	baalue_master:/mnt/shared/binpkgs /mnt/binpkgs_nfs   nfs defaults,noauto,user,sync,nfsvers=3  0  0
+
+Setup nfs server:
+
+	ln -s /etc/sv/rpcbind /var/service
+	ln -s /etc/sv/statd /var/service
+	ln -s /etc/sv/nfs-server /var/service
+
+The default export (see /etc/exports):
+
+	/mnt/shared/binpkgs baalue-01(rw,no_subtree_check,sync) baalue-02(rw,no_subtree_check,sync) ... etc
+
+To see what is actually exported:
+
+	showmount -e localhost
 
 
 Baalue as embedded development environment
