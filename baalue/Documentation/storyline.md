@@ -43,6 +43,9 @@ To see what is actually exported:
 
 	showmount -e localhost
 
+Share void-package repository:
+![Alt text](pics/nfs_share_void_repo.png?raw=true "void-package repository")
+
 
 Baalue as embedded development environment
 ==========================================
