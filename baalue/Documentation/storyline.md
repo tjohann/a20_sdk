@@ -46,6 +46,9 @@ To see what is actually exported:
 Share void-package repository:
 ![Alt text](pics/nfs_share_void_repo.png?raw=true "void-package repository")
 
+After rsync of the generated packages in void-packages/hostdir/binpkgs to /mnt/shared/binpkgs , you can use them on the clients with
+xbps-install --repository=/mnt/binpkgs_nfs THE_PACKAGE.
+
 
 Baalue as embedded development environment
 ==========================================
