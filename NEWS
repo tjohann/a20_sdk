@@ -4,6 +4,9 @@
 
 
 2017-08-27 -> ## target && sdk stuff
+	      update kernel of nanopi/cubietruck-plus to 4.13-rc7
+
+2017-08-27 -> ## target && sdk stuff
 	      add build_server to hosts
 
 	      ## sdk stuff
