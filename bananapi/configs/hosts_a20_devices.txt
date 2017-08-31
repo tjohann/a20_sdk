@@ -14,11 +14,11 @@
 192.168.0.109           bananapi-pro.my.domain                bananapi-pro
 192.168.0.111           nanopi.my.domain                      nanopi
 192.168.0.112           cubietruck-plus.my.domain             cubietruck-plus
-192.168.0.107           build-server.my.domain                build-server
 
 #
 # nfs share
 192.168.0.42            echnaton.my.domain                    echnaton
+192.168.0.107           build-server.my.domain                build-server
 
 #
 # my cluster nodes

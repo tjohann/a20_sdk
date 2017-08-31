@@ -10,9 +10,11 @@
 	      ## target stuff
 	      regular updates
 	      add emacs* and distcc* packages (not distributed via void-linux)
+	      remove go from base/full image
 
 	      ## sdk stuff
 	      preparation of A20_SDK_V2.6.0
+	      add some documentation to build a kernel on baalue
 
 2017-08-27 -> ## target && sdk stuff
 	      update kernel of nanopi/cubietruck-plus to 4.13-rc7

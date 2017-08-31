@@ -1,0 +1,60 @@
+
+               =========================================
+               simple howto for building a custom kernel
+               =========================================
+
+Author: Thorsten Johannvorderbrueggen
+Email:  thorsten.johannvorderbrueggen@t-online.de
+Date:   31.08.2017/31.08.2017
+
+Content:
+
+- Configure/build/install kernel
+  -- Configure kernel
+  -- Build kernel/modules/dtb
+  -- Install modules
+  -- Copy dtb
+  -- Copy kernel/config
+
+
+
+Configure/build/install kernel
+==============================
+
+This is a summary needed to build and install a kernel nativ on my baalue cluster (cubietruck act as baalue_master node).
+
+Configure kernel
+----------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_4.12.x .config
+KDO: make menuconfig
+
+
+Build kernel/modules/dtb
+------------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make CC=distcc -j32 LOADADDR=0x40008000 uImage modules sun7i-a20-cubietruck.dtb
+
+
+Install modules
+---------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make modules_install
+
+
+Copy dtb
+--------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /boot/
+
+
+Copy kernel/config
+------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/uImage /boot/
+KDO: cp .config /boot/
