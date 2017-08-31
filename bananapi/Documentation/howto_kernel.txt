@@ -142,7 +142,6 @@ KDO: make -j10 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008
 KDO (using distcc): make -j24 ARCH=arm CC="distcc /opt/a20_sdk/toolchain/bin/arm-none-linux-gnueabihf-gcc" CROSS_COMPILE="/opt/a20_sdk/toolchain/bin/arm-none-linux-gnueabihf-" LOADADDR=0x40008000 uImage modules
 
 
-
 Install modules
 ---------------
 
