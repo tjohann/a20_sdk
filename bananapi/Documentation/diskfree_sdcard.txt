@@ -9,9 +9,9 @@ Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
 # ---- base image
 root@bananapi:~# df -h
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/root       3.0G  2.3G  598M  80% /
+/dev/root       3.0G  2.5G  383M  87% /
 /dev/mmcblk0p1   32M   23M  8.6M  73% /boot
-/dev/mmcblk0p3   12G  258M   11G   3% /home
+/dev/mmcblk0p3   12G  318M   11G   3% /home
 
 
 
