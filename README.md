@@ -242,7 +242,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V2.4.1
+	A20_SDK_V2.6.0
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
@@ -387,6 +387,8 @@ My cluster:
 My nfs share:
 
 	192.168.0.42            echnaton.my.domain              echnaton
+	192.168.0.107           build-server.my.domain          build-server
+
 
 
 NFS share
