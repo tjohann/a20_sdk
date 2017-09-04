@@ -2,6 +2,11 @@
 # some news ... see also TODO for hints
 #
 
+
+2017-09-04 -> ## target && sdk stuff
+	      update kernel to 4.13 and 4.11.12-rt11
+
+
 ################## 2017-08-31 -> A20_SDK_V2.6.0 #############################
 
 2017-08-31 -> ## target && sdk stuff
