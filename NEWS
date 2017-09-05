@@ -3,6 +3,10 @@
 #
 
 
+
+2017-09-05 -> ## target && sdk stuff
+	      update kernel to 4.11.12-rt12 (olimex)
+
 2017-09-04 -> ## target && sdk stuff
 	      update kernel to 4.13 and 4.11.12-rt11
 
