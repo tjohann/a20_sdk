@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 4.13.0-rc5 Kernel Configuration
+# Linux/arm 4.13.0 Kernel Configuration
 #
 CONFIG_ARM=y
 CONFIG_ARM_HAS_SG_CHAIN=y
@@ -1776,6 +1776,7 @@ CONFIG_SCSI_MOD=y
 CONFIG_SCSI=y
 CONFIG_SCSI_DMA=y
 # CONFIG_SCSI_NETLINK is not set
+# CONFIG_SCSI_MQ_DEFAULT is not set
 CONFIG_SCSI_PROC_FS=y
 
 #
