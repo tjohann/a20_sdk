@@ -7,6 +7,7 @@
 	      update dts configs for 4.13
 	      update kernel_howtos
 	      set Olimex as the RT-PREEMPT device (see howto_kernel.txt)
+	      update kernel to 4.11.12-rt13 (olimex)
 
 2017-09-05 -> ## target && sdk stuff
 	      update kernel to 4.11.12-rt12 (olimex)
