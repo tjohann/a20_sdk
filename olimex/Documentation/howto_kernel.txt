@@ -222,7 +222,6 @@ DIR: $ARMHF_BIN_HOME/kernel
 KDO: sudo rsync -avz --delete linux-4.11.12_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 
-
 Finalize
 ========
 
