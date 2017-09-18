@@ -3,17 +3,13 @@
 #
 
 
-<<<<<<< HEAD
-
 2017-09-18 -> ## target && sdk stuff
 	      update kernel to 4.14-rc1 for cubietruck-plus
 
-
 ################## 2017-09-18 -> A20_SDK_V2.6.1 #############################
-=======
+
 2017-09-15 -> ## target && sdk stuff
 	      update kernel to 4.13.2
->>>>>>> 514789c8d744fa58c364dff101f0714b4c1a1aa8
 
 2017-09-10 -> ## target && sdk stuff
 	      update kernel to 4.13.1
