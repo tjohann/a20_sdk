@@ -5,7 +5,11 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
+<<<<<<< HEAD
 Date:   18.09.2017/31.08.2017
+=======
+Date:   14.09.2017/31.08.2017
+>>>>>>> 514789c8d744fa58c364dff101f0714b4c1a1aa8
 
 Content:
 
@@ -42,19 +46,19 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make modules_install
+KDO: sudo make modules_install
 
 
 Copy dtb
 --------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /boot/
+KDO: sudo cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /boot/
 
 
 Copy kernel/config
 ------------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/uImage /boot/
-KDO: cp .config /boot/
+KDO: sudo cp arch/arm/boot/uImage /boot/
+KDO: sudo cp .config /boot/
