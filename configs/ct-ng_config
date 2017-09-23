@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Crosstool-NG Configuration
+# crosstool-NG crosstool-ng-1.23.0-220-g2ebbd3e3 Configuration
 #
 CT_CONFIGURE_has_static_link=y
 CT_CONFIGURE_has_wget=y
@@ -64,10 +64,7 @@ CT_DOWNLOAD_WGET_OPTIONS="--passive-ftp --tries=3 -nc --progress=dot:binary"
 CT_OVERRIDE_CONFIG_GUESS_SUB=y
 # CT_ONLY_EXTRACT is not set
 CT_PATCH_BUNDLED=y
-# CT_PATCH_LOCAL is not set
 # CT_PATCH_BUNDLED_LOCAL is not set
-# CT_PATCH_LOCAL_BUNDLED is not set
-# CT_PATCH_NONE is not set
 CT_PATCH_ORDER="bundled"
 
 #
@@ -121,7 +118,7 @@ CT_ARCH_CPU="cortex-a7"
 CT_ARCH_ARM_MODE="arm"
 CT_ARCH_ARM_MODE_ARM=y
 # CT_ARCH_ARM_MODE_THUMB is not set
-CT_ARCH_ARM_INTERWORKING=y
+# CT_ARCH_ARM_INTERWORKING is not set
 CT_ARCH_ARM_EABI_FORCE=y
 CT_ARCH_ARM_EABI=y
 CT_ARCH_ARM_TUPLE_USE_EABIHF=y
@@ -130,14 +127,17 @@ CT_ARCH_SUFFIX=""
 #
 # Generic target options
 #
-CT_MULTILIB=y
+# CT_MULTILIB is not set
+# CT_DEMULTILIB is not set
 CT_ARCH_SUPPORTS_BOTH_MMU=y
 CT_ARCH_DEFAULT_HAS_MMU=y
 CT_ARCH_USE_MMU=y
-CT_ARCH_SUPPORTS_BOTH_ENDIAN=y
+CT_ARCH_SUPPORTS_EITHER_ENDIAN=y
 CT_ARCH_DEFAULT_LE=y
 # CT_ARCH_BE is not set
 CT_ARCH_LE=y
+# CT_ARCH_BE_LE is not set
+# CT_ARCH_LE_BE is not set
 CT_ARCH_ENDIAN="little"
 CT_ARCH_SUPPORTS_32=y
 CT_ARCH_SUPPORTS_64=y
@@ -156,7 +156,7 @@ CT_ARCH_SUPPORTS_WITH_FLOAT=y
 CT_ARCH_SUPPORTS_WITH_FPU=y
 CT_ARCH_SUPPORTS_SOFTFP=y
 CT_ARCH_EXCLUSIVE_WITH_CPU=y
-CT_ARCH_FPU="vfp4"
+CT_ARCH_FPU=""
 # CT_ARCH_FLOAT_AUTO is not set
 CT_ARCH_FLOAT_HW=y
 # CT_ARCH_FLOAT_SOFTFP is not set
@@ -179,6 +179,7 @@ CT_SYSROOT_DIR_PREFIX=""
 CT_WANTS_STATIC_LINK=y
 CT_WANTS_STATIC_LINK_CXX=y
 # CT_STATIC_TOOLCHAIN is not set
+CT_SHOW_CT_VERSION=y
 CT_TOOLCHAIN_PKGVERSION=""
 CT_TOOLCHAIN_BUGURL=""
 
@@ -218,10 +219,8 @@ CT_KERNEL="linux"
 CT_LINUX_DIR_NAME="linux"
 CT_LINUX_PKG_NAME="linux"
 CT_LINUX_SRC_RELEASE=y
-CT_LINUX_MIRRORS="$(CT_Mirrors kernel.org linux ${CT_LINUX_VERSION})"
-CT_LINUX_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
-CT_LINUX_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_LINUX_V_4_11=y
+CT_LINUX_V_4_12=y
+# CT_LINUX_V_4_11 is not set
 # CT_LINUX_V_4_10 is not set
 # CT_LINUX_V_4_9 is not set
 # CT_LINUX_V_4_4 is not set
@@ -232,8 +231,13 @@ CT_LINUX_V_4_11=y
 # CT_LINUX_V_3_10 is not set
 # CT_LINUX_V_3_4 is not set
 # CT_LINUX_V_3_2 is not set
-# CT_LINUX_V_2_6_32 is not set
-CT_LINUX_VERSION="4.11.3"
+CT_LINUX_VERSION="4.12.8"
+CT_LINUX_MIRRORS="$(CT_Mirrors kernel.org linux ${CT_LINUX_VERSION})"
+CT_LINUX_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
+CT_LINUX_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
+CT_LINUX_ARCHIVE_FORMATS=".tar.xz .tar.gz"
+CT_LINUX_3_2_or_later=y
+CT_LINUX_REQUIRE_3_2_or_later=y
 CT_KERNEL_LINUX_VERBOSITY_0=y
 # CT_KERNEL_LINUX_VERBOSITY_1 is not set
 # CT_KERNEL_LINUX_VERBOSITY_2 is not set
@@ -260,13 +264,17 @@ CT_BINUTILS_USE_GNU=y
 CT_BINUTILS_USE="BINUTILS"
 CT_BINUTILS_PKG_NAME="binutils"
 CT_BINUTILS_SRC_RELEASE=y
+CT_BINUTILS_V_2_29=y
+# CT_BINUTILS_V_2_28_1 is not set
+# CT_BINUTILS_V_2_27 is not set
+# CT_BINUTILS_V_2_26_1 is not set
+CT_BINUTILS_VERSION="2.29"
 CT_BINUTILS_MIRRORS="$(CT_Mirrors GNU binutils) $(CT_Mirrors sourceware binutils/releases)"
 CT_BINUTILS_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_BINUTILS_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_BINUTILS_V_2_28=y
-# CT_BINUTILS_V_2_27 is not set
-# CT_BINUTILS_V_2_26 is not set
-CT_BINUTILS_VERSION="2.28"
+CT_BINUTILS_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz"
+CT_BINUTILS_2_25_or_later=y
+CT_BINUTILS_REQUIRE_2_25_or_later=y
 CT_BINUTILS_2_23_or_later=y
 CT_BINUTILS_HAS_HASH_STYLE=y
 CT_BINUTILS_HAS_GOLD=y
@@ -296,25 +304,36 @@ CT_GLIBC_USE_GNU=y
 CT_GLIBC_USE="GLIBC"
 CT_GLIBC_PKG_NAME="glibc"
 CT_GLIBC_SRC_RELEASE=y
-CT_GLIBC_MIRRORS="$(CT_Mirrors GNU glibc) $(CT_Mirrors sourceware glibc/releases)"
-CT_GLIBC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
-CT_GLIBC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_GLIBC_V_2_25=y
+CT_GLIBC_V_2_26=y
+# CT_GLIBC_V_2_25 is not set
 # CT_GLIBC_V_2_24 is not set
 # CT_GLIBC_V_2_23 is not set
 # CT_GLIBC_V_2_19 is not set
 # CT_GLIBC_V_2_17 is not set
 # CT_GLIBC_V_2_12_1 is not set
-CT_GLIBC_VERSION="2.25"
+CT_GLIBC_VERSION="2.26"
+CT_GLIBC_MIRRORS="$(CT_Mirrors GNU glibc)"
+CT_GLIBC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
+CT_GLIBC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
+CT_GLIBC_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz"
+CT_GLIBC_2_26_or_later=y
+CT_GLIBC_2_26_or_older=y
+CT_GLIBC_2_24_or_later=y
 CT_GLIBC_2_23_or_later=y
 CT_GLIBC_2_20_or_later=y
 CT_GLIBC_2_17_or_later=y
+CT_GLIBC_2_14_or_later=y
+CT_GLIBC_DEP_KERNEL_HEADERS_VERSION=y
+CT_GLIBC_DEP_BINUTILS=y
+CT_GLIBC_DEP_GCC=y
 CT_GLIBC_HAS_LIBIDN_ADDON=y
 # CT_GLIBC_USE_LIBIDN_ADDON is not set
 CT_GLIBC_NO_SPARC_V8=y
+CT_GLIBC_HAS_OBSOLETE_RPC=y
 CT_GLIBC_EXTRA_CONFIG_ARRAY=""
 CT_GLIBC_CONFIGPARMS=""
 CT_GLIBC_EXTRA_CFLAGS=""
+# CT_GLIBC_ENABLE_OBSOLETE_RPC is not set
 # CT_GLIBC_DISABLE_VERSIONING is not set
 CT_GLIBC_OLDEST_ABI=""
 CT_GLIBC_FORCE_UNWIND=y
@@ -322,7 +341,7 @@ CT_GLIBC_FORCE_UNWIND=y
 # CT_GLIBC_KERNEL_VERSION_NONE is not set
 CT_GLIBC_KERNEL_VERSION_AS_HEADERS=y
 # CT_GLIBC_KERNEL_VERSION_CHOSEN is not set
-CT_GLIBC_MIN_KERNEL="4.11.3"
+CT_GLIBC_MIN_KERNEL="4.12.8"
 CT_LIBC_SUPPORT_THREADS_ANY=y
 CT_LIBC_SUPPORT_THREADS_NATIVE=y
 
@@ -330,8 +349,7 @@ CT_LIBC_SUPPORT_THREADS_NATIVE=y
 # Common C library options
 #
 CT_THREADS_NATIVE=y
-CT_CREATE_LDSO_CONF=y
-CT_LDSO_CONF_EXTRA_DIRS_ARRAY=""
+# CT_CREATE_LDSO_CONF is not set
 CT_LIBC_XLDD=y
 
 #
@@ -354,26 +372,27 @@ CT_GCC_USE_GNU=y
 CT_GCC_USE="GCC"
 CT_GCC_PKG_NAME="gcc"
 CT_GCC_SRC_RELEASE=y
-CT_GCC_MIRRORS="$(CT_Mirrors GNU gcc/gcc-${CT_GCC_VERSION}) $(CT_Mirrors sourceware gcc/releases/gcc-${CT_GCC_VERSION})"
-CT_GCC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
-CT_GCC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-# CT_GCC_V_7_1_0 is not set
+# CT_GCC_V_7_2_0 is not set
 CT_GCC_V_6_4_0=y
 # CT_GCC_V_5_4_0 is not set
 # CT_GCC_V_4_9_4 is not set
 CT_GCC_VERSION="6.4.0"
+CT_GCC_MIRRORS="$(CT_Mirrors GNU gcc/gcc-${CT_GCC_VERSION}) $(CT_Mirrors sourceware gcc/releases/gcc-${CT_GCC_VERSION})"
+CT_GCC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
+CT_GCC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
+CT_GCC_ARCHIVE_FORMATS=".tar.xz .tar.gz"
 CT_GCC_7_or_older=y
 CT_GCC_6_or_later=y
 CT_GCC_5_or_later=y
 CT_GCC_4_9_2_or_later=y
 CT_GCC_4_9_or_later=y
+CT_GCC_REQUIRE_4_9_or_later=y
 CT_GCC_4_8_or_later=y
 CT_CC_GCC_ENABLE_PLUGINS=y
 CT_CC_GCC_HAS_LIBMPX=y
 CT_CC_GCC_ENABLE_CXX_FLAGS=""
 CT_CC_GCC_CORE_EXTRA_CONFIG_ARRAY=""
 CT_CC_GCC_EXTRA_CONFIG_ARRAY=""
-CT_CC_GCC_MULTILIB_LIST=""
 CT_CC_GCC_STATIC_LIBSTDCXX=y
 # CT_CC_GCC_SYSTEM_ZLIB is not set
 CT_CC_GCC_CONFIG_TLS=m
@@ -454,11 +473,12 @@ CT_NCURSES=y
 CT_LIBICONV_DIR_NAME="libiconv"
 CT_LIBICONV_PKG_NAME="libiconv"
 CT_LIBICONV_SRC_RELEASE=y
+CT_LIBICONV_V_1_15=y
+CT_LIBICONV_VERSION="1.15"
 CT_LIBICONV_MIRRORS="$(CT_Mirrors GNU libiconv)"
 CT_LIBICONV_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_LIBICONV_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_LIBICONV_V_1_15=y
-CT_LIBICONV_VERSION="1.15"
+CT_LIBICONV_ARCHIVE_FORMATS=".tar.gz"
 
 #
 # gettext options
@@ -466,11 +486,12 @@ CT_LIBICONV_VERSION="1.15"
 CT_GETTEXT_DIR_NAME="gettext"
 CT_GETTEXT_PKG_NAME="gettext"
 CT_GETTEXT_SRC_RELEASE=y
+CT_GETTEXT_V_0_19_8_1=y
+CT_GETTEXT_VERSION="0.19.8.1"
 CT_GETTEXT_MIRRORS="$(CT_Mirrors GNU gettext)"
 CT_GETTEXT_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_GETTEXT_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_GETTEXT_V_0_19_8_1=y
-CT_GETTEXT_VERSION="0.19.8.1"
+CT_GETTEXT_ARCHIVE_FORMATS=".tar.xz .tar.lz .tar.gz"
 
 #
 # GMP options
@@ -478,11 +499,12 @@ CT_GETTEXT_VERSION="0.19.8.1"
 CT_GMP_DIR_NAME="gmp"
 CT_GMP_PKG_NAME="gmp"
 CT_GMP_SRC_RELEASE=y
-CT_GMP_MIRRORS="https://gmplib.org/download/gmp $(CT_Mirrors GNU gmp)"
-CT_GMP_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
-CT_GMP_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_GMP_V_6_1_2=y
 CT_GMP_VERSION="6.1.2"
+CT_GMP_MIRRORS="https://gmplib.org/download/gmp https://gmplib.org/download/gmp/archive $(CT_Mirrors GNU gmp)"
+CT_GMP_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
+CT_GMP_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
+CT_GMP_ARCHIVE_FORMATS=".tar.xz .tar.lz .tar.bz2"
 CT_GMP_5_1_or_later=y
 
 #
@@ -491,11 +513,12 @@ CT_GMP_5_1_or_later=y
 CT_MPFR_DIR_NAME="mpfr"
 CT_MPFR_PKG_NAME="mpfr"
 CT_MPFR_SRC_RELEASE=y
+CT_MPFR_V_3_1_5=y
+CT_MPFR_VERSION="3.1.5"
 CT_MPFR_MIRRORS="http://www.mpfr.org/mpfr-${CT_MPFR_VERSION} $(CT_Mirrors GNU mpfr)"
 CT_MPFR_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_MPFR_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_MPFR_V_3_1_5=y
-CT_MPFR_VERSION="3.1.5"
+CT_MPFR_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz .zip"
 
 #
 # ISL options
@@ -503,14 +526,15 @@ CT_MPFR_VERSION="3.1.5"
 CT_ISL_DIR_NAME="isl"
 CT_ISL_PKG_NAME="isl"
 CT_ISL_SRC_RELEASE=y
-CT_ISL_MIRRORS="http://isl.gforge.inria.fr"
-CT_ISL_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
-CT_ISL_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 # CT_ISL_V_0_18 is not set
 # CT_ISL_V_0_17_1 is not set
 CT_ISL_V_0_16_1=y
 # CT_ISL_V_0_15 is not set
 CT_ISL_VERSION="0.16.1"
+CT_ISL_MIRRORS="http://isl.gforge.inria.fr"
+CT_ISL_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
+CT_ISL_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
+CT_ISL_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz"
 CT_ISL_0_15_or_later=y
 CT_ISL_0_14_or_later=y
 CT_ISL_REQUIRE_0_14_or_later=y
@@ -524,11 +548,12 @@ CT_ISL_REQUIRE_0_12_or_later=y
 CT_MPC_DIR_NAME="mpc"
 CT_MPC_PKG_NAME="mpc"
 CT_MPC_SRC_RELEASE=y
+CT_MPC_V_1_0_3=y
+CT_MPC_VERSION="1.0.3"
 CT_MPC_MIRRORS="http://www.multiprecision.org/mpc/download $(CT_Mirrors GNU mpc)"
 CT_MPC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_MPC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_MPC_V_1_0_3=y
-CT_MPC_VERSION="1.0.3"
+CT_MPC_ARCHIVE_FORMATS=".tar.gz"
 
 #
 # ncurses options
@@ -536,11 +561,12 @@ CT_MPC_VERSION="1.0.3"
 CT_NCURSES_DIR_NAME="ncurses"
 CT_NCURSES_PKG_NAME="ncurses"
 CT_NCURSES_SRC_RELEASE=y
+CT_NCURSES_V_6_0=y
+CT_NCURSES_VERSION="6.0"
 CT_NCURSES_MIRRORS="ftp://invisible-island.net/ncurses $(CT_Mirrors GNU ncurses)"
 CT_NCURSES_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_NCURSES_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
-CT_NCURSES_V_6_0=y
-CT_NCURSES_VERSION="6.0"
+CT_NCURSES_ARCHIVE_FORMATS=".tar.gz"
 CT_NCURSES_HOST_CONFIG_ARGS=""
 CT_NCURSES_HOST_DISABLE_DB=y
 CT_NCURSES_HOST_FALLBACKS="linux,xterm,xterm-color,xterm-256color,vt100"
