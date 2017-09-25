@@ -5,6 +5,7 @@
 
 2017-09-25 -> ## target && sdk stuff
 	      update kernel to 4.14-rc2 for cubietruck-plus
+	      update u-boot for cubietruck-plus to latest git version
 
 2017-09-23 -> ## target && sdk stuff
 	      update kernel to 4.13.3
