@@ -2,6 +2,11 @@
 # some news ... see also TODO for hints
 #
 
+2017-10-09 -> ## target && sdk stuff
+	      update kernel to 4.14-rc4 for cubietruck-plus
+
+2017-10-08 -> ## target && sdk stuff
+	      update kernel to 4.13.5
 
 2017-10-02 -> ## target && sdk stuff
 	      update kernel to 4.14-rc3 for cubietruck-plus
