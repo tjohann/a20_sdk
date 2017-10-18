@@ -3,6 +3,9 @@
 #
 
 
+2017-10-18 -> ## target && sdk stuff
+	      update kernel to 4.13.7-rt1 (olimex)
+
 2017-10-16 -> ## target && sdk stuff
 	      update kernel to 4.14-rc5 for cubietruck-plus
 
