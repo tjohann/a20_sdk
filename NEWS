@@ -3,6 +3,10 @@
 #
 
 
+2017-10-30 -> ## target && sdk stuff
+	      update u-boot for cubietruck-plus
+
+
 ################## 2017-10-30 -> A20_SDK_V2.6.3 #############################
 
 2017-10-30 -> ## target && sdk stuff
@@ -46,6 +50,7 @@
 	      update kernel to 4.13.3
 	      update kernel to 4.11.12-rt14 (olimex)
 
+
 ################## 2017-09-18 -> A20_SDK_V2.6.2 #############################
 
 2017-09-18 -> ## target && sdk stuff
@@ -53,6 +58,7 @@
 
 2017-09-15 -> ## target && sdk stuff
 	      update kernel to 4.13.2
+
 
 ################## 2017-09-10 -> A20_SDK_V2.6.1 #############################
 
