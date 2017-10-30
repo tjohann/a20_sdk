@@ -242,7 +242,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V2.6.2
+	A20_SDK_V2.6.3
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
