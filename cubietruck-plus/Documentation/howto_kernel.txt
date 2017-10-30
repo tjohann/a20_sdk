@@ -111,7 +111,7 @@ Build dtb
 ---------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/cubietruck/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
+KDO: cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-cubietruck-plus.dtb
 
 
