@@ -11,4 +11,4 @@ Baalue is my common embedded development environment. It is a cluster with 8 wor
 ![Alt text](../../pics/baalue_cluster_03.jpg?raw=true "Baalue nodes")
 
 Cubietruck 3 vs Cubietruck 5:
-![Alt text](pics/cubietruck_3_vs_5.jpg?raw=true "Find the difference")
+![Alt text](../../pics/cubietruck_3_vs_5.jpg?raw=true "Find the difference")
