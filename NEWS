@@ -3,6 +3,18 @@
 #
 
 
+2017-11-18 -> ## sdk stuff
+	      update toolchain to latest void-linux versions
+	      cleanup kernel configs
+
+	      ## target && sdk stuff
+	      update kernel to 4.14-rt1 (olimex)
+	      update kernel to 4.14
+	      update uboot to v2017.11 (bananapi)
+
+	      ## target stuff
+	      regular rootfs updates
+
 2017-10-30 -> ## target && sdk stuff
 	      update u-boot for cubietruck-plus
 

@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# crosstool-NG crosstool-ng-1.23.0-220-g2ebbd3e3 Configuration
+# crosstool-NG crosstool-ng-1.23.0-247-g0b1595ac Configuration
 #
 CT_CONFIGURE_has_static_link=y
 CT_CONFIGURE_has_wget=y
@@ -56,6 +56,13 @@ CT_CONNECT_TIMEOUT=10
 CT_DOWNLOAD_WGET_OPTIONS="--passive-ftp --tries=3 -nc --progress=dot:binary"
 # CT_ONLY_DOWNLOAD is not set
 # CT_USE_MIRROR is not set
+CT_VERIFY_DOWNLOAD_DIGEST=y
+CT_VERIFY_DOWNLOAD_DIGEST_SHA512=y
+# CT_VERIFY_DOWNLOAD_DIGEST_SHA256 is not set
+# CT_VERIFY_DOWNLOAD_DIGEST_SHA1 is not set
+# CT_VERIFY_DOWNLOAD_DIGEST_MD5 is not set
+CT_VERIFY_DOWNLOAD_DIGEST_ALG="sha512"
+# CT_VERIFY_DOWNLOAD_SIGNATURE is not set
 
 #
 # Extracting
@@ -219,7 +226,8 @@ CT_KERNEL="linux"
 CT_LINUX_DIR_NAME="linux"
 CT_LINUX_PKG_NAME="linux"
 CT_LINUX_SRC_RELEASE=y
-CT_LINUX_V_4_12=y
+CT_LINUX_V_4_13=y
+# CT_LINUX_V_4_12 is not set
 # CT_LINUX_V_4_11 is not set
 # CT_LINUX_V_4_10 is not set
 # CT_LINUX_V_4_9 is not set
@@ -231,11 +239,12 @@ CT_LINUX_V_4_12=y
 # CT_LINUX_V_3_10 is not set
 # CT_LINUX_V_3_4 is not set
 # CT_LINUX_V_3_2 is not set
-CT_LINUX_VERSION="4.12.8"
+CT_LINUX_VERSION="4.13.9"
 CT_LINUX_MIRRORS="$(CT_Mirrors kernel.org linux ${CT_LINUX_VERSION})"
 CT_LINUX_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_LINUX_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_LINUX_ARCHIVE_FORMATS=".tar.xz .tar.gz"
+CT_LINUX_SIGNATURE_FORMAT="unpacked/.sign"
 CT_LINUX_3_2_or_later=y
 CT_LINUX_REQUIRE_3_2_or_later=y
 CT_KERNEL_LINUX_VERBOSITY_0=y
@@ -264,15 +273,16 @@ CT_BINUTILS_USE_GNU=y
 CT_BINUTILS_USE="BINUTILS"
 CT_BINUTILS_PKG_NAME="binutils"
 CT_BINUTILS_SRC_RELEASE=y
-CT_BINUTILS_V_2_29=y
+CT_BINUTILS_V_2_29_1=y
 # CT_BINUTILS_V_2_28_1 is not set
 # CT_BINUTILS_V_2_27 is not set
 # CT_BINUTILS_V_2_26_1 is not set
-CT_BINUTILS_VERSION="2.29"
+CT_BINUTILS_VERSION="2.29.1"
 CT_BINUTILS_MIRRORS="$(CT_Mirrors GNU binutils) $(CT_Mirrors sourceware binutils/releases)"
 CT_BINUTILS_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_BINUTILS_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_BINUTILS_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz"
+CT_BINUTILS_SIGNATURE_FORMAT="packed/.sig"
 CT_BINUTILS_2_25_or_later=y
 CT_BINUTILS_REQUIRE_2_25_or_later=y
 CT_BINUTILS_2_23_or_later=y
@@ -316,6 +326,7 @@ CT_GLIBC_MIRRORS="$(CT_Mirrors GNU glibc)"
 CT_GLIBC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_GLIBC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_GLIBC_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz"
+CT_GLIBC_SIGNATURE_FORMAT="packed/.sig"
 CT_GLIBC_2_26_or_later=y
 CT_GLIBC_2_26_or_older=y
 CT_GLIBC_2_24_or_later=y
@@ -341,7 +352,7 @@ CT_GLIBC_FORCE_UNWIND=y
 # CT_GLIBC_KERNEL_VERSION_NONE is not set
 CT_GLIBC_KERNEL_VERSION_AS_HEADERS=y
 # CT_GLIBC_KERNEL_VERSION_CHOSEN is not set
-CT_GLIBC_MIN_KERNEL="4.12.8"
+CT_GLIBC_MIN_KERNEL="4.13.9"
 CT_LIBC_SUPPORT_THREADS_ANY=y
 CT_LIBC_SUPPORT_THREADS_NATIVE=y
 
@@ -360,7 +371,6 @@ CT_CC_CORE_PASS_1_NEEDED=y
 CT_CC_CORE_PASS_2_NEEDED=y
 CT_CC_SUPPORT_CXX=y
 CT_CC_SUPPORT_FORTRAN=y
-CT_CC_SUPPORT_JAVA=y
 CT_CC_SUPPORT_ADA=y
 CT_CC_SUPPORT_OBJC=y
 CT_CC_SUPPORT_OBJCXX=y
@@ -372,16 +382,17 @@ CT_GCC_USE_GNU=y
 CT_GCC_USE="GCC"
 CT_GCC_PKG_NAME="gcc"
 CT_GCC_SRC_RELEASE=y
-# CT_GCC_V_7_2_0 is not set
-CT_GCC_V_6_4_0=y
-# CT_GCC_V_5_4_0 is not set
+CT_GCC_V_7_2_0=y
+# CT_GCC_V_6_4_0 is not set
+# CT_GCC_V_5_5_0 is not set
 # CT_GCC_V_4_9_4 is not set
-CT_GCC_VERSION="6.4.0"
+CT_GCC_VERSION="7.2.0"
 CT_GCC_MIRRORS="$(CT_Mirrors GNU gcc/gcc-${CT_GCC_VERSION}) $(CT_Mirrors sourceware gcc/releases/gcc-${CT_GCC_VERSION})"
 CT_GCC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_GCC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_GCC_ARCHIVE_FORMATS=".tar.xz .tar.gz"
-CT_GCC_7_or_older=y
+CT_GCC_SIGNATURE_FORMAT=""
+CT_GCC_7_or_later=y
 CT_GCC_6_or_later=y
 CT_GCC_5_or_later=y
 CT_GCC_4_9_2_or_later=y
@@ -436,7 +447,6 @@ CT_CC_GCC_DEC_FLOAT_AUTO=y
 #
 CT_CC_LANG_CXX=y
 # CT_CC_LANG_FORTRAN is not set
-# CT_CC_LANG_JAVA is not set
 
 #
 # Debug facilities
@@ -479,6 +489,7 @@ CT_LIBICONV_MIRRORS="$(CT_Mirrors GNU libiconv)"
 CT_LIBICONV_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_LIBICONV_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_LIBICONV_ARCHIVE_FORMATS=".tar.gz"
+CT_LIBICONV_SIGNATURE_FORMAT="packed/.sig"
 
 #
 # gettext options
@@ -492,6 +503,7 @@ CT_GETTEXT_MIRRORS="$(CT_Mirrors GNU gettext)"
 CT_GETTEXT_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_GETTEXT_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_GETTEXT_ARCHIVE_FORMATS=".tar.xz .tar.lz .tar.gz"
+CT_GETTEXT_SIGNATURE_FORMAT="packed/.sig"
 
 #
 # GMP options
@@ -505,6 +517,7 @@ CT_GMP_MIRRORS="https://gmplib.org/download/gmp https://gmplib.org/download/gmp/
 CT_GMP_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_GMP_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_GMP_ARCHIVE_FORMATS=".tar.xz .tar.lz .tar.bz2"
+CT_GMP_SIGNATURE_FORMAT="packed/.sig"
 CT_GMP_5_1_or_later=y
 
 #
@@ -513,12 +526,13 @@ CT_GMP_5_1_or_later=y
 CT_MPFR_DIR_NAME="mpfr"
 CT_MPFR_PKG_NAME="mpfr"
 CT_MPFR_SRC_RELEASE=y
-CT_MPFR_V_3_1_5=y
-CT_MPFR_VERSION="3.1.5"
+CT_MPFR_V_3_1_6=y
+CT_MPFR_VERSION="3.1.6"
 CT_MPFR_MIRRORS="http://www.mpfr.org/mpfr-${CT_MPFR_VERSION} $(CT_Mirrors GNU mpfr)"
 CT_MPFR_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_MPFR_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_MPFR_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz .zip"
+CT_MPFR_SIGNATURE_FORMAT="packed/.asc"
 
 #
 # ISL options
@@ -535,7 +549,9 @@ CT_ISL_MIRRORS="http://isl.gforge.inria.fr"
 CT_ISL_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_ISL_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_ISL_ARCHIVE_FORMATS=".tar.xz .tar.bz2 .tar.gz"
+CT_ISL_SIGNATURE_FORMAT=""
 CT_ISL_0_15_or_later=y
+CT_ISL_REQUIRE_0_15_or_later=y
 CT_ISL_0_14_or_later=y
 CT_ISL_REQUIRE_0_14_or_later=y
 CT_ISL_0_13_or_later=y
@@ -554,6 +570,7 @@ CT_MPC_MIRRORS="http://www.multiprecision.org/mpc/download $(CT_Mirrors GNU mpc)
 CT_MPC_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_MPC_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_MPC_ARCHIVE_FORMATS=".tar.gz"
+CT_MPC_SIGNATURE_FORMAT="packed/.sig"
 
 #
 # ncurses options
@@ -567,6 +584,7 @@ CT_NCURSES_MIRRORS="ftp://invisible-island.net/ncurses $(CT_Mirrors GNU ncurses)
 CT_NCURSES_ARCHIVE_FILENAME="@{pkg_name}-@{version}"
 CT_NCURSES_ARCHIVE_DIRNAME="@{pkg_name}-@{version}"
 CT_NCURSES_ARCHIVE_FORMATS=".tar.gz"
+CT_NCURSES_SIGNATURE_FORMAT="packed/.sig"
 CT_NCURSES_HOST_CONFIG_ARGS=""
 CT_NCURSES_HOST_DISABLE_DB=y
 CT_NCURSES_HOST_FALLBACKS="linux,xterm,xterm-color,xterm-256color,vt100"
