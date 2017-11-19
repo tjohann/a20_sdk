@@ -3,6 +3,9 @@
 #
 
 
+2017-11-19 -> ## sdk stuff
+	      update Documentation for cubietruck cluster build
+
 2017-11-18 -> ## sdk stuff
 	      update toolchain to latest void-linux versions
 	      cleanup kernel configs
