@@ -6,6 +6,9 @@
 2017-11-19 -> ## sdk stuff
 	      update Documentation for cubietruck cluster build
 
+	      ## target && sdk stuff
+	      update u-boot to v2017.11 (olimex, ...)
+
 2017-11-18 -> ## sdk stuff
 	      update toolchain to latest void-linux versions
 	      cleanup kernel configs
