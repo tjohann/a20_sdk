@@ -3,6 +3,13 @@
 #
 
 
+2017-11-19 -> ## sdk stuff
+	      add mount_partitions.sh to install/uninstall tag
+
+	      ## target && sdk stuff
+	      prepare cubietruck-plus for 4.15-rc1
+
+
 ################## 2017-11-19 -> A20_SDK_V2.7.0 #############################
 
 2017-11-19 -> ## sdk stuff
