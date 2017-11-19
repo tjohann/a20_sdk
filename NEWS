@@ -9,6 +9,7 @@
 	      update Documentation for cubietruck cluster build
 	      start preparation for next release
 	      reduce number of base repos (only libbaalue/baalued/can-utils)
+	      update diskfree info
 
 	      ## target && sdk stuff
 	      update u-boot to v2017.11 (olimex, ...)
@@ -16,6 +17,8 @@
 
 	      ## target stuff
 	      regular rootfs updates
+	      some cleanups and size reductions
+	      add emacs-gtk2 to full images
 
 2017-11-18 -> ## sdk stuff
 	      update toolchain to latest void-linux versions
