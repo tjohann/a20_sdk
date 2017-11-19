@@ -14,7 +14,7 @@ installation checks:
 	- check bananapi-pro hdd installation (use make_sdcard.sh)
 	- check cubietruck with hdd as baalue-master installation
 	  (use make_sdcard.sh)
-	- check bananapi RT-PREEMPT installation (use make_sdcard.sh)
+	- check olimex RT-PREEMPT installation (use make_sdcard.sh)
 
 build/config updates on device (for base/normal image):
 

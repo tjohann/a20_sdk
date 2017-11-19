@@ -3,10 +3,12 @@
 #
 
 
+################## 2017-11-19 -> A20_SDK_V2.7.0 #############################
 
 2017-11-19 -> ## sdk stuff
 	      update Documentation for cubietruck cluster build
 	      start preparation for next release
+	      reduce number of base repos (only libbaalue/baalued/can-utils)
 
 	      ## target && sdk stuff
 	      update u-boot to v2017.11 (olimex, ...)

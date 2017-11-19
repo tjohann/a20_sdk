@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    11.02.2017/26.09.2016
+# Date/Beginn :    19.11.2017/26.09.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (feb 2017) -> fix uninstall function
+# Milestones  :    V2.04 (nov 2017) -> reduce number of base repos
+#                  V2.03 (feb 2017) -> fix uninstall function
 #                                      change build order -> kernel driver needed
 #                                      for libbaalue (lcd160x part)
 #                  V2.02 (jan 2017) -> fix wrong debug argument for *baalue*
@@ -55,7 +56,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -223,21 +224,9 @@ install_all()
     #
     # build the "make install" repos
     #
-    BUILD_DIR=${ARMHF_BIN_HOME}/external/mydriver
-    CONFIGURE_ADDS=''
-    build_make_install
-
-    BUILD_DIR=${ARMHF_BIN_HOME}/external/time_triggert_env
-    CONFIGURE_ADDS=''
-    build_make_install
-
-    BUILD_DIR=${ARMHF_BIN_HOME}/external/can_lin_env
-    CONFIGURE_ADDS=''
-    build_make_install
-
-    BUILD_DIR=${ARMHF_BIN_HOME}/external/lcd160x_driver
-    CONFIGURE_ADDS=''
-    build_make_install
+    # BUILD_DIR=${ARMHF_BIN_HOME}/external/lcd160x_driver
+    # CONFIGURE_ADDS=''
+    # build_make_install
 
     #
     # build the "./bootstrap && ./configure ..." repos
@@ -268,20 +257,8 @@ uninstall_all()
     #
     # build the "make install" repos
     #
-    cd ${ARMHF_BIN_HOME}/external/mydriver
-    sudo make uninstall
-
-    cd ${ARMHF_BIN_HOME}/external/time_triggert_env
-    sudo make uninstall
-
-    cd ${ARMHF_BIN_HOME}/external/can_lin_env
-    sudo make uninstall
-
-    cd ${ARMHF_BIN_HOME}/external/mydriver
-    sudo make uninstall
-
-    cd ${ARMHF_BIN_HOME}/external/lcd160x_driver
-    sudo make uninstall
+    # cd ${ARMHF_BIN_HOME}/external/lcd160x_driver
+    # sudo make uninstall
 }
 
 
