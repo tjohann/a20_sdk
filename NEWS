@@ -3,11 +3,17 @@
 #
 
 
+
 2017-11-19 -> ## sdk stuff
 	      update Documentation for cubietruck cluster build
+	      start preparation for next release
 
 	      ## target && sdk stuff
 	      update u-boot to v2017.11 (olimex, ...)
+	      update kernel config for RT-PREEMPT usage (really small kernel)
+
+	      ## target stuff
+	      regular rootfs updates
 
 2017-11-18 -> ## sdk stuff
 	      update toolchain to latest void-linux versions
