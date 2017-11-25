@@ -7,6 +7,9 @@
 	      update kernel to 4.14.2
 	      update kernel to 4..14.1-rt3 (olimex)
 
+	      ## sdk stuff
+	      update kernel config 4.14.x
+
 2017-11-21 -> ## target && sdk stuff
 	      update kernel to 4.14.1
 

@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 4.14.0-rc7 Kernel Configuration
+# Linux/arm 4.14.2 Kernel Configuration
 #
 CONFIG_ARM=y
 CONFIG_ARM_HAS_SG_CHAIN=y
@@ -4381,7 +4381,6 @@ CONFIG_HID_CHICONY=m
 # CONFIG_HID_CORSAIR is not set
 # CONFIG_HID_PRODIKEYS is not set
 # CONFIG_HID_CMEDIA is not set
-CONFIG_HID_CP2112=m
 CONFIG_HID_CYPRESS=m
 CONFIG_HID_DRAGONRISE=m
 # CONFIG_DRAGONRISE_FF is not set
