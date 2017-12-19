@@ -3,6 +3,11 @@
 #
 
 
+2017-12-19 -> ## target && sdk stuff
+	      update kernel to 4.14.7
+	      update kernel to 4.14.6-rt7
+      	      update kernel to 4.15-rc4 (cubietruck-plus)
+
 2017-12-14 -> ## target && sdk stuff
 	      update kernel to 4.14.6
 	      update kernel to 4.15-rc3 (cubietruck-plus)
