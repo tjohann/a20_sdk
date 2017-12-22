@@ -2,13 +2,15 @@
 # some news ... see also TODO for hints
 #
 
+2017-12-21 -> ## target && sdk stuff
+	      update kernel to 4.14.8-rt9 (olimex)
 
 2017-12-21 -> ## target && sdk stuff
 	      update kernel to 4.14.8
 
 2017-12-19 -> ## target && sdk stuff
 	      update kernel to 4.14.7
-	      update kernel to 4.14.6-rt7
+	      update kernel to 4.14.6-rt7 (olimex)
       	      update kernel to 4.15-rc4 (cubietruck-plus)
 
 2017-12-14 -> ## target && sdk stuff
@@ -17,14 +19,14 @@
 
 2017-12-06 -> ## target && sdk stuff
 	      update kernel to 4.14.4
-	      update kernel to 4.14.3-rt5
+	      update kernel to 4.14.3-rt5 (olimex)
 
 2017-12-04 -> ## target && sdk stuff
 	      update kernel to 4.15-rc2 (cubietruck-plus)
 
 2017-12-01 -> ## target && sdk stuff
 	      update kernel to 4.14.3
-	      update kernel to 4.14.3-rt4
+	      update kernel to 4.14.3-rt4 (olimex)
 
 2017-11-27 -> ## target && sdk stuff
 	      update kernel to 4.15-rc1 (cubietruck-plus)
