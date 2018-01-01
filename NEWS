@@ -6,6 +6,11 @@
 2018-01-01 -> ## target && sdk stuff
 	      update kernel to 4.15-rc6 (cubietruck-plus)
 
+	      ## sdk stuff
+	      add binpkgs dir to /opt/a20_sdk and ~/home/src/a20_sdk
+	      add get_binpgs.sh script to download binpkgs.tgz
+	      add baalue to external repos
+
 2017-12-31 -> ## target && sdk stuff
 	      update kernel to 4.14.10
 

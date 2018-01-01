@@ -29,6 +29,7 @@ all::
 	@echo "| make get_latest_kernel  -> download latest kernel version |"
 	@echo "| make get_image_tarballs -> download image tarballs        |"
 	@echo "| make get_..._image_tarballs -> download specific tarball  |"
+	@echo "| make get_binpkgs        -> download latest binpgs         |"
 	@echo "| make get_all            -> get all of the above           |"
 	@echo "| make clean              -> clean all dir/subdirs          |"
 	@echo "| make distclean          -> complete cleanup/delete        |"
@@ -51,6 +52,9 @@ clean_external::
 
 clean_kernel::
 	($(ARMHF_HOME)/scripts/clean_sdk.sh -k)
+
+clean_binpkgs::
+	($(ARMHF_HOME)/scripts/clean_sdk.sh -b)
 
 clean_images::
 	($(ARMHF_HOME)/scripts/clean_sdk.sh -i)
@@ -93,7 +97,7 @@ init_opt: clean_opt
 #
 # run all get actions in sequence
 #
-get_all: get_toolchain get_image_tarballs get_external_repos get_latest_kernel
+get_all: get_toolchain get_image_tarballs get_external_repos get_latest_kernel get_binpkgs
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
 	@echo "|               All 'get' actions complete                 |"
@@ -131,6 +135,14 @@ get_latest_nonrt_kernel::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_latest_linux_kernel.sh -n)
+
+get_binpkgs::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest binpkgs                           |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/helper/get_binpkgs.sh)
 
 get_toolchain::
 	@echo "+----------------------------------------------------------+"

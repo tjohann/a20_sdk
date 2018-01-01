@@ -36,6 +36,7 @@ all::
 	@echo "|                            driver                        |"
 	@echo "| make get_libbaalue      -> clone my common librar        |"
 	@echo "| make get_baalued        -> clone my admin daemon         |"
+	@echo "| make get_baalue         -> clone my admin tool to baalued|"
 	@echo "| make get_tt-env         -> clone time-triggert           |"
 	@echo "|                            environment playground        |"
 	@echo "| make get_can-lin-env    -> clone can/lin bus             |"
@@ -64,6 +65,7 @@ get_base_repos::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "can-utils" -p "http")
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "libbaalue" -p "https")
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalued" -p "https")
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalue" -p "https")
 
 get_rt-tests::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "rt-tests" -p "http")
@@ -94,6 +96,9 @@ get_libbaalue::
 
 get_baalued::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalued" -p "https")
+
+get_baalue::
+	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "baalue" -p "https")
 
 get_tt-env::
 	($(ARMHF_HOME)/scripts/get_external_git_repos.sh -r "tt-env" -p "https")

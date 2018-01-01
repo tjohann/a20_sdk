@@ -50,6 +50,25 @@ sdk checks:
 
 
 
+
+A20_SDK_V2.7.1 (01.01.2018)
+---------------------------
+
+	Common checks                                     [2018-01-01 -> not needed]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
 A20_SDK_V2.7.0 (19.11.2017)
 ---------------------------
 

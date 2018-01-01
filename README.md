@@ -17,6 +17,7 @@ The basic user interface are make targets, which then start the corresponding sc
     | make get_toolchain      -> install toolchain              |
     | make get_latest_kernel  -> download latest kernel version |
     | make get_image_tarballs -> download image tarballs        |
+	| make get_binpkgs        -> download latest binpgs         |
     | make get_all            -> get all of the above           |
     | make clean              -> clean all dir/subdirs          |
     | make distclean          -> complete cleanup/delete        |
@@ -169,6 +170,27 @@ Note: do a
 	make
 
 within /opt/a20_sdk/kernel to see what is additional supported.
+
+
+Get latest build packages
+-------------------------
+
+Not all packages provided by the void-linux repo are available on armv7 architecture (emacs-gtk2 is an example). I provide some of them via binpkgs.tgz@sourceforge.
+
+To download the latest binary packages type
+
+    make get_binpkgs
+
+Note: do a
+
+	make
+
+within /opt/a20_sdk/binpkgs to see what is additional supported.
+
+Note: to install/query a packages (emacs-gtk2)
+
+	xbps-install --repository=/opt/a20_sdk/binpkgs
+	xbps-query --repository=/opt/a20_sdk/binpkgs
 
 
 Update/Upgrade

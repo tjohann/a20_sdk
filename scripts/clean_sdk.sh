@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    08.11.2016/17.04.2016
+# Date/Beginn :    01.01.2018/17.04.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (nov 2016) -> add void-packages
+# Milestones  :    V2.02 (jan 2018) -> add baalue to clean external
+#                                      add binpkgs
+#                  V2.01 (nov 2016) -> add void-packages
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.06 (sep 2016) -> add can_lin_env
 #                  V1.05 (aug 2016) -> sudo handling at beginning
@@ -65,7 +67,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -76,6 +78,7 @@ CLEAN_EXTERNAL='false'
 CLEAN_IMAGES='false'
 CLEAN_TOOLCHAIN='false'
 CLEAN_USER='false'
+CLEAN_BINPKGS='false'
 MRPROPER='false'
 
 # program name
@@ -88,6 +91,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-a] -> cleanup all dir                         |"
+    echo "|        [-b] -> cleanup binpkgs dir                     |"
     echo "|        [-k] -> cleanup kernel dir                      |"
     echo "|        [-e] -> cleanup external dir                    |"
     echo "|        [-i] -> cleanup image dir                       |"
@@ -136,7 +140,7 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvaketium' opts 2>$_log
+while getopts 'hvaketiumb' opts 2>$_log
 do
     case $opts in
 	k) CLEAN_KERNEL='true' ;;
@@ -144,12 +148,14 @@ do
 	i) CLEAN_IMAGES='true' ;;
 	t) CLEAN_TOOLCHAIN='true' ;;
 	u) CLEAN_USER='true' ;;
+	b) CLEAN_BINPKGS='true' ;;
 	m) MRPROPER='true' ;;
 	a) CLEAN_KERNEL='true'
            CLEAN_EXTERNAL='true'
            CLEAN_IMAGES='true'
 	   CLEAN_TOOLCHAIN='true'
 	   CLEAN_USER='true'
+	   CLEAN_BINPKGS='true'
            ;;
         h) my_usage ;;
 	v) print_version ;;
@@ -220,6 +226,7 @@ clean_external()
 	rm -rf lcd160x_driver
 	rm -rf libbaalue
 	rm -rf baalued
+	rm -rf baalue
 	rm -rf time_triggert_env
 	rm -rf can_lin_env
 	rm -rf void-packages
@@ -238,6 +245,19 @@ clean_kernel()
 	rm -rf patch-*
     else
         echo "INFO: no directory ${ARMHF_BIN_HOME}/kernel"
+    fi
+}
+
+clean_binpkgs()
+{
+    if [ -d $ARMHF_BIN_HOME/binpkgs ]; then
+        cd $ARMHF_BIN_HOME/binpkgs
+	echo "cleanup binpkgs dir"
+	rm -rf binpkgs.tgz
+	rm -rf *.xbps
+	rm -rf armv7l-repodata
+    else
+        echo "INFO: no directory ${ARMHF_BIN_HOME}/binpkgs"
     fi
 }
 
@@ -319,6 +339,12 @@ if [ "$CLEAN_KERNEL" = 'true' ]; then
     clean_kernel
 else
     echo "do not clean ${ARMHF_BIN_HOME}/kernel"
+fi
+
+if [ "$CLEAN_BINPKGS" = 'true' ]; then
+    clean_binpkgs
+else
+    echo "do not clean ${ARMHF_BIN_HOME}/binpkgs"
 fi
 
 if [ "$CLEAN_TOOLCHAIN" = 'true' ]; then

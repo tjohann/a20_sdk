@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2018, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    14.02.2017/15.08.2015
+# Date/Beginn :    01.01.2018/15.08.2015
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (feb 2017) -> whitespaces
+# Milestones  :    V2.03 (jan 2018) -> add baalue
+#                  V2.02 (feb 2017) -> whitespaces
 #                  V2.01 (nov 2016) -> add void-packages
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (sep 2016) -> add can_lin_env
@@ -90,7 +91,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -105,6 +106,7 @@ MISSING_ENV='false'
 # lcd1602 -> http://github.com/tjohann/lcd160x_driver.git
 # mydriver -> http://github.com/tjohann/mydriver.git
 # baalued -> http://github.com/tjohann/baalued.git
+# baalue -> http://github.com/tjohann/baalue.git
 # libbaalue -> http://github.com/tjohann/libbaalue.git
 # tt-env -> http://github.com/tjohann/time_triggert_env.git
 # can-lin-env -> https://github.com/tjohann/can_lin_env.git
@@ -150,6 +152,7 @@ my_usage()
     echo "| REPO: mydriver -> my simple driver example             |"
     echo "| REPO: libbaalue -> my base libary                      |"
     echo "| REPO: baalued -> control daemon of a baalue node       |"
+    echo "| REPO: baalue -> admon tool for a baalue node           |"
     echo "| REPO: tt-env -> my realtime playground                 |"
     echo "| REPO: can-lin-env -> my can/lin playground             |"
     echo "| REPO: void-packages -> void-packages                   |"
@@ -258,6 +261,7 @@ set_repo_names()
     lcd1602="://github.com/tjohann/lcd160x_driver.git"
     mydriver="://github.com/tjohann/mydriver.git"
     baalued="://github.com/tjohann/baalued.git"
+    baalue="://github.com/tjohann/baalue.git"
     libbaalue="://github.com/tjohann/libbaalue.git"
     tt_env="://github.com/tjohann/time_triggert_env.git"
     can_lin_env="://github.com/tjohann/can_lin_env.git"
@@ -277,6 +281,7 @@ set_repo_names()
     repo_names_array[10]=${tt_env}
     repo_names_array[11]=${can_lin_env}
     repo_names_array[12]=${void_packages}
+    repo_names_array[13]=${baalue}
 }
 
 # --- get repo name
@@ -321,6 +326,9 @@ get_repo_name()
 	    ;;
 	'void-packages')
 	    REPO_NAME="${PROTOCOL}${void_packages}"
+	    ;;
+	'baalue')
+	    REPO_NAME="${PROTOCOL}${baalue}"
 	    ;;
 	*)
 	    echo "ERROR -> ${REPO} is no valid repo ... pls check" >&2
