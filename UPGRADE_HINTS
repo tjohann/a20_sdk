@@ -3,12 +3,16 @@
 #
 
 
-## 2017-02-11
-- do a make init_sdk to make shure everthing is up-to-date (toolchain was
-  updated)
+## 2018-01-02
+- do a make init_sdk to make shure everthing is up-to-date
 
 
 # --------------------------------- deprecated --------------------------------
+
+
+## 2017-02-11
+- do a make init_sdk to make shure everthing is up-to-date (toolchain was
+  updated)
 
 ## 2017-01-26
 - do a make init_sdk to make shure everthing is up-to-date (toolchain was

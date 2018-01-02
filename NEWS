@@ -3,6 +3,9 @@
 #
 
 
+2018-01-02 -> ## sdk stuff
+	      remove binpkgs.tgz via Makefile target in binpkgs folder
+
 ################## 2018-01-01 -> A20_SDK_V2.7.1 #############################
 
 2018-01-01 -> ## target && sdk stuff

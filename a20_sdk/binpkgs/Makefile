@@ -27,6 +27,7 @@ all::
 
 clean::
 	rm -f *~
+	rm binpkgs.tgz
 
 distclean::
 	rm -f *~
