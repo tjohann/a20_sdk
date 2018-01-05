@@ -3,6 +3,12 @@
 #
 
 
+2018-01-05 -> ## target && sdk stuff
+	      update kernel to 4.14.11
+
+	      ## target
+	      regular image updates
+	      fix wrong location of emacs in ee.sh and eke.sh
 
 2018-01-02 -> ## sdk stuff
 	      remove binpkgs.tgz via Makefile target in binpkgs folder
