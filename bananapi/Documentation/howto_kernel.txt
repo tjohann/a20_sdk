@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   05.01.2018/12.01.2016
+Date:   06.01.2018/12.01.2016
 
 Content:
 
@@ -56,7 +56,7 @@ Device
 Kernel version
 --------------
 
-- linux-4.14.11
+- linux-4.14.12
 
 
 Downloads (use make get_latest_kernel)
@@ -148,7 +148,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.14.11 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.14.12 modules_install
 
 
 Deploy SD-Card
@@ -199,7 +199,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_4.14.11/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_4.14.12/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -207,7 +207,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.14.11 /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-4.14.12 /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 
 Finalize
@@ -218,14 +218,14 @@ Finish -> after login
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.14.11 linux
+KDO: ln -s linux-4.14.12 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel
 ---------------------------------------------------------------
 
-DIR: /usr/src/linux-4.14.11
+DIR: /usr/src/linux-4.14.12
 KDO: make clean
 KDO: make scripts
 
@@ -233,8 +233,8 @@ KDO: make scripts
 Prepare modules to link
 -----------------------
 
-DIR: /lib/modules/4.14.11
+DIR: /lib/modules/4.14.12
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.14.11 source
-KDO: ln -s /usr/src/linux-4.14.11 build
+KDO: ln -s /usr/src/linux-4.14.12 source
+KDO: ln -s /usr/src/linux-4.14.12 build
