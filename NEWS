@@ -4,6 +4,15 @@
 
 
 
+################## 2018-01-29 -> A20_SDK_V2.7.3 #############################
+
+2018-01-29 -> ## target && sdk stuff
+      	      update kernel to 4.15 (cubietruck-plus)
+
+	      ## sdk stuff
+	      add missing changes for armhf
+	      start preparation for next release (A20_SDK_V2.7.3)
+
 ################## 2018-01-28 -> A20_SDK_V2.7.2 #############################
 
 2018-01-28 -> ## target stuff
@@ -14,7 +23,7 @@
       	      update kernel to 4.15-rc9 (cubietruck-plus)
 
 	      ## sdk stuff
-	      start preparation for next release
+	      start preparation for next release (A20_SDK_V2.7.2)
 
 2018-01-15 -> ## target && sdk stuff
 	      update kernel to 4.14.13 and 4.14.12-rt10 (olimex)

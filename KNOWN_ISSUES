@@ -2,6 +2,8 @@
 # known issues
 #
 
+- A20_SDK_V2.7.2
+There`s no update for armhf_env in a20_sdk, a20_sdk_src and configs/armhf_env.sh (fixed with A20_SDK_V2.7.3)
 
 - all versions with kernel 4.X.X-rtX:
 There's a bug within the RT-PREEMPT parts (but has no "real" impact ... as far as i have tested):
