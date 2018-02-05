@@ -7,6 +7,9 @@
       	      update kernel to 4.14.17
 	      update kernel to 4.15.1 (cubietruck-plus)
 
+	      ## sdk stuff
+	      update toolchain to latest void-linux versions
+
 2018-02-03 -> ## target && sdk stuff
       	      update kernel to 4.14.16 and 4.14.15-rt13 (olimex)
 
