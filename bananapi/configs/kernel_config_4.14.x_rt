@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 4.14.0 Kernel Configuration
+# Linux/arm 4.14.15 Kernel Configuration
 #
 CONFIG_ARM=y
 CONFIG_ARM_HAS_SG_CHAIN=y
@@ -617,7 +617,6 @@ CONFIG_CPUFREQ_DT_PLATDEV=y
 CONFIG_VFP=y
 CONFIG_VFPv3=y
 CONFIG_NEON=y
-# CONFIG_KERNEL_MODE_NEON is not set
 
 #
 # Userspace binary formats
@@ -2356,7 +2355,6 @@ CONFIG_HID_CHICONY=y
 # CONFIG_HID_CORSAIR is not set
 # CONFIG_HID_PRODIKEYS is not set
 # CONFIG_HID_CMEDIA is not set
-# CONFIG_HID_CP2112 is not set
 CONFIG_HID_CYPRESS=y
 # CONFIG_HID_DRAGONRISE is not set
 # CONFIG_HID_EMS_FF is not set
