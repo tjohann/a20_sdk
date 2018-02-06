@@ -4,6 +4,15 @@
 
 
 2018-02-05 -> ## sdk stuff
+	      start preparation for next release (A20_SDK_V2.8.0)
+	      update checksum.sha256 (upload during 06/07.02.2018)
+	      some minor howto updates
+
+	      ## target stuff
+	      regular image updates
+	      add updated version of libbaalue
+
+2018-02-05 -> ## sdk stuff
 	      update kernel configs
 
 
