@@ -49,6 +49,26 @@ sdk checks:
 	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/)
 
 
+
+
+A20_SDK_V2.8.0 (09.02.2018)
+---------------------------
+
+	Common checks                                         [2018-02-09 -> partly]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
 A20_SDK_V2.7.4 (05.02.2018)
 ---------------------------
 
