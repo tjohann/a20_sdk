@@ -3,6 +3,9 @@
 #
 
 
+2018-02-27 -> ## target && sdk stuff
+
+
 2018-02-25 -> ## target && sdk stuff
       	      update kernel to 4.14.21 and 4.14.20-rt17
 	      update kernel to 4.15.3 (cubietruck-plus)
