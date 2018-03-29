@@ -3,6 +3,10 @@
 #
 
 
+2018-03-29 -> ## target && sdk stuff
+      	      update kernel to 4.14.31 and 4.14.29-rt25
+	      update kernel to 4.15.14 (cubietruck-plus)
+
 2018-03-10 -> ## target && sdk stuff
       	      update kernel to 4.14.25
 	      update kernel to 4.15.8 (cubietruck-plus)
