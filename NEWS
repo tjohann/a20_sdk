@@ -2,6 +2,10 @@
 # some news ... see also TODO for hints
 #
 
+
+2018-04-03 -> ## target && sdk stuff
+	      start migration to kernel 4.16 for non-rt
+
 2018-04-02 -> ## target && sdk stuff
 	      update kernel to 4.16 (cubietruck-plus)
 
