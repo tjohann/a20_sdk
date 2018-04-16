@@ -3,6 +3,11 @@
 #
 
 
+2018-04-16 -> ## target && sdk stuff
+	      update kernel to 4.16.2
+	      update kernel to 4.14.34-rt27
+	      update kernel to 4.17-rc1 (cubietruck-plus)
+
 2018-04-03 -> ## target && sdk stuff
 	      start migration to kernel 4.16 for non-rt
 
