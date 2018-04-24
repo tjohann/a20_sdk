@@ -3,6 +3,11 @@
 #
 
 
+2018-04-24 -> ## target && sdk stuff
+	      update kernel to 4.16.4
+	      update kernel to 4.17-rc2 (cubietruck-plus)
+	      fix documentation bug (olimex/.../howto_kernel.txt)
+
 2018-04-16 -> ## target && sdk stuff
 	      update kernel to 4.16.2
 	      update kernel to 4.14.34-rt27
