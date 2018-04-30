@@ -2,6 +2,15 @@
 # some news ... see also TODO for hints
 #
 
+2018-04-30 -> ## target && sdk stuff
+	      update kernel to 4.16.6
+	      update kernel to 4.17-rc3 (cubietruck-plus)
+	      update u-boot to v2018.03 for all devices
+	      update devicetree for cubietruck and nanopi
+
+	      ## sdk stuff
+	      some smaller config/doc fixes/changes
+	      update kernel config for 4.16.x and 4.17.x
 
 2018-04-24 -> ## target && sdk stuff
 	      update kernel to 4.16.4
