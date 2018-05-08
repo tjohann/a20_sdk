@@ -65,7 +65,7 @@
   -> A20_SDK_V2.3.0                                         [2017-07-15 -> done]
 - setup armhf qemu installation for testing purpose
   (distcc into baalue, build environment for void-packages,
-  emacs build, ...)
+   emacs build, ...)
 
 ## sdk && target stuff
 - update u-boot                                             [2017-07-29 -> done]
