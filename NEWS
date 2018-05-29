@@ -2,6 +2,8 @@
 # some news ... see also TODO for hints
 #
 
+2018-05-29 -> ## target && sdk stuff
+	      update kernel to 4.17-rc7 (cubietruck-plus)
 
 2018-05-08 -> ## target && sdk stuff
 	      update kernel to 4.16.7
