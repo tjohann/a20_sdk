@@ -2,6 +2,10 @@
 # some news ... see also TODO for hints
 #
 
+
+2018-05-31 -> ## target && sdk stuff
+	      update kernel to 4.16.13
+
 2018-05-30 -> ## target && sdk stuff
 	      update kernel to 4.16.12
 	      update kernel to 4.16.12-rt5 (olimex)
