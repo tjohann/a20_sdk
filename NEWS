@@ -3,6 +3,9 @@
 #
 
 
+2018-06-24 -> ## target && sdk stuff
+	      update kernel to 4.16.15-rt7 (olimex)
+
 2018-06-17 -> ## target && sdk stuff
 	      update kernel to 4.17.2 (incl. cubietruck-plus)
 	      update kernel to 4.16.15-rt6 (olimex)
