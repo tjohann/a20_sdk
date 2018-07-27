@@ -3,6 +3,13 @@
 #
 
 
+2018-07-23 -> ## target && sdk stuff
+	      update kernel to 4.17.9
+      	      update kernel to 4.16.18-rt10 (olimex)
+
+	      ## sdk stuff
+	      some minor docu adds
+
 2018-06-26 -> ## target && sdk stuff
 	      update kernel to 4.17.3
 

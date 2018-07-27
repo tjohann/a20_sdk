@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   26.06.2018/14.08.2017
+Date:   23.07.2018/14.08.2017
 
 Content:
 
@@ -53,7 +53,7 @@ Device
 Kernel version
 --------------
 
-- linux-4.17.3
+- linux-4.17.9
 
 
 Downloads (use make get_latest_kernel)
@@ -130,7 +130,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.17.3 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_4.17.9 modules_install
 
 
 Deploy SD-Card
@@ -156,7 +156,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_4.17.3/lib/modules/. /mnt/cubietruck/cubietruck_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_4.17.9/lib/modules/. /mnt/cubietruck/cubietruck_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -164,7 +164,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-4.17.3 /mnt/cubietruck/cubietruck_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-4.17.9 /mnt/cubietruck/cubietruck_rootfs/usr/src/.
 
 
 Finalize
@@ -175,13 +175,13 @@ Finish -> after login
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-4.17.3 linux
+KDO: ln -s linux-4.17.9 linux
 
 
 Prepare linux tree to build your modules against the new kernel
 ---------------------------------------------------------------
 
-DIR: /usr/src/linux-4.17.3
+DIR: /usr/src/linux-4.17.9
 KDO: make clean
 KDO: make scripts
 
@@ -189,8 +189,8 @@ KDO: make scripts
 Prepare modules to link
 -----------------------
 
-DIR: /lib/modules/4.17.3
+DIR: /lib/modules/4.17.9
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-4.17.3 source
-KDO: ln -s /usr/src/linux-4.17.3 build
+KDO: ln -s /usr/src/linux-4.17.9 source
+KDO: ln -s /usr/src/linux-4.17.9 build

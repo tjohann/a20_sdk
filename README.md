@@ -527,7 +527,7 @@ Addtional mount points (host):
 Baalue
 ------
 
-Baalue is my bananapi cluster where I want to learn more about distributed system and the coresponding development models. The actual configuration has 8 Bananapi-M1 nodes and on master node based on a Cubietruck (CB3). I the near future there will be an update with an additional stack of 8 Bananapi-M1 and a Pine64 as master node .
+Baalue is my bananapi cluster where I want to learn more about distributed system and the coresponding development models. The actual configuration has 8 Bananapi-M1 nodes and on master node based on a Cubietruck (CB3). I the near future there will be an update with an additional stack of 8 Bananapi-M1 and a Cubietruck-Plus as master node .
 
 The script (a20_sdk_)make_sdcard.sh can generate a baalue node base image which is a specialized bananapi images. If you want to build your own cluster this could be a good starting point. What you then have to change is only the ip and the hostname (see folder baalue/branding/etc_1/ as an example).
 
