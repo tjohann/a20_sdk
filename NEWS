@@ -3,6 +3,16 @@
 #
 
 
+2018-08-09 -> ## target && sdk stuff
+	      update kernel to 4.17.13
+
+2018-08-08 -> ## target && sdk stuff
+	      update kernel and devicetree configs
+
+2018-08-03 -> ## target && sdk stuff
+	      update kernel to 4.17.12
+      	      update kernel to 4.16.18-rt12 (olimex)
+
 2018-07-23 -> ## target && sdk stuff
 	      update kernel to 4.17.9
       	      update kernel to 4.16.18-rt10 (olimex)
