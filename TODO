@@ -3,6 +3,23 @@
 #
 #
 
+
+#
+# -------------- 2018-09-10 ----------------------------------------------------
+#
+## sdk stuff
+- update toolchain to latest version
+- release A20_SDK_V2.8.2
+- start preparing A20_SDK_V2.9.0
+- update man page and README.md
+- update KNOWN_ISSUES
+- update TODO and remove old stuff
+- update storyline.md for all devices
+
+## target && sdk stuff
+- update u-boot to v2018.09
+
+
 #
 # -------------- 2017-08-15 ----------------------------------------------------
 #
