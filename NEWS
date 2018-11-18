@@ -3,6 +3,9 @@
 #
 
 
+2018-11-29 -> ## sdk stuff
+	      update toolchain to reflect void-linux changes
+
 2018-08-22 -> ## target && sdk stuff
 	      update kernel to 4.18.12
 	      update kernel to 4.18.7-rt5 (olimex)
