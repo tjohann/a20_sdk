@@ -6,6 +6,8 @@
 2018-11-19 -> ## target && sdk stuff
 	      update kernel to 4.19.2
       	      update kernel to 4.19.1-rt3 (olimex)
+	      update kernel configs
+	      update dtc for cubietruck-plus
 
 2018-11-18 -> ## sdk stuff
 	      update toolchain to reflect void-linux changes
