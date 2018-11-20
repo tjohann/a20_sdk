@@ -3,6 +3,12 @@
 #
 
 
+2018-11-20 -> ## image stuff
+	      change void-linux repo to alpha.de.repo.voidlinux.org
+	      - full image
+	      - base image
+	      regular updates
+
 2018-11-19 -> ## target && sdk stuff
 	      update kernel to 4.19.2
       	      update kernel to 4.19.1-rt3 (olimex)
