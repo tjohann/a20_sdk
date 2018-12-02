@@ -7,6 +7,9 @@
 	      update kernel to 4.19.6
       	      update kernel to 4.19.5-rt4 (olimex)
 
+	      ## sdk stuff
+	      update kernel configs and some howtos
+
 2018-11-20 -> ## image stuff
 	      change void-linux repo to alpha.de.repo.voidlinux.org
 	      - full image

@@ -1,13 +1,13 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 4.19.1 Kernel Configuration
+# Linux/arm 4.19.5 Kernel Configuration
 #
 
 #
-# Compiler: arm-none-linux-gnueabihf-gcc (crosstool-NG 1.23.0.534-710c8) 8.2.0
+# Compiler: arm-none-linux-gnueabihf-gcc (crosstool-NG crosstool-ng-1.23.0-306-g04d910b8) 7.3.0
 #
 CONFIG_CC_IS_GCC=y
-CONFIG_GCC_VERSION=80200
+CONFIG_GCC_VERSION=70300
 CONFIG_CLANG_VERSION=0
 CONFIG_IRQ_WORK=y
 CONFIG_BUILDTIME_EXTABLE_SORT=y
@@ -570,8 +570,9 @@ CONFIG_REFCOUNT_FULL=y
 #
 # CONFIG_GCOV_KERNEL is not set
 CONFIG_ARCH_HAS_GCOV_PROFILE_ALL=y
-CONFIG_PLUGIN_HOSTCC=""
+CONFIG_PLUGIN_HOSTCC="g++"
 CONFIG_HAVE_GCC_PLUGINS=y
+# CONFIG_GCC_PLUGINS is not set
 CONFIG_RT_MUTEXES=y
 CONFIG_BASE_SMALL=0
 CONFIG_MODULES=y
@@ -3684,7 +3685,6 @@ CONFIG_CRYPTO_DES=y
 # CONFIG_CRYPTO_SEED is not set
 # CONFIG_CRYPTO_SERPENT is not set
 # CONFIG_CRYPTO_SM4 is not set
-# CONFIG_CRYPTO_SPECK is not set
 # CONFIG_CRYPTO_TEA is not set
 # CONFIG_CRYPTO_TWOFISH is not set
 
