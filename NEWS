@@ -3,6 +3,10 @@
 #
 
 
+2019-01-13 -> ## target && sdk stuff
+	      update kernel to 4.19.15
+      	      update kernel to 4.19.13-rt10 (olimex)
+
 2018-12-02 -> ## target && sdk stuff
 	      update kernel to 4.19.6
       	      update kernel to 4.19.5-rt4 (olimex)

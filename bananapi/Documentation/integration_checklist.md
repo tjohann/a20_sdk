@@ -51,10 +51,10 @@ sdk checks:
 
 
 
-A20_SDK_V2.9.0 (xx.12.2018)
+A20_SDK_V2.9.0 (xx.01.2019)
 ---------------------------
 
-	Common checks                                         [2018-12-xx -> partly]
+	Common checks                                         [2019-01-xx -> partly]
 
 	Config updates (on the target):
 		- ...
