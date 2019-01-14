@@ -3,9 +3,15 @@
 #
 
 
+2019-01-14 -> ## sdk stuff
+	      documentation updates
+
 2019-01-13 -> ## target && sdk stuff
 	      update kernel to 4.19.15
       	      update kernel to 4.19.13-rt10 (olimex)
+
+
+################## 2018-12-02 -> A20_SDK_V2.8.2 #############################
 
 2018-12-02 -> ## target && sdk stuff
 	      update kernel to 4.19.6
