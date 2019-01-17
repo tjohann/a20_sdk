@@ -3,6 +3,17 @@
 #
 
 
+2019-01-17 -> ## target && sdk stuff
+	      update kernel to 4.19.16
+      	      update kernel to 4.19.15-rt12 (olimex)
+
+	      ## sdk stuff
+	      update kernel configs
+	      update toolchain to reflect void-linux changes
+
+	      ## image stuff
+	      regular updates
+
 2019-01-14 -> ## sdk stuff
 	      documentation updates
 
