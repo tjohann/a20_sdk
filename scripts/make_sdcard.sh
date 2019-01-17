@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2019, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/10.07.2016
+# Date/Beginn :    17.01.2019/10.07.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.03 (jan 2018) -> set TERM fix to xterm
+#                  V2.02 (aug 2017) -> add support for cubietruck-plus
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.02 (aug 2016) -> a lot of fixes around hdd-boot-sdcard
@@ -72,7 +73,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -82,6 +83,8 @@ MISSING_ENV='false'
 
 # pid of logterm ($TERM)
 PID_LOGTERM=0
+# set $TERM to xterm
+TERM='xterm'
 
 # which brand?
 BRAND='none'
