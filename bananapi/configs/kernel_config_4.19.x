@@ -1,13 +1,13 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 4.19.6 Kernel Configuration
+# Linux/arm 4.19.16 Kernel Configuration
 #
 
 #
-# Compiler: arm-none-linux-gnueabihf-gcc (crosstool-NG crosstool-ng-1.23.0-306-g04d910b8) 7.3.0
+# Compiler: arm-none-linux-gnueabihf-gcc (crosstool-NG 1.23.0.588-0364e3c) 8.2.0
 #
 CONFIG_CC_IS_GCC=y
-CONFIG_GCC_VERSION=70300
+CONFIG_GCC_VERSION=80200
 CONFIG_CLANG_VERSION=0
 CONFIG_IRQ_WORK=y
 CONFIG_BUILDTIME_EXTABLE_SORT=y
@@ -4046,6 +4046,7 @@ CONFIG_DRM_KMS_HELPER=y
 CONFIG_DRM_KMS_FB_HELPER=y
 CONFIG_DRM_FBDEV_EMULATION=y
 CONFIG_DRM_FBDEV_OVERALLOC=100
+# CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM is not set
 # CONFIG_DRM_LOAD_EDID_FIRMWARE is not set
 # CONFIG_DRM_DP_CEC is not set
 CONFIG_DRM_GEM_CMA_HELPER=y
@@ -4876,6 +4877,7 @@ CONFIG_TYPEC_UCSI=m
 # USB Type-C Alternate Mode drivers
 #
 # CONFIG_TYPEC_DP_ALTMODE is not set
+# CONFIG_USB_ROLE_SWITCH is not set
 CONFIG_USB_LED_TRIG=y
 CONFIG_USB_ULPI_BUS=m
 CONFIG_UWB=m
