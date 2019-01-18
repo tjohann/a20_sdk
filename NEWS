@@ -3,6 +3,9 @@
 #
 
 
+2019-01-18 -> ## target && sdk stuff
+	      update binkpgs.tgz
+
 2019-01-17 -> ## target && sdk stuff
 	      update kernel to 4.19.16
       	      update kernel to 4.19.15-rt12 (olimex)
