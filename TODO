@@ -5,19 +5,33 @@
 
 
 #
+# -------------- 2019-09-23 ----------------------------------------------------
+#
+## target && sdk stuff
+- update all major parts of the sdk, toolchain and images
+  - u-boot
+  - kernel
+  - image
+  - toolchain
+- add images for cubietruck-plus
+- start preparing A20_SDK_V2.9.0
+- release A20_SDK_V2.9.0
+
+
+#
 # -------------- 2018-09-10 ----------------------------------------------------
 #
 ## sdk stuff
 - update toolchain to latest version
-- release A20_SDK_V2.8.2
-- start preparing A20_SDK_V2.9.0
-- update man page and README.md
-- update KNOWN_ISSUES
-- update TODO and remove old stuff
+- release A20_SDK_V2.8.2				    [2018-12-02 -> done]
+- start preparing A20_SDK_V2.9.0                        [2019-09-23 -> canceled]
+- update man page and README.md                             [2019-09-23 -> done]
+- update KNOWN_ISSUES                                   [2019-09-23 -> canceled]
+- update TODO and remove old stuff                          [2019-09-23 -> done]
 - update storyline.md for all devices
 
 ## target && sdk stuff
-- update u-boot to v2018.09
+- update u-boot to v2018.09                             [2019-09-23 -> canceled]
 
 
 #

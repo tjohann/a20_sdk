@@ -264,7 +264,7 @@ Versioninfo
 
 I use a standard version scheme via git tags based on 3 numbers:
 
-	A20_SDK_V2.8.1
+	A20_SDK_V2.8.2
 
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
@@ -629,8 +629,8 @@ Note: This repository is something like a bracket over my differnet projects. So
 - add dtc config for mcp2515 (bananapi and cubietruck)
 - working jailhouse configuration for bananapi and olimex
 - simple example for using bare-metal cell within bananapi/olimex
-- working can parts for a20-can and mcp2515 (bananapi/olimex)
-- working can baremetal can example
+- working can-bus parts for a20-can and mcp2515 (bananapi/olimex)
+- working can-bus baremetal can example
 - simple baremetal lcd example
 - support flashchip of olimex and/or cubietruck
 - simple os for baremetal cell (see https://github.com/tjohann/miblos)
