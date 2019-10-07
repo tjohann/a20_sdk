@@ -6,6 +6,13 @@
 2019-10-07 -> ## sdk stuff
 	      update kernel config for 5.2.17-rt9
 
+	      ## target && sdk stuff
+	      update kernel to 5.3.4
+      	      update kernel to 5.2.17-rt9 (olimex)
+
+	      ## image stuff
+	      regular updates for full and base image
+
 2019-10-06 -> ## sdk stuff
 	      update get_latest_kernel.sh to kernel v5.x.x
 	      update kernel to 5.3.4
