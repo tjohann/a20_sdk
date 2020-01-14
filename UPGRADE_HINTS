@@ -4,11 +4,16 @@
 
 
 
-## 2018-01-29
+## 2020-01-14
 - do a make init_sdk to make shure everthing is up-to-date
+- check you network configuration if you use the default settings
+  (changed network from 192.168.0 to 192.168.178)
 
 
 # --------------------------------- deprecated --------------------------------
+
+## 2018-01-29
+- do a make init_sdk to make shure everthing is up-to-date
 
 ## 2018-01-02
 - do a make init_sdk to make shure everthing is up-to-date

@@ -71,7 +71,7 @@ Usecases:
 Future
 ======
 
-Use a Pine64 as the basic node for Baalue2.
+Use a Cubietruck-Plus (8-core) as master node.
 
 
 

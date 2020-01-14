@@ -2,6 +2,8 @@
 # some news ... see also TODO for hints
 #
 
+2020-01-14 -> ## target & sdk stuff
+	      changed the network infrastructure from 192.168.0 to 192.168.178
 
 2019-10-07 -> ## sdk stuff
 	      update kernel config for 5.2.17-rt9
