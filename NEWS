@@ -3,6 +3,10 @@
 #
 
 
+2020-03-02 -> ## target & sdk stuff
+	      update kernel to 5.4.23
+      	      update kernel to 5.4.22-rt13 (olimex)
+
 2020-01-15 -> ## target & sdk stuff
 	      update kernel to 5.4.12
       	      update kernel to 5.4.10-rt5 (olimex)
