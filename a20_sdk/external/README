@@ -8,7 +8,7 @@ Addtional Repos
 -------------------
 
 	# rt-tests -> http://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git
-	# uboot -> git://git.denx.de/u-boot.git
+	# uboot -> https://gitlab.denx.de/u-boot/u-boot
 	# can-utils -> https://github.com/linux-can/can-utils.git
 	# sdk_builder -> http://github.com/tjohann/sdk_builder.git
 	# a20_sdk -> http://github.com/tjohann/a20_sdk.git

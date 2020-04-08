@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.01.2018/15.08.2015
+# Date/Beginn :    08.04.2020/15.08.2015
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (jan 2018) -> add baalue
+# Milestones  :    V2.04 (apr 2020) -> change uboot repo path
+#                  V2.03 (jan 2018) -> add baalue
 #                  V2.02 (feb 2017) -> whitespaces
 #                  V2.01 (nov 2016) -> add void-packages
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -91,14 +92,14 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
 
 # REPOs
 # rt-tests -> http://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git
-# uboot -> git://git.denx.de/u-boot.git
+# uboot -> https://gitlab.denx.de/u-boot/u-boot
 # can-utils -> https://github.com/linux-can/can-utils.git
 # jailhouse -> https://github.com/siemens/jailhouse.git
 # sdk_builder -> http://github.com/tjohann/sdk_builder.git
@@ -253,7 +254,7 @@ fi
 set_repo_names()
 {
     rt_tests="://git.kernel.org/pub/scm/linux/kernel/git/clrkwllms/rt-tests.git"
-    uboot="://git.denx.de/u-boot.git"
+    uboot="://gitlab.denx.de/u-boot/u-boot"
     can_utils="://github.com/linux-can/can-utils.git"
     jailhouse="://github.com/siemens/jailhouse.git"
     allwinner="://github.com/allwinner-zh/documents.git"

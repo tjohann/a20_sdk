@@ -3,6 +3,19 @@
 #
 
 
+2020-04-08 -> ## image stuff
+	      regular updates for full and base image
+
+	      ## sdk stuff
+	      change path in get_external_git_repos.sh
+
+2020-04-06 -> ## target & sdk stuff
+	      update kernel to 5.6.2
+      	      update kernel to 5.6.2-rt1 (olimex)
+
+2020-04-05 -> ## sdk stuff
+	      update toolchain to reflect void-linux changes
+
 2020-03-02 -> ## target & sdk stuff
 	      update kernel to 5.4.23
       	      update kernel to 5.4.22-rt13 (olimex)
