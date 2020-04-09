@@ -51,10 +51,28 @@ sdk checks:
 
 
 
-A20_SDK_V2.9.0 (xx.04.2020)
+A20_SDK_V2.9.0 (xx.0x.2020)
 ---------------------------
 
-	Common checks                                         [2020-04-xx -> partly]
+	Common checks                                         [2020-0x-xx -> partly]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
+A20_SDK_V2.8.3 (09.04.2020)
+---------------------------
+
+	Common checks                                         [2020-04-09 -> partly]
 
 	Config updates (on the target):
 		- ...
@@ -85,25 +103,6 @@ A20_SDK_V2.8.2 (02.12.2018)
 
 	Others:
 		- ...
-
-
-A20_SDK_V2.8.1 (16.04.2018)
----------------------------
-
-	Common checks                                         [2018-04-16 -> partly]
-
-	Config updates (on the target):
-		- ...
-
-	Build updates:
-		- ...
-
-	SDK updates:
-		- ...
-
-	Others:
-		- ...
-
 
 
 A20_SDK_V2.8.0 (09.02.2018)

@@ -6,6 +6,9 @@
 2020-04-09 -> ## sdk stuff
 	      fix some smaller findings
 
+	      ## target & sdk stuff
+	      update kernel to 5.6.3
+
 2020-04-08 -> ## image stuff
 	      regular updates for full and base image
 
