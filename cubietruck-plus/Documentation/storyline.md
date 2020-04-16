@@ -12,3 +12,6 @@ Baalue is my common embedded development environment. It is a cluster with 8 wor
 
 Cubietruck 3 vs Cubietruck 5:
 ![Alt text](../../pics/cubietruck_3_vs_5.jpg?raw=true "Find the difference")
+
+All 8 cores available:
+![Alt text](../../pics/cubietruck_plus_htop_8_core.png?raw=true "Find the difference")
