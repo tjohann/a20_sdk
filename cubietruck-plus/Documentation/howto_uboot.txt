@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   14.08.2017/14.08.2017
+Date:   16.04.2020/14.08.2017
 
 Content:
 
@@ -100,3 +100,14 @@ Copy all to /mnt/cubietruck/cubietruck_kernel
 -----------------------------------------
 
 sudo cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/cubietruck/cubietruck_kernel/
+or
+cp u-boot-sunxi-with-spl.bin /mnt/cubietruck/cubietruck_kernel/
+
+
+Deploy A20_SDK
+==============
+
+Copy all to $ARMHF_HOME/cubietruck-plus/u-boot/
+----------------------------------------
+
+cp u-boot-sunxi-with-spl.bin $ARMHF_HOME/cubietruck-plus/u-boot/

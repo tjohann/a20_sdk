@@ -3,6 +3,27 @@
 #
 
 
+
+################## 2020-04-16 -> A20_SDK_V2.9.0 #############################
+
+2020-04-16 -> ## target & sdk stuff
+	      update kernel to 5.6.4
+	      update u-boot for all devices
+
+	      ## target
+	      change ip config from dhcpd and static to dhclient
+	      (reason: put the cluster into it`s own network and
+	      	       config via mac address at my dhcpd host)
+
+	      ## image stuff
+	      regular updates for full and base image
+
+	      ## sdk stuff
+	      documentation updates
+	      update kernel configs and some howtos
+	      prepare A20_SDK_V2.9.0
+
+
 ################## 2020-04-09 -> A20_SDK_V2.8.3 #############################
 
 2020-04-09 -> ## sdk stuff

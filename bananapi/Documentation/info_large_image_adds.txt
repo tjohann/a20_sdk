@@ -119,6 +119,7 @@ wget
 i2c-tools
 cowsay
 trace-cmd
+dhclient
 ... (not all shown here)
 
 

@@ -3,14 +3,37 @@
 #
 
 
+## 2020-04-16
+due to problems with dhcpd (https://www.reddit.com/r/voidlinux/comments/fxoobi/dhcpd_broke_after_update/) you maybe have to change to dhclient or set the network config via rc.local and resolv.conf. Here`re an example ...
+
+root@bananapi:/# cat /etc/rc.local
+# Default rc.local for void; add your custom commands here.
+#
+# This is run by runit in stage 2 before the services are executed
+# (see /etc/runit/2).
+
+# Static IP configuration via iproute
+ip link set dev eth0 up
+ip addr add 192.168.178.103/24 brd + dev eth0
+ip route add default via 192.168.178.1
+
+root@bananapi:/# cat /etc/resolv.conf
+domain my.domain
+nameserver 192.168.178.1
+nameserver fd00::e228:6dff:fe50:8ffd
+
+## 2020-04-16
+- change ip config from dhcpd and static to dhclient
+- do a make init_sdk to make shure everthing is up-to-date
+
+
+
+# --------------------------------- deprecated --------------------------------
 
 ## 2020-01-14
 - do a make init_sdk to make shure everthing is up-to-date
 - check you network configuration if you use the default settings
   (changed network from 192.168.0 to 192.168.178)
-
-
-# --------------------------------- deprecated --------------------------------
 
 ## 2018-01-29
 - do a make init_sdk to make shure everthing is up-to-date

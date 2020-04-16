@@ -1,55 +1,53 @@
-U-Boot SPL 2016.11 (Jul 29 2017 - 15:29:28)
+U-Boot SPL 2020.04-00289-g66b8669d77 (Apr 16 2020 - 11:17:18 +0200)
 DRAM: 1024 MiB
 CPU: 912000000Hz, AXI/AHB/APB: 3/2/2
 Trying to boot from MMC1
 
 
-U-Boot 2016.11 (Jul 29 2017 - 15:29:28 +0200) Allwinner Technology
+U-Boot 2020.04-00289-g66b8669d77 (Apr 16 2020 - 11:17:18 +0200) Allwinner Technology
 
 CPU:   Allwinner A20 (SUN7I)
 Model: LeMaker Banana Pi
 I2C:   ready
 DRAM:  1 GiB
-MMC:   SUNXI SD/MMC: 0
-*** Warning - bad CRC, using default environment
+MMC:   mmc@1c0f000: 0
+Loading Environment from FAT... *** Warning - bad CRC, using default environment
 
 Setting up a 720x576i composite-pal console (overscan 32x20)
 In:    serial
 Out:   vga
 Err:   vga
-SCSI:  SATA link 0 timeout.
-AHCI 0001.0100 32 slots 1 ports 3 Gbps 0x1 impl SATA mode
-flags: ncq stag pm led clo only pmp pio slum part ccc apst
-Net:   eth0: ethernet@01c50000
+Net:   eth0: ethernet@1c50000
 starting USB...
-USB0:   USB EHCI 1.00
-USB1:   USB OHCI 1.0
-USB2:   USB EHCI 1.00
-USB3:   USB OHCI 1.0
-scanning bus 0 for devices... 1 USB Device(s) found
-scanning bus 2 for devices... 1 USB Device(s) found
+Bus usb@1c14000: USB EHCI 1.00
+Bus usb@1c14400: USB OHCI 1.0
+Bus usb@1c1c000: USB EHCI 1.00
+Bus usb@1c1c400: USB OHCI 1.0
+scanning bus usb@1c14000 for devices... 1 USB Device(s) found
+scanning bus usb@1c14400 for devices... 1 USB Device(s) found
+scanning bus usb@1c1c000 for devices... 1 USB Device(s) found
+scanning bus usb@1c1c400 for devices... 1 USB Device(s) found
+       scanning usb for storage devices... 0 Storage Device(s) found
 Hit any key to stop autoboot:  0
 switch to partitions #0, OK
 mmc0 is current device
 Scanning mmc 0:1...
 Found U-Boot script /boot.scr
-reading /boot.scr
-318 bytes read in 30 ms (9.8 KiB/s)
+318 bytes read in 2 ms (155.3 KiB/s)
 ## Executing script at 43100000
-reading uImage
-6641080 bytes read in 461 ms (13.7 MiB/s)
-reading sun7i-a20-bananapi.dtb
-34083 bytes read in 37 ms (899.4 KiB/s)
+4381160 bytes read in 245 ms (17.1 MiB/s)
+27133 bytes read in 4 ms (6.5 MiB/s)
 ## Booting kernel from Legacy Image at 46000000 ...
-   Image Name:   Linux-4.12.7
+   Image Name:   Linux-5.6.4
    Image Type:   ARM Linux Kernel Image (uncompressed)
-   Data Size:    6641016 Bytes = 6.3 MiB
+   Data Size:    4381096 Bytes = 4.2 MiB
    Load Address: 40008000
    Entry Point:  40008000
    Verifying Checksum ... OK
 ## Flattened Device Tree blob at 49000000
    Booting using the fdt blob at 0x49000000
-   Loading Kernel Image ... OK
-   Loading Device Tree to 49ff4000, end 49fff522 ... OK
+EHCI failed to shut down host controller.
+   Loading Kernel Image
+   Loading Device Tree to 49ff6000, end 49fff9fc ... OK
 
 Starting kernel ...

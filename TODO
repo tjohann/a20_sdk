@@ -9,13 +9,13 @@
 #
 ## target && sdk stuff
 - update all major parts of the sdk, toolchain and images
-  - u-boot
-  - kernel
-  - image
-  - toolchain
-- add images for cubietruck-plus
-- start preparing A20_SDK_V2.9.0
-- release A20_SDK_V2.9.0
+  - u-boot						   [2020-04-16 -> done]
+  - kernel						   [2020-04-16 -> done]
+  - image						   [2020-04-16 -> done]
+  - toolchain						   [2020-04-05 -> done]
+- add images for cubietruck-plus			   [2020-04-16 -> done]
+- start preparing A20_SDK_V2.9.0			   [2020-04-09 -> done]
+- release A20_SDK_V2.9.0				   [2020-04-16 -> done]
 
 
 #

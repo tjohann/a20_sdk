@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   12.01.2016/12.01.2016
+Date:   16.04.2020/12.01.2016
 
 Content:
 
@@ -100,3 +100,14 @@ Copy all to /mnt/bananapi/bananapi_kernel
 -----------------------------------------
 
 cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/bananapi/bananapi_kernel/
+or
+cp u-boot-sunxi-with-spl.bin /mnt/bananapi/bananapi_kernel/
+
+
+Deploy A20_SDK
+==============
+
+Copy all to $ARMHF_HOME/bananapi/u-boot/
+----------------------------------------
+
+cp u-boot-sunxi-with-spl.bin $ARMHF_HOME/bananapi/u-boot/
