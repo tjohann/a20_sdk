@@ -3,6 +3,9 @@
 #
 
 
+2020-04-17 -> ## sdk stuff
+	      update u-boot for baalue cluster nodes (fix)
+
 2020-04-16 -> ## sdk stuff
 	      update checksum.sha256
 	      documentation updates
