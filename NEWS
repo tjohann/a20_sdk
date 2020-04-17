@@ -6,6 +6,10 @@
 2020-04-17 -> ## sdk stuff
 	      update u-boot for baalue cluster nodes (fix)
 
+	      ## target & sdk stuff
+	      remove mem claming for jailhouse (cubietruck-plus)
+	      change first tty during boot (cubietruck-plus)
+
 2020-04-16 -> ## sdk stuff
 	      update checksum.sha256
 	      documentation updates

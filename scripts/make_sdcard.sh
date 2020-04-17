@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.01.2019/10.07.2016
+# Date/Beginn :    17.04.2020/10.07.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (jan 2018) -> set TERM fix to xterm
+# Milestones  :    V2.04 (apr 2020) -> add hint about psmisc (for killall)
+#                  V2.03 (jan 2018) -> set TERM fix to xterm
 #                  V2.02 (aug 2017) -> add support for cubietruck-plus
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -58,7 +59,7 @@
 #                  V0.02 (jul 2016) -> fist code parts
 #                  V0.01 (jul 2016) -> initial skeleton
 #
-# Requires    :    dialog, xterm
+# Requires    :    dialog, xterm, psmisc
 #
 #
 ################################################################################
@@ -73,7 +74,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # use dialog maybe later zenity
 DIALOG=dialog
