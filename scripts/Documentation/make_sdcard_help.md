@@ -11,6 +11,7 @@ Supported target devices
 These are the supported target devices:
 
 	Bananapi-M1 (normal and Baalue-Cluster-Node)
+	Bananapi-M3
 	Bananapi-Pro
 	Cubietruck (Cubieboard 3)
 	Cubietruck-Plus (Cubieboard 5)
@@ -25,6 +26,8 @@ This is a stupid tool, so you have to provide some informations to it. One of it
 node of your sd-card. So pls plug it in and check the entry in /var/log/messages. You should see
 something like /dev/sdd or /dev/mmcblk0 or so. This value is the input of the device node entry
 of the configuration menu.
+
+Pls install xterm, killall and psmisc if you have some problems.
 
 
 Usage

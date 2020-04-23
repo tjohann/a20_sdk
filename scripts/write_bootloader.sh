@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/15.07.2016
+# Date/Beginn :    23.03.2020/15.07.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.04 (apr 2020) -> add support for bananapi-pro
+#                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (nov 2016) -> add support for nanopi-neo
 #                  V2.01 (oct 2016) -> some smaller improvements
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -63,7 +64,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -96,7 +97,8 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/cubietruck-plus/nanopi       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi/      |"
+    echo "|                bananapi-m3                             |"
     echo "|        [-s] -> prepare sdcard as base for hdd instal.  |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                -e AND -s wont make sense -> -e rules   |"
@@ -357,6 +359,10 @@ case "$BRAND" in
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'bananapi-pro')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
+        ;;
+    'bananapi-m3')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;

@@ -20,7 +20,7 @@ export ARMHF_SRC_HOME=$HOME/src/a20_sdk
 # extend PATH for our a20 stuff
 export PATH=$PATH:${ARMHF_BIN_HOME}/toolchain/bin:${ARMHF_BIN_HOME}/host/usr/bin
 
-# set mount points for the sdcard -> bananapi-(M1/PRO)
+# set mount points for the sdcard -> bananapi-(M1/M3/PRO)
 export BANANAPI_SDCARD_KERNEL=/mnt/bananapi/bananapi_kernel
 export BANANAPI_SDCARD_ROOTFS=/mnt/bananapi/bananapi_rootfs
 export BANANAPI_SDCARD_HOME=/mnt/bananapi/bananapi_home
@@ -32,7 +32,7 @@ export OLIMEX_SDCARD_ROOTFS=/mnt/olimex/olimex_rootfs
 export OLIMEX_SDCARD_HOME=/mnt/olimex/olimex_home
 export OLIMEX_SDCARD_SHARED=/mnt/olimex/olimex_shared
 
-# set mount points for the sdcard -> cubietruck
+# set mount points for the sdcard -> cubietruck/cubietruck-plus
 export CUBIETRUCK_SDCARD_KERNEL=/mnt/cubietruck/cubietruck_kernel
 export CUBIETRUCK_SDCARD_ROOTFS=/mnt/cubietruck/cubietruck_rootfs
 export CUBIETRUCK_SDCARD_HOME=/mnt/cubietruck/cubietruck_home

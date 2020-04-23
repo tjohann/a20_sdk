@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/24.08.2015
+# Date/Beginn :    23.04.2020/24.08.2015
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.01 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.03 (apr 2020) -> add support for bananapi-m3
+#                  V2.02 (aug 2017) -> add support for cubietruck-plus
 #                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (aug 2016) -> add hdd-only-sdcard parts
@@ -91,7 +92,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -123,7 +124,8 @@ my_usage()
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/cubietruck-plus/nanopi       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi/      |"
+    echo "|                bananapi-m3                             |"
     echo "|        [-m] -> download the minimal images             |"
     echo "|        [-s] -> download images for hdd installation    |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
@@ -272,6 +274,14 @@ case "$BRAND" in
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_hdd_kernel.tgz"
 	else
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-pro_kernel.tgz"
+	fi
+	get_tarball
+        ;;
+    'bananapi-m3')
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-m3_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/bananapi/bananapi-m3_kernel.tgz"
 	fi
 	get_tarball
         ;;

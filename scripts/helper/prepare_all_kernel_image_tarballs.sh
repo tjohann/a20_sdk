@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    16.08.2017/26.08.2016
+# Date/Beginn :    23.03.2020/26.08.2016
 #
-# Version     :    V2.05
+# Version     :    V2.06
 #
-# Milestones  :    V2.05 (aug 2017) -> also olimex first kernel is PREEMPT
+# Milestones  :    V2.06 (apr 2020) -> add support for bananapi-m3
+#                  V2.05 (aug 2017) -> also olimex first kernel is PREEMPT
 #                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                                      RT-PREEMPT support is optional
 #                  V2.03 (jan 2017) -> fix remove of old dts/dtb
@@ -57,7 +58,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.05'
+VER='2.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -298,6 +299,13 @@ do_all_nonrt
 
 # bananapi-pro
 BRAND="bananapi-pro"
+HDD=""
+do_all_nonrt
+HDD="_hdd"
+do_all_nonrt
+
+# bananapi-m3
+BRAND="bananapi-m3"
 HDD=""
 do_all_nonrt
 HDD="_hdd"

@@ -294,6 +294,7 @@ Within /var/lib/a20_sdk/ you find the 5 (+1) supported devices below the directo
 
     bananapi -> BananaPi-M1
     bananapi-pro -> BananaPi-Pro
+	bananapi-m3 -> BananaPi-M3
     cubietruck -> Cubietruck (Cubieboard 3)
 	cubietruck-plus -> Cubietruck-Plus (Cubieboard 5)
     olimex -> Olimex A20-SOM/EVB
@@ -312,6 +313,7 @@ In short:
 
     bananapi -> baalue (my Bananapi Cluster with 8 Nodes) and embbedded plattform
     bananapi-pro -> my home audio/video stream server and nextcloud server
+	bananapi-m3 -> another possible master node for baalue (used with FreeBSD)
     cubietruck -> another possible baalue node node and test environment for jailhouse (https://github.com/siemens/jailhouse)
 	cubietruck-plus -> my master node for baalue
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
@@ -360,6 +362,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 	Olimex -> RT-PREEMPT
 	Bananapi -> PREEMPT
 	Baalue-Node -> PREEMPT
+	Bananapi-M3 -> PREEMPT
 	Bananapi-Pro -> PREEMPT
 	Cubietruck -> PREEMPT
 	Cubietruck-Plus -> PREEMPT
@@ -382,6 +385,7 @@ Single devices:
 	192.168.178.102           olimex.my.domain                olimex
 	192.168.178.103	          bananapi.my.domain              bananapi
 	192.168.178.109	          bananapi-pro.my.domain          bananapi-pro
+	192.168.178.110	          bananapi-m3.my.domain           bananapi-m3
 	192.168.178.111           nanopi.my.domain                nanopi
 
 My cluster:
@@ -438,6 +442,7 @@ Naming convention:
 	common/a20_sdk_base_rootfs.tgz -> the base/minimal rootfs
 	bananapi/bananapi_(hdd_)kernel.tgz
 	bananapi/bananapi-pro_(hdd_)kernel.tgz
+	bananapi/bananapi-m3_(hdd_)kernel.tgz
 	bananapi/baalue_(hdd_)kernel.tgz
 	cubietruck/cubietruck_(hdd_)kernel.tgz
 	cubietruck/cubietruck-plus_(hdd_)kernel.tgz
@@ -522,10 +527,30 @@ Addtional mount points (host):
 [The storyline for Bananapi](bananapi/Documentation/storyline.md)
 
 
+Bananapi-M3
+------------
+
+I use this device as an possible baalue-master node (with FreeBSD).
+
+Addtional Hardware connected:
+
+    none
+
+Additional mount points (host):
+
+    LABEL=KERNEL_BANA   /mnt/bananapi/bananapi_kernel      auto  noauto,user,rw  0 0
+    LABEL=ROOTFS_BANA   /mnt/bananapi/bananapi_rootfs      auto  noauto,user,rw  0 0
+    LABEL=HOME_BANA     /mnt/bananapi/bananapi_home        auto  noauto,user,rw  0 0
+
+    LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
+
+[The storyline for Bananapi-Pro](bananapi-m3/Documentation/storyline.md)
+
+
 Baalue
 ------
 
-Baalue is my bananapi cluster where I want to learn more about distributed system and the coresponding development models. The actual configuration has 8 Bananapi-M1 nodes and on master node based on a Cubietruck (CB3). I the near future there will be an update with an additional stack of 8 Bananapi-M1 and a Cubietruck-Plus as master node .
+Baalue is my bananapi cluster where I want to learn more about distributed system and the coresponding development models. The actual configuration has 8 Bananapi-M1 nodes and on master node based on a Cubietruck-Plus (CB5) or Bananapi-M3.
 
 The script (a20_sdk_)make_sdcard.sh can generate a baalue node base image which is a specialized bananapi images. If you want to build your own cluster this could be a good starting point. What you then have to change is only the ip and the hostname (see folder baalue/branding/etc_1/ as an example).
 

@@ -247,6 +247,7 @@ Within /var/lib/a20_sdk/ you find the 5 (+1) supported devices below the directo
 
     bananapi -> BananaPi-M1
     bananapi-pro -> BananaPi-Pro
+    bananapi-m3 -> BananaPi-M3
     cubietruck -> Cubietruck (Cubieboard 3)
     cubietruck-plus -> Cubietruck-Plus (Cubieboard 5)
     olimex -> Olimex A20-SOM/EVB
@@ -265,6 +266,7 @@ In short:
 
     bananapi -> baalue (my Bananapi Cluster with 8 Nodes) and embbedded plattform
     bananapi-pro -> my home audio/video stream server and nextcloud server
+    bananapi-m3 -> another possible master node for baalue (used with FreeBSD)
     cubietruck -> another possible baalue node node and test environment for jailhouse
     cubietruck-plus -> my master node for baalue
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
@@ -298,6 +300,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
     Olimex -> RT-PREEMPT
     Bananapi -> PREEMPT
     Baalue-Node -> PREEMPT
+    Bananapi-M3 -> PREEMPT
     Bananapi-Pro -> PREEMPT
     Cubietruck -> PREEMPT
     Cubietruck-Plus -> PREEMPT
@@ -317,6 +320,7 @@ Single devices:
     192.168.178.102           olimex.my.domain                olimex
     192.168.178.103           bananapi.my.domain              bananapi
     192.168.178.109           bananapi-pro.my.domain          bananapi-pro
+    192.168.178.110	      bananapi-m3.my.domain           bananapi-m3
     192.168.178.111           nanopi.my.domain                nanopi
 
 My cluster:
@@ -362,6 +366,7 @@ Naming convention:
     common/a20_sdk_base_rootfs.tgz -> the base/minimal rootfs
     bananapi/bananapi_(hdd_)kernel.tgz
     bananapi/bananapi-pro_(hdd_)kernel.tgz
+    bananapi/bananapi-m3_(hdd_)kernel.tgz
     bananapi/baalue_(hdd_)kernel.tgz
     cubietruck/cubietruck_(hdd_)kernel.tgz
     cubietruck/cubietruck-plus_(hdd_)kernel.tgz

@@ -122,12 +122,14 @@ Build dtb for the other devices
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
+KDO: cp $ARMHF_HOME/bananapi-m3/configs/sun8i-a83t-bananapi-m3.dts arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dts
 KDO: cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
 KDO: cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
 KDO: cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/sun8i-h3-nanopi-neo.dts
 KDO: cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
 
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-bananapi-m3.dtb
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
 KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
@@ -170,6 +172,7 @@ KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_ker
 KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/bananapi/bananapi_kernel/olimex
 KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /mnt/bananapi/bananapi_kernel/cubietruck
 KDO: cp arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/bananapi/bananapi_kernel/cubietruck-plus
+KDO: cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/bananapi/bananapi_kernel/bananapi-m3
 KDO: cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] /mnt/bananapi/bananapi_kernel/nanopi
 
 or (depends on non-rt kernel version and/or usage)
@@ -180,6 +183,7 @@ KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_ker
 KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/bananapi/bananapi_kernel/non-rt
 KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /mnt/bananapi/bananapi_kernel/non-rt
 KDO: cp arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/bananapi/bananapi_kernel/non-rt
+KDO: cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/bananapi/bananapi_kernel/non-rt
 KDO: cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] /mnt/bananapi/bananapi_kernel/non-rt
 
 

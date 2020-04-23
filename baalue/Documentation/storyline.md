@@ -71,7 +71,7 @@ Usecases:
 Future
 ======
 
-Use a Cubietruck-Plus (8-core) as master node.
+tbd.
 
 
 

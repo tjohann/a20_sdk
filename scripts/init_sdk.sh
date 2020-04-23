@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/25.01.2016
+# Date/Beginn :    23.04.2020/25.01.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (aug 2017) -> add support for cubietruck-plus and
+# Milestones  :    V2.02 (apr 2020) -> add support for bananapi-m3
+#                  V2.01 (aug 2017) -> add support for cubietruck-plus and
 #                                      nanopi
 #                                      some smaller fixes
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -73,7 +74,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -225,6 +226,18 @@ add_documentations_links_opt()
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi-pro" >&2
     fi
 
+    # bananapi-m3 related docs
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/bananapi-m3 ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/bananapi-m3
+	rsync -avz --delete ${ARMHF_HOME}/bananapi-m3/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi-m3/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/bananapi-m3" >&2
+    fi
+
     # cubietruck related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/cubietruck ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/cubietruck
@@ -310,6 +323,18 @@ add_documentations_links_home()
 	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi-pro" >&2
+    fi
+
+    # bananapi-m3 related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/bananapi-m3 ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/bananapi-m3
+	rsync -avz --delete ${ARMHF_HOME}/bananapi-m3/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/bananapi-m3/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/bananapi-m3" >&2
     fi
 
     # cubietruck related docs

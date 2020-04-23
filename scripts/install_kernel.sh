@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/07.09.2016
+# Date/Beginn :    23.04.2020/07.09.2016
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-m3
+#                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                  V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                  V2.02 (nov 2016) -> add support for nanopi-neo
 #                  V2.01 (oct 2016) -> fix RT-PREEMPT part
@@ -51,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -77,7 +78,8 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/cubietruck-plus/nanopi       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi/      |"
+    echo "|                bananapi-m3                             |"
     echo "|        [-r] -> install rt kernel parts                 |"
     echo "|        [-n] -> install non-rt kernel parts             |"
     echo "|        [-v] -> print version info                      |"
@@ -151,7 +153,7 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-# bananapi-{M1/Pro}/baalue
+# bananapi-{M1/M3/Pro}/baalue
 if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
@@ -169,7 +171,7 @@ if [[ ! ${OLIMEX_SDCARD_ROOTFS} ]]; then
     MISSING_ENV='true'
 fi
 
-# cubietruck
+# cubietruck/cubietruck-plus
 if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
@@ -277,6 +279,11 @@ copy_kernel_folder()
 	    echo "ERROR -> could not copy to ${SD_KERNEL}/bananapi"
     fi
 
+    cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3[b,s] ${SD_KERNEL}/bananapi-m3
+    if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not copy to ${SD_KERNEL}/bananapi-m3"
+    fi
+
     cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${SD_KERNEL}/bananapi-pro
     if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not copy to ${SD_KERNEL}/bananapi-pro"
@@ -308,6 +315,9 @@ copy_kernel_folder()
             ;;
 	'bananapi-pro')
 	    cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] ${SD_KERNEL}
+            ;;
+	'bananapi-m3')
+	    cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dt[b,s] ${SD_KERNEL}
             ;;
 	'baalue')
 	    cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${SD_KERNEL}
@@ -387,6 +397,10 @@ case "$BRAND" in
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
         ;;
     'bananapi-pro')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+        ;;
+    'bananapi-m3')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
         ;;

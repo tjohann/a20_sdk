@@ -59,7 +59,7 @@ Gerät      Boot   Anfang      Ende  Sektoren  Größe Kn Typ
 Source
 ------
 
-As the starting point use a (large -> at least 16G) SD-Card and place all content on it (as you would without an hdd). Next copy cubietruck_home.tgz and bananapi-pro_hdd_rootfs.tgz to the SD-Card (to user /home -> should be large enough).
+As the starting point use a (large -> at least 16G) SD-Card and place all content on it (as you would without an hdd). Next copy a20_sdk_home.tgz and bananapi-pro_hdd_rootfs.tgz to the SD-Card (to user /home -> should be large enough).
 
 
 Mountpoints
@@ -75,8 +75,8 @@ Build hdd
 1. Start the bananapi-pro with the basic SD-Card, i call these now "normal SD-Card".
 
 2. Create filesystems on HDD (if not alread done)
-   mkfs.ext4 -L ROOTFS_CUBI /dev/sda1
-   mkfs.ext4 -L HOME_CUBI /dev/sda2
+   mkfs.ext4 -L ROOTFS_BANA /dev/sda1
+   mkfs.ext4 -L HOME_BANA /dev/sda2
 
 3. Create mount point and mount rootfs and home
    mkdir /mnt/tmp_rootfs

@@ -1,0 +1,102 @@
+
+               ===============================================
+               simple addtions for using a hard-disk as target
+               ===============================================
+
+Author: Thorsten Johannvorderbrueggen
+Email:  thorsten.johannvorderbrueggen@t-online.de
+Date:   23.04.2020/23.04.2020
+
+Content:
+
+- Preparation
+  -- Device
+  -- Partitions
+  -- Source
+  -- Mountpoints
+
+- Build HDD
+- Build HDD-SD-Card
+
+
+Preparation
+===========
+
+Device
+-------
+
+- Bananapi-M3     <-- for this device is the howto
+- Cubietruck (cb3) -> see $(ARMHF_HOME)/cubietruck
+- Olimex A20-SOM   -> see $(ARMHF_HOME)/olimex
+
+
+Partitions
+----------
+
+- SD-Card (called from now on HDD-SD-Card)
+  /boot -> 32MByte Fat32
+  swap
+
+- Hard-Disk (called from now on HDD)
+  /     -> 10240 MByte Ext4
+  /home -> the "rest"
+
+  Example:
+
+Befehl (m für Hilfe): p
+Festplatte /dev/sda: 465,8 GiB, 500107862016 Bytes, 976773168 Sektoren
+Einheiten: Sektoren von 1 * 512 = 512 Bytes
+Sektorgröße (logisch/physikalisch): 512 Bytes / 4096 Bytes
+E/A-Größe (minimal/optimal): 4096 Bytes / 4096 Bytes
+Festplattenbezeichnungstyp: dos
+Festplattenbezeichner: 0xd36a5c74
+
+Gerät      Boot   Anfang      Ende  Sektoren  Größe Kn Typ
+/dev/sda1           2048  20973567  20971520    10G 83 Linux
+/dev/sda2       20973568 976773167 955799600 455,8G 83 Linux
+
+
+Source
+------
+
+As the starting point use a (large -> at least 16G) SD-Card and place all content on it (as you would without an hdd). Next copy a20_sdk_home.tgz and bananapi-m3_hdd_rootfs.tgz to the SD-Card (to user /home -> should be large enough).
+
+
+Mountpoints
+-----------
+
+bananapi-pro:
+ - kernel -> /mnt/bananapi-m3/bananapi-m3_kernel
+
+
+Build hdd
+=========
+
+1. Start the bananapi-pro with the basic SD-Card, i call these now "normal SD-Card".
+
+2. Create filesystems on HDD (if not alread done)
+   mkfs.ext4 -L ROOTFS_BANA /dev/sda1
+   mkfs.ext4 -L HOME_BANA /dev/sda2
+
+3. Create mount point and mount rootfs and home
+   mkdir /mnt/tmp_rootfs
+   mount /dev/sda1 /mnt/tmp_rootfs
+   mkdir /mnt/tmp_home
+   mount /dev/sda2 /mnt/tmp_home
+
+3. Sync content of "normal SD-Card" to "HDD"
+   cd /mnt/tmp_home
+   tar xzpvf /home/a20_sdk_home.tgz .
+   cd /mnt/tmp_roofs
+   tar xzpvf /home/bananapi-m3_hdd_rootfs.tgz .
+
+
+
+Build HDD-SD-Card
+=================
+
+1. mount /mnt/bananapi/bananapi_kernel
+
+2. cd /mnt/bananapi/bananapi_kernel
+
+3. tar xzvf /opt/a20_sdk/images/bananapi-m3_hdd_kernel.tgz .

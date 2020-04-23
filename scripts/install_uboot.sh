@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/02.12.2016
+# Date/Beginn :    23.04.2020/02.12.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.01 (apr 2020) -> add support for bananapi-m3
+#                  V2.00 (aug 2017) -> add support for cubietruck-plus
 #                                      version bump to V2.00
 #                  V0.04 (jul 2017) -> add baalue as device
 #                  V0.03 (feb 2017) -> some smaller changes
@@ -50,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -72,7 +73,8 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/cubietruck-plus/nanopi       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi/      |"
+    echo "|                bananapi-m3                             |"
     echo "|        [-r] -> copy bin file to repo (for maintainer)  |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -274,6 +276,9 @@ case "$BRAND" in
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
         ;;
     'bananapi-pro')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+        ;;
+    'bananapi-m3')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
         ;;
     'olimex')

@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/07.09.2016
+# Date/Beginn :    23.04.2020/07.09.2016
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-m3
+#                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                  V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                                      some smaller improvements
 #                  V2.02 (dec 2016) -> fix kdo handling
@@ -62,7 +63,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -235,6 +236,7 @@ copy_dts()
 
     cp $ARMHF_HOME/bananapi/configs/sun7i-a20-bananapi.dts arch/arm/boot/dts/sun7i-a20-bananapi.dts
     cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
+    cp $ARMHF_HOME/bananapi-m3/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dts
     cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
     cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
     cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
@@ -249,6 +251,7 @@ build_dtb()
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapi.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-bananapi-m3.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-cubietruck-plus.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
@@ -258,6 +261,7 @@ build_dtb()
 	make sun7i-a20-bananapro.dtb
 	make sun7i-a20-cubietruck.dtb
 	make sun8i-a83t-cubietruck-plus.dtb
+	make sun8i-a83t-bananapi-m3.dtb
 	make sun8i-h3-nanopi-neo.dtb
     fi
 }

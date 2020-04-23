@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/21.08.2016
+# Date/Beginn :    23.04.2020/21.08.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (auf 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.04 (apr 2020) -> add support for bananapi-m3
+#                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (nov 2016) -> add new hosts schema
 #                                      add nanopi as possible device
 #                  V2.01 (okt 2016) -> some minor fixes
@@ -56,7 +57,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -85,7 +86,7 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/cubietruck |"
-    echo "|                cubietruck-plus/nanopi                  |"
+    echo "|                cubietruck-plus/nanopi/bananapi-m3      |"
     echo "|        [-n] -> node (1...16, master)                   |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
@@ -369,6 +370,11 @@ case "$BRAND" in
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'bananapi-pro')
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
+        ;;
+    'bananapi-m3')
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME
 	SD_SHARED=$BANANAPI_SDCARD_SHARED

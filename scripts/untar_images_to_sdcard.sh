@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/15.07.2016
+# Date/Beginn :    23.04.2020/15.07.2016
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.04 (aug 2020) -> add support for bananapi-m3
+#                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (feb 2017) -> add check for untar to $SD_HOME
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -61,7 +62,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -95,7 +96,8 @@ my_usage()
     echo "|                                                        |"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/cubietruck-plus/nanopi       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi/      |"
+    echo "|                bananapi-m3                             |"
     echo "|        [-m] -> use the minimal images                  |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
@@ -173,7 +175,7 @@ if [[ ! ${ARMHF_SRC_HOME} ]]; then
     MISSING_ENV='true'
 fi
 
-# bananapi-{M1/Pro}/baalue
+# bananapi-{M1/M3/Pro}/baalue
 if [[ ! ${BANANAPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
@@ -207,7 +209,7 @@ if [[ ! ${OLIMEX_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
-# cubietruck
+# cubietruck/cubietruck-plus
 if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
@@ -474,6 +476,12 @@ case "$BRAND" in
 	SD_SHARED=$BANANAPI_SDCARD_SHARED
         ;;
     'bananapi-pro')
+	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
+	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
+	SD_HOME=$BANANAPI_SDCARD_HOME
+	SD_SHARED=$BANANAPI_SDCARD_SHARED
+        ;;
+    'bananapi-m3')
 	SD_KERNEL=$BANANAPI_SDCARD_KERNEL
 	SD_ROOTFS=$BANANAPI_SDCARD_ROOTFS
 	SD_HOME=$BANANAPI_SDCARD_HOME

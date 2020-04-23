@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2019, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    17.04.2020/10.07.2016
+# Date/Beginn :    23.04.2020/10.07.2016
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (apr 2020) -> add hint about psmisc (for killall)
+# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-pro
+#                  V2.04 (apr 2020) -> add hint about psmisc (for killall)
 #                  V2.03 (jan 2018) -> set TERM fix to xterm
 #                  V2.02 (aug 2017) -> add support for cubietruck-plus
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
@@ -74,7 +75,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -539,6 +540,8 @@ select_target()
 	    def_bananapi_pro="on" ;;
 	*bananapi*)
 	    def_bananapi="on" ;;
+	*bananapi-m3*)
+	    def_bananapi_m3="on" ;;
 	*baalue*)
 	    def_baalue="on" ;;
 	*cubietruck*)
@@ -554,11 +557,12 @@ select_target()
     dialog --radiolist "Target device to choose:" 15 60 15 \
            01 "Bananapi-Pro" ${def_bananapi_pro} \
            02 "Bananapi" ${def_bananapi} \
-           03 "Baalue" ${def_baalue} \
-           04 "Cubietruck" ${def_cubietruck} \
-	   05 "Cubietruck-Plus" ${def_cubietruck_plus} \
-	   06 "Nanopi" ${def_nanopi} \
-           07 "Olimex" ${def_olimex} 2>$_temp
+	   03 "Bananapi-M3" ${def_bananapi_m3} \
+           04 "Baalue" ${def_baalue} \
+           05 "Cubietruck" ${def_cubietruck} \
+	   06 "Cubietruck-Plus" ${def_cubietruck_plus} \
+	   07 "Nanopi" ${def_nanopi} \
+           08 "Olimex" ${def_olimex} 2>$_temp
     local result=`cat $_temp`
 
     case "$result" in
@@ -567,14 +571,16 @@ select_target()
 	*02*)
 	    BRAND="bananapi" ;;
 	*03*)
-	    BRAND="baalue" ;;
+	    BRAND="bananapi-m3" ;;
 	*04*)
-	    BRAND="cubietruck" ;;
+	    BRAND="baalue" ;;
 	*05*)
-	    BRAND="cubietruck-plus" ;;
+	    BRAND="cubietruck" ;;
 	*06*)
-	    BRAND="nanopi" ;;
+	    BRAND="cubietruck-plus" ;;
 	*07*)
+	    BRAND="nanopi" ;;
+	*08*)
 	    BRAND="olimex" ;;
     esac
 

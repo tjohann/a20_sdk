@@ -25,6 +25,8 @@ all::
 	@echo "|                                     image tarballs       |"
 	@echo "| make get_bananapi-pro_image_tarballs -> download bananapi|"
 	@echo "|                                         image tarballs   |"
+	@echo "| make get_bananapi-m3_image_tarballs -> download bananapi |"
+	@echo "|                                         image tarballs   |"
 	@echo "| make get_cubietruck_image_tarballs -> download cubietruck|"
 	@echo "|                                       image tarballs     |"
 	@echo "| make get_cubietruck-plus_image_tarballs -> download cb+  |"
@@ -61,6 +63,7 @@ get_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b baalue)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-m3)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck-plus)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
@@ -88,6 +91,14 @@ get_bananapi-pro_image_tarballs::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-pro)
+
+get_bananapi-m3_image_tarballs::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest bananapi-m3 image tarballs        |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b bananapi-m3)
 
 get_cubietruck_image_tarballs::
 	@echo "+----------------------------------------------------------+"

@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2017, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    15.08.2017/02.12.2016
+# Date/Beginn :    23.04.2020/02.12.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (aug 2017) -> add support for cubietruck-plus
+# Milestones  :    V2.01 (apr 2020) -> add support for bananapi-m3
+#                  V2.00 (aug 2017) -> add support for cubietruck-plus
 #                                      version bump to V2.00
 #                  V0.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                  V0.02 (feb 2017) -> fix some problems
@@ -49,7 +50,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -70,7 +71,8 @@ my_usage()
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
-    echo "|                cubietruck/cubietruck-plus/nanopi       |"
+    echo "|                cubietruck/cubietruck-plus/nanopi/      |"
+    echo "|                bananapi-m3                             |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -276,6 +278,9 @@ case "$BRAND" in
         ;;
     'bananapi-pro')
 	UBOOT_CONFIG="Bananapro_defconfig"
+        ;;
+    'bananapi-m3')
+	UBOOT_CONFIG="Sinovoip_BPI_M3_defconfig"
         ;;
     'olimex')
 	UBOOT_CONFIG="A20-Olimex-SOM-EVB_defconfig"

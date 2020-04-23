@@ -3,6 +3,13 @@
 #
 
 
+2020-04-23 -> ## sdk stuff
+	      add first stuff to support Bananapi-M3 as baalue-master node
+	      - folder
+	      - scripts
+	      - devicetree
+	      - u-boot
+
 2020-04-17 -> ## sdk stuff
 	      update u-boot for baalue cluster nodes (fix)
 
