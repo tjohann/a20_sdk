@@ -1,0 +1,28 @@
+#
+# Some hw related info (dts ... jailhouse ...) for bananapi
+#
+
+General infos
+=============
+http://www.banana-pi.org/m3.html
+https://linux-sunxi.org/Sinovoip_Banana_Pi_M3
+
+
+"Special" pins
+==============
+...
+
+
+Can
+===
+- ...
+
+
+Schematic & pins
+================
+- ...
+
+
+GPU
+===
+- ...
