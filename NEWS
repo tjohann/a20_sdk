@@ -3,6 +3,10 @@
 #
 
 
+2020-05-29 -> ## target & sdk stuff
+	      update kernel to 5.6.15
+	      update kernel to 5.6.14-rt7
+
 2020-05-13 -> ## sdk stuff
 	      fix some smaller doc bugs
 
