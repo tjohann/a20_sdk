@@ -1,3 +1,5 @@
 XBPS_DISTCC=yes
 XBPS_DISTCC_HOSTS="localhost/1 --localslots_cpp=24 baalue-01/4 baalue-02/4 baalue-03/4 baalue-04/4 baalue-05/4 baalue-06/4 baalue-07/4 baalue-08/4"
 XBPS_MAKEJOBS=32
+XBPS_ALLOW_RESTRICTED=yes
+XBPS_CHROOT_CMD=uchroot

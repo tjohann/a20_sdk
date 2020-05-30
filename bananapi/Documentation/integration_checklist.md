@@ -11,7 +11,7 @@ Common checks
 
 installation checks:
 
-	- check bananapi-pro hdd installation (use make_sdcard.sh)
+	- check bananapi-m3 installation (use make_sdcard.sh)
 	- check cubietruck with hdd as baalue-master installation
 	  (use make_sdcard.sh)
 	- check olimex RT-PREEMPT installation (use make_sdcard.sh)
@@ -27,7 +27,8 @@ build/config updates on device (for base/normal image):
 	- make mrproper
 	- make init_sdk
 	- /opt/a20_sdk/external (make get_base_repos && make build_base_repos)
-	- /usr/src/jailhouse (git pull && make clean && make && sudo make install)
+	- /usr/src/jailhouse on full image (git pull && make clean && make &&
+	  sudo make install)
 	- copy /home/baalue/src/ap6210/* to /lib/firmware/ap6210
 	- updatedb
 
@@ -49,6 +50,25 @@ sdk checks:
 	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/)
 
 
+
+A20_SDK_V2.10.0 (xx.06.2020)
+---------------------------
+
+	Common checks                                         [2020-06-xx -> partly]
+
+	Config updates (on the target):
+		- regular updates
+
+	Build updates:
+		- add bananapi-m3 to supported devices
+		- regular updates
+
+	SDK updates:
+		- add bananapi-m3 to supported devices
+		- regular updates
+
+	Others:
+		- add tmux to base and full image
 
 
 A20_SDK_V2.9.0 (16.04.2020)

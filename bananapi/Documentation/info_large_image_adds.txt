@@ -120,6 +120,7 @@ i2c-tools
 cowsay
 trace-cmd
 dhclient
+tmux
 ... (not all shown here)
 
 
@@ -153,6 +154,7 @@ blacklist cfg80211
 192.168.178.102         olimex.my.domain                      olimex
 192.168.178.103         bananapi.my.domain                    bananapi
 192.168.178.109         bananapi-pro.my.domain                bananapi-pro
+192.168.178.110         bananapi-m3.my.domain                 bananapi-m3
 192.168.178.111         nanopi.my.domain                      nanopi
 192.168.178.112         cubietruck-plus.my.domain             cubietruck-plus
 
