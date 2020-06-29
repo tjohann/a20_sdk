@@ -3,6 +3,9 @@
 #
 
 
+2020-06-29 -> ## sdk stuff
+	      fix some but in make_sdcard.sh script
+
 2020-06-19 -> ## target & sdk stuff
 	      update kernel to 5.6.19
 	      update kernel to 5.6.17-rt10

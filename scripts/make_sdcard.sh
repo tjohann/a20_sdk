@@ -529,6 +529,7 @@ select_target()
 {
     local def_bananapi_pro="off"
     local def_bananapi="off"
+    local def_bananapi_m3="off"
     local def_baalue="off"
     local def_cubietruck="off"
     local def_cubietruck_plus="off"
