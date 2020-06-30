@@ -23,13 +23,14 @@ all::
 	@echo "| make get_latest_kernel  -> download latest kernel version|"
 	@echo "| make get_latest_rt_kernel -> download latest rt kernel   |"
 	@echo "| make get_latest_nonrt_kernel -> download latest nonrt ...|"
-	@echo "| make build_all_kernel -> build rt and non-rt kernel      |"
+	@echo "| make build_latest_kernel -> build rt and non-rt kernel   |"
 	@echo "| make build_rt_kernel -> build rt kernel                  |"
 	@echo "| make build_non-rt_kernel -> build non-rt kernel          |"
 	@echo "| make clean              -> simple clean (no subdir)      |"
 	@echo "| make distclean          -> rm also downloaded/build parts|"
 	@echo "| ----------- installs below are for bananapi ------------ |"
-	@echo "| make install_all_kernel -> install rt and non-rt kernel  |"
+	@echo "| make install_latest_kernel -> install rt and non-rt      |"
+	@echo "|                               kernel                     |"
 	@echo "| make install_rt_kernel -> install rt kernel              |"
 	@echo "| make install_non-rt_kernel -> install non-rt kernel      |"
 	@echo "| ------------------ helper scripts ---------------------- |"
@@ -83,10 +84,10 @@ build_non-rt_kernel::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/build_kernel.sh -n)
 
-build_all_kernel::
+build_latest_kernel::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
-	@echo "|                    build all kernel                      |"
+	@echo "|                    build latest kernel                   |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/build_kernel.sh -a)
@@ -107,10 +108,10 @@ install_non-rt_kernel::
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/install_kernel.sh -b bananapi -n)
 
-install_all_kernel::
+install_latest_kernel::
 	@echo "+----------------------------------------------------------+"
 	@echo "|                                                          |"
-	@echo "|               install all kernel (bananapi)              |"
+	@echo "|               install latest kernel (bananapi)           |"
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/install_kernel.sh -b bananapi -a)

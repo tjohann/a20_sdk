@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/07.09.2016
+# Date/Beginn :    30.06.2020/07.09.2016
 #
-# Version     :    V2.05
+# Version     :    V2.06
 #
-# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.06 (jun 2020) -> add -a kdo argument
+#                                      fix some bugs
+#                  V2.05 (apr 2020) -> add support for bananapi-m3
 #                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                  V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                  V2.02 (nov 2016) -> add support for nanopi-neo
@@ -52,7 +54,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.05'
+VER='2.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -82,6 +84,7 @@ my_usage()
     echo "|                bananapi-m3                             |"
     echo "|        [-r] -> install rt kernel parts                 |"
     echo "|        [-n] -> install non-rt kernel parts             |"
+    echo "|        [-a] -> install all kernel parts                |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
     echo "|                                                        |"
@@ -124,11 +127,14 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvrnb:' opts 2>$_log
+while getopts 'hvarnb:' opts 2>$_log
 do
     case $opts in
 	r) INSTALL_RT='true' ;;
 	n) INSTALL_NONRT='true' ;;
+	a) INSTALL_RT='true'
+	   INSTALL_NONRT='true'
+	   ;;
 	b) BRAND=$OPTARG ;;
         h) my_usage ;;
         v) print_version ;;
@@ -279,7 +285,7 @@ copy_kernel_folder()
 	    echo "ERROR -> could not copy to ${SD_KERNEL}/bananapi"
     fi
 
-    cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3[b,s] ${SD_KERNEL}/bananapi-m3
+    cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dt[b,s] ${SD_KERNEL}/bananapi-m3
     if [ $? -ne 0 ] ; then
 	    echo "ERROR -> could not copy to ${SD_KERNEL}/bananapi-m3"
     fi

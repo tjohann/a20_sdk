@@ -51,10 +51,10 @@ sdk checks:
 
 
 
-A20_SDK_V2.10.0 (xx.06.2020)
+A20_SDK_V2.10.0 (xx.07.2020)
 ---------------------------
 
-	Common checks                                         [2020-06-xx -> partly]
+	Common checks                                         [2020-07-xx -> partly]
 
 	Config updates (on the target):
 		- regular updates
@@ -69,6 +69,24 @@ A20_SDK_V2.10.0 (xx.06.2020)
 
 	Others:
 		- add tmux to base and full image
+
+
+A20_SDK_V2.9.1 (23.04.2020)
+---------------------------
+
+	Common checks                                         [2020-04-23 -> partly]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
 
 
 A20_SDK_V2.9.0 (16.04.2020)

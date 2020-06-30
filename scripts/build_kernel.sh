@@ -26,9 +26,10 @@
 #
 # Date/Beginn :    23.04.2020/07.09.2016
 #
-# Version     :    V2.05
+# Version     :    V2.06
 #
-# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.06 (jun 2020) -> fix dts copy bug
+#                  V2.05 (apr 2020) -> add support for bananapi-m3
 #                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                  V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
 #                                      some smaller improvements
@@ -63,7 +64,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.05'
+VER='2.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -236,7 +237,7 @@ copy_dts()
 
     cp $ARMHF_HOME/bananapi/configs/sun7i-a20-bananapi.dts arch/arm/boot/dts/sun7i-a20-bananapi.dts
     cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
-    cp $ARMHF_HOME/bananapi-m3/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dts
+    cp $ARMHF_HOME/bananapi-m3/configs/sun8i-a83t-bananapi-m3.dts arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dts
     cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
     cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
     cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts

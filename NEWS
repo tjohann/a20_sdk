@@ -3,6 +3,17 @@
 #
 
 
+2020-06-30 -> ## target stuff
+	      regular updates for full and base image
+
+	      ## sdk stuff
+	      prepare A20_SDK_V2.9.2
+	      (in preparation for A20_SDK_V2.10.0 -> bananapi-m3 added)
+	      fix bug in build_kernel.sh and install_kernel.sh
+	      add -a argument in install_kernel.sh
+	      change Makefile tag for build and install kernel in
+	      ${ARMHF_HOME}/a20_sdk/kernel/Makefile
+
 2020-06-29 -> ## sdk stuff
 	      fix some but in make_sdcard.sh script
 	      add htop screenshot of bananapi-m3
@@ -33,6 +44,9 @@
 2020-05-11 -> ## target & sdk stuff
 	      update kernel to 5.6.12
 	      update kernel to 5.6.10-rt5
+
+
+################## 2020-04-23 -> A20_SDK_V2.9.1 #############################
 
 2020-04-23 -> ## sdk stuff
 	      add first stuff to support Bananapi-M3 as baalue-master node
