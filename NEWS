@@ -15,6 +15,7 @@
 	      ${ARMHF_HOME}/a20_sdk/kernel/Makefile
 	      update kernel configs
 	      update checksum.sha256
+	      update README and man page
 
 2020-06-29 -> ## sdk stuff
 	      fix some but in make_sdcard.sh script
