@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/07.07.2016
+# Date/Beginn :    01.07.2020/07.07.2016
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.05 (jun 2020) -> fix bug in clean_sdcard function
+#                  V2.04 (apr 2020) -> add support for bananapi-m3
 #                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (feb 2017) -> increase size of root partitions to 4/8Gig
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
@@ -66,7 +67,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -355,8 +356,8 @@ clean_sdcard()
     # sudo dd if=/dev/zero of=${DEVNODE} bs=1k count=1023 seek=1
 
     # clear also partition table
-    echo "sudo dd if=/dev/zero of=/dev/sdd bs=1M count=1"
-    sudo dd if=/dev/zero of=/dev/sdd bs=1M count=1
+    echo "sudo dd if=/dev/zero of=${DEVNODE} bs=1M count=1"
+    sudo dd if=/dev/zero of=${DEVNODE} bs=1M count=1
     if [ $? -ne 0 ] ; then
 	echo "ERROR: could not clear ${DEVNODE}" >&2
 	my_exit

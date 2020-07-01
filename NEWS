@@ -6,8 +6,12 @@
 
 2020-07-01 -> ## sdk stuff
 	      update checksum for binpkgs.tgz
+	      update/add howtos for cluster build
+	      add nfsd and UAS to 5.6.19 kernel config
+
+	      ## script stuff
 	      fix some smaller doc bugs in scripts
-	      add nfsd to 5.6.19 kernel config
+	      fix bug in partition_sdcard.sh script
 
 
 ################## 2020-06-30 -> A20_SDK_V2.9.2 #############################
