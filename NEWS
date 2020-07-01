@@ -7,6 +7,7 @@
 2020-07-01 -> ## sdk stuff
 	      update checksum for binpkgs.tgz
 	      fix some smaller doc bugs in scripts
+	      add nfsd to 5.6.19 kernel config
 
 
 ################## 2020-06-30 -> A20_SDK_V2.9.2 #############################
