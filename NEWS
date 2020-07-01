@@ -8,6 +8,7 @@
 	      update checksum for binpkgs.tgz
 	      update/add howtos for cluster build
 	      add nfsd and UAS to 5.6.19 kernel config
+	      add UAS to 5.6.17-rt10 kernel config
 
 	      ## script stuff
 	      fix some smaller doc bugs in scripts
