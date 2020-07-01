@@ -28,7 +28,7 @@
 #
 # Version     :    V2.05
 #
-# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-pro
+# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-m3
 #                  V2.04 (apr 2020) -> add hint about psmisc (for killall)
 #                  V2.03 (jan 2018) -> set TERM fix to xterm
 #                  V2.02 (aug 2017) -> add support for cubietruck-plus

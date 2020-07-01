@@ -6,6 +6,7 @@
 
 2020-07-01 -> ## sdk stuff
 	      update checksum for binpkgs.tgz
+	      fix some smaller doc bugs in scripts
 
 
 ################## 2020-06-30 -> A20_SDK_V2.9.2 #############################

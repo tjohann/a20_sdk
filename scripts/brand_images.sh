@@ -24,11 +24,11 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.03.2020/02.07.2016
+# Date/Beginn :    23.04.2020/02.07.2016
 #
 # Version     :    V2.04
 #
-# Milestones  :    V2.04 (apr 2020) -> add support for bananapi-3
+# Milestones  :    V2.04 (apr 2020) -> add support for bananapi-m3
 #                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (nov 2016) -> bug fixing
 #                  V2.01 (nov 2016) -> add support for nanopi neo
