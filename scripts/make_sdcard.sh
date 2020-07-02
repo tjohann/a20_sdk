@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/10.07.2016
+# Date/Beginn :    02.07.2020/10.07.2016
 #
-# Version     :    V2.05
+# Version     :    V2.06
 #
-# Milestones  :    V2.05 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.06 (jul 2020) -> add support for orangepi-zero
+#                  V2.05 (apr 2020) -> add support for bananapi-m3
 #                  V2.04 (apr 2020) -> add hint about psmisc (for killall)
 #                  V2.03 (jan 2018) -> set TERM fix to xterm
 #                  V2.02 (aug 2017) -> add support for cubietruck-plus
@@ -75,7 +76,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.05'
+VER='2.06'
 
 # use dialog maybe later zenity
 DIALOG=dialog
@@ -535,6 +536,7 @@ select_target()
     local def_cubietruck_plus="off"
     local def_olimex="off"
     local def_nanopi="off"
+    local def_orangepi="off"
 
     case "$BRAND" in
 	*bananapi-pro*)
@@ -553,6 +555,8 @@ select_target()
 	    def_olimex="on" ;;
 	*nanopi*)
 	    def_nanopi="on" ;;
+	*orangepi*)
+	    def_orangepi="on" ;;
     esac
 
     dialog --radiolist "Target device to choose:" 15 60 15 \
@@ -563,7 +567,8 @@ select_target()
            05 "Cubietruck" ${def_cubietruck} \
 	   06 "Cubietruck-Plus" ${def_cubietruck_plus} \
 	   07 "Nanopi" ${def_nanopi} \
-           08 "Olimex" ${def_olimex} 2>$_temp
+           08 "Olimex" ${def_olimex} \
+           09 "Orange-Pi-Zero" ${def_orangepi} 2>$_temp
     local result=`cat $_temp`
 
     case "$result" in
@@ -583,6 +588,8 @@ select_target()
 	    BRAND="nanopi" ;;
 	*08*)
 	    BRAND="olimex" ;;
+	*09*)
+	    BRAND="orangepi-zero" ;;
     esac
 
     dialog --title " Target device selected " --msgbox "Will use \"${BRAND}\" for all following actions" 5 60

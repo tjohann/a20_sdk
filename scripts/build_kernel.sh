@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/07.09.2016
+# Date/Beginn :    02.07.2020/07.09.2016
 #
-# Version     :    V2.06
+# Version     :    V2.07
 #
-# Milestones  :    V2.06 (jun 2020) -> fix dts copy bug
+# Milestones  :    V2.07 (jul 2020) -> add support for orangepi-zero
+#                  V2.06 (jun 2020) -> fix dts copy bug
 #                  V2.05 (apr 2020) -> add support for bananapi-m3
 #                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                  V2.03 (apr 2017) -> be aware of MY_HOST_ARCH
@@ -64,7 +65,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.06'
+VER='2.07'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -242,6 +243,7 @@ copy_dts()
     cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
     cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
     cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/sun8i-h3-nanopi-neo.dts
+    cp $ARMHF_HOME/orangepi-zero/configs/sun8i-h2-plus-orangepi-zero.dts arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
 }
 
 build_dtb()
@@ -256,6 +258,7 @@ build_dtb()
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-cubietruck-plus.dtb
 	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
+	make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h2-plus-orangepi-zero.dtb
     else
 	make sun7i-a20-bananapi.dtb
 	make sun7i-a20-olimex-som-evb.dtb
@@ -264,6 +267,7 @@ build_dtb()
 	make sun8i-a83t-cubietruck-plus.dtb
 	make sun8i-a83t-bananapi-m3.dtb
 	make sun8i-h3-nanopi-neo.dtb
+	make sun8i-h2-plus-orangepi-zero.dtb
     fi
 }
 

@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/24.07.2016
+# Date/Beginn :    02.07.2020/24.07.2016
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.05 (jul 2020) -> add support for orangepi-zero
+#                  V2.04 (apr 2020) -> add support for bananapi-m3
 #                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (nov 2016) -> bug fixing
 #                  V2.01 (nov 2016) -> add support for nanopi-neo
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -89,7 +90,7 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
-    echo "|                bananapi-m3                             |"
+    echo "|                bananapi-m3/orangepi-zero               |"
     echo "|        [-s] -> patitions for hdd installation          |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                -e set also -s                          |"
@@ -233,6 +234,23 @@ if [[ ! ${NANOPI_SDCARD_HOME} ]]; then
 fi
 
 if [[ ! ${NANOPI_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+# orangepi
+if [[ ! ${ORANGEPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -402,6 +420,12 @@ case "$BRAND" in
 	SD_ROOTFS=$NANOPI_SDCARD_ROOTFS
 	SD_HOME=$NANOPI_SDCARD_HOME
 	SD_SHARED=$NANOPI_SDCARD_SHARED
+        ;;
+    'orangepi-zero')
+	SD_KERNEL=$ORANGEPI_SDCARD_KERNEL
+	SD_ROOTFS=$ORANGEPI_SDCARD_ROOTFS
+	SD_HOME=$ORANGEPI_SDCARD_HOME
+	SD_SHARED=$ORANGEPI_SDCARD_SHARED
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

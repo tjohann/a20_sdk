@@ -44,6 +44,12 @@ export NANOPI_SDCARD_ROOTFS=/mnt/nanopi/nanopi_rootfs
 export NANOPI_SDCARD_HOME=/mnt/nanopi/nanopi_home
 export NANOPI_SDCARD_SHARED=/mnt/nanopi/nanopi_shared
 
+# set mount points for the sdcard -> orangepi
+export ORANGEPI_SDCARD_KERNEL=/mnt/orangepi/orangepi_kernel
+export ORANGEPI_SDCARD_ROOTFS=/mnt/orangepi/orangepi_rootfs
+export ORANGEPI_SDCARD_HOME=/mnt/orangepi/orangepi_home
+export ORANGEPI_SDCARD_SHARED=/mnt/orangepi/orangepi_shared
+
 echo "Setup env for host \"${MY_HOST_ARCH}\" with root dir \"${ARMHF_HOME}\" and bin root dir \"${ARMHF_BIN_HOME}\""
 
 #EOF

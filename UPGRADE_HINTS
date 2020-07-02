@@ -3,11 +3,14 @@
 #
 
 
-## 2020-06-30
-- do a make init_sdk to make shure everthing is up-to-date (due to some changes in /opt/a20_sdk/kernel/Makefile and more)
+## 2020-07-02
+- do a make init_sdk to make shure everthing is up-to-date (due to some changes in $ARMHF_HOME/a20_sdk*)
 
 
 # --------------------------------- deprecated --------------------------------
+
+## 2020-06-30
+- do a make init_sdk to make shure everthing is up-to-date (due to some changes in /opt/a20_sdk/kernel/Makefile and more)
 
 ## 2020-04-16
 due to problems with dhcpd (https://www.reddit.com/r/voidlinux/comments/fxoobi/dhcpd_broke_after_update/) you maybe have to change to dhclient or set the network config via rc.local and resolv.conf. Here`re an example ...

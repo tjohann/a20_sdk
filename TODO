@@ -5,6 +5,25 @@
 
 
 #
+# -------------- 2020-07-02 ----------------------------------------------------
+#
+## target && sdk stuff
+- check all related to bananapi-m3
+- add orangepi-zero
+  - scripts                                                [2020-07-02 -> done]
+  - images
+  - u-boot                                                 [2020-07-02 -> done]
+  - kernel
+- check all related stuff for orangepi-zero
+- add orangepi to hosts on all brandings
+- setup jailhouse for
+  - bananapi
+  - orangepi
+- update jailhouse documentation
+- update storyline for orangepi -> jailhouse playground
+- check for older TODO`s
+
+#
 # -------------- 2020-06-09 ----------------------------------------------------
 #
 ## target && sdk stuff
@@ -17,7 +36,7 @@
 ## target && sdk stuff
 - test rt-preempt kernel@bananapi-m3
 - update storyline for bananapi-pro -> internal git
-  server
+  and void-linux packages server
 
 
 #
@@ -59,8 +78,9 @@
   (find the difference)                                     [2017-08-15 -> done]
 
 ## target stuff
-- add syslog server to baalue_master (see https://kerneltalks.com/services/build-syslog-server-linux-centralized-log-management/)
-- check language on base image
+- add syslog server to baalue_master
+  (see https://kerneltalks.com/services/build-syslog-server-linux-centralized-log-management/)
+- check and maybe fix language on base image                [2020-06-30 -> done]
 
 
 #
@@ -79,7 +99,8 @@
 # -------------- 2017-08-11 ----------------------------------------------------
 #
 ## target && sdk stuff
-- add/setup void-packages for all devices with mainline kernel
+- add/setup void-packages for all devices with mainline
+  kernel
 
 ## script stuff
 - check if scripts run native on devices (use cubietruck_master)
@@ -131,7 +152,7 @@
 - check distcc config on nodes and master
   - void-packages build                                     [2017-08-15 -> done]
   - kernel build                                            [2017-08-09 -> done]
-  - uboot build (check if possible)
+  - uboot build (check if possible -> nope)                 [2020-06-30 -> done]
 
 
 #
@@ -156,7 +177,7 @@
 
 ## target & sdk stuff
 - create profile script which checks for updates of a20_sdk and pulls them
-  automatically (incl armhf_env.sh updates)
+  automatically (incl. armhf_env.sh updates)
 
 
 #

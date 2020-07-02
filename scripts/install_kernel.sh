@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    30.06.2020/07.09.2016
+# Date/Beginn :    02.07.2020/07.09.2016
 #
-# Version     :    V2.06
+# Version     :    V2.07
 #
-# Milestones  :    V2.06 (jun 2020) -> add -a kdo argument
+# Milestones  :    V2.07 (jul 2020) -> add support for orangepi-zero
+#                  V2.06 (jun 2020) -> add -a kdo argument
 #                                      fix some bugs
 #                  V2.05 (apr 2020) -> add support for bananapi-m3
 #                  V2.04 (aug 2017) -> add support for cubietruck-plus
@@ -54,7 +55,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.06'
+VER='2.07'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -81,7 +82,7 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
-    echo "|                bananapi-m3                             |"
+    echo "|                bananapi-m3/orangepi-zero               |"
     echo "|        [-r] -> install rt kernel parts                 |"
     echo "|        [-n] -> install non-rt kernel parts             |"
     echo "|        [-a] -> install all kernel parts                |"
@@ -192,6 +193,15 @@ if [[ ! ${NANOPI_SDCARD_KERNEL} ]]; then
 fi
 
 if [[ ! ${NANOPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+# orangepi
+if [[ ! ${ORANGEPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_ROOTFS} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -315,6 +325,11 @@ copy_kernel_folder()
 	echo "ERROR -> could not copy to ${SD_KERNEL}/nanopi"
     fi
 
+    cp arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dt[b,s] ${SD_KERNEL}/orangepi-zero
+    if [ $? -ne 0 ] ; then
+	echo "ERROR -> could not copy to ${SD_KERNEL}/orangepi-zero"
+    fi
+
     case "$BRAND" in
 	'bananapi')
 	    cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] ${SD_KERNEL}
@@ -339,6 +354,9 @@ copy_kernel_folder()
             ;;
 	'nanopi')
 	    cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] ${SD_KERNEL}
+            ;;
+	'orangepi-zero')
+	    cp arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dt[b,s] ${SD_KERNEL}
             ;;
     esac
     if [ $? -ne 0 ] ; then
@@ -429,6 +447,10 @@ case "$BRAND" in
      'nanopi')
 	SD_KERNEL=$NANOPI_SDCARD_KERNEL
 	SD_ROOTFS=$NANOPI_SDCARD_ROOTFS
+        ;;
+     'orangepi-zero')
+	SD_KERNEL=$ORANGEPI_SDCARD_KERNEL
+	SD_ROOTFS=$ORANGEPI_SDCARD_ROOTFS
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

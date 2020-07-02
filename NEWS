@@ -3,6 +3,13 @@
 #
 
 
+2020-07-02 -> ## sdk stuff
+	      fix some documentation bugs
+	      fix smaller bugs in some scripts
+	      add first stuff to support Orange Pi Zero
+	      - folder
+	      - scripts
+	      - uboot
 
 2020-07-01 -> ## sdk stuff
 	      update checksum for binpkgs.tgz
@@ -12,7 +19,7 @@
 
 	      ## script stuff
 	      fix some smaller doc bugs in scripts
-	      fix bug in partition_sdcard.sh script
+	      fix bug in partition_sdcard.sh and prepare_*.sh scripts
 
 
 ################## 2020-06-30 -> A20_SDK_V2.9.2 #############################

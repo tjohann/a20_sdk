@@ -2,7 +2,7 @@ SDK for A20 devices (Cortex-A7)
 ===============================
 
 
-A simple development environment for ARMv7 boards based on Allwinners A20/H3/A83T/... processor. It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
+A simple development environment for ARMv7 boards based on Allwinners A20/H2/H3/A83T/... processor. It provides basic component like compiler, env scripts (to set some environment variables like ${ARMHF_HOME}) and more. Additional you find all infos and binarys/tools to setup one of the supported devices (see below). To make life easier you can use the provided scripts to clone useful external repositories like u-boot or build a kernel for your device. To make a ready to use sd-card you can use a dialog based script which guide you through the process.
 
 The basic user interface are make targets, which then start the corresponding scripts:
 
@@ -189,8 +189,8 @@ within /opt/a20_sdk/binpkgs to see what is additional supported.
 
 Note: to install/query a packages (emacs-gtk2)
 
-	xbps-install --repository=/opt/a20_sdk/binpkgs
-	xbps-query --repository=/opt/a20_sdk/binpkgs
+	xbps-install --repository=/opt/a20_sdk/binpkgs emacs-gtk2
+	xbps-query --repository=/opt/a20_sdk/binpkgs emacs-gtk2
 
 
 Update/Upgrade
@@ -269,7 +269,7 @@ I use a standard version scheme via git tags based on 3 numbers:
 The first number is the mayor number which reflect bigger changes. The second number (minor) will change because of
 
 	- new scripts
-	- kernel/updates of all 4 devices (-> including new device images)
+	- kernel/updates of all devices (-> including new device images)
 
 So a simple version update of the olimex kernel will not increase the minor number, instead it will increase the third number (age number):
 
@@ -290,7 +290,7 @@ Note: Actually there not complete.
 All devices
 -----------
 
-Within /var/lib/a20_sdk/ you find the 5 (+1) supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
+Within /var/lib/a20_sdk/ you find the 8 supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
     bananapi -> BananaPi-M1
     bananapi-pro -> BananaPi-Pro
@@ -298,7 +298,8 @@ Within /var/lib/a20_sdk/ you find the 5 (+1) supported devices below the directo
     cubietruck -> Cubietruck (Cubieboard 3)
 	cubietruck-plus -> Cubietruck-Plus (Cubieboard 5)
     olimex -> Olimex A20-SOM/EVB
-	nanopi -> NanoPi Neo (only basic support yet)
+	nanopi -> NanoPi Neo
+    orangepi-zero -> OrangePi Zero
 
 Every device directory has the same sub-directories
 
@@ -312,12 +313,13 @@ You can find documenation on howto build a kernel or howto setup a device below 
 In short:
 
     bananapi -> baalue (my Bananapi Cluster with 8 Nodes) and embbedded plattform
-    bananapi-pro -> my home audio/video stream server and nextcloud server
+    bananapi-pro -> my internal void-linux server
 	bananapi-m3 -> another possible master node for baalue (used with FreeBSD)
     cubietruck -> another possible baalue node node and test environment for jailhouse (https://github.com/siemens/jailhouse)
 	cubietruck-plus -> my master node for baalue
     olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
 	nanopi -> base board for my mobile robots
+    orangepi-zero -> jailhouse playground device
 
 My BAnAnapi cLUEster (Baalue):
 ![Alt text](pics/baalue_cluster_01.jpg?raw=true "Baalue")
@@ -367,6 +369,7 @@ You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/c
 	Cubietruck -> PREEMPT
 	Cubietruck-Plus -> PREEMPT
 	NanoPi -> PREEMPT
+	OrangePi-Zero -> PREEMPT
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}. Pls note that you can run into trouble if the dtb are not the same, if so then also copy the needed dtb from the ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/${YOUR_FAVORITE_DEVICE}.dtb to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}
 
@@ -387,6 +390,7 @@ Single devices:
 	192.168.178.109	          bananapi-pro.my.domain          bananapi-pro
 	192.168.178.110	          bananapi-m3.my.domain           bananapi-m3
 	192.168.178.111           nanopi.my.domain                nanopi
+	192.168.178.113           orangepi-zero.my.domain         orangepi-zero
 
 My cluster:
 
@@ -448,6 +452,7 @@ Naming convention:
 	cubietruck/cubietruck-plus_(hdd_)kernel.tgz
 	olimex/olimex_(hdd_)kernel.tgz
 	nanopi/nanopi_kernel.tgz
+	orangepi/orangepi-zero_kernel.tgz
 
 
 Cubietruck (CB3) and Cubietruck-Plus (CB5)
@@ -544,7 +549,7 @@ Additional mount points (host):
 
     LABEL=SHARED_BANA   /mnt/bananapi/bananapi_shared      auto  noauto,user,rw  0 0
 
-[The storyline for Bananapi-Pro](bananapi-m3/Documentation/storyline.md)
+[The storyline for Bananapi-M3](bananapi-m3/Documentation/storyline.md)
 
 
 Baalue
@@ -559,7 +564,8 @@ There'se also a script called brand_baalue_images.sh in ./scripts. This will bra
 	+--------------------------------------------------------+
 	| Usage: brand_baalue_images.sh                          |
 	|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |
-	|                cubietruck/cubietruck-plus/nanopi       |
+	|                cubietruck/cubietruck-plus/nanopi/      |
+	|                orangepi-zero                           |
 	|        [-n] -> node (1...16, master)                   |
 	|        [-s] -> prepare images for hdd installation     |
 	|        [-v] -> print version info                      |
@@ -570,7 +576,7 @@ There'se also a script called brand_baalue_images.sh in ./scripts. This will bra
 A possible project where I want to use the cluster and distributed calculation is with my robot-cluster env (see baalue/Documentation/robot_cluster_env.pdf for more info about it).
 
 My BAnAnapi cLUEster (Baalue):
-![Alt text](pics/bananapi_cubietruck_cluster.jpg?raw=true "Baalue")
+![Alt text](pics/baalue_cluster_01.jpg?raw=true "Baalue")
 
 [The storyline for Baalue](baalue/Documentation/storyline.md)
 
@@ -621,6 +627,26 @@ Additional mount points (host):
     LABEL=SHARED_NANO   /mnt/nanopi/nanopi_shared      auto  noauto,user,rw  0 0
 
 [The storyline for Nanopi](nanopi/Documentation/storyline.md)
+
+
+OrangePi Zero
+-------------
+
+I use this device as another jailhouse playground device.
+
+Addtional Hardware connected:
+
+    I2C LCD1602 Display
+
+Additional mount points (host):
+
+    LABEL=KERNEL_ORAN   /mnt/orangepi/orangepi_kernel      auto  noauto,user,rw  0 0
+    LABEL=ROOTFS_ORAN   /mnt/orangepi/orangepi_rootfs      auto  noauto,user,rw  0 0
+    LABEL=HOME_ORAN     /mnt/orangepi/orangepi_home        auto  noauto,user,rw  0 0
+
+    LABEL=SHARED_ORAN   /mnt/orangepi/orangepi_shared      auto  noauto,user,rw  0 0
+
+[The storyline for OrangePi Zero](orangepi-zero/Documentation/storyline.md)
 
 
 Notes about /opt/a20_sdk/external

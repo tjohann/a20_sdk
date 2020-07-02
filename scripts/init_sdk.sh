@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/25.01.2016
+# Date/Beginn :    02.07.2020/25.01.2016
 #
-# Version     :    V2.02
+# Version     :    V2.03
 #
-# Milestones  :    V2.02 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.03 (jul 2020) -> add support for orangepi-zero
+#                  V2.02 (apr 2020) -> add support for bananapi-m3
 #                  V2.01 (aug 2017) -> add support for cubietruck-plus and
 #                                      nanopi
 #                                      some smaller fixes
@@ -74,7 +75,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.02'
+VER='2.03'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -274,7 +275,7 @@ add_documentations_links_opt()
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/olimex" >&2
     fi
 
-     # nanopi related docs
+    # nanopi related docs
     if [ -d ${ARMHF_BIN_HOME}/Documentation/nanopi ]; then
 	cd ${ARMHF_BIN_HOME}/Documentation/nanopi
 	rsync -avz --delete ${ARMHF_HOME}/nanopi/Documentation/. .
@@ -284,6 +285,18 @@ add_documentations_links_opt()
 	fi
     else
 	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/nanopi" >&2
+    fi
+
+    # orangepi-zero related docs
+    if [ -d ${ARMHF_BIN_HOME}/Documentation/orangepi-zero ]; then
+	cd ${ARMHF_BIN_HOME}/Documentation/orangepi-zero
+	rsync -avz --delete ${ARMHF_HOME}/orangepi-zero/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/orangepi-zero/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_BIN_HOME}/Documentation/orangepi-zero" >&2
     fi
 }
 
@@ -383,6 +396,18 @@ add_documentations_links_home()
 	fi
     else
 	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/nanopi" >&2
+    fi
+
+    # orangepi-zero related docs
+    if [ -d ${ARMHF_SRC_HOME}/Documentation/orangepi-zero ]; then
+	cd ${ARMHF_SRC_HOME}/Documentation/orangepi-zero
+	rsync -avz --delete ${ARMHF_HOME}/orangepi-zero/Documentation/. .
+	if [ $? -ne 0 ] ; then
+	    echo "ERROR -> could not rsync ${ARMHF_HOME}/orangepi-zero/Documentation/." >&2
+	    my_exit
+	fi
+    else
+	echo "ERROR: no dir ${ARMHF_SRC_HOME}/Documentation/orangepi-zero" >&2
     fi
 }
 

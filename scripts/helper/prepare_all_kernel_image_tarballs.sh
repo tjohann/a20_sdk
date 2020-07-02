@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.03.2020/26.08.2016
+# Date/Beginn :    02.07.2020/26.08.2016
 #
-# Version     :    V2.06
+# Version     :    V2.07
 #
-# Milestones  :    V2.06 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.07 (apr 2020) -> add support for orangepi-zero
+#                                      fix cleanup bug
+#                  V2.06 (apr 2020) -> add support for bananapi-m3
 #                  V2.05 (aug 2017) -> also olimex first kernel is PREEMPT
 #                  V2.04 (aug 2017) -> add support for cubietruck-plus
 #                                      RT-PREEMPT support is optional
@@ -58,7 +60,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.06'
+VER='2.07'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -242,9 +244,8 @@ tar_image()
 
 rm_old_dts()
 {
-    rm -f ${SD_KERNEL}/sun7i-a20-*.dt?
-    rm -f ${SD_KERNEL}/sun8i-h3-nanopi-neo.dt?
-    rm -f ${SD_KERNEL}/sun8i-a83t-cubietruck-plus.dt?
+    rm -f ${SD_KERNEL}/*.dts
+    rm -f ${SD_KERNEL}/*.dtb
 }
 
 do_all_rt()
@@ -337,6 +338,14 @@ BRAND="nanopi"
 HDD=""
 do_all_nonrt
 # no real hdd support for nanopi (only over usb)
+HDD="_hdd"
+do_all_nonrt
+
+# orangepi
+BRAND="orangepi-zero"
+HDD=""
+do_all_nonrt
+# no real hdd support for orangepi (only over usb)
 HDD="_hdd"
 do_all_nonrt
 

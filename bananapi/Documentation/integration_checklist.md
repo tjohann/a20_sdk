@@ -12,8 +12,7 @@ Common checks
 installation checks:
 
 	- check bananapi-m3 installation (use make_sdcard.sh)
-	- check cubietruck with hdd as baalue-master installation
-	  (use make_sdcard.sh)
+	- check cubietruck with hdd installation (use make_sdcard.sh)
 	- check olimex RT-PREEMPT installation (use make_sdcard.sh)
 
 build/config updates on device (for base/normal image):
@@ -30,24 +29,22 @@ build/config updates on device (for base/normal image):
 	- /usr/src/jailhouse on full image (git pull && make clean && make &&
 	  sudo make install)
 	- copy /home/baalue/src/ap6210/* to /lib/firmware/ap6210
-	- updatedb
+	- mupdatedb
 
 tool checks on device:
 
 	- is network (ip) config correct
 	- is jailhouse working
-	  - olimex
+	  - orangepi-zero
 	  - bananapi
-	- i2c_gpio_driver_simple (bananapi)
-	  modprobe i2c_gpio_driver_simple
-	  usage_i2c_gpio_driver_simple ...
-	- lcd1602 (cubietruck -> baalue-master)
+	- lcd1602 (nanopi)
 	  modeprobe ...
 
 sdk checks:
 
 	- update checksum.sha256
-	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/)
+	  (also: cp checksum.sha256 ${ARMHF_HOME}/a20_sdk/ and
+             cp checksum.sha256 ${ARMHF_HOME}/a20_sdk_src/ )
 
 
 
@@ -57,18 +54,62 @@ A20_SDK_V2.10.0 (xx.07.2020)
 	Common checks                                         [2020-07-xx -> partly]
 
 	Config updates (on the target):
-		- regular updates
+		- ...
 
 	Build updates:
-		- add bananapi-m3 to supported devices
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
+A20_SDK_V2.9.3 (XX.07.2020)
+---------------------------
+
+	Common checks                                         [2020-07-XX -> partly]
+
+	Config updates (on the target):
+		- add kernel support for nfsd and uas
+		- ...
+
+	Build updates:
+		- add support for orangepi-zero
+		- regular updates
+		- ...
+
+	SDK updates:
+		- add support for orangepi-zero
+		- a lot of fixes in the scripts
+		- ...
+
+	Others:
+		- upload new images to sourceforge.net
+		- update binpkgs.tgz packages
+		- ...
+
+
+A20_SDK_V2.9.2 (30.06.2020)
+---------------------------
+
+	Common checks                                         [2020-06-30 -> partly]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- finalize support for bananapi-m3
 		- regular updates
 
 	SDK updates:
-		- add bananapi-m3 to supported devices
-		- regular updates
+		- a lot of smaller cleanups and fixes
 
 	Others:
 		- add tmux to base and full image
+		- upload new images to sourceforge.net
+		- update binpkgs.tgz packages
 
 
 A20_SDK_V2.9.1 (23.04.2020)
@@ -80,10 +121,10 @@ A20_SDK_V2.9.1 (23.04.2020)
 		- ...
 
 	Build updates:
-		- ...
+		- add first support for bananapi-m3
 
 	SDK updates:
-		- ...
+		- add first support for bananapi-m3
 
 	Others:
 		- ...

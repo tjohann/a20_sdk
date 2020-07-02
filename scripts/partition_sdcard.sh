@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.07.2020/07.07.2016
+# Date/Beginn :    02.07.2020/07.07.2016
 #
-# Version     :    V2.05
+# Version     :    V2.06
 #
-# Milestones  :    V2.05 (jun 2020) -> fix bug in clean_sdcard function
+# Milestones  :    V2.06 (jul 2020) -> add support for orangepi-zero
+#                  V2.05 (jun 2020) -> fix bug in clean_sdcard function
 #                  V2.04 (apr 2020) -> add support for bananapi-m3
 #                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (feb 2017) -> increase size of root partitions to 4/8Gig
@@ -67,7 +68,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.05'
+VER='2.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -115,7 +116,7 @@ my_usage()
     echo "|        [-d] -> sd-device /dev/sdd ... /dev/mmcblk ...  |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
-    echo "|                bananapi-m3                             |"
+    echo "|                bananapi-m3/orangepi-zero               |"
     echo "|        [-m] -> partition for the minimal image         |"
     echo "|        [-s] -> prepare partitions for hdd installation |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
@@ -257,6 +258,23 @@ if [[ ! ${NANOPI_SDCARD_HOME} ]]; then
 fi
 
 if [[ ! ${NANOPI_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+# orangepi
+if [[ ! ${ORANGEPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -596,6 +614,13 @@ case "$BRAND" in
 	SD_HOME=$NANOPI_SDCARD_HOME
 	SD_SHARED=$NANOPI_SDCARD_SHARED
 	SD_PART_NAME_POST_LABEL="NANO"
+        ;;
+     'orangepi-zero')
+	SD_KERNEL=$ORANGEPI_SDCARD_KERNEL
+	SD_ROOTFS=$ORANGEPI_SDCARD_ROOTFS
+	SD_HOME=$ORANGEPI_SDCARD_HOME
+	SD_SHARED=$ORANGEPI_SDCARD_SHARED
+	SD_PART_NAME_POST_LABEL="ORAN"
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

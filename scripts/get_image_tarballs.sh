@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/24.08.2015
+# Date/Beginn :    02.07.2020/24.08.2015
 #
-# Version     :    V2.03
+# Version     :    V2.04
 #
-# Milestones  :    V2.03 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.04 (jul 2020) -> add support for orangepi-zero
+#                  V2.03 (apr 2020) -> add support for bananapi-m3
 #                  V2.02 (aug 2017) -> add support for cubietruck-plus
 #                  V2.01 (nov 2016) -> add support for nanopi neo
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
@@ -92,7 +93,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.03'
+VER='2.04'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -125,7 +126,7 @@ my_usage()
     echo "|        [-h] -> this help                               |"
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
-    echo "|                bananapi-m3                             |"
+    echo "|                bananapi-m3/orangepi-zero               |"
     echo "|        [-m] -> download the minimal images             |"
     echo "|        [-s] -> download images for hdd installation    |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
@@ -322,6 +323,14 @@ case "$BRAND" in
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/nanopi/nanopi_hdd_kernel.tgz"
 	else
 	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/nanopi/nanopi_kernel.tgz"
+	fi
+	get_tarball
+        ;;
+    'orangepi-zero')
+	if [ "$HDD_BOOT_SDCARD" = 'true' ]; then
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/orangepi/orangepi-zero_hdd_kernel.tgz"
+	else
+	    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/orangepi/orangepi-zero_kernel.tgz"
 	fi
 	get_tarball
         ;;

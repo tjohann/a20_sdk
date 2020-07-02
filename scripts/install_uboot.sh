@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/02.12.2016
+# Date/Beginn :    02.07.2020/02.12.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.02 (jul 2020) -> add support for orangepi-zero
+#                  V2.01 (apr 2020) -> add support for bananapi-m3
 #                  V2.00 (aug 2017) -> add support for cubietruck-plus
 #                                      version bump to V2.00
 #                  V0.04 (jul 2017) -> add baalue as device
@@ -51,7 +52,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -74,7 +75,7 @@ my_usage()
     echo "| Usage: ${PROGRAM_NAME} "
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
-    echo "|                bananapi-m3                             |"
+    echo "|                bananapi-m3/orangepi-zero               |"
     echo "|        [-r] -> copy bin file to repo (for maintainer)  |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -163,6 +164,10 @@ if [[ ! ${CUBIETRUCK_SDCARD_KERNEL} ]]; then
 fi
 
 if [[ ! ${NANOPI_SDCARD_KERNEL} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_KERNEL} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -292,6 +297,9 @@ case "$BRAND" in
         ;;
     'nanopi')
 	SD_KERNEL=$NANOPI_SDCARD_KERNEL
+        ;;
+    'orangepi-zero')
+	SD_KERNEL=$ORANGEPI_SDCARD_KERNEL
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

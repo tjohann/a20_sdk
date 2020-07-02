@@ -24,11 +24,13 @@
 #
 ################################################################################
 #
-# Date/Beginn :    23.04.2020/21.08.2016
+# Date/Beginn :    02.07.2020/21.08.2016
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (apr 2020) -> add support for bananapi-m3
+# Milestones  :    V2.05 (jul 2020) -> add support for orangepi-zero
+#                                      add missing check for nanopi
+#                  V2.04 (apr 2020) -> add support for bananapi-m3
 #                  V2.03 (aug 2017) -> add support for cubietruck-plus
 #                  V2.02 (nov 2016) -> add new hosts schema
 #                                      add nanopi as possible device
@@ -57,7 +59,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -85,8 +87,9 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
-    echo "|        [-b] -> bananapi/bananapi-pro/olimex/cubietruck |"
-    echo "|                cubietruck-plus/nanopi/bananapi-m3      |"
+    echo "|        [-b] -> bananapi/bananapi-pro/olimex/cubietruck/|"
+    echo "|                cubietruck-plus/nanopi/bananapi-m3/     |"
+    echo "|                orangepi-zero                           |"
     echo "|        [-n] -> node (1...16, master)                   |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-v] -> print version info                      |"
@@ -194,6 +197,32 @@ if [[ ! ${CUBIETRUCK_SDCARD_HOME} ]]; then
 fi
 
 if [[ ! ${CUBIETRUCK_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+# nanopi
+if [[ ! ${NANOPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${NANOPI_SDCARD_SHARED} ]]; then
+    MISSING_ENV='true'
+fi
+
+# orangepi
+if [[ ! ${ORANGEPI_SDCARD_ROOTFS} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_HOME} ]]; then
+    MISSING_ENV='true'
+fi
+
+if [[ ! ${ORANGEPI_SDCARD_SHARED} ]]; then
     MISSING_ENV='true'
 fi
 
@@ -398,6 +427,11 @@ case "$BRAND" in
 	SD_ROOTFS=$NANOPI_SDCARD_ROOTFS
 	SD_HOME=$NANOPI_SDCARD_HOME
 	SD_SHARED=$NANOPI_SDCARD_SHARED
+        ;;
+    'orangepi-zero')
+	SD_ROOTFS=$ORANGEPI_SDCARD_ROOTFS
+	SD_HOME=$ORANGEPI_SDCARD_HOME
+	SD_SHARED=$ORANGEPI_SDCARD_SHARED
         ;;
     *)
         echo "ERROR -> ${BRAND} is not supported ... pls check" >&2

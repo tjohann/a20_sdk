@@ -1,0 +1,29 @@
+#
+# Some hw related info (dts ... jailhouse ...) for Orange Pi Zero
+#
+
+General infos
+=============
+
+https://linux-sunxi.org/Xunlong_Orange_Pi_Zero
+https://www.amazon.de/gp/product/B071HX32MS/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1
+
+
+"Special" pins
+==============
+...
+
+
+Can
+===
+- ...
+
+
+Schematic & pins
+================
+- ...
+
+
+GPU
+===
+- ...

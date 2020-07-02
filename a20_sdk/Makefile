@@ -165,6 +165,8 @@ get_image_tarballs::
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b cubietruck-plus)
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b nanopi)
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b orangepi)
 
 get_bananapi_image_tarballs::
 	@echo "+----------------------------------------------------------+"
@@ -221,6 +223,22 @@ get_olimex_image_tarballs::
 	@echo "|                                                          |"
 	@echo "+----------------------------------------------------------+"
 	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b olimex)
+
+get_nanopi_image_tarballs::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest nanopi image tarballs             |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b nanopi)
+
+get_orangepi_image_tarballs::
+	@echo "+----------------------------------------------------------+"
+	@echo "|                                                          |"
+	@echo "|        Download latest orangepi image tarballs           |"
+	@echo "|                                                          |"
+	@echo "+----------------------------------------------------------+"
+	($(ARMHF_HOME)/scripts/get_image_tarballs.sh -b orangepi)
 
 
 #
