@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    08.04.2020/15.08.2015
+# Date/Beginn :    23.07.2020/15.08.2015
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (apr 2020) -> change uboot repo path
+# Milestones  :    V2.05 (jul 2020) -> change void-packages repo path
+#                  V2.04 (apr 2020) -> change uboot repo path
 #                  V2.03 (jan 2018) -> add baalue
 #                  V2.02 (feb 2017) -> whitespaces
 #                  V2.01 (nov 2016) -> add void-packages
@@ -92,7 +93,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -111,7 +112,7 @@ MISSING_ENV='false'
 # libbaalue -> http://github.com/tjohann/libbaalue.git
 # tt-env -> http://github.com/tjohann/time_triggert_env.git
 # can-lin-env -> https://github.com/tjohann/can_lin_env.git
-# void-packages -> https://github.com/voidlinux/void-packages
+# void-packages -> https://github.com/void-linux/void-packages
 
 REPO='none'
 
@@ -266,7 +267,7 @@ set_repo_names()
     libbaalue="://github.com/tjohann/libbaalue.git"
     tt_env="://github.com/tjohann/time_triggert_env.git"
     can_lin_env="://github.com/tjohann/can_lin_env.git"
-    void_packages="://github.com/voidlinux/void-packages"
+    void_packages="://github.com/void-linux/void-packages"
 
     # array with all available repos
     repo_names_array[0]=${rt_tests}
