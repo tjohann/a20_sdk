@@ -6,6 +6,9 @@
 2020-07-23 -> ## script stuff
 	      fix void-packages path
 
+	      ## sdk stuff
+	      update binpkgs.tgz
+
 2020-07-22 -> ## target & sdk stuff
 	      update kernel to 5.6.19-rt1
 
