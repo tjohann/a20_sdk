@@ -3,6 +3,9 @@
 #
 
 
+2020-09-01 -> ## target & sdk stuff
+	      update kernel to 5.6.19-rt12
+
 2020-07-23 -> ## script stuff
 	      fix void-packages path
 
