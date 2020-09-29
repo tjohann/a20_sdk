@@ -5,6 +5,22 @@
 
 
 #
+# -------------- 2020-09-29 ----------------------------------------------------
+#
+## target && sdk stuff
+- start preparing all for kernel 5.9
+- start preparing A20_SDK_V2.9.3
+- start preparing a musl based image
+  - try out selinux
+- start preparing toolchain for musl based images
+- try out lxc as container system
+  - setup example config with hello_world app
+- start preparing A20_SDK_V2.10.0
+  - orangepi-zero working?
+  - bananapi-m3 working?
+
+
+#
 # -------------- 2020-07-02 ----------------------------------------------------
 #
 ## target && sdk stuff
@@ -22,6 +38,7 @@
 - update jailhouse documentation
 - update storyline for orangepi -> jailhouse playground
 - check for older TODO`s
+
 
 #
 # -------------- 2020-06-09 ----------------------------------------------------
