@@ -48,10 +48,10 @@ sdk checks:
 
 
 
-A20_SDK_V2.10.0 (xx.07.2020)
+A20_SDK_V2.10.0 (xx.11.2020)
 ---------------------------
 
-	Common checks                                         [2020-07-xx -> partly]
+	Common checks                                         [2020-11-xx -> partly]
 
 	Config updates (on the target):
 		- ...
@@ -66,10 +66,10 @@ A20_SDK_V2.10.0 (xx.07.2020)
 		- ...
 
 
-A20_SDK_V2.9.3 (XX.07.2020)
+A20_SDK_V2.9.3 (XX.11.2020)
 ---------------------------
 
-	Common checks                                         [2020-07-XX -> partly]
+	Common checks                                         [2020-11-XX -> partly]
 
 	Config updates (on the target):
 		- add kernel support for nfsd and uas

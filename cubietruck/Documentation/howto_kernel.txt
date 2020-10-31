@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   19.06.2020/12.01.2016
+Date:   31.10.2020/12.01.2016
 
 Content:
 
@@ -52,7 +52,7 @@ Device
 Kernel version
 --------------
 
-- linux-5.6.19
+- linux-5.9.2
 
 
 Downloads (use make get_latest_kernel)
@@ -125,7 +125,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_5.6.19 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_5.9.2 modules_install
 
 
 Deploy SD-Card
@@ -151,7 +151,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_5.6.19/lib/modules/. /mnt/cubietruck/cubietruck_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_5.9.2/lib/modules/. /mnt/cubietruck/cubietruck_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -159,7 +159,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-5.6.19 /mnt/cubietruck/cubietruck_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-5.9.2 /mnt/cubietruck/cubietruck_rootfs/usr/src/.
 
 
 Finalize
@@ -170,14 +170,14 @@ Finish -> after login
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-5.6.19 linux
+KDO: ln -s linux-5.9.2 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel
 ---------------------------------------------------------------
 
-DIR: /usr/src/linux-5.6.19
+DIR: /usr/src/linux-5.9.2
 KDO: make clean
 KDO: make scripts
 
@@ -185,8 +185,8 @@ KDO: make scripts
 Prepare modules to link
 -----------------------
 
-DIR: /lib/modules/5.6.19
+DIR: /lib/modules/5.9.2
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-5.6.19 source
-KDO: ln -s /usr/src/linux-5.6.19 build
+KDO: ln -s /usr/src/linux-5.9.2 source
+KDO: ln -s /usr/src/linux-5.9.2 build
