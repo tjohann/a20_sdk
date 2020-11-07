@@ -3,11 +3,21 @@
 #
 
 
+2020-11-07 -> ## target & sdk stuff
+	      update u-boot for all devices to v2020.10
+
+	      ## sdk stuff
+	      update toolchain to latest void-linux versions
+
+	      ## target stuff
+	      regular updates for full and base image
+
 2020-11-06 -> ## target & sdk stuff
 	      update kernel to 5.9.6
 
 	      ## sdk stuff
 	      update kernel configs for rt and non_rt
+	      fix some smaller docu bugs
 
 2020-10-31 -> ## target & sdk stuff
 	      update kernel to 5.9.2
