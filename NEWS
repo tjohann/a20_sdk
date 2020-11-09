@@ -3,6 +3,12 @@
 #
 
 
+2020-11-09 -> ## target stuff
+	      update u-boot version in both images
+
+	      ## sdk stuff
+	      prepare A20_SDK_V2.9.3
+
 2020-11-07 -> ## target & sdk stuff
 	      update u-boot for all devices to v2020.10
 
