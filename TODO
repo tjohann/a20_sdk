@@ -8,16 +8,16 @@
 # -------------- 2020-09-29 ----------------------------------------------------
 #
 ## target && sdk stuff
-- start preparing all for kernel 5.9
-- start preparing A20_SDK_V2.9.3
+- start preparing all for kernel 5.9                       [2020-11-09 -> done]
+- start preparing A20_SDK_V2.9.3                           [2020-11-09 -> done]
 - start preparing a musl based image
   - try out selinux
 - start preparing toolchain for musl based images
 - try out lxc as container system
   - setup example config with hello_world app
 - start preparing A20_SDK_V2.10.0
-  - orangepi-zero working?
-  - bananapi-m3 working?
+  - orangepi-zero working?                                 [2020-11-09 -> done]
+  - bananapi-m3 working?                                   [2020-11-09 -> done]
 
 
 #
@@ -27,9 +27,9 @@
 - check all related to bananapi-m3
 - add orangepi-zero
   - scripts                                                [2020-07-02 -> done]
-  - images
+  - images                                                 [2020-11-09 -> done]
   - u-boot                                                 [2020-07-02 -> done]
-  - kernel
+  - kernel                                                 [2020-11-09 -> done]
 - check all related stuff for orangepi-zero
 - add orangepi to hosts on all brandings
 - setup jailhouse for

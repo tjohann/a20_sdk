@@ -1,17 +1,15 @@
 # ---- full image
 baalue@bananapi:~$ df -h
 Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
-/dev/root       7,9G    5,8G  1,7G   78% /
-/dev/mmcblk0p1   32M     18M   15M   56% /boot
-/dev/mmcblk0p3   22G     53M   21G    1% /home
-
+/dev/root       7,9G    6,1G  1,5G   82% /
+/dev/mmcblk0p1   32M     20M   13M   62% /boot
+/dev/mmcblk0p3  6,7G     39M  6,4G    1% /home
 
 
 # ---- base image
 root@bananapi:~# df -h
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/root       3.0G  1.9G 1006M  65% /
-/dev/mmcblk0p1   32M   18M   14M  57% /boot
+/dev/root       3.0G  1.9G  941M  68% /
+/dev/mmcblk0p1   32M   20M   13M  62% /boot
 /dev/mmcblk0p3   12G   49M   11G   1% /home
-
 
