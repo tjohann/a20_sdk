@@ -54,6 +54,7 @@ A20_SDK_V2.10.0 (xx.11.2020)
 	Common checks                                         [2020-11-xx -> partly]
 
 	Config updates (on the target):
+		- add kernel support for nfsd and uas
 		- ...
 
 	Build updates:
@@ -66,22 +67,23 @@ A20_SDK_V2.10.0 (xx.11.2020)
 		- ...
 
 
-A20_SDK_V2.9.3 (XX.11.2020)
+A20_SDK_V2.9.3 (09.11.2020)
 ---------------------------
 
-	Common checks                                         [2020-11-XX -> partly]
+	Common checks                                         [2020-11-09 -> partly]
 
 	Config updates (on the target):
-		- add kernel support for nfsd and uas
 		- ...
 
 	Build updates:
-		- add support for orangepi-zero
+		- add support for orangepi-zero                     [2020-11-09 -> done]
+		- finalize support for bananapi-m3                  [2020-11-09 -> done]
+		- cyclic test nanopi-neo                            [2020-11-09 -> done]
 		- regular updates
 		- ...
 
 	SDK updates:
-		- add support for orangepi-zero
+		- add support for orangepi-zero                     [2020-11-09 -> done]
 		- a lot of fixes in the scripts
 		- ...
 

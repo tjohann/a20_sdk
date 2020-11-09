@@ -5,6 +5,13 @@
 
 
 #
+# -------------- 2020-11-09 ----------------------------------------------------
+#
+## target && sdk stuff
+- check and setup cpufreq
+
+
+#
 # -------------- 2020-09-29 ----------------------------------------------------
 #
 ## target && sdk stuff
@@ -30,8 +37,8 @@
   - images                                                 [2020-11-09 -> done]
   - u-boot                                                 [2020-07-02 -> done]
   - kernel                                                 [2020-11-09 -> done]
-- check all related stuff for orangepi-zero
-- add orangepi to hosts on all brandings
+- check all related stuff for orangepi-zero                [2020-11-09 -> done]
+- add orangepi to hosts on all brandings                   [2020-11-09 -> done]
 - setup jailhouse for
   - bananapi
   - orangepi
