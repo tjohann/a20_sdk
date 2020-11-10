@@ -3,7 +3,7 @@ Storyline Nanopi
 
 The nanaopi is used as the control board for some robotic projects.
 
-Nanopi-Neo):
+Nanopi-Neo:
 ![Alt text](../../pics/nanopi.jpg?raw=true "Nanopi-Neo")
 
 Overview
