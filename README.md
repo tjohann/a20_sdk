@@ -576,7 +576,7 @@ There'se also a script called brand_baalue_images.sh in ./scripts. This will bra
 A possible project where I want to use the cluster and distributed calculation is with my robot-cluster env (see baalue/Documentation/robot_cluster_env.pdf for more info about it).
 
 My BAnAnapi cLUEster (Baalue):
-![Alt text](pics/baalue_cluster_01.jpg?raw=true "Baalue")
+![Alt text](pics/baalue_cluster_06.jpg?raw=true "Baalue")
 
 [The storyline for Baalue](baalue/Documentation/storyline.md)
 

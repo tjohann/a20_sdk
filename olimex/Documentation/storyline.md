@@ -9,7 +9,7 @@ Overview
 
 Here's an overview of the connected sensors/device to my olimex:
 
-![Alt text](../../pics/olimex_gpio.jpg.jpg?raw=true "Overview")
+![Alt text](../../pics/olimex_gpio.jpg?raw=true "Overview")
 
 All needed drivers and schematics/pinouts are provided via my different projects:
 
