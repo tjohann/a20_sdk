@@ -119,7 +119,7 @@ Download the compiler to /opt/a20_sdk/
 Download images
 ---------------
 
-Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~8 GByte)
+Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~5 GByte)
 
     make get_image_tarballs
 
@@ -451,9 +451,8 @@ Naming convention:
 	cubietruck/cubietruck_(hdd_)kernel.tgz
 	cubietruck/cubietruck-plus_(hdd_)kernel.tgz
 	olimex/olimex_(hdd_)kernel.tgz
-	nanopi/nanopi_kernel.tgz
-	orangepi/orangepi-zero_kernel.tgz
-
+	nanopi/nanopi_(hdd_)kernel.tgz
+	orangepi/orangepi-zero_(hdd_)kernel.tgz
 
 Cubietruck (CB3) and Cubietruck-Plus (CB5)
 ------------------------------------------
@@ -465,11 +464,9 @@ The cubietruck's are also my test environment for the jailhouse hypervisor.
 Cubietruck 3 vs Cubietruck 5:
 ![Alt text](pics/cubietruck_3_vs_5.jpg?raw=true "Find the difference")
 
-Additonal Hardware conneted:
+Additonal Hardware connected:
 
-    MCP25xx for CAN via SPI
     LCD1602 and PCF8574 via I2C
-    EEPROM vi SPI
     500 GByte Harddisk
 
 Addtional mount points (host):
@@ -488,11 +485,11 @@ Addtional mount points (host):
 Bananapi-Pro
 ------------
 
-I use this device as an audio/video stream server. Therefore it's connected to my television and my audio amplifier. It also provide a home cloud via Nextcloud (https://nextcloud.com/install/).
+I use this device as my internal void-linux package server. It also acts a an intermediate git server for playground stuff.
 
 Addtional Hardware connected:
 
-    500GByte Harddisk for data storage
+    500 GByte Harddisk for data storage
 
 Additional mount points (host):
 
@@ -513,7 +510,7 @@ I use the bananapi in 2 different ways:
 	- as a embedded device with can, display and other goodies
 	- a baalue-node
 
-The main difference between these 2 usecases is the kernel. For a baalue-node i use the a **PREEMPT** kernel and for the classic device i also use a **RT-PREEMPT** kernel.
+The main difference between these 2 usecases is the kernel. For a baalue-node i use the a **PREEMPT** kernel and for the embedded device i also use a **RT-PREEMPT** kernel.
 
 Additonal Hardware conneted (as classic embedded device):
 
@@ -535,11 +532,11 @@ Addtional mount points (host):
 Bananapi-M3
 ------------
 
-I use this device as an possible baalue-master node (with FreeBSD).
+I use this device as an possible baalue-master node (in future also with FreeBSD).
 
 Addtional Hardware connected:
 
-    none
+    500 GByte 3,5 HDD
 
 Additional mount points (host):
 
@@ -616,7 +613,8 @@ Addtional Hardware connected:
     DC motor controller
 	Ultrasonic sensor
 	USB camera
-	... (sensor/actors for robotic)
+	LCD1602 via I2C
+	... (sensors/actors for robotic)
 
 Additional mount points (host):
 
@@ -636,7 +634,7 @@ I use this device as another jailhouse playground device.
 
 Addtional Hardware connected:
 
-    I2C LCD1602 Display
+    t.b.d. (none at the moment)
 
 Additional mount points (host):
 
@@ -652,7 +650,7 @@ Additional mount points (host):
 Notes about /opt/a20_sdk/external
 ---------------------------------
 
-This repository is something like a bracket over my differnet projects and so below ${ARMHF_BIN_HOME} is the place for them. Most parts (like libbaalue.git or time_triggert_env.git) are already installed on the images i provide. I use the devices as my test and development plattform (see also ./pics).
+This repository is something like a bracket over my differnet projects and so below ${ARMHF_BIN_HOME} is the place for them. Some parts (like libbaalue.git or baalued.git) are already installed on the images i provide.
 
 If you're interested in realtime linux (for example) you should have then a good basement for your own development.
 
@@ -672,15 +670,14 @@ Note: This repository is something like a bracket over my differnet projects. So
 
 
 (future steps)
-- add storyline for bananapi-pro (home cloud server)
-- make use of lcd1602 module of cubietruck (baalue_master)
+- add support for musl libc
+- add full support for namespaces/cgroups/seccomp
+- add lxc with an baseapp as an example
+- improve storyline for bananapi-pro (internal git and void-package server)
 - make all scripts "self hosting" so that all scripts would also run on the target device (like build_kernel.sh running on baalue_master)
-- add dtc config for mcp2515 (bananapi and cubietruck)
-- working jailhouse configuration for bananapi and olimex
-- simple example for using bare-metal cell within bananapi/olimex
-- working can-bus parts for a20-can and mcp2515 (bananapi/olimex)
-- working can-bus baremetal can example
-- simple baremetal lcd example
-- support flashchip of olimex and/or cubietruck
+- add dtc config for mcp2515 (bananapi and olimex)
+- working jailhouse configuration for bananapi, orangepi-zero and olimex
+- simple example for using bare-metal cell within bananapi
+- working can-bus parts for a20-can and mcp2515 (bananapi)
 - simple os for baremetal cell (see https://github.com/tjohann/miblos)
-- add storyline for nanopi as part of a mobile robot
+- improve storyline for nanopi as part of a mobile robot project

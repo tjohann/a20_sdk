@@ -5,12 +5,13 @@ Baalue is my common embedded development environment. It is a cluster with 8 wor
 
 	- distributed build via distcc (see https://github.com/tjohann/baalue_distcc.git)
 	- plattform for parallel programming within distributed address space
+	- nfs share (only temporary during build as package distribution -> rsyn from bananapi-pro)
 
 
 Hardware
 ========
 
-A bananapi is used as worker cluster node and a cubietruck(-plus) is the master node of it.
+A bananapi is used as worker node and with a cubietruck-plus as the master node of.
 
 
 Baalue as build server for void-packages
@@ -63,12 +64,5 @@ Usecases:
 	- act as test plattform
 	- act as build server for the supported plattforms
 	- ...
-
-
-Future
-======
-
-tbd.
-
 
 

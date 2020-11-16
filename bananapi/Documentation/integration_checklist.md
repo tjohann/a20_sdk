@@ -48,23 +48,26 @@ sdk checks:
 
 
 
-A20_SDK_V2.10.0 (xx.11.2020)
+A20_SDK_V2.10.0 (xx.12.2020)
 ---------------------------
 
-	Common checks                                         [2020-11-xx -> partly]
+	Common checks                                           [2020-12-xx -> done]
 
 	Config updates (on the target):
 		- add kernel support for nfsd and uas
-		- ...
+		- add full support for namespaces
+		- add full support for cgroups
+		- add full support for seccomp
 
 	Build updates:
-		- ...
+		- check glibc image
+		- check musl image
 
 	SDK updates:
-		- ...
+		- check all tools with new image style
 
 	Others:
-		- ...
+		- check lxc with base app
 
 
 A20_SDK_V2.9.3 (09.11.2020)

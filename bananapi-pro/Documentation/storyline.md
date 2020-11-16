@@ -1,7 +1,7 @@
 Storyline Bananapi-Pro
 ======================
 
-The bananapi is used as a multimedia device connected to a tv. It also acts as a internal void-linux packages build and repository server.
+The bananapi-pro is used as my internal void-linux package server. It also acts a an intermediate git server for playground stuff.
 
 My internal void-linux build-server (distcc with Baalue):
 ![Alt text](../../pics/bananapi-pro.jpg?raw=true "Bananapi-Pro")

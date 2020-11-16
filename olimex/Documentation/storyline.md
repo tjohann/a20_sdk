@@ -1,13 +1,13 @@
 Storyline Olimex-SOM-EVB
 ========================
 
-The olimex is used as a classical embedded device with lots of other stuff connected to it.
+The olimex is used as a classic embedded device with lots of other stuff connected to it.
 
 
 Overview
 --------
 
-Here's an overview of the connected sensors/device to my olimex:
+Here's an overview of the connected sensors/devices to the olimex board:
 
 ![Alt text](../../pics/olimex_gpio.jpg?raw=true "Overview")
 

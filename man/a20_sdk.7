@@ -1,6 +1,6 @@
 .\" Manpage for a20_sdk
 .\" Contact thorsten.johannvorderbrueggen@t-online.de to correct errors or typos.
-.TH a20_sdk 7 "09 nov 2020" "2.9.3" "a20_sdk man page"
+.TH a20_sdk 7 "05 nov 2020" "2.9.3" "a20_sdk man page"
 .SH NAME
 a20_sdk
 \-\- a development environment for ARMv7 boards based on Allwinners A20/H2/H3/A83T/... processor.
@@ -106,7 +106,7 @@ Download the compiler to /opt/a20_sdk/
 .PP
 .PP
 .SH Download images
-Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~8 GByte)
+Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~5 GByte)
 
     make get_image_tarballs
 
@@ -375,7 +375,8 @@ Naming convention:
     cubietruck/cubietruck_(hdd_)kernel.tgz
     cubietruck/cubietruck-plus_(hdd_)kernel.tgz
     olimex/olimex_(hdd_)kernel.tgz
-    orangepi/orangepi-zero_kernel.tgz
+    nanopi/nanopi_(hdd_)kernel.tgz
+    orangepi/orangepi-zero_(hdd_)kernel.tgz
 .PP
 .SH Notes about /opt/a20_sdk/external
 This repository is something like a bracket over my differnet projects and so below ${ARMHF_BIN_HOME} is the place for them. Most parts (like libbaalue.git or time_triggert_env.git) are already installed on the images i provide. I use the devices as my test and development plattform (see also ./pics).

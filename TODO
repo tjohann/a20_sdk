@@ -5,6 +5,17 @@
 
 
 #
+# -------------- 2020-11-15 ----------------------------------------------------
+#
+## target && sdk stuff
+- rework images
+  - full (remove)
+  - base -> will be the new glibc
+  - musl -> new
+  - rename images to musl and glibc
+
+
+#
 # -------------- 2020-11-09 ----------------------------------------------------
 #
 ## target && sdk stuff
@@ -31,7 +42,7 @@
 # -------------- 2020-07-02 ----------------------------------------------------
 #
 ## target && sdk stuff
-- check all related to bananapi-m3
+- check all related to bananapi-m3                         [2020-11-15 -> done]
 - add orangepi-zero
   - scripts                                                [2020-07-02 -> done]
   - images                                                 [2020-11-09 -> done]
@@ -43,7 +54,7 @@
   - bananapi
   - orangepi
 - update jailhouse documentation
-- update storyline for orangepi -> jailhouse playground
+- update storyline for orangepi -> jailhouse playground    [2020-11-15 -> done]
 - check for older TODO`s
 
 
@@ -60,7 +71,7 @@
 ## target && sdk stuff
 - test rt-preempt kernel@bananapi-m3
 - update storyline for bananapi-pro -> internal git
-  and void-linux packages server
+  and void-linux packages server                           [2020-11-15 -> done]
 
 
 #
@@ -87,7 +98,7 @@
 - update man page and README.md                             [2019-09-23 -> done]
 - update KNOWN_ISSUES                                   [2019-09-23 -> canceled]
 - update TODO and remove old stuff                          [2019-09-23 -> done]
-- update storyline.md for all devices
+- update storyline.md for all devices                       [2020-11-15 -> done]
 
 ## target && sdk stuff
 - update u-boot to v2018.09                             [2019-09-23 -> canceled]
