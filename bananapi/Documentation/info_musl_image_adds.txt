@@ -1,0 +1,165 @@
+# ------------------------------------------------------------------------------
+#
+# some image realted infos
+#
+# ------------------------------------------------------------------------------
+#
+# see -> https://docs.voidlinux.org/installation/guides/arm-devices/index.html
+#        https://voidlinux.org/download/
+#        https://wiki.voidlinux.org/Cubieboard2_SD-Card
+#        https://alpha.de.repo.voidlinux.org/live/current/
+
+#
+# user/passwd
+#
+root/root
+baalue/baalue
+
+
+#
+# groups
+#
+--- TODO ---
+
+#
+# basic image
+#
+wget https://repo.voidlinux.eu/live/current/void-cubieboard2-musl-PLATFORMFS-20191109.tar.xz
+
+
+#
+# add serial console after unpacking image to sd-card (location: /mnt/bananapi/bananapi_rootfs)
+#
+ln -s /etc/sv/agetty-ttyS0 /mnt/bananapi/bananapi_rootfs/etc/runit/runsvdir/default
+
+
+#
+# add chronyd for valid time (ntp replacement)
+#
+ln -s /etc/sv/chronyd /var/service/chronyd
+
+
+#
+# add dhcpd for ip config
+#
+ln -s /etc/sv/dhcpd /var/service/dhcpd
+
+
+#
+# addtional installations
+#
+--- TODO ---
+inetutils-ifconfig
+gcc
+make
+automake
+autoconf
+libtool
+binutils-devel
+git
+linux-firmware
+vim (instead of vi)
+gdb
+ltrace
+strace
+rsyslogd
+libconfig-devel
+void-repo-nonfree
+htop
+tree
+bash
+bash-completion
+libvdpau-sunxi
+sunxi-tools
+sunxi-mali-devel
+rsync
+pkg-config
+xz
+libcap-ng
+libcap-ng-devel
+gettext
+gettext-devel
+wget
+i2c-tools
+cowsay
+fortune-mod
+trace-cmd
+socklog
+socklog-void
+libressl-devel
+python-Mako
+libgit2-devel
+libcurl-devel
+libarchive-devel
+libbsd-devel
+mg
+distcc*
+... (not all shown here)
+
+
+#
+# config addtions/changes
+#
+
+# --- some simple stuff
+chsh /bin/bash  (for root)
+rm agetty-tty[2-6]
+
+# --- dhcpd.conf
+# Static IP configuration (if needed)
+interface eth0
+static ip_address=192.168.178.103
+static routers=192.168.178.1
+static domain_name_servers=192.168.178.1
+
+# --- hostname
+bananapi.my.domain
+
+# --- rc.conf
+TIMEZONE="Europe/Berlin"
+FONT="ter-v14n"
+
+# --- modprobe.d/cfg80211.conf
+blacklist cfg80211
+
+# --- hosts
+see ${ARMHF_HOME}/bananapi/configs/hosts_a20_devices.txt
+
+
+# --- fstab
+# Bananapi
+/dev/mmcblk0p1  /boot             vfat    noatime          	  0       1
+/dev/mmcblk0p3  /home             ext4    defaults                0       1
+
+
+# --- sshd_config (if you want to use X11 forwarding)
+# my config
+X11Forwarding yes
+AllowTcpForwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+
+
+#
+# the "rest"
+#
+
+# --- syslog
+xbps-install -Sy socklog-void
+usermod -aG socklog baalue
+ln -s /etc/sv/socklog-unix /var/service/
+ln -s /etc/sv/nanoklogd /var/service/
+
+# --- update locale
+--- TODO ----
+# enable /etc/defaults/glibc-locales
+en_US.UTF-8 UTF-8
+de_DE.UTF-8 UTF-8
+
+# rebuild locale
+--- TODO ----
+xbps-reconfigure -f glibc-locales
+
+# ---- visudo
+## Uncomment to allow members of group wheel to execute any command
+%wheel ALL=(ALL) ALL

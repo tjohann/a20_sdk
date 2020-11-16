@@ -2,6 +2,9 @@
 # some news ... see also TODO for hints
 #
 
+2020-11-16 -> ## sdk stuff
+	      add first documentation about images changes the glibc and
+	      musl images
 
 2020-11-15 -> ## sdk stuff
               documentation and storyline updates
