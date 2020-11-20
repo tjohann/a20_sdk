@@ -26,75 +26,76 @@ baalue/baalue
 #
 wget https://repo.voidlinux.eu/live/current/void-cubieboard2-musl-PLATFORMFS-20191109.tar.xz
 
-
 #
 # add serial console after unpacking image to sd-card (location: /mnt/bananapi/bananapi_rootfs)
 #
 ln -s /etc/sv/agetty-ttyS0 /mnt/bananapi/bananapi_rootfs/etc/runit/runsvdir/default
-
 
 #
 # add chronyd for valid time (ntp replacement)
 #
 ln -s /etc/sv/chronyd /var/service/chronyd
 
-
 #
 # add dhcpd for ip config
 #
-ln -s /etc/sv/dhcpd /var/service/dhcpd
+ln -s /etc/sv/dhcpd /var/service/
 
+#
+# add sshd
+#
+ln -s /etc/sv/sshd /var/service/
 
 #
 # addtional installations
 #
---- TODO ---
-inetutils-ifconfig
+void-repo-debug
+void-repo-nonfree
+inetutils
+bash-completion
+htop
+tree
+rsync
+wget
+cowsay
+fortune-mod
 gcc
 make
 automake
 autoconf
+binutils
+gettext
+gettext-devel
 libtool
-binutils-devel
+vim
 git
-linux-firmware
-vim (instead of vi)
 gdb
 ltrace
 strace
-rsyslogd
+libbsd-devel
+confuse-devel
 libconfig-devel
-void-repo-nonfree
-htop
-tree
-bash
-bash-completion
-libvdpau-sunxi
-sunxi-tools
-sunxi-mali-devel
-rsync
+rsyslog
 pkg-config
 xz
 libcap-ng
 libcap-ng-devel
-gettext
-gettext-devel
-wget
 i2c-tools
-cowsay
-fortune-mod
-trace-cmd
-socklog
-socklog-void
-libressl-devel
-python-Mako
+bcc
+bcc-devel
+bcc-tools
 libgit2-devel
 libcurl-devel
 libarchive-devel
-libbsd-devel
+libcgroup
+libcgroup-devel
+libcgroup-utils
 mg
-distcc*
-... (not all shown here)
+socklog socklog-void
+distcc
+trace-cmd
+valgrind
+gcompat
 
 
 #
@@ -104,6 +105,7 @@ distcc*
 # --- some simple stuff
 chsh /bin/bash  (for root)
 rm agetty-tty[2-6]
+usermod -a -G socklog baalue
 
 # --- dhcpd.conf
 # Static IP configuration (if needed)
@@ -125,12 +127,10 @@ blacklist cfg80211
 # --- hosts
 see ${ARMHF_HOME}/bananapi/configs/hosts_a20_devices.txt
 
-
 # --- fstab
 # Bananapi
 /dev/mmcblk0p1  /boot             vfat    noatime          	  0       1
 /dev/mmcblk0p3  /home             ext4    defaults                0       1
-
 
 # --- sshd_config (if you want to use X11 forwarding)
 # my config
@@ -151,14 +151,9 @@ ln -s /etc/sv/socklog-unix /var/service/
 ln -s /etc/sv/nanoklogd /var/service/
 
 # --- update locale
---- TODO ----
-# enable /etc/defaults/glibc-locales
-en_US.UTF-8 UTF-8
-de_DE.UTF-8 UTF-8
-
-# rebuild locale
---- TODO ----
-xbps-reconfigure -f glibc-locales
+root@bananapi:etc# cat locale.conf
+LANG=de_DE.UTF-8
+LC_COLLATE=C
 
 # ---- visudo
 ## Uncomment to allow members of group wheel to execute any command

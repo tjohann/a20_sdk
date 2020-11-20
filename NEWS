@@ -2,6 +2,11 @@
 # some news ... see also TODO for hints
 #
 
+2020-11-20 -> ## sdk & image stuff
+	      install all needed tools on the musl image
+	      add infos about additional changes/installations for the
+	      musl image
+
 2020-11-16 -> ## sdk stuff
 	      add first documentation about images changes the glibc and
 	      musl images
