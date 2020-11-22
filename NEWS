@@ -3,13 +3,22 @@
 #
 
 
-2020-11-21 -> ## sdk & image stuff
+2020-11-22 -> ## target & sdk stuff
+	      finalize musl image
+	      update package list for musl/glibc image
+	      update kernel to 5.9.10
+
+	      ## sdk stuff
+	      some documenation updates
+	      add kernel config with activated cgroups and co
+
+2020-11-21 -> ## target & sdk stuff
 	      start preparing the glibc image
 	      add infos about additional changes/installations for the
 	      glibc/musl image
 	      update musl image
 
-2020-11-20 -> ## sdk & image stuff
+2020-11-20 -> ## target & sdk stuff
 	      install all needed tools on the musl image
 	      add infos about additional changes/installations for the
 	      musl image

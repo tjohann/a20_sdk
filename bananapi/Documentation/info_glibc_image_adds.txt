@@ -98,11 +98,14 @@ valgrind
 gcompat
 flex
 mlocate
-python2
 python3-Mako
 musl-legacy-compat
 musl-fts-devel
 musl-obstack-devel
+cloc
+xtools
+libxbps-devel
+tcpdump
 
 
 #

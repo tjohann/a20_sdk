@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   06.11.2020/02.07.2020
+Date:   22.11.2020/02.07.2020
 
 Content:
 
@@ -53,7 +53,7 @@ Device
 Kernel version
 --------------
 
-- linux-5.9.6
+- linux-5.9.10
 
 
 Downloads (use make get_latest_kernel)
@@ -126,7 +126,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_5.9.6 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_5.9.10 modules_install
 
 
 Deploy SD-Card
@@ -152,7 +152,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_5.9.6/lib/modules/. /mnt/orangepi/orangepi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_5.9.10/lib/modules/. /mnt/orangepi/orangepi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -160,7 +160,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-5.9.6 /mnt/orangepi/orangepi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-5.9.10 /mnt/orangepi/orangepi_rootfs/usr/src/.
 
 
 Finalize
@@ -171,14 +171,14 @@ Finish -> after login
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-5.9.6 linux
+KDO: ln -s linux-5.9.10 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel
 ---------------------------------------------------------------
 
-DIR: /usr/src/linux-5.9.6
+DIR: /usr/src/linux-5.9.10
 KDO: make clean
 KDO: make scripts
 
@@ -186,8 +186,8 @@ KDO: make scripts
 Prepare modules to link
 -----------------------
 
-DIR: /lib/modules/5.9.6
+DIR: /lib/modules/5.9.10
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-5.9.6 source
-KDO: ln -s /usr/src/linux-5.9.6 build
+KDO: ln -s /usr/src/linux-5.9.10 source
+KDO: ln -s /usr/src/linux-5.9.10 build
