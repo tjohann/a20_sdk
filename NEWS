@@ -5,6 +5,8 @@
 
 2020-11-23 -> ## target & sdk stuff
 	      update kernel for 5.9.10 (add cgroups and more to default config)
+	      update glibc image
+	      update package list for musl/glibc image
 
 2020-11-22 -> ## target & sdk stuff
 	      finalize musl image

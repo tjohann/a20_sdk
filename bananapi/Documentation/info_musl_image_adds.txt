@@ -91,7 +91,8 @@ libcgroup
 libcgroup-devel
 libcgroup-utils
 mg
-socklog socklog-void
+socklog
+socklog-void
 distcc
 trace-cmd
 valgrind

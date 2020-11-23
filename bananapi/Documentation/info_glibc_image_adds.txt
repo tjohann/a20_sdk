@@ -91,17 +91,14 @@ libcgroup
 libcgroup-devel
 libcgroup-utils
 mg
-socklog socklog-void
+socklog
+socklog-void
 distcc
 trace-cmd
 valgrind
-gcompat
 flex
 mlocate
 python3-Mako
-musl-legacy-compat
-musl-fts-devel
-musl-obstack-devel
 cloc
 xtools
 libxbps-devel
