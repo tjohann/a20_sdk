@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.10.2016/27.09.2016
+# Date/Beginn :    24.11.2020/27.09.2016
 #
-# Version     :    V2.00
+# Version     :    V2.01
 #
-# Milestones  :    V2.00 (okt 2016) -> update version info fo A20_SDK_V2.0.0
+# Milestones  :    V2.01 (nov 2020) -> add support for glibc and musl images
+#                  V2.00 (okt 2016) -> update version info fo A20_SDK_V2.0.0
 #                                      some fixes
 #                  V0.01 (sep 2016) -> first working version
 #
@@ -50,7 +51,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.00'
+VER='2.01'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -60,8 +61,10 @@ SD_KERNEL='none'
 SD_ROOTFS='none'
 SD_HOME='none'
 
-# use only base image
+# supported images
 BASE_IMAGE='false'
+GLIBC_IMAGE='false'
+MUSL_IMAGE='false'
 
 # ...
 BRAND="bananapi"
@@ -75,6 +78,8 @@ my_usage()
     echo " "
     echo "+--------------------------------------------------------+"
     echo "| Usage: ${PROGRAM_NAME} "
+    echo "|        [-m] -> prepare the musl image                  |"
+    echo "|        [-g] -> prepare the glibc image                 |"
     echo "|        [-e] -> prepare the base image                  |"
     echo "|        [-v] -> print version info                      |"
     echo "|        [-h] -> this help                               |"
@@ -120,10 +125,12 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hve' opts 2>$_log
+while getopts 'hvemg' opts 2>$_log
 do
     case $opts in
 	e) BASE_IMAGE='true' ;;
+	m) MUSL_IMAGE='true' ;;
+	g) GLIBC_IMAGE='true' ;;
         h) my_usage ;;
         v) print_version ;;
         ?) my_usage ;;
@@ -245,6 +252,10 @@ mount_partitions
 cd $SD_ROOTFS
 if [ "$BASE_IMAGE" = 'true' ]; then
     sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+elif [ "$GLIBC_IMAGE" = 'true' ]; then
+    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_glibc_rootfs.tgz .
+elif [ "$MUSL_IMAGE" = 'true' ]; then
+    sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_musl_rootfs.tgz .
 else
     sudo tar czpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
 fi

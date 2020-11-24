@@ -3,6 +3,13 @@
 #
 
 
+2020-11-24 -> ## sdk stuff
+	      add musl and glibc as images to scripts
+	      - prepare_image_tarballs.sh
+	      - get_image_tarballs.sh
+	      - untar_images_to_sdcard.sh
+	      - hdd_installation.sh
+
 2020-11-23 -> ## target & sdk stuff
 	      update kernel for 5.9.10 (add cgroups and more to default config)
 	      update glibc image
@@ -1390,7 +1397,6 @@
 	      - add libcurl
 	      - ...
 
-
 2016-05-10 -> ## target stuff
 	      regular updates of cubietruck images
 	      update kernel to 4.4.9
@@ -1400,7 +1406,6 @@
 	      ## sdk stuff
 	      add libbaalue and baalued to external
 
-
 2016-05-09 -> ## target stuff
 	      regular updates of bananapi images
 	      update kernel to 4.4.9 and 4.4.9-rt17
@@ -1408,10 +1413,8 @@
 	      ## script stuff
 	      add arguments to clean_sdk/init_sdk for user specific parts
 
-
 2016-04-27 -> ## script stuff
 	      add http://github.com/tjohann/mydriver.git to external
-
 
 2016-04-24 -> ## target stuff
 	      add my baalue cluster node as regular device
@@ -1434,7 +1437,6 @@
 	      update hosts list to reflect all embedded devices i use in my
 	      small virtual network
 
-
 2016-04-23 -> ## target stuff
 	      update bananapi to 4.4.8 and 4.4.7-rt16
 
@@ -1446,16 +1448,13 @@
 	      add more content to clean_sdk.sh
 	      a lot of Makefile cleanups/additions
 
-
 2016-04-17 -> ## target stuff
 	      first cubietruck image
 	      first cubietruck hdd image
 
-
 2016-04-12 -> ## target stuff
 	      final updates for olimex
 	      first updates for bananapi
-
 
 2016-04-09 -> ## sdk stuff
 	      add some more pics about my used devices
@@ -1466,7 +1465,6 @@
 	      - update kernel to 4.4.6-rt14
 	      - update kernel to 4.5.0
 
-
 2016-04-08 -> ## script stuff
 	      add some more checks to make it more robust
 	      add srcdir creation
@@ -1476,26 +1474,21 @@
        	      some cleanups in external
 	      some cleanups
 
-
 2016-03-21 -> ## target stuff
 	      add build requirements for tt_rt_cnt_framework.git
 
-
 2016-03-14 -> ## target stuff
 	      first kernel with FULL-RT-PREEMPT
-
 
 2016-03-13 -> ## target stuff
 	      regular updates
 	      -> update kernel to 4.4.5
 	      -> update kernel to 4.4.4-rt11
 
-
 2016-03-05 -> ## target stuff
 	      regular updates
 	      -> update kernel to 4.4.4
 	      -> update kernel to 4.4.3-rt9
-
 
 2016-02-28 -> ## target stuff
 	      regular updates
@@ -1510,7 +1503,6 @@
 	      first working olimex config/image
 	      add u-boot config and related
 	      add kernel config
-
 
 2016-02-17 -> ## target stuff
 	      regular updates
@@ -1527,10 +1519,8 @@
 	      ## sdk stuff
 	      finalize implementation of the new architecture
 
-
 2016-01-25 -> ## sdk stuff
 	      start to implement the new architecture (see README.md for more info)
-
 
 2016-01-24 -> ## target stuff
 	      add some themes to image
@@ -1550,7 +1540,6 @@
 	      regular update of toolchain
 	      add crossbuild gdb with python support
 
-
 2016-01-18 -> ## target stuff
 	      regular updates
 	      add tty7/8
@@ -1562,7 +1551,6 @@
 	      update dhcpd.conf after updates
 	      mv eth0 config to /etc/dhcpd.conf
 
-
 2016-01-17 -> ## target stuff
 	      regular updates
 	      -> update kernel to 4.3.3
@@ -1571,7 +1559,6 @@
 	      ## toolchain stuff
 	      update toolchain
 	      -> kernel 4.3.x
-
 
 2016-01-12 -> ## "all"
 	      first checkin with initial setup for bananapi

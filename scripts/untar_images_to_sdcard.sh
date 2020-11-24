@@ -83,8 +83,10 @@ PREP_HDD_INST='false'
 # HDD-boot only sd-card?
 HDD_BOOT_SDCARD='false'
 
-# use only base image
+# supported images
 BASE_IMAGE='false'
+GLIBC_IMAGE='false'
+MUSL_IMAGE='false'
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -100,6 +102,8 @@ my_usage()
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
     echo "|                bananapi-m3/orangepi-zero               |"
     echo "|        [-m] -> use the minimal images                  |"
+    echo "|        [-u] -> use the musl images                     |"
+    echo "|        [-g] -> use the glibc images                    |"
     echo "|        [-s] -> prepare images for hdd installation     |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                -e AND -s wont make sense -> -e rules   |"
@@ -146,13 +150,15 @@ _temp="/tmp/${PROGRAM_NAME}.$$"
 _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 # check the args
-while getopts 'hvsemb:' opts 2>$_log
+while getopts 'hvugsemb:' opts 2>$_log
 do
     case $opts in
         h) my_usage ;;
         v) print_version ;;
         b) BRAND=$OPTARG ;;
 	m) BASE_IMAGE='true' ;;
+	u) MUSL_IMAGE='true' ;;
+	g) GLIBC_IMAGE='true' ;;
 	s) PREP_HDD_INST='true' ;;
 	e) HDD_BOOT_SDCARD='true' ;;
         ?) my_usage ;;
@@ -329,6 +335,16 @@ check_tarballs()
 		echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz not available!" >&2
 		my_exit
 	    fi
+	elif [ "$MUSL_IMAGE" = 'true' ]; then
+	    if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_musl_rootfs.tgz" ]]; then
+		echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_musl_rootfs.tgz not available!" >&2
+		my_exit
+	    fi
+	elif [ "$GLIBC_IMAGE" = 'true' ]; then
+	    if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_glibc_rootfs.tgz" ]]; then
+		echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_glibc_rootfs.tgz not available!" >&2
+		my_exit
+	    fi
 	else
 	    if [[ ! -f "${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz" ]]; then
 		echo "ERROR -> ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz not available!" >&2
@@ -427,6 +443,10 @@ untar_images()
 	cd $SD_ROOTFS
 	if [ "$BASE_IMAGE" = 'true' ]; then
 	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz
+	elif [ "$MUSL_IMAGE" = 'true' ]; then
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_musl_rootfs.tgz
+	elif [ "$GLIBC_IMAGE" = 'true' ]; then
+	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_glibc_rootfs.tgz
 	else
 	    sudo tar xzpvf ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz
 	fi
@@ -443,6 +463,10 @@ untar_images()
 	    sudo cp ${ARMHF_BIN_HOME}/images/${BRAND}_kernel.tgz .
 	    if [ "$BASE_IMAGE" = 'true' ]; then
 		sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_base_rootfs.tgz .
+	    elif [ "$MUSL_IMAGE" = 'true' ]; then
+		sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_musl_rootfs.tgz .
+	    elif [ "$GLIBC_IMAGE" = 'true' ]; then
+		sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_glibc_rootfs.tgz .
 	    else
 		sudo cp ${ARMHF_BIN_HOME}/images/a20_sdk_rootfs.tgz .
 	    fi

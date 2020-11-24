@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    12.10.2016/15.08.2016
+# Date/Beginn :    24.11.2020/15.08.2016
 #
-# Version     :    V2.01
+# Version     :    V2.02
 #
-# Milestones  :    V2.01 (oct 2016) -> fix wrong cp cmd for baalue nodes
+# Milestones  :    V2.02 (nov 2020) -> add support for glibc/musl
+#                  V2.01 (oct 2016) -> fix wrong cp cmd for baalue nodes
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V0.06 (sep 2016) -> add baalue specfic branding
 #                  V0.05 (aug 2016) -> some smaller fixes
@@ -49,7 +50,7 @@
 #   - ...
 #
 # Step 1:
-#   - ceate hdd preparation sd-card (make_sdcard.sh)
+#   - create hdd preparation sd-card (make_sdcard.sh)
 # Step 2:
 #   - mount /mnt/bananapi/bananapi_shared
 #   - partition sda (sda1 -> / and sda2 /home)
@@ -69,7 +70,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='2.02'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -84,6 +85,8 @@ HDD_TMP="/mnt/tmp"
 # ...
 TARBALL='none'
 BASE_IMAGE='false'
+MUSL_IMAGE='false'
+GLIBC_IMAGE='false'
 
 # program name
 PROGRAM_NAME=${0##*/}
@@ -199,6 +202,16 @@ check_tarballs()
 
     if [[ -f "${SD_SHARED}/a20_sdk_rootfs.tgz" ]]; then
 	BASE_IMAGE='false'
+	missing_rootfs='false'
+    fi
+
+    if [[ -f "${SD_SHARED}/a20_sdk_musl_rootfs.tgz" ]]; then
+	MUSL_IMAGE='true'
+	missing_rootfs='false'
+    fi
+
+    if [[ -f "${SD_SHARED}/a20_sdk_glibc_rootfs.tgz" ]]; then
+	GLIBC_IMAGE='true'
 	missing_rootfs='false'
     fi
 
@@ -329,6 +342,10 @@ mount_hdd_tmp
 cd $HDD_TMP
 if [ "$BASE_IMAGE" = 'true' ]; then
     TARBALL="${SD_SHARED}/a20_sdk_base_rootfs.tgz"
+elif [ "$GLIBC_IMAGE" = 'true' ]; then
+    TARBALL="${SD_SHARED}/a20_sdk_glibc_rootfs.tgz"
+elif [ "$MUSL_IMAGE" = 'true' ]; then
+    TARBALL="${SD_SHARED}/a20_sdk_musl_rootfs.tgz"
 else
     TARBALL="${SD_SHARED}/a20_sdk_rootfs.tgz"
 fi

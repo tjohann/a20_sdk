@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2020/24.08.2015
+# Date/Beginn :    24.11.2020/24.08.2015
 #
-# Version     :    V2.04
+# Version     :    V2.05
 #
-# Milestones  :    V2.04 (jul 2020) -> add support for orangepi-zero
+# Milestones  :    V2.05 (nov 2020) -> add support for glibc/musl
+#                  V2.04 (jul 2020) -> add support for orangepi-zero
 #                  V2.03 (apr 2020) -> add support for bananapi-m3
 #                  V2.02 (aug 2017) -> add support for cubietruck-plus
 #                  V2.01 (nov 2016) -> add support for nanopi neo
@@ -93,7 +94,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.04'
+VER='2.05'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -104,8 +105,10 @@ BRAND='none'
 # to download
 DOWNLOAD_IMAGE='none'
 
-# use only base image
-BASE_IMAGE='none'
+# supported images
+BASE_IMAGE='false'
+GLIBC_IMAGE='false'
+MUSL_IMAGE='false'
 
 # HDD installation?
 PREP_HDD_INST='none'
@@ -128,6 +131,8 @@ my_usage()
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
     echo "|                bananapi-m3/orangepi-zero               |"
     echo "|        [-m] -> download the minimal images             |"
+    echo "|        [-u] -> download the musl images                |"
+    echo "|        [-g] -> download the minimal images             |"
     echo "|        [-s] -> download images for hdd installation    |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                -e AND others wont make sense ..-e rules|"
@@ -169,12 +174,14 @@ _log="/tmp/${PROGRAM_NAME}.$$.log"
 
 
 # check the args
-while getopts 'hvmesb:' opts 2>$_log
+while getopts 'hvugmesb:' opts 2>$_log
 do
     case $opts in
 	b) BRAND=$OPTARG ;;
 	s) PREP_HDD_INST='true' ;;
 	m) BASE_IMAGE='true' ;;
+	u) MUSL_IMAGE='true' ;;
+	g) GLIBC_IMAGE='true' ;;
 	e) HDD_BOOT_SDCARD='true' ;;
         h) my_usage ;;
 	v) print_version ;;
@@ -354,6 +361,10 @@ fi
 # download common rootfs (base or full)
 if [ "$BASE_IMAGE" = 'true' ]; then
     DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_base_rootfs.tgz"
+elif [ "$MUSL_IMAGE" = 'true' ]; then
+    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_musl_rootfs.tgz"
+elif [ "$GLIBC_IMAGE" = 'true' ]; then
+    DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_glibc_rootfs.tgz"
 else
     DOWNLOAD_IMAGE="http://sourceforge.net/projects/a20devices/files/common/a20_sdk_rootfs.tgz"
 fi
