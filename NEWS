@@ -3,6 +3,12 @@
 #
 
 
+2020-12-06 -> ## target & sdk stuff
+	      update kernel to 5.9.12
+
+	      ## sdk stuff
+	      some documentation updates
+
 2020-11-24 -> ## sdk stuff
 	      add musl and glibc as images to scripts
 	      - prepare_image_tarballs.sh

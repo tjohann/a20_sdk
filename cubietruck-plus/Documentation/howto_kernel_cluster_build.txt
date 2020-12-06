@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   30.05.2020/31.08.2017
+Date:   06.12.2020/31.08.2017
 
 Content:
 
@@ -27,7 +27,7 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_5.6.x .config
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_5.9.x .config
 KDO: make menuconfig
 
 

@@ -15,7 +15,7 @@ installation checks:
 	- check cubietruck with hdd installation (use make_sdcard.sh)
 	- check olimex RT-PREEMPT installation (use make_sdcard.sh)
 
-build/config updates on device (for base/normal image):
+build/config updates on device (for base/full image -> musl/glibc with A20_SDK_V2.9.4):
 
 	- xbps-install -Su
 	- reboot
@@ -48,10 +48,46 @@ sdk checks:
 
 
 
-A20_SDK_V2.10.0 (xx.12.2020)
+A20_SDK_V2.10.0 (xx.01.2021)
 ---------------------------
 
-	Common checks                                           [2020-12-xx -> done]
+	Common checks                                           [2021-01-xx -> done]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- ...
+
+	Others:
+		- ...
+
+
+A20_SDK_V2.9.5 (xx.12.2020)
+---------------------------
+
+	Common checks                                         [2020-12-xx -> partly]
+
+	Config updates (on the target):
+		- ...
+
+	Build updates:
+		- ...
+
+	SDK updates:
+		- check remove of full and base image
+
+	Others:
+		- check lxc with base app
+
+
+A20_SDK_V2.9.4 (xx.12.2020)
+---------------------------
+
+	Common checks                                         [2020-12-xx -> partly]
 
 	Config updates (on the target):
 		- add kernel support for nfsd and uas
@@ -67,7 +103,7 @@ A20_SDK_V2.10.0 (xx.12.2020)
 		- check all tools with new image style
 
 	Others:
-		- check lxc with base app
+		- ...
 
 
 A20_SDK_V2.9.3 (09.11.2020)
