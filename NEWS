@@ -3,6 +3,9 @@
 #
 
 
+2020-12-26 -> ## target & sdk stuff
+	      update kernel to 5.10.2 and 5.10.1-rt20
+
 2020-12-23 -> ## target & sdk stuff
 	      update kernel to 5.9.16
 
