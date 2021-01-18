@@ -3,6 +3,14 @@
 #
 
 
+2021-01-18 -> ## target & sdk stuff
+	      update kernel to 5.10.8 and 5.10.4-rt22
+	      update kernel configs
+	      activate RT-PREEMPT-FULL for rt config
+
+	      ## sdk stuff
+	      some documentation updates
+
 2020-12-26 -> ## target & sdk stuff
 	      update kernel to 5.10.2 and 5.10.1-rt20
 
