@@ -1,11 +1,11 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 5.10.4 Kernel Configuration
+# Linux/arm 5.10.8 Kernel Configuration
 #
-CONFIG_CC_VERSION_TEXT="arm-none-linux-gnueabihf-gcc (crosstool-NG 1.24.0.209_0dd54d5) 9.3.0"
+CONFIG_CC_VERSION_TEXT="arm-none-linux-gnueabihf-gcc (crosstool-NG 1.24.0.261_30316cd) 10.2.0"
 CONFIG_CC_IS_GCC=y
-CONFIG_GCC_VERSION=90300
-CONFIG_LD_VERSION=234000000
+CONFIG_GCC_VERSION=100200
+CONFIG_LD_VERSION=235010000
 CONFIG_CLANG_VERSION=0
 CONFIG_LLD_VERSION=0
 CONFIG_CC_CAN_LINK=y
@@ -473,6 +473,7 @@ CONFIG_ALIGNMENT_TRAP=y
 CONFIG_PARAVIRT=y
 # CONFIG_PARAVIRT_TIME_ACCOUNTING is not set
 # CONFIG_XEN is not set
+CONFIG_STACKPROTECTOR_PER_TASK=y
 # end of Kernel Features
 
 #
@@ -664,6 +665,11 @@ CONFIG_ARCH_HAS_GCOV_PROFILE_ALL=y
 # end of GCOV-based kernel profiling
 
 CONFIG_HAVE_GCC_PLUGINS=y
+CONFIG_GCC_PLUGINS=y
+# CONFIG_GCC_PLUGIN_CYC_COMPLEXITY is not set
+# CONFIG_GCC_PLUGIN_LATENT_ENTROPY is not set
+# CONFIG_GCC_PLUGIN_RANDSTRUCT is not set
+CONFIG_GCC_PLUGIN_ARM_SSP_PER_TASK=y
 # end of General architecture-dependent options
 
 CONFIG_RT_MUTEXES=y
@@ -4310,6 +4316,9 @@ CONFIG_LSM="lockdown,yama,loadpin,safesetid,integrity"
 # Memory initialization
 #
 CONFIG_INIT_STACK_NONE=y
+# CONFIG_GCC_PLUGIN_STRUCTLEAK_USER is not set
+# CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF is not set
+# CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL is not set
 # CONFIG_INIT_ON_ALLOC_DEFAULT_ON is not set
 # CONFIG_INIT_ON_FREE_DEFAULT_ON is not set
 # end of Memory initialization

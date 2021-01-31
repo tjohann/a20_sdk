@@ -3,6 +3,17 @@
 #
 
 
+2021-01-31 -> ## target & sdk stuff
+	      update kernel to 5.10.12
+	      update kernel configs
+
+	      ## sdk stuff
+	      update toolchain to latest void-linux versions
+	      some documentation updates
+
+2021-01-29 -> ## target & sdk stuff
+	      update kernel to 5.10.11 and 5.10.8-rt24
+
 2021-01-18 -> ## target & sdk stuff
 	      update kernel to 5.10.8 and 5.10.4-rt22
 	      update kernel configs
