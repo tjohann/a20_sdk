@@ -3,6 +3,9 @@
 #
 
 
+2021-03-03 -> ## target & sdk stuff
+	      update kernel to 5.10.19
+
 2021-02-24 -> ## target & sdk stuff
 	      update kernel to 5.10.18 and 5.10.17-rt32
 
