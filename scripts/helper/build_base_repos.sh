@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2018, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2021, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    01.01.2018/26.09.2016
+# Date/Beginn :    04.03.2021/26.09.2016
 #
-# Version     :    V2.05
+# Version     :    V2.06
 #
-# Milestones  :    V2.05 (jan 2018) -> add baalue
+# Milestones  :    V2.06 (mar 2021) -> change configure defaults for libbaalue
+#                  V2.05 (jan 2018) -> add baalue
 #                  V2.04 (nov 2017) -> reduce number of base repos
 #                  V2.03 (feb 2017) -> fix uninstall function
 #                                      change build order -> kernel driver needed
@@ -57,7 +58,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.05'
+VER='2.06'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -233,7 +234,8 @@ install_all()
     # build the "./bootstrap && ./configure ..." repos
     #
     BUILD_DIR=${ARMHF_BIN_HOME}/external/libbaalue
-    CONFIGURE_ADDS="--enable-debug-info --enable-examples --enable-lcd160x"
+    #CONFIGURE_ADDS="--enable-debug-info --enable-examples --enable-lcd160x"
+    CONFIGURE_ADDS="--enable-debug-info"
     build_bootstrap
 
     BUILD_DIR=${ARMHF_BIN_HOME}/external/baalued
