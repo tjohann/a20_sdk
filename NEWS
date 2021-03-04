@@ -9,6 +9,11 @@
 	      ## script stuff
 	      change configure defaults for libbaalue in build_base_repos.sh
 
+	      ## sdk stuff
+	      prepare A20_SDK_V2.9.4
+	      some documentation updates
+	      udapte kernel configs
+
 2021-03-03 -> ## target & sdk stuff
 	      update kernel to 5.10.19
 

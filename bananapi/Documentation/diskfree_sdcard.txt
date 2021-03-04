@@ -1,3 +1,21 @@
+# ---- glibc image
+baalue@bananapi:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       7,9G    3,8G  3,7G   51% /
+/dev/mmcblk0p1   32M     21M   11M   66% /boot
+/dev/mmcblk0p3  6,7G     39M  6,4G    1% /home
+
+
+# ---- musl image
+baalue@bananapi:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       7.8G    3.8G  3.7G   51% /
+/dev/mmcblk0p1   32M     21M   11M   66% /boot
+/dev/mmcblk0p3   51G     61M   49G    1% /home
+
+
+# ============== DEPRECATED ==============
+
 # ---- full image
 baalue@bananapi:~$ df -h
 Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
@@ -5,11 +23,9 @@ Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
 /dev/mmcblk0p1   32M     20M   13M   62% /boot
 /dev/mmcblk0p3  6,7G     39M  6,4G    1% /home
 
-
 # ---- base image
 root@bananapi:~# df -h
 Filesystem      Size  Used Avail Use% Mounted on
 /dev/root       3.0G  1.9G  941M  68% /
 /dev/mmcblk0p1   32M   20M   13M  62% /boot
 /dev/mmcblk0p3   12G   49M   11G   1% /home
-
