@@ -6,6 +6,9 @@
 2021-04-14 -> ## target & sdk stuff
 	      update kernel to 5.10.30 and 5.10.27-rt36
 
+	      ## target stuff
+	      regular updates for glibc and musl image
+
 2021-03-04 -> ## target stuff
 	      regular updates for glibc and musl image
 
