@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   24.02.2021/12.01.2016
+Date:   14.04.2021/12.01.2016
 
 Content:
 
@@ -59,7 +59,7 @@ Device
 Kernel version
 --------------
 
-- linux-5.10.17-rt32 (latest RT-PREEMPT)
+- linux-5.10.27-rt36 (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
@@ -108,8 +108,8 @@ Patch kernel
 RT-PREEMPT
 ----------
 
-DIR: $ARMHF_BIN/HOME/kernel/linux-5.10.17_rt
-KDO: zcat ../patch-5.10.17-rt32.patch.gz | patch -p1
+DIR: $ARMHF_BIN/HOME/kernel/linux-5.10.27_rt
+KDO: zcat ../patch-5.10.27-rt36.patch.gz | patch -p1
 
 
 Configure/build kernel
@@ -166,7 +166,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_5.10.17_rt modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_5.10.27_rt modules_install
 
 
 
@@ -241,20 +241,20 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_5.10.17_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_5.10.27_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 /* if device is bananapi */
-KDO: sudo rsync -avz ../modules_5.10.17_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_5.10.27_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 Copy cleaned source to sd card
 ------------------------------
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-5.10.17_rt /mnt/olimex/olimex_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-5.10.27_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 /* if device is bananapi */
-KDO: sudo rsync -avz --delete linux-5.10.17_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-5.10.27_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 Finalize
 ========
@@ -264,14 +264,14 @@ Finish -> after login (rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-5.10.17_rt linux
+KDO: ln -s linux-5.10.27_rt linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (rt)
 --------------------------------------------------------------------
 
-DIR: /usr/src/linux-5.10.17_rt
+DIR: /usr/src/linux-5.10.27_rt
 KDO: make clean
 KDO: make scripts
 
@@ -279,7 +279,7 @@ KDO: make scripts
 Prepare modules to link (rt)
 ----------------------------
 
-DIR: /lib/modules/5.10.17-rt32
+DIR: /lib/modules/5.10.27-rt36
 KDO: rm source
-KDO: ln -s /usr/src/linux-5.10.17_rt source
-KDO: ln -s /usr/src/linux-5.10.17_rt build
+KDO: ln -s /usr/src/linux-5.10.27_rt source
+KDO: ln -s /usr/src/linux-5.10.27_rt build
