@@ -113,6 +113,8 @@ tcpdump
 chsh /bin/bash  (for root)
 rm agetty-tty[2-6]
 usermod -a -G socklog baalue
+mkdir -p /mnt/bananapi/bananapi_shared
+mkdir -p /mnt/tmp
 
 # --- dhcpd.conf
 # Static IP configuration (if needed)

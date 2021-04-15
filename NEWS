@@ -3,6 +3,11 @@
 #
 
 
+2021-04-15 -> ## sdk stuff
+	      next step to A20_SDK_V2.9.4
+	      some documentation updates
+	      udapte kernel configs
+
 2021-04-14 -> ## target & sdk stuff
 	      update kernel to 5.10.30 and 5.10.27-rt36
 
