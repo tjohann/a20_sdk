@@ -99,7 +99,7 @@ A20_SDK_V2.9.5 (xx.05.2021)
 		- ...
 
 
-A20_SDK_V2.9.4 (21.04.2021)
+A20_SDK_V2.9.4 (20.04.2021)
 ---------------------------
 
 	Common checks                                         [2021-04-21 -> partly]
@@ -112,11 +112,11 @@ A20_SDK_V2.9.4 (21.04.2021)
 		- check musl image
 
 	SDK updates:
-		- check all tools with new image style (a20_sdk_make_sdcard.sh
+		- check tools with new image style (a20_sdk_make_sdcard.sh
 		  not working)
 
 	Others:
-		- ...
+		- Deprecate Nanopi, Bananapi-Pro and Olimex (see README.md)
 
 
 A20_SDK_V2.9.3 (09.11.2020)

@@ -3,6 +3,10 @@
 #
 
 
+
+
+################## 2021-04-20 -> A20_SDK_V2.9.4 #############################
+
 2021-04-15 -> ## target & sdk stuff
 	      update kernel to 5.10.19
 
@@ -10,6 +14,7 @@
 	      prepare A20_SDK_V2.9.4
 	      some documentation updates
 	      change size of base/musl image in script partition_sdcard.sh
+	      update checksum.sha256
 
 	      ## target stuff
 	      regular updates for glibc and musl image
