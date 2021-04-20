@@ -6,7 +6,7 @@ A simple development environment for ARMv7 boards based on Allwinners A20/H2/H3/
 
 The basic user interface are make targets, which then start the corresponding scripts:
 
-	+-----------------------------------------------------------+
+    +-----------------------------------------------------------+
     |                                                           |
     |                  Nothing to build                         |
     |                                                           |
@@ -17,7 +17,7 @@ The basic user interface are make targets, which then start the corresponding sc
     | make get_toolchain      -> install toolchain              |
     | make get_latest_kernel  -> download latest kernel version |
     | make get_image_tarballs -> download image tarballs        |
-	| make get_binpkgs        -> download latest binpgs         |
+    | make get_binpkgs        -> download latest binpgs         |
     | make get_all            -> get all of the above           |
     | make clean              -> clean all dir/subdirs          |
     | make distclean          -> complete cleanup/delete        |
@@ -96,8 +96,8 @@ or copy armhf_env.sh to /etc/profile.d/ (the way I do it on the device images)
 
 Init the SDK:
 
-    cd /opt/a20_sdk (or /var/lib/a20_sdk)
-    make init_sdk
+	cd /opt/a20_sdk (or /var/lib/a20_sdk)
+	make init_sdk
 
 Via
 
@@ -121,7 +121,7 @@ Download images
 
 Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~5 GByte)
 
-    make get_image_tarballs
+	make get_image_tarballs
 
 If you only need/want the cubietruck images, the you only need
 

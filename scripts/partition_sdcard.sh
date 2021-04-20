@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2016-2020, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2016-2021, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    02.07.2020/07.07.2016
+# Date/Beginn :    20.04.2021/07.07.2016
 #
-# Version     :    V2.06
+# Version     :    V2.07
 #
-# Milestones  :    V2.06 (jul 2020) -> add support for orangepi-zero
+# Milestones  :    V2.07 (apr 2021) -> change size of base image to 6Gig
+#                  V2.06 (jul 2020) -> add support for orangepi-zero
 #                  V2.05 (jun 2020) -> fix bug in clean_sdcard function
 #                  V2.04 (apr 2020) -> add support for bananapi-m3
 #                  V2.03 (aug 2017) -> add support for cubietruck-plus
@@ -95,10 +96,10 @@ HDD_BOOT_SDCARD='false'
 BASE_IMAGE='false'
 
 # minimal size of a SD-Card
-# 4G for minimal image
-# 8G for full image
+# 6G for minimal/musl image
+# 8G for full/glibc image
 MIN_SD_SIZE_FULL=15000000
-MIN_SD_SIZE_SMALL=8000000
+MIN_SD_SIZE_SMALL=10000000
 
 # addition to patitionlabel (like KERNEL_BANA or ROOTFS_OLI)
 SD_PART_NAME_POST_LABEL='none'
@@ -117,7 +118,7 @@ my_usage()
     echo "|        [-b] -> bananapi/bananapi-pro/olimex/baalue/    |"
     echo "|                cubietruck/cubietruck-plus/nanopi/      |"
     echo "|                bananapi-m3/orangepi-zero               |"
-    echo "|        [-m] -> partition for the minimal image         |"
+    echo "|        [-m] -> partition for the minimal/musl imag     |"
     echo "|        [-s] -> prepare partitions for hdd installation |"
     echo "|        [-e] -> prepare partitions for hdd-boot-only    |"
     echo "|                will automatically set also -s          |"
@@ -390,7 +391,7 @@ partition_sdcard()
 	sudo blockdev --rereadpt ${DEVNODE}
 	cat <<EOT | sudo sfdisk ${DEVNODE}
 1M,32M,c
-,4G,L
+,6G,L
 ,,L
 EOT
     else

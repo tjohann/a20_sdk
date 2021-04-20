@@ -1,7 +1,7 @@
 Integration - checklist for bananapi image (which is the master image)
 ======================================================================
 
-This is a simple integration checklist for my a20_sdk. The purpose is to provied a repreducable delivery for the main versions (A20_SDK.X.X.0).
+This is a simple integration checklist for my a20_sdk. The purpose is to provied a repreducable delivery for the main versions (A20_SDK.x.x.0).
 
 Below you find the common checks and the special tasks for A20_SDK.x.x.x.
 
@@ -11,7 +11,7 @@ Common checks
 
 installation checks:
 
-	- check bananapi-m3 installation (use make_sdcard.sh)
+	- check bananapi installation (use make_sdcard.sh)
 	- check cubietruck with hdd installation (use make_sdcard.sh)
 	- check olimex RT-PREEMPT installation (use make_sdcard.sh)
 
@@ -26,19 +26,12 @@ build/config updates on device (for base/full image -> musl/glibc with A20_SDK_V
 	- make mrproper
 	- make init_sdk
 	- /opt/a20_sdk/external (make get_base_repos && make build_base_repos)
-	- /usr/src/jailhouse on full image (git pull && make clean && make &&
-	  sudo make install)
-	- copy /home/baalue/src/ap6210/* to /lib/firmware/ap6210
 	- mupdatedb
 
 tool checks on device:
 
 	- is network (ip) config correct
-	- is jailhouse working
-	  - orangepi-zero
-	  - bananapi
-	- lcd1602 (nanopi)
-	  modeprobe ...
+	- is baalued working
 
 sdk checks:
 
@@ -48,10 +41,10 @@ sdk checks:
 
 
 
-A20_SDK_V2.10.0 (xx.05.2021)
+A20_SDK_V2.10.0 (xx.06.2021)
 ---------------------------
 
-	Common checks                                           [2021-05-xx -> done]
+	Common checks                                           [2021-06-xx -> done]
 
 	Config updates (on the target):
 		- ...
@@ -64,6 +57,25 @@ A20_SDK_V2.10.0 (xx.05.2021)
 
 	Others:
 		- ...
+
+
+A20_SDK_V2.9.6 (xx.05.2021)
+---------------------------
+
+	Common checks                                           [2021-05-xx -> done]
+
+	Config updates (on the target):
+		- remove nanopi
+
+	Build updates:
+		- remove nanopi
+
+	SDK updates:
+		- check make_sdcard.sh
+		- remove nanopi
+
+	Others:
+		- check lxc with base app
 
 
 A20_SDK_V2.9.5 (xx.05.2021)
@@ -84,13 +96,13 @@ A20_SDK_V2.9.5 (xx.05.2021)
 		- check remove of full and base image
 
 	Others:
-		- check lxc with base app
+		- ...
 
 
-A20_SDK_V2.9.4 (xx.04.2021)
+A20_SDK_V2.9.4 (21.04.2021)
 ---------------------------
 
-	Common checks                                         [2021-04-xx -> partly]
+	Common checks                                         [2021-04-21 -> partly]
 
 	Config updates (on the target):
 		- ...
@@ -100,7 +112,8 @@ A20_SDK_V2.9.4 (xx.04.2021)
 		- check musl image
 
 	SDK updates:
-		- check all tools with new image style
+		- check all tools with new image style (a20_sdk_make_sdcard.sh
+		  not working)
 
 	Others:
 		- ...
