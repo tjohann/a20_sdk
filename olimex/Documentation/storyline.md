@@ -1,5 +1,5 @@
-Storyline Olimex-SOM-EVB
-========================
+Storyline Olimex-SOM-EVB  (!!! DEPRECATED !!!)
+==============================================
 
 The olimex is used as a classic embedded device with lots of other stuff connected to it.
 

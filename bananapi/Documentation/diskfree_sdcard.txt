@@ -1,9 +1,9 @@
 # ---- glibc image
 baalue@bananapi:~$ df -h
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/root       7,9G    3,8G  3,7G   51% /
-/dev/mmcblk0p1   32M     21M   11M   66% /boot
-/dev/mmcblk0p3  6,7G     39M  6,4G    1% /home
+/dev/root       7,9G    3,9G  3,6G   52% /
+/dev/mmcblk0p1   32M     22M  9,9M   69% /boot
+/dev/mmcblk0p3   22G     53M   21G    1% /home
 
 
 # ---- musl image

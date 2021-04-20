@@ -3,11 +3,15 @@
 #
 
 
-## 2020-07-02
+## 2021-04-20
 - do a make init_sdk to make shure everthing is up-to-date (due to some changes in $ARMHF_HOME/a20_sdk*)
+- note that i couldn't test nanopi and bananapi-pro (HW problems)
 
 
 # --------------------------------- deprecated --------------------------------
+
+## 2020-07-02
+- do a make init_sdk to make shure everthing is up-to-date (due to some changes in $ARMHF_HOME/a20_sdk*)
 
 ## 2020-06-30
 - do a make init_sdk to make shure everthing is up-to-date (due to some changes in /opt/a20_sdk/kernel/Makefile and more)

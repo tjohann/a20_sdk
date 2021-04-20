@@ -44,7 +44,7 @@ Requirement
 
 The only yet know software requirements are git (to clone/update runtimedir), rsync (to sync content below workdir and srcdir) and dialog (if you want a tool to make your sd-card -> a20_sdk_make_sdcard.sh).
 
-For the two types of provided images ("normal" and "base/small") you need sd-cards with 10 or 6 gig of size. If you want to use a hdd it should be at least larger then 16 gig (i use 500 gig connected to my Cubietruck and Bananapi-Pro).
+For the two types of provided images (glibc/full and musl/base) you need sd-cards with 10 or 6 gig of size. If you want to use a hdd it should be at least larger then 16 gig (i use 500 gig connected to my Cubietruck-Plus).
 
 
 Background
@@ -119,7 +119,7 @@ Download the compiler to /opt/a20_sdk/
 Download images
 ---------------
 
-Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~5 GByte)
+Download ALL images to /opt/a20_sdk/images/ (Note: this will download ~4 GByte)
 
 	make get_image_tarballs
 
@@ -172,8 +172,8 @@ Note: do a
 within /opt/a20_sdk/kernel to see what is additional supported.
 
 
-Get latest build packages
--------------------------
+Get latest build packages (!!! DEPRECATED !!!)
+----------------------------------------------
 
 Not all packages provided by the void-linux repo are available on armv7 architecture (emacs-gtk2 is an example). I provide some of them via binpkgs.tgz@sourceforge.
 
@@ -256,7 +256,7 @@ Note: the size of the hdd-preparation sd-card should be at least 8 gig, the hdd-
 Internal flash
 --------------
 
-The cubietruck and the olimex have a flashchip soldered. The support for them via this sdk is on the TODO list.
+The cubietruck and the olimex have a flashchip soldered. There`re not supported out-of-the-box. For more informations about it take a look at https://linux-sunxi.org/Storage .
 
 
 Versioninfo
@@ -293,12 +293,12 @@ All devices
 Within /var/lib/a20_sdk/ you find the 8 supported devices below the directories (see /var/lib/a20_sdk/pics for some pictures of them)
 
     bananapi -> BananaPi-M1
-    bananapi-pro -> BananaPi-Pro
+    bananapi-pro -> BananaPi-Pro (!!! DEPRECATED !!!)
 	bananapi-m3 -> BananaPi-M3
     cubietruck -> Cubietruck (Cubieboard 3)
 	cubietruck-plus -> Cubietruck-Plus (Cubieboard 5)
-    olimex -> Olimex A20-SOM/EVB
-	nanopi -> NanoPi Neo
+    olimex -> Olimex A20-SOM/EVB (!!! DEPRECATED !!!)
+	nanopi -> NanoPi Neo (!!! DEPRECATED !!!)
     orangepi-zero -> OrangePi Zero
 
 Every device directory has the same sub-directories
@@ -313,12 +313,12 @@ You can find documenation on howto build a kernel or howto setup a device below 
 In short:
 
     bananapi -> baalue (my Bananapi Cluster with 8 Nodes) and embbedded plattform
-    bananapi-pro -> my internal void-linux server
+    bananapi-pro -> my internal void-linux server (!!! DEPRECATED !!!)
 	bananapi-m3 -> another possible master node for baalue (used with FreeBSD)
     cubietruck -> another possible baalue node node and test environment for jailhouse (https://github.com/siemens/jailhouse)
 	cubietruck-plus -> my master node for baalue
-    olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground
-	nanopi -> base board for my mobile robots
+    olimex -> my conectivity "monster" (nearly all A20 PINs are available!) and jailhouse playground (!!! DEPRECATED !!!)
+	nanopi -> base board for my mobile robots  (!!! DEPRECATED !!!)
     orangepi-zero -> jailhouse playground device
 
 My BAnAnapi cLUEster (Baalue):
@@ -361,19 +361,19 @@ Due to the fact that the devices are used for different task I support a mainlin
 
 You find my configurations below the folder ${ARMHF_HOME}/YOUR_FAVORITE_DEVICE/configs. To build your own custom kernel you can use them as a base.
 
-	Olimex -> RT-PREEMPT
+	Olimex -> RT-PREEMPT (!!! DEPRECATED !!!)
 	Bananapi -> PREEMPT
 	Baalue-Node -> PREEMPT
 	Bananapi-M3 -> PREEMPT
-	Bananapi-Pro -> PREEMPT
+	Bananapi-Pro -> PREEMPT (!!! DEPRECATED !!!)
 	Cubietruck -> PREEMPT
 	Cubietruck-Plus -> PREEMPT
-	NanoPi -> PREEMPT
-	OrangePi-Zero -> PREEMPT
+	NanoPi -> PREEMPT (!!! DEPRECATED !!!)
+	OrangePi-Zero -> PREEMPT (RT-PREEMPT starting with A20_SDK_V2.9.5)
 
 Note: both kernel (**RT-PREEMPT** and **PREEMPT**) are supported on **every** device. If you want to use the other kernel, then copy rt or non-rt of ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/* to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}. Pls note that you can run into trouble if the dtb are not the same, if so then also copy the needed dtb from the ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}/rt/${YOUR_FAVORITE_DEVICE}.dtb to ${YOUR_FAVORITE_DEVICE_SDCARD_KERNEL}
 
-Due to the fact that not every kernel support the **RT-PREEMPT** patch (5.0.x/5.2.x/5.4.x/...), i will reduce the effort to support hart realtime kernel. For all the newer devices like nanopi and cubietruck-plus, i need the latest kernel. This lead to different kernel versions and therefore problems regarding devicetree. Netherless, i will support the latest RT-PREEMPT for Olimex. This is my main embedded device, so it makes sense to have RT-PREEMPT added. But be aware that you have to build your own kernel or at least dtb (see ./olimex/Documentation/howto_kernel.txt).
+Due to the fact that not every kernel version support the **RT-PREEMPT** patch, i will reduce the effort to support hart realtime kernel. For all the newer devices like bananapi-m3 and cubietruck-plus, i need the latest kernel. This lead to different kernel versions and therefore problems regarding devicetree. Netherless, i will support the latest RT-PREEMPT for Orange-Pi-Zero. This is my main embedded device, so it makes sense to have RT-PREEMPT added. But be aware that you have to build your own kernel or at least dtb (see ./orangepi-zero/Documentation/howto_kernel.txt).
 
 
 Network
@@ -419,16 +419,10 @@ My nfs share:
 
 
 
-NFS share
----------
-
-From my virtual device *echnaton* i share, via nfs some files. Also *baalue_master* can share the generated packages (see Distcc below) to the network. To active the *baalue_master* nfs share you can follow the void-linux instructions (https://wiki.voidlinux.eu/Network_filesystem). The base configuration is included in both images (base and full).
-
-
 Distcc
 ------
 
-To setup a build cluster based on this sdk you can addtional check https://github.com/tjohann/baalue_distcc . Here you should find all informations needed. Every base configuration is already included in both images (base and full).
+To setup a build cluster based on this sdk you can addtional check https://github.com/tjohann/baalue_distcc . Here you should find all informations needed. Every base configuration is already included in both images (musl/base and glibc/full).
 
 
 
@@ -445,14 +439,28 @@ Naming convention:
 	common/a20_sdk_*.tgz -> rootfs and home for all devices which need to be branded during make_sdcard.sh
 	common/a20_sdk_base_rootfs.tgz -> the base/minimal rootfs
 	bananapi/bananapi_(hdd_)kernel.tgz
-	bananapi/bananapi-pro_(hdd_)kernel.tgz
+	bananapi/bananapi-pro_(hdd_)kernel.tgz  (!!! DEPRECATED !!!)
 	bananapi/bananapi-m3_(hdd_)kernel.tgz
 	bananapi/baalue_(hdd_)kernel.tgz
 	cubietruck/cubietruck_(hdd_)kernel.tgz
 	cubietruck/cubietruck-plus_(hdd_)kernel.tgz
-	olimex/olimex_(hdd_)kernel.tgz
-	nanopi/nanopi_(hdd_)kernel.tgz
+	olimex/olimex_(hdd_)kernel.tgz  (!!! DEPRECATED !!!)
+	nanopi/nanopi_(hdd_)kernel.tgz  (!!! DEPRECATED !!!)
 	orangepi/orangepi-zero_(hdd_)kernel.tgz
+
+
+Devices
+-------
+
+Due to the state of my devices, i have to deprecated some of them. The reason is simple -> defects. At the moment i will leave all device in, but could not test them. So it`s up to you to check if everthing works as expected.
+
+Supported devices:
+
+	Bananapi
+	Bananapi-M3
+	Cubietruck/Cubietruck-Plus
+	Orange-Pi-Zero
+
 
 Cubietruck (CB3) and Cubietruck-Plus (CB5)
 ------------------------------------------
@@ -482,8 +490,10 @@ Addtional mount points (host):
 [The storyline for Cubietruck-Plus](cubietruck-plus/Documentation/storyline.md)
 
 
-Bananapi-Pro
-------------
+Bananapi-Pro (!!! DEPRECATED !!!)
+---------------------------------
+
+Note: this device is deprecated, because my devices has a defekt
 
 I use this device as my internal void-linux package server. It also acts a an intermediate git server for playground stuff.
 
@@ -578,8 +588,10 @@ My BAnAnapi cLUEster (Baalue):
 [The storyline for Baalue](baalue/Documentation/storyline.md)
 
 
-Olimex A20-SOM/EVB
-------------------
+Olimex A20-SOM/EVB (!!! DEPRECATED !!!)
+---------------------------------------
+
+Note: this device is deprecated, because one of my devices has a defekt
 
 I use this device to play and test low level hardware because nearly all PINs of the A20 are available. It is also the test environment for my research about linux and realtime in general (see also https://github.com/tjohann/time_triggert_env.git).
 
@@ -603,10 +615,12 @@ Addtional mount points (host):
 [The storyline for Olimex](olimex/Documentation/storyline.md)
 
 
-NanoPi Neo
-----------
+NanoPi Neo  (!!! DEPRECATED !!!)
+--------------------------------
 
-I use this device as my base board for mobile robotics because of the size and cpu power (4 core)
+Note: this device is deprecated, because both of my devices have a defekt
+
+I use this device as my base board for mobile robotics because of the size and cpu power (4 core).
 
 Addtional Hardware connected:
 
@@ -673,11 +687,6 @@ Note: This repository is something like a bracket over my differnet projects. So
 - add support for musl libc
 - add full support for namespaces/cgroups/seccomp
 - add lxc with an baseapp as an example
-- improve storyline for bananapi-pro (internal git and void-package server)
 - make all scripts "self hosting" so that all scripts would also run on the target device (like build_kernel.sh running on baalue_master)
-- add dtc config for mcp2515 (bananapi and olimex)
-- working jailhouse configuration for bananapi, orangepi-zero and olimex
-- simple example for using bare-metal cell within bananapi
-- working can-bus parts for a20-can and mcp2515 (bananapi)
-- simple os for baremetal cell (see https://github.com/tjohann/miblos)
-- improve storyline for nanopi as part of a mobile robot project
+- working jailhouse configuration for orangepi-zero
+- simple example for using bare-metal cell within orangepi-zero

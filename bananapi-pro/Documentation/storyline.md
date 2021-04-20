@@ -1,5 +1,5 @@
-Storyline Bananapi-Pro
-======================
+Storyline Bananapi-Pro (!!! DEPRECATED !!!)
+===========================================
 
 The bananapi-pro is used as my internal void-linux package server. It also acts a an intermediate git server for playground stuff.
 

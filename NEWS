@@ -14,6 +14,11 @@
 	      ## target stuff
 	      regular updates for glibc and musl image
 
+              ## DEPRECATED stuff ##
+	      nanopi -> devices are defekt
+	      bananapi-pro -> device has a loose contact
+	      olimex -> one is defekt, the other seems also to have a loose contact
+
 2021-04-15 -> ## sdk stuff
 	      next step to A20_SDK_V2.9.4
 	      some documentation updates

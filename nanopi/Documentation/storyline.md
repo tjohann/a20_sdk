@@ -1,5 +1,5 @@
-Storyline Nanopi
-================
+Storyline Nanopi  (!!! DEPRECATED !!!)
+======================================
 
 The nanaopi is used as the control board for some robotic projects.
 
