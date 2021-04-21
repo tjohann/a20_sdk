@@ -107,6 +107,9 @@ cloc
 xtools
 libxbps-devel
 tcpdump
+ncurses-devel
+ncurses-libtinfo-devel
+ncurses-libtinfo-libs
 
 
 #
