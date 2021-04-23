@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   20.04.2021/02.07.2020
+Date:   23.04.2021/02.07.2020
 
 Content:
 
@@ -92,7 +92,7 @@ Pls check that the $DIR values below point to the the correct directory!
 Download kernel
 ===============
 
-DIR: $$ARMHF_BIN_HOME
+DIR: $ARMHF_BIN_HOME
 KDO: make get_latest_kernel
 
 
