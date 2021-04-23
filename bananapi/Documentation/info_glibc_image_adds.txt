@@ -106,6 +106,7 @@ tcpdump
 ncurses-devel
 ncurses-libtinfo-devel
 ncurses-libtinfo-libs
+bc
 
 
 #
