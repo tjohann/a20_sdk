@@ -107,7 +107,8 @@ ncurses-devel
 ncurses-libtinfo-devel
 ncurses-libtinfo-libs
 bc
-
+terminus-font
+termsyn-font
 
 #
 # config addtions/changes
