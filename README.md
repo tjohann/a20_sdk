@@ -684,6 +684,7 @@ Note: This repository is something like a bracket over my differnet projects. So
 
 
 (future steps)
+- add Qemu as baalue_master replacement
 - add support for musl libc
 - add full support for namespaces/cgroups/seccomp
 - add lxc with an baseapp as an example

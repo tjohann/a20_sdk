@@ -1,0 +1,9 @@
+#
+# Some Qemu related info for baalue_master
+#
+
+
+Useful links
+============
+
+https://github.com/sakaki-/gentoo-on-rpi-64bit/wiki/Build-aarch64-Packages-on-your-PC%2C-with-User-Mode-QEMU-and-binfmt_misc
