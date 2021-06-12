@@ -47,7 +47,7 @@ ln -s /etc/sv/dhcpd /var/service/
 ln -s /etc/sv/sshd /var/service/
 
 #
-# addtional installations
+# additional installations
 #
 void-repo-debug
 void-repo-nonfree
