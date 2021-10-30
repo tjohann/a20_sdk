@@ -41,10 +41,10 @@ sdk checks:
 
 
 
-A20_SDK_V2.10.0 (xx.06.2021)
+A20_SDK_V2.10.0 (xx.12.2021)
 ---------------------------
 
-	Common checks                                           [2021-06-xx -> done]
+	Common checks                                           [2021-12-xx -> done]
 
 	Config updates (on the target):
 		- ...
@@ -59,10 +59,10 @@ A20_SDK_V2.10.0 (xx.06.2021)
 		- ...
 
 
-A20_SDK_V2.9.6 (xx.05.2021)
+A20_SDK_V2.9.6 (xx.11.2021)
 ---------------------------
 
-	Common checks                                           [2021-05-xx -> done]
+	Common checks                                           [2021-11-xx -> done]
 
 	Config updates (on the target):
 		- remove nanopi
@@ -78,10 +78,10 @@ A20_SDK_V2.9.6 (xx.05.2021)
 		- check lxc with base app
 
 
-A20_SDK_V2.9.5 (xx.05.2021)
+A20_SDK_V2.9.5 (xx.10.2021)
 ---------------------------
 
-	Common checks                                         [2021-05-xx -> partly]
+	Common checks                                         [2021-10-xx -> partly]
 
 	Config updates (on the target):
 		- add kernel support for nfsd and uas

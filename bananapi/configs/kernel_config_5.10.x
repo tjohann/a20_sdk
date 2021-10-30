@@ -1,8 +1,8 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 5.10.61 Kernel Configuration
+# Linux/arm 5.10.76 Kernel Configuration
 #
-CONFIG_CC_VERSION_TEXT="arm-none-linux-gnueabihf-gcc (crosstool-NG 1.24.0.426_672c13e) 10.3.0"
+CONFIG_CC_VERSION_TEXT="arm-none-linux-gnueabihf-gcc (crosstool-NG 1.24.0.489_25f6dae) 10.3.0"
 CONFIG_CC_IS_GCC=y
 CONFIG_GCC_VERSION=100300
 CONFIG_LD_VERSION=235010000
@@ -171,6 +171,7 @@ CONFIG_ELF_CORE=y
 CONFIG_BASE_FULL=y
 CONFIG_FUTEX=y
 CONFIG_FUTEX_PI=y
+CONFIG_HAVE_FUTEX_CMPXCHG=y
 CONFIG_EPOLL=y
 CONFIG_SIGNALFD=y
 CONFIG_TIMERFD=y

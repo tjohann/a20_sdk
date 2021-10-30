@@ -3,6 +3,14 @@
 #
 
 
+2021-10-30 -> ## sdk && target stuff
+	      update kernel to 5.10.76 and 5.10.73-rt54
+	      update toolchain to latest void-linux versions
+	      udapte kernel configs
+	      update dts configs
+              update uboot to v2021.10 (for all devices)
+      	      clear/update checksum.sha256
+
 2021-08-28 -> ## sdk && target stuff
 	      update kernel to 5.10.61 and 5.10.59-rt52
 	      udapte kernel configs
