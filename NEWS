@@ -3,6 +3,8 @@
 #
 
 
+################## 2021-10-30 -> A20_SDK_V2.9.5 #############################
+
 2021-10-30 -> ## sdk && target stuff
 	      update kernel to 5.10.76 and 5.10.73-rt54
 	      update toolchain to latest void-linux versions
