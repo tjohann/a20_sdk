@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 5.15.2 Kernel Configuration
+# Linux/arm 5.15.6 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="arm-none-linux-gnueabihf-gcc (crosstool-NG 1.24.0.489_25f6dae) 10.3.0"
 CONFIG_CC_IS_GCC=y
@@ -730,6 +730,7 @@ CONFIG_GENERIC_EARLY_IOREMAP=y
 # CONFIG_PERCPU_STATS is not set
 # CONFIG_GUP_TEST is not set
 CONFIG_KMAP_LOCAL=y
+CONFIG_KMAP_LOCAL_NON_LINEAR_PTE_ARRAY=y
 
 #
 # Data Access Monitoring
