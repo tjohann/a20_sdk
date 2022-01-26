@@ -4,6 +4,9 @@
 
 
 2021-12-05 -> ## sdk && target stuff
+	      update kernel to 5.16.2 and 5.16.2-rt19
+
+2021-12-05 -> ## sdk && target stuff
 	      update kernel to 5.15.6 and 5.15.5-rt22
 	      update kernel configs
 
