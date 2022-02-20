@@ -6,7 +6,7 @@
 export MY_HOST_ARCH=$(uname -m)
 
 # set supported kernel version
-export ARMHF_KERNEL_VER=5.16.2
+export ARMHF_KERNEL_VER=5.16.10
 export ARMHF_RT_KERNEL_VER=5.16.2
 export ARMHF_RT_VER=rt19
 
