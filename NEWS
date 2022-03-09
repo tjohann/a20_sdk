@@ -2,6 +2,10 @@
 # some news ... see also TODO for hints
 #
 
+
+2022-03-09 -> ## sdk && target stuff
+	      update kernel to 5.16.13
+
 2022-02-20 -> ## sdk && target stuff
 	      update kernel to 5.16.10
 
