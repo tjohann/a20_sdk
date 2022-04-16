@@ -102,7 +102,7 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_5.15.x .config
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_5.17.x .config
 KDO: make CROSS_COMPILE=arm-none-linux-gnueabihf- ARCH=arm menuconfig
 
 

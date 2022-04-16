@@ -197,6 +197,9 @@ Copy kernel/config
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
 KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/
 KDO: cp .config /mnt/bananapi/bananapi_kernel/
+
+or (depends on non-rt kernel version and/or usage)
+
 KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/non-rt
 KDO: cp .config /mnt/bananapi/bananapi_kernel/non-rt
 
