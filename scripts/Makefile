@@ -22,9 +22,13 @@ all::
 
 install::
 	(install $(ARMHF_HOME)/scripts/make_sdcard.sh $(HOME)/bin/a20_sdk_make_sdcard.sh)
+	(install $(ARMHF_HOME)/scripts/mount_partitions.sh $(HOME)/bin/a20_sdk_mount_partitions.sh)
+	(install $(ARMHF_HOME)/scripts/helper/copy_kernel_dts_to_a20_rep $(HOME)/bin/a20_copy_kernel_dts_to_a20_repo.sh)
 
 uninstall::
 	(rm -rf $(HOME)/bin/a20_sdk_make_sdcard.sh)
+	(rm -rf $(HOME)/bin/a20_sdk_mount_partitions.sh)
+	(rm -rf $(HOME)/bin/a20_copy_kernel_dts_to_a20_repo.sh)
 
 clean::
 	rm -f *~

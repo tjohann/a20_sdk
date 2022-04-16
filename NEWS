@@ -4,7 +4,12 @@
 
 
 2022-04-16 -> ## sdk && target stuff
-	      update kernel to 5.17.3 and 5.17.1.rt17
+              update kernel to 5.17.3 and 5.17.1.rt17
+	      update toolchain to latest void-linux versions
+
+              ## script stuff
+	      add simple script to copy the dts of an actual kernel to
+	      the folder of the devices in the repo
 
 2022-03-09 -> ## sdk && target stuff
 	      update kernel to 5.16.13
