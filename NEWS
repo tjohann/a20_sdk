@@ -3,6 +3,9 @@
 #
 
 
+2022-04-16 -> ## sdk && target stuff
+	      update kernel to 5.17.3 and 5.17.1.rt17
+
 2022-03-09 -> ## sdk && target stuff
 	      update kernel to 5.16.13
 
