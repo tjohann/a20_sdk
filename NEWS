@@ -12,6 +12,7 @@
               ## sdk stuff
               some Makefile install/uninstall fixes
 	      some documentation updates
+	      add checksum.sha256 for the new images tarballs
 
               ## script stuff
 	      add simple script to copy the dts of an actual kernel to
