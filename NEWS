@@ -5,6 +5,7 @@
 
 2022-04-16 -> ## sdk && target stuff
               update kernel to 5.17.3 and 5.17.1.rt17
+	      update dts configs
 	      update toolchain to latest void-linux versions
 
               ## script stuff
