@@ -109,6 +109,13 @@ ncurses-libtinfo-libs
 bc
 terminus-font
 termsyn-font
+(- new dependencys -)
+gmp
+gmp-devel
+gcc-ada
+libmpc
+libmpc-devel
+
 
 #
 # config addtions/changes
