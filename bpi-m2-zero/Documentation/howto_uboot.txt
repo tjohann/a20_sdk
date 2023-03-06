@@ -70,7 +70,7 @@ U-Boot
 Configure
 ---------
 
-make XXXX
+make bananapi_m2_zero_defconfig
 
 
 Build
@@ -107,7 +107,7 @@ cp u-boot-sunxi-with-spl.bin /mnt/bananapi/bananapi_kernel/
 Deploy A20_SDK
 ==============
 
-Copy all to $ARMHF_HOME/nanopi/u-boot/
+Copy all to $ARMHF_HOME/bananapi/u-boot/
 ----------------------------------------
 
 cp u-boot-sunxi-with-spl.bin $ARMHF_HOME/bananapi/u-boot/

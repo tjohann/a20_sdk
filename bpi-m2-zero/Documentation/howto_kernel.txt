@@ -111,8 +111,8 @@ Build dtb
 ---------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/XXXX.dts arch/arm/boot/dts/XXXX.dts
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- XXXX.dtb
+KDO: cp $ARMHF_HOME/bananapi/configs/XXXX.dts arch/arm/boot/dts/sun8i-h3-bananapi-m2-plus.dts
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-bananapi-m2-plus.dtb
 
 
 Build kernel/modules
@@ -137,7 +137,7 @@ Copy dtb
 --------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/dts/XXXX.dt[b,s] /mnt/bananapi/bananapi_kernel/
+KDO: cp arch/arm/boot/dts/sun8i-h3-bananapi-m2-plus.dt[b,s] /mnt/bananapi/bananapi_kernel/
 
 
 Copy kernel/config
