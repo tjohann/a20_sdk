@@ -3,6 +3,9 @@
 #
 
 
+2023-03-06 -> ## sdk && target stuff
+              start adding new device -> Bananapi-M2-Zero
+
 2022-04-16 -> ## sdk && target stuff
               update kernel to 5.17.3 and 5.17.1.rt17
 	      update dts configs

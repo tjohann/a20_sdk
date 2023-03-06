@@ -1,0 +1,194 @@
+
+               =========================================
+               simple howto for building a custom kernel
+               =========================================
+
+Author: Thorsten Johannvorderbrueggen
+Email:  thorsten.johannvorderbrueggen@t-online.de
+Date:   06.03.2023/06.03.2022
+
+Content:
+
+- Preparation
+  -- Device
+  -- Kernel version
+  -- Downloads
+  -- Mountpoints
+  -- Fstab for mountpoints
+  -- Notes
+
+- Download kernel
+
+- Configure/build kernel
+  -- Configure kernel
+  -- Build dtb
+  -- Build kernel/modules
+  -- Install modules
+
+- Deploy SD-Card
+  -- Copy dtb
+  -- Copy kernel/config
+  -- Copy modules
+  -- Copy cleaned source to sd card
+
+- Finalize
+  -- Finish -> after login
+  -- Prepare linux tree to build your modules against the new kernel
+  -- Prepare modules to link
+
+
+
+Preparation
+===========
+
+Device
+-------
+
+- Bananapi M2 Zero <-- for this device is the howto
+- Bananapi-M1(pro) -> see $(ARMHF_HOME)/bananapi(-pro)
+- Cubietruck (cb3) -> see $(ARMHF_HOME)/cubietruck
+- Cubietruck-Plus (cb5) -> see $(ARMHF_HOME)/cubietruck-plus
+- Olimex A20-SOM   -> see $(ARMHF_HOME)/olimex
+
+
+Kernel version
+--------------
+
+- linux-5.17.3
+
+
+Downloads (use make get_latest_kernel)
+--------------------------------------
+
+- https://www.kernel.org/pub/linux/kernel/v5.x/
+
+
+Mountpoints
+-----------
+
+bananapi:
+ - kernel -> /mnt/bananapi/bananapi_kernel
+ - rootfs -> /mnt/bananapi/bananapi_rootfs
+ - home   -> /mnt/bananapi/bananapi_home
+
+
+Fstab entrys for mountpoints
+----------------------------
+
+bananapi:
+ LABEL=KERNEL_ZERO  /mnt/bananapi/bananapi_kernel  auto  noauto,user,rw    0   0
+ LABEL=ROOTFS_ZERO  /mnt/bananapi/bananapi_rootfs  auto  noauto,user,rw    0   0
+ LABEL=HOME_ZERO    /mnt/bananapi/bananapi_home    auto  noauto,user,rw    0   0
+
+Notes
+-----
+
+In $ARMHF_BIN_HOME/external you'll find some links to some useful repos,
+one of them being the linus kernel tree. So you can use that folder or
+alternatively download the tar file to $ARMHF_BIN_HOME/kernel.
+Pls check that the $DIR values below point to the the correct directory!
+
+
+Download kernel
+===============
+
+DIR: $ARMHF_BIN_HOME
+KDO: make get_latest_kernel
+
+
+Configure/build kernel
+======================
+
+Configure kernel
+----------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_5.17.x .config
+KDO: make CROSS_COMPILE=arm-none-linux-gnueabihf- ARCH=arm menuconfig
+
+
+Build dtb
+---------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp $ARMHF_HOME/bananapi/configs/XXXX.dts arch/arm/boot/dts/XXXX.dts
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- XXXX.dtb
+
+
+Build kernel/modules
+--------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make -j24 ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- LOADADDR=0x40008000 uImage modules
+
+KDO (using distcc): make -j40 ARCH=arm CC="distcc /opt/a20_sdk/toolchain/bin/arm-none-linux-gnueabihf-gcc" CROSS_COMPILE="/opt/a20_sdk/toolchain/bin/arm-none-linux-gnueabihf-" LOADADDR=0x40008000 uImage modules
+
+Install modules
+---------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_5.17.3 modules_install
+
+
+Deploy SD-Card
+==============
+
+Copy dtb
+--------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/dts/XXXX.dt[b,s] /mnt/bananapi/bananapi_kernel/
+
+
+Copy kernel/config
+------------------
+
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: cp arch/arm/boot/uImage /mnt/bananapi/bananapi_kernel/
+KDO: cp .config /mnt/bananapi/bananapi_kernel/
+
+
+Copy modules
+------------
+
+# Note: maybe your need to remove the old one
+DIR: $ARMHF_BIN_HOME/kernel/linux-*
+KDO: sudo rsync -avz ../modules_5.17.3/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+
+
+Copy cleaned source to sd card
+------------------------------
+
+# Note: dont forget to make ARCH=arm clean
+DIR: $ARMHF_BIN_HOME/kernel
+KDO: sudo rsync -avz --delete linux-5.17.3 /mnt/bananapi/bananapi_rootfs/usr/src/.
+
+
+Finalize
+========
+
+Finish -> after login
+---------------------
+
+DIR: /usr/src
+KDO: depmod -a
+KDO: ln -s linux-5.17.3 linux
+MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
+
+
+Prepare linux tree to build your modules against the new kernel
+---------------------------------------------------------------
+
+DIR: /usr/src/linux-5.17.3
+KDO: make clean
+KDO: make scripts
+
+
+Prepare modules to link
+-----------------------
+
+DIR: /lib/modules/5.17.3
+KDO: rm build
+KDO: rm source
+KDO: ln -s /usr/src/linux-5.17.3 source
+KDO: ln -s /usr/src/linux-5.17.3 build
