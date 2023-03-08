@@ -3,6 +3,14 @@
 #
 
 
+2023-03-07 -> ## sdk && target stuff
+	      update kernel to 6.1.15 and 6.1.12.rt7
+	      update kernel configs
+              regular updates for glibc and musl image
+
+              ## script stuff
+	      update get_latest_linux_kernel.sh to use 6.x.x kernel
+
 2023-03-06 -> ## sdk && target stuff
               start adding new device -> Bananapi-M2-Zero
 

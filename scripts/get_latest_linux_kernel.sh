@@ -6,7 +6,7 @@
 # License:
 #
 # GPL
-# (c) 2015-2019, thorsten.johannvorderbrueggen@t-online.de
+# (c) 2015-2023, thorsten.johannvorderbrueggen@t-online.de
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,11 +24,12 @@
 #
 ################################################################################
 #
-# Date/Beginn :    06.10.2019/15.08.2015
+# Date/Beginn :    06.03.2023/15.08.2015
 #
-# Version     :    V2.01
+# Version     :    V3.00
 #
-# Milestones  :    V2.01 (oct 2019) -> update kernel to v5.x.x
+# Milestones  :    V3.00 (mar 2023) -> update kernel to v6.x.x
+#                  V2.01 (oct 2019) -> update kernel to v5.x.x
 #                  V2.00 (sep 2016) -> update version info fo A20_SDK_V2.0.0
 #                  V1.04 (jul 2016) -> add features of make_sdcard.sh
 #                  V1.03 (jul 2016) -> redirect errors to >&2
@@ -66,7 +67,7 @@
 #
 
 # VERSION-NUMBER
-VER='2.01'
+VER='3.00'
 
 # if env is sourced
 MISSING_ENV='false'
@@ -200,7 +201,7 @@ fi
 # --- get the kernel sources
 get_kernel_source()
 {
-    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/v5.x/linux-${KERNEL_VER}.tar.xz"
+    DOWNLOAD_STRING="https://www.kernel.org/pub/linux/kernel/v6.x/linux-${KERNEL_VER}.tar.xz"
     echo "INFO: set kernel download string to $DOWNLOAD_STRING"
 
     if [ -f linux-${KERNEL_VER}.tar.xz ]; then
