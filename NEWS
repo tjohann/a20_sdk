@@ -3,6 +3,10 @@
 #
 
 
+2024-01-06 -> ## toolchain stuff
+	      update toolchain to reflect latest void-linux changes
+
+
 2023-03-07 -> ## sdk && target stuff
 	      update kernel to 6.1.15 and 6.1.12.rt7
 	      update kernel configs
