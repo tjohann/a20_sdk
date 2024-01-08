@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   08.03.2023/01.11.2016
+Date:   08.01.2024/01.11.2016
 
 Content:
 
@@ -54,7 +54,7 @@ Device
 Kernel version
 --------------
 
-- linux-6.1.15
+- linux-6.6.10
 
 
 Downloads (use make get_latest_kernel)
@@ -103,7 +103,7 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_6.1.x .config
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_6.6.x .config
 KDO: make CROSS_COMPILE=arm-none-linux-gnueabihf- ARCH=arm menuconfig
 
 
@@ -111,8 +111,8 @@ Build dtb
 ---------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/sun8i-h3-nanopi-neo.dts
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
+KDO: cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/allwinner/sun8i-h3-nanopi-neo.dts
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun8i-h3-nanopi-neo.dtb
 
 
 Build kernel/modules
@@ -127,7 +127,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_6.1.15 modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_6.6.10 modules_install
 
 
 Deploy SD-Card
@@ -137,7 +137,7 @@ Copy dtb
 --------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] /mnt/nanopi/nanopi_kernel/
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-h3-nanopi-neo.dt[b,s] /mnt/nanopi/nanopi_kernel/
 
 
 Copy kernel/config
@@ -153,7 +153,7 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_6.1.15/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_6.6.10/lib/modules/. /mnt/nanopi/nanopi_rootfs/lib/modules/.
 
 
 Copy cleaned source to sd card
@@ -161,7 +161,7 @@ Copy cleaned source to sd card
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-6.1.15 /mnt/nanopi/nanopi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-6.6.10 /mnt/nanopi/nanopi_rootfs/usr/src/.
 
 
 Finalize
@@ -172,14 +172,14 @@ Finish -> after login
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-6.1.15 linux
+KDO: ln -s linux-6.6.10 linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel
 ---------------------------------------------------------------
 
-DIR: /usr/src/linux-6.1.15
+DIR: /usr/src/linux-6.6.10
 KDO: make clean
 KDO: make scripts
 
@@ -187,8 +187,8 @@ KDO: make scripts
 Prepare modules to link
 -----------------------
 
-DIR: /lib/modules/6.1.15
+DIR: /lib/modules/6.6.10
 KDO: rm build
 KDO: rm source
-KDO: ln -s /usr/src/linux-6.1.15 source
-KDO: ln -s /usr/src/linux-6.1.15 build
+KDO: ln -s /usr/src/linux-6.6.10 source
+KDO: ln -s /usr/src/linux-6.6.10 build

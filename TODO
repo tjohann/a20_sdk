@@ -5,6 +5,18 @@
 
 
 #
+# -------------- 2024-01-08 ----------------------------------------------------
+#
+## target && sdk stuff
+- check gpm@glibc image
+- change scripts with dts to the new location (add allwinner to path)
+  - install_kernel.sh
+  - build_kernel.sh
+  - helper/prepare_all_kernel_image_tarballs.sh (check it)
+  - helper/copy_kernel_dts_to_a20_repo.sh
+
+
+#
 # -------------- 2023-03-06 ----------------------------------------------------
 #
 ## target && sdk stuff
@@ -13,6 +25,7 @@
   - branding
   - configs
   - u-boot
+
 
 #
 # -------------- 2020-11-15 ----------------------------------------------------
