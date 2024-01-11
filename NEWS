@@ -3,6 +3,11 @@
 #
 
 
+2024-01-11 -> ## sdk && target stuff
+	      update kernel to 6.6.10-rt19
+	      update rt kernel config
+              regular updates for glibc and musl image
+
 2024-01-08 -> ## sdk && target stuff
 	      update kernel to 6.6.10
 	      update non-rt kernel config

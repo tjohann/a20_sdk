@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   08.03.2023/12.01.2016
+Date:   11.01.2024/12.01.2016
 
 Content:
 
@@ -59,14 +59,14 @@ Device
 Kernel version
 --------------
 
-- linux-6.1.12-rt7 (latest RT-PREEMPT)
+- linux-6.6.10-rt19 (latest RT-PREEMPT)
 
 
 Downloads (use make get_latest_kernel)
 --------------------------------------
 
 - https://www.kernel.org/pub/linux/kernel/v6.x/
-- https://www.kernel.org/pub/linux/kernel/projects/rt/6.1/
+- https://www.kernel.org/pub/linux/kernel/projects/rt/6.6/
 
 
 Mountpoints
@@ -108,8 +108,8 @@ Patch kernel
 RT-PREEMPT
 ----------
 
-DIR: $ARMHF_BIN/HOME/kernel/linux-6.1.12_rt
-KDO: zcat ../patch-6.1.12-rt7.patch.gz | patch -p1
+DIR: $ARMHF_BIN/HOME/kernel/linux-6.6.10_rt
+KDO: zcat ../patch-6.6.10-rt19.patch.gz | patch -p1
 
 
 Configure/build kernel
@@ -119,7 +119,7 @@ Configure kernel
 ----------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_6.1.x_rt .config
+KDO: cp $ARMHF_HOME/bananapi/configs/kernel_config_6.6.x_rt .config
 KDO: make CROSS_COMPILE=arm-none-linux-gnueabihf- ARCH=arm menuconfig
 
 
@@ -127,30 +127,30 @@ Build dtb
 ---------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dts
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-olimex-som-evb.dtb
+KDO: cp $ARMHF_HOME/olimex/configs/sun7i-a20-olimex-som-evb.dts arch/arm/boot/dts/allwinner/sun7i-a20-olimex-som-evb.dts
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun7i-a20-olimex-som-evb.dtb
 
 
 Build dtb for the other devices
 -------------------------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/sun7i-a20-bananapro.dts
-KDO: cp $ARMHF_HOME/bananapi-m3/configs/sun8i-a83t-bananapi-m3.dts arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dts
-KDO: cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/sun7i-a20-cubietruck.dts
-KDO: cp $ARMHF_HOME/bananapi/configs/sun7i-a20-bananapi.dts arch/arm/boot/dts/sun7i-a20-bananapi.dts
-KDO: cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/sun8i-h3-nanopi-neo.dts
-KDO: cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dts
-KDO: cp $ARMHF_HOME/orangepi-zero/configs/sun8i-h2-plus-orangepi-zero.dts arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+KDO: cp $ARMHF_HOME/bananapi-pro/configs/sun7i-a20-bananapro.dts arch/arm/boot/dts/allwinner/sun7i-a20-bananapro.dts
+KDO: cp $ARMHF_HOME/bananapi-m3/configs/sun8i-a83t-bananapi-m3.dts arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3.dts
+KDO: cp $ARMHF_HOME/cubietruck/configs/sun7i-a20-cubietruck.dts arch/arm/boot/dts/allwinner/sun7i-a20-cubietruck.dts
+KDO: cp $ARMHF_HOME/bananapi/configs/sun7i-a20-bananapi.dts arch/arm/boot/dts/allwinner/sun7i-a20-bananapi.dts
+KDO: cp $ARMHF_HOME/nanopi/configs/sun8i-h3-nanopi-neo.dts arch/arm/boot/dts/allwinner/sun8i-h3-nanopi-neo.dts
+KDO: cp $ARMHF_HOME/cubietruck-plus/configs/sun8i-a83t-cubietruck-plus.dts arch/arm/boot/dts/allwinner/sun8i-a83t-cubietruck-plus.dts
+KDO: cp $ARMHF_HOME/orangepi-zero/configs/sun8i-h2-plus-orangepi-zero.dts arch/arm/boot/dts/allwinner/sun8i-h2-plus-orangepi-zero.dts
 
 
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapi.dtb
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-bananapro.dtb
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun7i-a20-cubietruck.dtb
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h3-nanopi-neo.dtb
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-cubietruck-plus.dtb
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-a83t-bananapi-m3.dtb
-KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- sun8i-h2-plus-orangepi-zero.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun7i-a20-bananapi.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun7i-a20-bananapro.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun7i-a20-cubietruck.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun8i-h3-nanopi-neo.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun8i-a83t-cubietruck-plus.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun8i-a83t-bananapi-m3.dtb
+KDO: make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabihf- allwinner/sun8i-h2-plus-orangepi-zero.dtb
 
 
 Build kernel/modules
@@ -166,7 +166,7 @@ Install modules
 ---------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_6.1.12_rt modules_install
+KDO: make ARCH=arm INSTALL_MOD_PATH=../modules_6.6.10_rt modules_install
 
 
 
@@ -177,47 +177,47 @@ Copy dtb
 --------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/olimex/olimex_kernel/
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/olimex/olimex_kernel/
 
 /* if device is bananapi */
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/
 
 
 Copy dtb for the other devices
 ------------------------------
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/olimex/olimex_kernel/bananapi
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/olimex/olimex_kernel/baalue
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/olimex/olimex_kernel/bananapi-pro
-KDO: cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/olimex/olimex_kernel/bananapi-m3
-KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /mnt/olimex/olimex_kernel/cubietruck
-KDO: cp arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/olimex/olimex_kernel/cubietruck-plus
-KDO: cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] /mnt/olimex/olimex_kernel/nanopi
-KDO: cp arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dt[b,s] /mnt/olimex/olimex_kernel/orangepi-zero
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapi.dt[b,s] /mnt/olimex/olimex_kernel/bananapi
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapi.dt[b,s] /mnt/olimex/olimex_kernel/baalue
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapro.dt[b,s] /mnt/olimex/olimex_kernel/bananapi-pro
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/olimex/olimex_kernel/bananapi-m3
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-cubietruck.dt[b,s] /mnt/olimex/olimex_kernel/cubietruck
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/olimex/olimex_kernel/cubietruck-plus
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-h3-nanopi-neo.dt[b,s] /mnt/olimex/olimex_kernel/nanopi
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-h2-plus-orangepi-zero.dt[b,s] /mnt/olimex/olimex_kernel/orangepi-zero
 
 or (depends on non-rt kernel version and/or usage)
 
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/olimex/olimex_kernel/rt
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/olimex/olimex_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/olimex/olimex_kernel/rt
-KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /mnt/olimex/olimex_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/olimex/olimex_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] /mnt/olimex/olimex_kernel/rt
-KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/olimex/olimex_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapi.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapro.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-cubietruck.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-h3-nanopi-neo.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/olimex/olimex_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-h2-plus-orangepi-zero.dt[b,s] /mnt/olimex/olimex_kernel/rt
 
 /* if device is bananapi */
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
-KDO: cp arch/arm/boot/dts/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
-KDO: cp arch/arm/boot/dts/sun7i-a20-cubietruck.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-h3-nanopi-neo.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
-KDO: cp arch/arm/boot/dts/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
-KDO: cp arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapi.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-bananapro.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-cubietruck.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-a83t-cubietruck-plus.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-h3-nanopi-neo.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun7i-a20-olimex-som-evb.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-a83t-bananapi-m3.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
+KDO: cp arch/arm/boot/dts/allwinner/sun8i-h2-plus-orangepi-zero.dt[b,s] /mnt/bananapi/bananapi_kernel/rt
 
 
 Copy kernel/config
@@ -241,20 +241,20 @@ Copy modules
 
 # Note: maybe your need to remove the old one
 DIR: $ARMHF_BIN_HOME/kernel/linux-*
-KDO: sudo rsync -avz ../modules_6.1.12_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_6.6.10_rt/lib/modules/. /mnt/olimex/olimex_rootfs/lib/modules/.
 
 /* if device is bananapi */
-KDO: sudo rsync -avz ../modules_6.1.12_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
+KDO: sudo rsync -avz ../modules_6.6.10_rt/lib/modules/. /mnt/bananapi/bananapi_rootfs/lib/modules/.
 
 Copy cleaned source to sd card
 ------------------------------
 
 # Note: dont forget to make ARCH=arm clean
 DIR: $ARMHF_BIN_HOME/kernel
-KDO: sudo rsync -avz --delete linux-6.1.12_rt /mnt/olimex/olimex_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-6.6.10_rt /mnt/olimex/olimex_rootfs/usr/src/.
 
 /* if device is bananapi */
-KDO: sudo rsync -avz --delete linux-6.1.12_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
+KDO: sudo rsync -avz --delete linux-6.6.10_rt /mnt/bananapi/bananapi_rootfs/usr/src/.
 
 Finalize
 ========
@@ -264,14 +264,14 @@ Finish -> after login (rt)
 
 DIR: /usr/src
 KDO: depmod -a
-KDO: ln -s linux-6.1.12_rt linux
+KDO: ln -s linux-6.6.10_rt linux
 MAYBE: remove your old kernel tree (also installed modules -> /lib/module/your_old_kernel)
 
 
 Prepare linux tree to build your modules against the new kernel (rt)
 --------------------------------------------------------------------
 
-DIR: /usr/src/linux-6.1.12_rt
+DIR: /usr/src/linux-6.6.10_rt
 KDO: make clean
 KDO: make scripts
 
@@ -279,7 +279,7 @@ KDO: make scripts
 Prepare modules to link (rt)
 ----------------------------
 
-DIR: /lib/modules/6.1.12-rt7
+DIR: /lib/modules/6.6.10-rt19
 KDO: rm source
-KDO: ln -s /usr/src/linux-6.1.12_rt source
-KDO: ln -s /usr/src/linux-6.1.12_rt build
+KDO: ln -s /usr/src/linux-6.6.10_rt source
+KDO: ln -s /usr/src/linux-6.6.10_rt build
