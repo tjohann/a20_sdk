@@ -3,6 +3,10 @@
 #
 
 
+2024-01-13 -> ## sdk && target stuff
+	      update uboot to v2024.01
+	      - bananapi
+
 2024-01-11 -> ## sdk && target stuff
 	      update kernel to 6.6.10-rt19
 	      update rt kernel config

@@ -1,29 +1,29 @@
-U-Boot SPL 2020.10 (Nov 06 2020 - 12:53:41 +0100)
+U-Boot SPL 2024.01 (Jan 13 2024 - 09:28:18 +0100)
 DRAM: 1024 MiB
 CPU: 912000000Hz, AXI/AHB/APB: 3/2/2
 Trying to boot from MMC1
 
 
-U-Boot 2020.10 (Nov 06 2020 - 12:53:41 +0100) Allwinner Technology
+U-Boot 2024.01 (Jan 13 2024 - 09:28:18 +0100) Allwinner Technology
 
 CPU:   Allwinner A20 (SUN7I)
 Model: LeMaker Banana Pi
-I2C:   ready
 DRAM:  1 GiB
+Core:  67 devices, 24 uclasses, devicetree: separate
+WDT:   Not starting watchdog@1c20c90
 MMC:   mmc@1c0f000: 0
-Loading Environment from FAT... *** Warning - bad CRC, using default environment
-
-Setting up a 720x576i composite-pal console (overscan 32x20)
-In:    serial
-Out:   vga
-Err:   vga
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1...
+HDMI connected: Setting up a 1024x600 hdmi console (overscan 0x0)
+In:    serial,usbkbd
+Out:   serial,vidconsole
+Err:   serial,vidconsole
 Net:   eth0: ethernet@1c50000
 starting USB...
 Bus usb@1c14000: USB EHCI 1.00
 Bus usb@1c14400: USB OHCI 1.0
 Bus usb@1c1c000: USB EHCI 1.00
 Bus usb@1c1c400: USB OHCI 1.0
-scanning bus usb@1c14000 for devices... 1 USB Device(s) found
+scanning bus usb@1c14000 for devices... 4 USB Device(s) found
 scanning bus usb@1c14400 for devices... 1 USB Device(s) found
 scanning bus usb@1c1c000 for devices... 1 USB Device(s) found
 scanning bus usb@1c1c400 for devices... 1 USB Device(s) found
@@ -35,19 +35,21 @@ Scanning mmc 0:1...
 Found U-Boot script /boot.scr
 318 bytes read in 2 ms (155.3 KiB/s)
 ## Executing script at 43100000
-4693000 bytes read in 267 ms (16.8 MiB/s)
-27197 bytes read in 4 ms (6.5 MiB/s)
+5214624 bytes read in 223 ms (22.3 MiB/s)
+27269 bytes read in 3 ms (8.7 MiB/s)
 ## Booting kernel from Legacy Image at 46000000 ...
-   Image Name:   Linux-5.9.6
+   Image Name:   Linux-6.6.10
    Image Type:   ARM Linux Kernel Image (uncompressed)
-   Data Size:    4692936 Bytes = 4.5 MiB
+   Data Size:    5214560 Bytes = 5 MiB
    Load Address: 40008000
    Entry Point:  40008000
    Verifying Checksum ... OK
 ## Flattened Device Tree blob at 49000000
    Booting using the fdt blob at 0x49000000
+Working FDT set to 49000000
 EHCI failed to shut down host controller.
    Loading Kernel Image
-   Loading Device Tree to 49ff6000, end 49fffa3c ... OK
+   Loading Device Tree to 49ff6000, end 49fffa84 ... OK
+Working FDT set to 49ff6000
 
 Starting kernel ...
