@@ -3,8 +3,18 @@
 #
 
 
+2024-01-21 -> ## sdk && target stuff
+	      add some basic bpi-m2-zero stuff
+
+	      update uboot to v2024.01:
+	      - bananapi-m3
+	      - bananapi-pro
+	      - bpi-m2-zero
+	      - cubietruck
+	      - cubietruck-plus
+
 2024-01-13 -> ## sdk && target stuff
-	      update uboot to v2024.01
+	      update uboot to v2024.01:
 	      - bananapi
 
 2024-01-11 -> ## sdk && target stuff
