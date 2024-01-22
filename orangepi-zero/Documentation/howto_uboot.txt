@@ -5,7 +5,7 @@
 
 Author: Thorsten Johannvorderbrueggen
 Email:  thorsten.johannvorderbrueggen@t-online.de
-Date:   06.11.2020/02.07.2020
+Date:   22.01.2024/02.07.2020
 
 Content:
 
@@ -102,6 +102,12 @@ Copy all to /mnt/orangepi/orangepi_kernel
 cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/orangepi/orangepi_kernel/
 or
 cp u-boot-sunxi-with-spl.bin /mnt/orangepi/orangepi_kernel/
+
+and to device folder:
+
+cp u-boot-sunxi-with-spl.bin boot.cmd boot.scr /mnt/bananapi/bananapi_kernel/orangepi
+or
+cp u-boot-sunxi-with-spl.bin /mnt/bananapi/bananapi_kernel/orangepi
 
 
 Deploy A20_SDK

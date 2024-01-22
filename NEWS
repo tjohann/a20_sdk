@@ -3,6 +3,12 @@
 #
 
 
+2024-01-22 -> ## sdk && target stuff
+	      update uboot to v2024.01:
+	      - nanopi
+	      - olimex
+	      - orangepi-zero
+
 2024-01-21 -> ## sdk && target stuff
 	      add some basic bpi-m2-zero stuff
 
